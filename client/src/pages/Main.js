@@ -8,7 +8,7 @@ function Main() {
     <Container>
       <Row>
         <Lnb lg={12} sm={4} />
-        <Col lg={4} sm={4}>
+        <Col>
           <Card />
         </Col>
       </Row>

@@ -1,4 +1,4 @@
-import { CategoryBtn, StatusBtn } from './LnbStyles'
+import { CategoryBtn, StatusBtn, CreateBtn } from './LnbStyles'
 import { CategoryList } from '../../data/LnbData'
 
 function Lnb() {
@@ -8,9 +8,10 @@ function Lnb() {
       {CategoryList.map((category, idx) => (
         <CategoryBtn key={idx}>{category}</CategoryBtn>
       ))}
-      <StatusBtn />
-      <StatusBtn />
-      <StatusBtn />
+      <StatusBtn status="pending" />
+      <StatusBtn status="success" />
+      <StatusBtn status="fail" />
+      <CreateBtn />
     </>
   )
 }

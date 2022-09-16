@@ -1,9 +1,12 @@
 import { Container, Row } from '../styles/globalStyles'
+import SignupForm from '../components/Account/SignupForm'
 
 function Signup() {
   return (
     <Container>
-      <Row></Row>
+      <Row>
+        <SignupForm />
+      </Row>
     </Container>
   )
 }

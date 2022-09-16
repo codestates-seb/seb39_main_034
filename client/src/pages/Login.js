@@ -1,9 +1,12 @@
 import { Container, Row } from '../styles/globalStyles'
+import LoginForm from '../components/Account/LoginForm'
 
 function Login() {
   return (
     <Container>
-      <Row></Row>
+      <Row>
+        <LoginForm />
+      </Row>
     </Container>
   )
 }
