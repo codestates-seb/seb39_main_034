@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import data from '../../data/TimelineData'
-import { FaCaretDown, FaCaretUp, FaPen } from 'react-icons/fa'
 import { TimelineContainer, Text, Icon } from './TimelineStyle'
+import { EditBtn, OpenBtn, CloseBtn } from '../Form/FormStyle'
 
 export default function Timeline() {
   const [questions] = useState(data)
@@ -25,10 +25,10 @@ export function TimelineContent({ today, info }) {
         <Text>{today}</Text>
         <div className="header__timeline--icon">
           <Icon>
-            <FaPen size={20} />
+            <EditBtn size={20} />
           </Icon>
           <Icon onClick={() => setShowInfo(!showInfo)}>
-            {showInfo ? <FaCaretUp size={40} /> : <FaCaretDown size={40} />}
+            {showInfo ? <CloseBtn size={40} /> : <OpenBtn size={40} />}
           </Icon>
         </div>
       </div>

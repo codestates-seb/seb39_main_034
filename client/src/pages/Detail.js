@@ -1,8 +1,7 @@
 import { Container, Row, Col } from '../styles/globalStyles'
 import Milestone from '../components/Milestone/Milestone'
-import Todo from '../components/Todo/Todo'
-import Timeline from '../components/TImeline/Timeline'
-import Form from '../components/Form/Form'
+import Todo from '../components/Todo/Checklist'
+import Timeline from '../components/Timeline/Timeline'
 
 function DetailView() {
   return (
@@ -10,10 +9,13 @@ function DetailView() {
       <Row>
         <Col>
           <Milestone></Milestone>
-          <Todo></Todo>
-          <Timeline></Timeline>
-          <Form></Form>
         </Col>
+      </Row>
+      <Row>
+        <Todo></Todo>
+      </Row>
+      <Row>
+        <Timeline></Timeline>
       </Row>
     </Container>
   )

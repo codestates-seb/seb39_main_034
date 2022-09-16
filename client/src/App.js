@@ -13,8 +13,6 @@ import Login from './pages/Login'
 
 //Components
 import Gnb from './components/Gnb/Gnb'
-import Timeline from './components/Timeline/Timeline'
-import Checklist from './components/Todo/Checklist'
 
 function App() {
   return (
