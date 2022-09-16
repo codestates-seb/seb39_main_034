@@ -1,0 +1,57 @@
+import styled from 'styled-components'
+
+export const CategoryTag = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 35px;
+  border-radius: 30px;
+  color: ${({ theme }) => theme.white};
+  font-size: ${(props) => props.theme.font16};
+  background: ${({ theme }) => theme.violet_m};
+  filter: drop-shadow(0px 1px 3px rgba(115, 115, 115, 0.25));
+`
+const StatusTagBase = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .emoji {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    margin: 8px;
+    border-radius: 30px;
+    background: ${({ theme }) => theme.background};
+    font-size: 12px;
+    filter: drop-shadow(0px 1px 3px rgba(115, 115, 115, 0.25));
+  }
+  .text {
+    font-size: ${(props) => props.theme.font16};
+  }
+`
+
+export const StatusTag = ({ status }) => (
+  <StatusTagBase>
+    <div className="emoji">
+      {status === 'pending'
+        ? '🏃'
+        : status === 'success'
+        ? '🎉'
+        : status === 'fail'
+        ? '💦'
+        : null}
+    </div>
+    <div className="text">
+      {status === 'pending'
+        ? '진행중'
+        : status === 'success'
+        ? '목표달성'
+        : status === 'fail'
+        ? '달성실패'
+        : null}
+    </div>
+  </StatusTagBase>
+)

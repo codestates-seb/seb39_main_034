@@ -1,4 +1,4 @@
-import { Container, Row, Col, Button } from '../styles/globalStyles'
+import { Container, Row, Col } from '../styles/globalStyles'
 
 function Landing() {
   return (
@@ -23,8 +23,6 @@ function Landing() {
           맞게 고쳐야 할 거 같습니다. 현재는 특정 너비보다 줄어들면 오른쪽 위에
           버튼이 나오게 됩니다.
         </Row>
-        <Button>button</Button>
-        <Button bg={(props) => props.theme.violet_l}>button</Button>
       </Container>
     </>
   )
