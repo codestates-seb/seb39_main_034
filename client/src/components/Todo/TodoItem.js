@@ -7,7 +7,7 @@ import {
   Remove,
   Edit,
 } from './ChecklistStyle'
-import { DeleteBtn, EditBtn } from '../Form/FormStyle'
+import { DeleteBtn, EditBtn } from '../Widget/WidgetStyle'
 
 function TodoItem() {
   return (

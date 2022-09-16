@@ -1,5 +1,5 @@
 import { Container, Row, Col } from '../styles/globalStyles'
-import Form from '../components/Form/Form'
+import Form from '../components/Widget/Widget'
 
 function Create() {
   return (

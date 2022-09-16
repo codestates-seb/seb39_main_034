@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import data from '../../data/TimelineData'
 import { TimelineContainer, Text, Icon } from './TimelineStyle'
-import { EditBtn, OpenBtn, CloseBtn } from '../Form/FormStyle'
+import { EditBtn, OpenBtn, CloseBtn } from '../Widget/WidgetStyle'
 
 export default function Timeline() {
   const [questions] = useState(data)

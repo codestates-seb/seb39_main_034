@@ -17,15 +17,14 @@ const StatusTagBase = styled.div`
   justify-content: center;
   align-items: center;
   .emoji {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 20px;
     height: 20px;
-    margin: 8px;
+    margin-right: 8px;
     border-radius: 30px;
     background: ${({ theme }) => theme.background};
     font-size: 12px;
+    text-align: center;
+    line-height: 20px;
     filter: drop-shadow(0px 1px 3px rgba(115, 115, 115, 0.25));
   }
   .text {

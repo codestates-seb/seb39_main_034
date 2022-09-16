@@ -8,7 +8,7 @@ import {
   AddPicBtn,
   AddEmojiBtn,
   XBtn,
-} from './FormStyle'
+} from './WidgetStyle'
 
 function Form() {
   return (
