@@ -1,6 +1,5 @@
 import React from 'react'
-import { MdDone, MdDelete } from 'react-icons/md'
-import { FaPen } from 'react-icons/fa'
+import { EditBtn, DeleteBtn } from '../Form/FormStyle'
 // import data from '../../data/TodoData'
 import {
   TodoItemBlock,
@@ -13,15 +12,13 @@ import {
 function TodoItem() {
   return (
     <TodoItemBlock>
-      <CheckCircle>
-        <MdDone />
-      </CheckCircle>
+      <CheckCircle>check</CheckCircle>
       <Text>1주차: 전통시장에서 장보기</Text>
       <Edit>
-        <FaPen />
+        <EditBtn />
       </Edit>
       <Remove>
-        <MdDelete />
+        <DeleteBtn />
       </Remove>
     </TodoItemBlock>
   )

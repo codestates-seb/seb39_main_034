@@ -34,13 +34,5 @@ export const Text = styled(TextWrapper)`
   margin-left: 10px;
 `
 export const Icon = styled.div`
-  cursor: pointer;
-  color: ${theme.tertiary};
-
-  &:nth-child(1) {
-    padding: 20px;
-  }
-  &:nth-child(2) {
-    padding: 10px;
-  }
+  padding: 20px;
 `
