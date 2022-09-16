@@ -13,7 +13,4 @@ export const AccountBtn = styled(Button)`
       : bg === 'dark'
       ? ({ theme }) => theme.dark
       : ({ theme }) => theme.violet_m};
-  &:hover {
-    background: ${({ theme }) => theme.violet_l};
-  }
 `
