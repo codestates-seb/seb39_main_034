@@ -1,12 +1,11 @@
-import React from "react";
-import { ThemeProvider } from "styled-components";
-import theme from "./styles/theme";
-import GlobalStyle from "./styles/globalStyles";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from 'styled-components'
+import theme from './styles/theme'
+import GlobalStyle from './styles/globalStyles'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 //Pages
-import Gnb from "./components/Gnb/Gnb";
-import Landing from "./pages/Landing";
+import Gnb from './components/Gnb/Gnb'
+import Landing from './pages/Landing'
 
 function App() {
   return (
@@ -19,7 +18,7 @@ function App() {
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App

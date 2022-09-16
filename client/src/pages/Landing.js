@@ -1,4 +1,4 @@
-import { Container, Row, Col, Button } from "../styles/globalStyles";
+import { Container, Row, Col, Button } from '../styles/globalStyles'
 
 function Landing() {
   return (
@@ -27,7 +27,7 @@ function Landing() {
         <Button bg={(props) => props.theme.violet_l}>button</Button>
       </Container>
     </>
-  );
+  )
 }
 
-export default Landing;
+export default Landing

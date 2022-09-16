@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { FaTimes } from "react-icons/fa";
-import { CgMenuRight } from "react-icons/cg";
+import { useState } from 'react'
+import { FaTimes } from 'react-icons/fa'
+import { CgMenuRight } from 'react-icons/cg'
 import {
   Nav,
   NavContainer,
@@ -9,20 +9,20 @@ import {
   MobileIcon,
   NavMenu,
   LoginMenu,
-} from "./GnbStyles.js";
+} from './GnbStyles.js'
 // import { data } from "../../data/NavbarData";
 
 function Gnb() {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
   const handleClick = () => {
-    setShow(!show);
-  };
+    setShow(!show)
+  }
 
   return (
     <Nav>
       <NavContainer>
         <NavLogo to="/home">
-          <NavIcon src="../../assets/logo.png" alt="logo" />
+          <NavIcon src="/logo.png" alt="logo" />
         </NavLogo>
         <NavMenu>글보기 명예의전당 이벤트</NavMenu>
         <LoginMenu>로그인 회원가입</LoginMenu>
@@ -31,7 +31,7 @@ function Gnb() {
         </MobileIcon>
       </NavContainer>
     </Nav>
-  );
+  )
 }
 
-export default Gnb;
+export default Gnb
