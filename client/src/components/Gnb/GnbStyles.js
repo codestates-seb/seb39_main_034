@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { Container } from "../../styles/globalStyles";
-import { Link } from "react-router-dom";
+import styled from 'styled-components'
+import { Container } from '../../styles/globalStyles'
+import { Link } from 'react-router-dom'
 
 export const Nav = styled.nav`
   height: 60px;
@@ -10,13 +10,13 @@ export const Nav = styled.nav`
   font-size: ${(props) => props.theme.f_md};
   width: 100%;
   transition: background-color 0.3s ease-in;
-`;
+`
 
 export const NavContainer = styled(Container)`
   display: flex;
   justify-content: start;
   ${Container}
-`;
+`
 
 export const NavLogo = styled(Link)`
   color: #fff;
@@ -27,12 +27,12 @@ export const NavLogo = styled(Link)`
   display: flex;
   align-items: center;
   z-index: 50;
-`;
+`
 
 export const NavIcon = styled.img`
   margin-right: 1rem;
   width: 3rem;
-`;
+`
 
 export const NavMenu = styled.ul`
   display: flex;
@@ -49,15 +49,15 @@ export const NavMenu = styled.ul`
     top: 0;
     left: 0;
     opacity: ${({ show }) => (show ? 1 : 0)};
-    visibility: ${({ show }) => (show ? "visible" : "hidden")};
-    transform: translateY(${({ show }) => (show ? "0" : "-10px")});
+    visibility: ${({ show }) => (show ? 'visible' : 'hidden')};
+    transform: translateY(${({ show }) => (show ? '0' : '-10px')});
     transition: opacity 0.5s ease;
     background-color: #071c2f;
   }
   > li:first-child {
     margin-left: auto;
   }
-`;
+`
 
 export const LoginMenu = styled.ul`
   display: flex;
@@ -74,15 +74,15 @@ export const LoginMenu = styled.ul`
     top: 0;
     left: 0;
     opacity: ${({ show }) => (show ? 1 : 0)};
-    visibility: ${({ show }) => (show ? "visible" : "hidden")};
-    transform: translateY(${({ show }) => (show ? "0" : "-10px")});
+    visibility: ${({ show }) => (show ? 'visible' : 'hidden')};
+    transform: translateY(${({ show }) => (show ? '0' : '-10px')});
     transition: opacity 0.5s ease;
     background-color: #071c2f;
   }
   > li:first-child {
     margin-left: auto;
   }
-`;
+`
 
 export const MobileIcon = styled.div`
   display: none;
@@ -96,4 +96,4 @@ export const MobileIcon = styled.div`
     font-size: 1.8rem;
     cursor: pointer;
   }
-`;
+`
