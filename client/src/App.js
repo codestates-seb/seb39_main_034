@@ -8,8 +8,8 @@ import Landing from './pages/Landing'
 
 //Components
 import Gnb from './components/Gnb/Gnb'
-import Timeline from './components/diary/Timeline'
-import Checklist from './components/todo/Checklist'
+import Timeline from './components/Timeline/Timeline'
+import Checklist from './components/Todo/Checklist'
 
 function App() {
   return (
