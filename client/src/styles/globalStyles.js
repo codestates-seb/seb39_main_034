@@ -104,19 +104,22 @@ export const Section = styled.section`
 `
 
 export const Button = styled.button`
-  border-radius: 10px;
-  background: ${(props) => (props.bg ? props.bg : props.theme.violet_m)};
+  display: flex;
+  justify-content: center;
+  align-items: center;
   white-space: wrap;
-  padding: 10px 20px;
-  font-size: ${(props) => props.theme.f_button};
+  font-size: ${(props) => props.theme.font16};
   color: ${(props) => props.theme.white};
+  background: ${(props) => (props.bg ? props.bg : props.theme.violet_m)};
+  filter: drop-shadow(0px 1px 3px rgba(115, 115, 115, 0.25));
   outline: none;
   border: none;
+  border-radius: 10px;
   cursor: pointer;
   overflow: hidden;
   position: relative;
   &:hover {
-    background: ${(props) => props.theme.violet_d};
+    background: ${(props) => (props.hover ? props.hover : '')};
   }
 `
 

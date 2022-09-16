@@ -5,6 +5,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 //Pages
 import Landing from './pages/Landing'
+import Main from './pages/Main'
+import DetailView from './pages/Detail'
+import Create from './pages/Create'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
 
 //Components
 import Gnb from './components/Gnb/Gnb'
@@ -19,12 +24,11 @@ function App() {
         <Gnb />
         <Routes>
           <Route exact path="/" element={<Landing />} />
-          <Route path="/timeline" element={<Timeline />} />
-          <Route path="/check" element={<Checklist />} />
-          {/* <Route exact path="/main" element={<Main />} /> */}
-          {/* <Route exact path="/milestone" element={<Milestone />} />
+          <Route exact path="/main" element={<Main />} />
+          <Route exact path="/detail" element={<DetailView />} />
+          <Route exact path="/create" element={<Create />} />
           <Route exact path="/signup" element={<Signup />} />
-          <Route exact path="/login" element={<Login />} /> */}
+          <Route exact path="/login" element={<Login />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
