@@ -15,7 +15,6 @@ export const Nav = styled.nav`
 export const NavContainer = styled(Container)`
   display: flex;
   justify-content: start;
-  ${Container}
 `
 
 export const NavLogo = styled(Link)`
@@ -54,33 +53,20 @@ export const NavMenu = styled.ul`
     transition: opacity 0.5s ease;
     background-color: #071c2f;
   }
-  > li:first-child {
-    margin-left: auto;
+  > a {
+    margin-right: 8px;
+    &:first-child {
+      margin-left: 12px;
+    }
   }
 `
 
-export const LoginMenu = styled.ul`
-  display: flex;
-  align-items: center;
-  list-style: none;
-  text-align: center;
-  width: 100%;
-  @media screen and (max-width: 960px) {
-    flex-direction: column;
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    padding-top: 30%;
-    top: 0;
-    left: 0;
-    opacity: ${({ show }) => (show ? 1 : 0)};
-    visibility: ${({ show }) => (show ? 'visible' : 'hidden')};
-    transform: translateY(${({ show }) => (show ? '0' : '-10px')});
-    transition: opacity 0.5s ease;
-    background-color: #071c2f;
-  }
-  > li:first-child {
-    margin-left: auto;
+export const LoginMenu = styled(NavMenu)`
+  > a {
+    margin-right: 8px;
+    &:first-child {
+      margin-left: auto;
+    }
   }
 `
 

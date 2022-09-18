@@ -1,17 +1,20 @@
 import { CategoryBtn, StatusBtn, CreateBtn } from './LnbStyles'
-import { CategoryList } from '../../data/LnbData'
+import { Link } from 'react-router-dom'
 
 function Lnb() {
   return (
     <>
       <CategoryBtn>전체보기</CategoryBtn>
-      {CategoryList.map((category, idx) => (
-        <CategoryBtn key={idx}>{category}</CategoryBtn>
-      ))}
+      <CategoryBtn>운동</CategoryBtn>
+      <CategoryBtn>생활습관</CategoryBtn>
+      <CategoryBtn>독서</CategoryBtn>
+      <CategoryBtn>공부</CategoryBtn>
       <StatusBtn status="pending" />
       <StatusBtn status="success" />
       <StatusBtn status="fail" />
-      <CreateBtn />
+      <Link to="/create">
+        <CreateBtn />
+      </Link>
     </>
   )
 }

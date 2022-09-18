@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Button } from '../../styles/globalStyles'
 import { RiPencilFill } from 'react-icons/ri'
-import { FaTrashAlt } from 'react-icons/fa'
+import { FaTrashAlt, FaPlus } from 'react-icons/fa'
 import {
   BsCaretUpFill,
   BsCaretDownFill,
@@ -20,7 +20,7 @@ export const CompleteBtn = styled(Button)`
     background: ${({ theme }) => theme.violet_l};
   }
 `
-export const PlusBtn = styled(Button)`
+const PlusBtnBase = styled(Button)`
   width: 1110px;
   height: 60px;
   border-top-left-radius: 0;
@@ -31,6 +31,12 @@ export const PlusBtn = styled(Button)`
     background: ${({ theme }) => theme.violet_m};
   }
 `
+export const PlusBtn = () => (
+  <PlusBtnBase>
+    <FaPlus size="30" />
+  </PlusBtnBase>
+)
+
 const GrayBtn = styled.button`
   width: 24px;
   height: 24px;
