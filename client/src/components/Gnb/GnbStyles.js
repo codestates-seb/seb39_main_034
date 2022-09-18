@@ -18,13 +18,14 @@ export const NavContainer = styled(Container)`
 `
 
 export const NavLogo = styled(Link)`
+  width: auto;
   color: #fff;
-  justify-self: flex-start;
-  cursor: pointer;
   text-decoration: none;
   font-size: 2rem;
   display: flex;
+  justify-self: flex-start;
   align-items: center;
+  cursor: pointer;
   z-index: 50;
 `
 
@@ -54,6 +55,8 @@ export const NavMenu = styled.ul`
     background-color: #071c2f;
   }
   > a {
+    display: inline;
+    width: auto;
     margin-right: 8px;
     &:first-child {
       margin-left: 12px;
@@ -63,6 +66,7 @@ export const NavMenu = styled.ul`
 
 export const LoginMenu = styled(NavMenu)`
   > a {
+    display: inline;
     margin-right: 8px;
     &:first-child {
       margin-left: auto;
