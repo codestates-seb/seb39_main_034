@@ -21,7 +21,7 @@ export const CompleteBtn = styled(Button)`
   }
 `
 const PlusBtnBase = styled(Button)`
-  width: 1110px;
+  width: 1140px;
   height: 60px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
