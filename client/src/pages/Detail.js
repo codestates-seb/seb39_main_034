@@ -1,15 +1,14 @@
-import { Container, Row, Col } from '../styles/globalStyles'
+import { Container, Row } from '../styles/globalStyles'
 import Milestone from '../components/Milestone/Milestone'
 import Todo from '../components/Todo/Checklist'
 import Timeline from '../components/Timeline/Timeline'
+import Reaction from '../components/Reaction/Reaction'
 
 function DetailView() {
   return (
     <Container>
       <Row>
-        <Col>
-          <Milestone></Milestone>
-        </Col>
+        <Milestone></Milestone>
       </Row>
       <Row>
         <Todo></Todo>
@@ -17,6 +16,7 @@ function DetailView() {
       <Row>
         <Timeline></Timeline>
       </Row>
+      <Reaction></Reaction>
     </Container>
   )
 }
