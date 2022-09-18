@@ -25,7 +25,8 @@ time, mark, audio, video {
     padding: 0;
     border: 0;
     vertical-align: baseline;
-    text-decoration: none; /* 추가 */
+    color: ${({ theme }) => theme.dark};
+    text-decoration: none;
 }
 ol, ul, li{
     vertical-align: baseline;
@@ -104,9 +105,9 @@ export const Section = styled.section`
 `
 
 export const Button = styled.button`
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
   white-space: wrap;
   font-size: ${(props) => props.theme.font16};
   color: ${(props) => props.theme.white};

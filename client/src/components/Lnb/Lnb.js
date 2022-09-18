@@ -1,4 +1,4 @@
-import { CategoryBtn, StatusBtn, CreateBtn } from './LnbStyles'
+import { CategoryBtn, StatusBtn, CreateBtn } from './LnbStyle'
 
 function Lnb() {
   return (
