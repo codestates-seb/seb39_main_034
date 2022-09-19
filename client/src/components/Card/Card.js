@@ -1,11 +1,12 @@
 import { CardWrapper, CategoryTag, StatusTag } from './CardStyle'
 
-function Card() {
+function Card({ category, title, status }) {
   return (
     <>
       <CardWrapper>
-        <CategoryTag>생활습관</CategoryTag>
-        <StatusTag status="pending"></StatusTag>
+        <CategoryTag>{category}</CategoryTag>
+        <h4>{title}</h4>
+        <StatusTag status={status}></StatusTag>
       </CardWrapper>
     </>
   )
