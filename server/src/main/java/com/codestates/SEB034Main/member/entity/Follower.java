@@ -1,4 +1,4 @@
-package com.codestates.SEB034Main.comment.entity;
+package com.codestates.SEB034Main.member.entity;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
 import lombok.Getter;
@@ -7,23 +7,23 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
 @Getter
 @Entity
-public class Comment {
+public class Follower {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long commentId;
+    private Long followerId;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    private LocalDateTime modifiedAt = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "goalId")
     private Goal goal;
 
-    @Column(nullable = false)
-    private String comment;
-
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    private LocalDateTime modifiedAt = LocalDateTime.now();
+    @ManyToOne
+    @JoinColumn(name = "memberId")
+    private Member member;
 }
