@@ -62,7 +62,8 @@ export const Col = styled.div`
   padding: 0 ${gutter / 2}px;
   margin: ${({ margin }) => (margin ? margin : '')};
   position: ${({ position }) => (position ? position : '')};
-  width: ${(props) => props.lg * (lgUnit + gutter)}px;
+  width: ${({ lg }) =>
+    lg ? lg * (lgUnit + gutter) : lgColumns * (lgUnit + gutter)}px;
   min-width: ${({ minWidth }) => (minWidth ? minWidth : 'auto')};
   max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : 'auto')};
   height: ${({ height }) => (height ? height : 'auto')};

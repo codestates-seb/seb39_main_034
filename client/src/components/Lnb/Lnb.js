@@ -1,19 +1,23 @@
 import { Container, Row } from '../../styles/responsive'
 import { CategoryBtn, StatusBtn, CreateBtn } from './LnbStyle'
 import { Link } from 'react-router-dom'
-function Lnb() {
+// const categoryList = ['운동', '생활습관', '독서', '공부']
+const categoryList = ['workout', 'habit', 'reading', 'study']
+
+function Lnb({ setCategoryQuery }) {
+  function handleClick(e) {
+    console.log(e.target.textContent)
+    setCategoryQuery(e.target.textContent)
+  }
   return (
     <Container>
       <Row>
-        <CategoryBtn>전체보기</CategoryBtn>
-        <CategoryBtn>운동</CategoryBtn>
-        <CategoryBtn>생활습관</CategoryBtn>
-        <CategoryBtn>독서</CategoryBtn>
-        <CategoryBtn>독서</CategoryBtn>
-        {/* '운동', '생활습관', '독서', '공부' */}
-        {/* {CategoryList.map((category, idx) => (
-        <CategoryBtn key={idx}>{category}</CategoryBtn>
-      ))} */}
+        <CategoryBtn onClick={handleClick}>all</CategoryBtn>
+        {categoryList.map((category, idx) => (
+          <CategoryBtn onClick={handleClick} key={idx}>
+            {category}
+          </CategoryBtn>
+        ))}
         <StatusBtn status="pending" />
         <StatusBtn status="success" />
         <StatusBtn status="fail" />
