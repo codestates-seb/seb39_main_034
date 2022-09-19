@@ -94,8 +94,8 @@ export const XBtn = ({ onClick }) => (
 
 export const Notice = styled.div`
   width: 100%;
-  height: 60px;
-  line-height: 60px;
+  height: 100px;
+  line-height: 100px;
   font-size: 20px;
   font-weight: 500;
   color: ${({ theme }) => theme.dark};
