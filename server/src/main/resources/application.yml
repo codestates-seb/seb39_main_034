@@ -13,9 +13,9 @@ spring:
       hibernate:
         format_sql: true
 
-  config:
-    import:
-      - optional:classpath:/setting.yml
+#  config:
+#    import:
+#      - optional:classpath:/setting.yml
 
 
   servlet:

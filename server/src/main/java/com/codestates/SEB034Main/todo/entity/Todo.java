@@ -24,8 +24,10 @@ public class Todo {
 
     private LocalDate completedTime;
 
+    @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @Builder.Default
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
     @ManyToOne

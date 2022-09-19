@@ -1,12 +1,14 @@
 package com.codestates.SEB034Main.comment.entity;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
+@Getter
 @Entity
 public class Comment {
 

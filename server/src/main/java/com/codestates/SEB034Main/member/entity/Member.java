@@ -1,8 +1,12 @@
 package com.codestates.SEB034Main.member.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter
 @Entity
 public class Member {
 
@@ -16,6 +20,7 @@ public class Member {
     @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
     @Enumerated(value = EnumType.STRING)

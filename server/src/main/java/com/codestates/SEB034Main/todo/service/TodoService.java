@@ -12,8 +12,4 @@ public class TodoService {
 
     private final TodoRepository todoRepository;
 
-    public Todo createTodo(CreateTodoDto createTodoDto) {
-
-
-    }
 }
