@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-// MOBILE (<768px) --------------------------------------
+// MOBILE (<576px) --------------------------------------
 // fixture------------------sm
 // num of columns-----------4
 // gutter ----------------20px
 // margin ---------------- 5px
 // container ------------ 100% - (5px *2)
 
-// Desktop (>780px) --------------------------------------
+// Desktop (>576px) --------------------------------------
 //fixture-------------------lg
 // num of columns-----------12
 // unit-------------------75px
@@ -19,7 +19,7 @@ import styled from 'styled-components'
 const lgColumns = 12
 const lgUnit = 75
 
-const breakpoint = 780
+const breakpoint = 576
 
 const smColumns = 4
 const smMargin = 5

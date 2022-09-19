@@ -36,10 +36,10 @@ function Gnb() {
           </Link>
         </NavMenu>
         <LoginMenu>
-          <Link to="/main">
+          <Link to="/login">
             <li>로그인</li>
           </Link>
-          <Link to="/main">
+          <Link to="/signup">
             <li>회원가입</li>
           </Link>
         </LoginMenu>
