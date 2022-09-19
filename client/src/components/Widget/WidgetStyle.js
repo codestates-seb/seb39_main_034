@@ -3,8 +3,8 @@ import { Button } from '../../styles/globalStyles'
 import { RiPencilFill } from 'react-icons/ri'
 import { FaTrashAlt, FaPlus } from 'react-icons/fa'
 import {
-  BsCaretUpFill,
   BsCaretDownFill,
+  BsCaretUpFill,
   BsEmojiSmileFill,
 } from 'react-icons/bs'
 import { ImFilePicture } from 'react-icons/im'
@@ -20,8 +20,8 @@ export const CompleteBtn = styled(Button)`
     background: ${({ theme }) => theme.violet_l};
   }
 `
-const PlusBtnBase = styled(Button)`
-  width: 1110px;
+export const PlusBtnBase = styled(Button)`
+  width: 1140px;
   height: 60px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -89,6 +89,6 @@ export const AddEmojiBtn = ({ onClick }) => (
 
 export const XBtn = ({ onClick }) => (
   <GrayBtn onClick={onClick}>
-    <AiFillCloseSquare size="24" color={({ theme }) => theme.dark} />
+    <AiFillCloseSquare size="24" />
   </GrayBtn>
 )

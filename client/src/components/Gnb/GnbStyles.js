@@ -25,8 +25,8 @@ export const NavLogo = styled(Link)`
   display: flex;
   justify-self: flex-start;
   align-items: center;
+  z-index: 1;
   cursor: pointer;
-  z-index: 50;
 `
 
 export const NavIcon = styled.img`

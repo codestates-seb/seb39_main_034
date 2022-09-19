@@ -4,22 +4,33 @@ import Todo from '../components/Todo/Checklist'
 import Timeline from '../components/Timeline/Timeline'
 import Reaction from '../components/Reaction/Reaction'
 import { PlusBtn } from '../components/Widget/WidgetStyle'
+import { TimelineModal } from '../components/Timeline/TimelineModal'
+import { useState } from 'react'
 
 function DetailView() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const openTimelineModal = () => {
+    setIsOpen(!isOpen)
+  }
   return (
-    <Container>
-      <Row>
-        <Milestone></Milestone>
-      </Row>
-      <Row>
-        <Todo></Todo>
-      </Row>
-      <Row>
-        <Timeline></Timeline>
-        <PlusBtn></PlusBtn>
-      </Row>
-      <Reaction></Reaction>
-    </Container>
+    <>
+      <Container>
+        <Row>
+          <Milestone></Milestone>
+        </Row>
+        <Row>
+          <Todo></Todo>
+          <PlusBtn></PlusBtn>
+        </Row>
+        <Row>
+          <Timeline></Timeline>
+          <PlusBtn onClick={openTimelineModal} />
+        </Row>
+        <Reaction></Reaction>
+      </Container>
+      {isOpen && <TimelineModal setIsOpen={setIsOpen} />}
+    </>
   )
 }
 
