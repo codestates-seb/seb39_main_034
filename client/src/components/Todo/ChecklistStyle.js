@@ -20,6 +20,7 @@ export const Remove = styled.div`
 `
 
 export const Edit = styled(Remove)``
+
 export const TodoItemBlock = styled.div`
   display: flex;
   padding: 10px;
@@ -35,7 +36,7 @@ const CheckBoxBase = styled.div`
   height: 32px;
   border-radius: 10px;
   border: 3px solid ${({ theme }) => theme.violet_m};
-  font-size: 24px;
+  font-size: 36px;
   color: ${({ theme }) => theme.white};
   background: ${({ done, theme }) =>
     done ? theme.violet_m : theme.background};

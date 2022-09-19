@@ -35,7 +35,7 @@ const StatusTagBase = styled.div`
     filter: drop-shadow(0px 1px 3px rgba(115, 115, 115, 0.25));
   }
   .text {
-    font-size: ${(props) => props.theme.font16};
+    font-size: ${({ theme }) => theme.font16};
   }
 `
 

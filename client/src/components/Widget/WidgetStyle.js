@@ -31,6 +31,7 @@ const PlusBtnBase = styled(Button)`
     background: ${({ theme }) => theme.violet_m};
   }
 `
+
 export const PlusBtn = ({ onClick }) => (
   <PlusBtnBase onClick={onClick}>
     <FaPlus size="30" />

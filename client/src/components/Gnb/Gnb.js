@@ -11,7 +11,6 @@ import {
   NavMenu,
   LoginMenu,
 } from './GnbStyles.js'
-// import { data } from "../../data/NavbarData";
 
 function Gnb() {
   const [show, setShow] = useState(false)
