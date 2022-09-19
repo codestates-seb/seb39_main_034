@@ -10,7 +10,6 @@ import theme from '../../styles/theme'
 
 export const TimelineContainer = styled(Container)`
   > article {
-    border: 1px solid red;
     margin: 10px 0;
   }
   .header__timeline {
@@ -59,7 +58,9 @@ export const TimelineModalContainer = styled(Container)`
     border-bottom: 1px solid ${theme.tertiary};
   }
   .contents__timeline {
-    .contents {
+    .button__complete {
+      display: flex;
+      justify-content: end;
     }
   }
 `
@@ -75,7 +76,7 @@ export const Icon = styled.div`
 `
 export const TimelineTextarea = styled(Textarea)`
   width: 100%;
-  height: 450px;
+  height: 420px;
   font-size: 16px;
   padding: 10px;
 `
