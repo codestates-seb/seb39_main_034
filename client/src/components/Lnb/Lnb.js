@@ -1,6 +1,6 @@
 import { Container, Row } from '../../styles/responsive'
 import { CategoryBtn, StatusBtn, CreateBtn } from './LnbStyle'
-
+import { Link } from 'react-router-dom'
 function Lnb() {
   return (
     <Container>
@@ -17,7 +17,9 @@ function Lnb() {
         <StatusBtn status="pending" />
         <StatusBtn status="success" />
         <StatusBtn status="fail" />
-        <CreateBtn />
+        <Link to="/goal">
+          <CreateBtn />
+        </Link>
       </Row>
     </Container>
   )

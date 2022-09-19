@@ -13,6 +13,7 @@ import Login from './pages/Login'
 
 //Components
 import Gnb from './components/Gnb/Gnb'
+import Goal from './pages/Goal'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Landing />} />
           <Route exact path="/main" element={<Main />} />
+          <Route exact path="/goal" element={<Goal />} />
           <Route exact path="/detail" element={<DetailView />} />
           <Route exact path="/create" element={<Create />} />
           <Route exact path="/signup" element={<Signup />} />
