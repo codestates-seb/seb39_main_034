@@ -58,6 +58,10 @@ table {
 html{
   font-family: 'IBM Plex Sans KR', sans-serif;
 }
+a{
+  display: 'inline-block';
+  width: 100%;
+}
 `
 
 export const MainHeading = styled.h1`

@@ -7,12 +7,14 @@ function Reaction({ subscriber, cheers }) {
         <div>
           <SubscribeBtn click={false} />
           {subscriber
-            ? `${subscriber.num}명이 구독하고 있어요`
+            ? `${subscriber.length}명이 구독하고 있어요`
             : '아직 구독자가 없어요...'}
         </div>
         <div>
           <CheerBtn click={false} />
-          {cheers ? `${cheers.num}명이 당신을 응원해요!` : '당신을 응원해요!'}
+          {cheers
+            ? `${cheers.length}명이 당신을 응원해요!`
+            : '당신을 응원해요!'}
         </div>
       </ReactionBar>
     </>

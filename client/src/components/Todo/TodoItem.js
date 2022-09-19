@@ -1,7 +1,11 @@
 import React from 'react'
-// import data from '../../data/TodoData'
+
 import { TodoItemBlock, CheckBox, Text, Remove, Edit } from './ChecklistStyle'
 import { DeleteBtn, EditBtn } from '../Widget/WidgetStyle'
+
+function handleClick() {
+  alert('deleted!')
+}
 
 function TodoItem({ title, done }) {
   return (
@@ -9,10 +13,10 @@ function TodoItem({ title, done }) {
       <CheckBox done={done} />
       <Text>{title}</Text>
       <Edit>
-        <EditBtn />
+        <EditBtn onClick={handleClick} />
       </Edit>
       <Remove>
-        <DeleteBtn />
+        <DeleteBtn onClick={handleClick} />
       </Remove>
     </TodoItemBlock>
   )
