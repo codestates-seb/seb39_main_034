@@ -3,6 +3,7 @@ import Milestone from '../components/Milestone/Milestone'
 import Todo from '../components/Todo/Checklist'
 import Timeline from '../components/Timeline/Timeline'
 import Reaction from '../components/Reaction/Reaction'
+import { PlusBtn } from '../components/Widget/WidgetStyle'
 
 function DetailView() {
   return (
@@ -15,6 +16,7 @@ function DetailView() {
       </Row>
       <Row>
         <Timeline></Timeline>
+        <PlusBtn></PlusBtn>
       </Row>
       <Reaction></Reaction>
     </Container>
