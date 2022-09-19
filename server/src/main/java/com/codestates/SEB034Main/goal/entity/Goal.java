@@ -1,8 +1,11 @@
 package com.codestates.SEB034Main.goal.entity;
 
 import com.codestates.SEB034Main.todo.entity.Todo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
@@ -14,6 +17,8 @@ import java.util.List;
 @Builder
 @Getter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Goal {
 
     @Id
@@ -34,7 +39,7 @@ public class Goal {
 
     @Column(nullable = false)
     @Builder.Default
-    private Long view = 0L;
+    private Long views = 0L;
 
     @Column(columnDefinition = "TINYINT", length = 1)
     @Builder.Default
@@ -61,6 +66,7 @@ public class Goal {
     @JoinColumn(name = "categoryId")
     private Category category;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "goal", cascade = CascadeType.REMOVE)
     private List<Todo> todoList;
 
@@ -70,4 +76,7 @@ public class Goal {
         FAILURE
     }
 
+    public void setViews(Long views) {
+        this.views = views;
+    }
 }
