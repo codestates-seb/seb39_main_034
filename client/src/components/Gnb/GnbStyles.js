@@ -25,7 +25,7 @@ export const NavLogo = styled(Link)`
   font-size: 2rem;
   display: flex;
   align-items: center;
-  z-index: 50;
+  z-index: 1;
 `
 
 export const NavIcon = styled.img`

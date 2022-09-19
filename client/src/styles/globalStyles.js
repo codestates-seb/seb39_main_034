@@ -123,6 +123,40 @@ export const Button = styled.button`
     background: ${(props) => (props.hover ? props.hover : '')};
   }
 `
+export const ModalWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+`
+export const ModalBackground = styled(ModalWrapper)`
+  background-color: ${(props) => props.theme.black};
+  opacity: 0.2;
+  z-index: 1;
+`
+export const Input = styled.input`
+  border: none;
+  outline: none;
+`
+
+export const Textarea = styled.textarea`
+  border: none;
+  outline: none;
+  resize: none;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 20px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.violet_l};
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: ${(props) => props.theme.border};
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+  }
+`
 
 /* 칼럼 그리드 컴포넌트들은 내용이 길어서 responsive.js에서 설정함
 improt한 후 그대로 export함*/

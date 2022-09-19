@@ -3,12 +3,11 @@ import { Button } from '../../styles/globalStyles'
 import { RiPencilFill } from 'react-icons/ri'
 import { FaTrashAlt, FaPlus } from 'react-icons/fa'
 import {
-  BsCaretUpFill,
   BsCaretDownFill,
+  BsCaretUpFill,
   BsEmojiSmileFill,
 } from 'react-icons/bs'
 import { ImFilePicture } from 'react-icons/im'
-import { AiFillCloseSquare } from 'react-icons/ai'
 
 export const CompleteBtn = styled(Button)`
   width: 100px;
@@ -20,7 +19,7 @@ export const CompleteBtn = styled(Button)`
     background: ${({ theme }) => theme.violet_l};
   }
 `
-const PlusBtnBase = styled(Button)`
+export const PlusBtnBase = styled(Button)`
   width: 1140px;
   height: 60px;
   border-top-left-radius: 0;
@@ -31,8 +30,9 @@ const PlusBtnBase = styled(Button)`
     background: ${({ theme }) => theme.violet_m};
   }
 `
-export const PlusBtn = () => (
-  <PlusBtnBase>
+
+export const PlusBtn = ({ onClick }) => (
+  <PlusBtnBase onClick={onClick}>
     <FaPlus size="30" />
   </PlusBtnBase>
 )
@@ -84,8 +84,10 @@ export const AddEmojiBtn = () => (
   </GrayBtn>
 )
 
-export const XBtn = () => (
-  <GrayBtn>
-    <AiFillCloseSquare size="24" color={({ theme }) => theme.dark} />
-  </GrayBtn>
-)
+export const XBtn = styled(GrayBtn)``
+
+// export const XBtn = () => (
+//   <GrayBtn>
+//     <AiFillCloseSquare size="24" />
+//   </GrayBtn>
+// )
