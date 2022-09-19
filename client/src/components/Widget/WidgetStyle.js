@@ -50,7 +50,6 @@ const GrayBtn = styled.button`
   }
 `
 
-// 타임라인 수정 , 투두 수정, 마일스톤 수정 -> by click
 export const EditBtn = ({ onClick }) => (
   <GrayBtn onClick={onClick}>
     <RiPencilFill size="24" />
@@ -92,3 +91,16 @@ export const XBtn = ({ onClick }) => (
     <AiFillCloseSquare size="24" />
   </GrayBtn>
 )
+
+export const Notice = styled.div`
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  font-size: 20px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.dark};
+  > div {
+    margin: 0 auto;
+    text-align: center;
+  }
+`

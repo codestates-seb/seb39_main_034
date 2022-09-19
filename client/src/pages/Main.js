@@ -4,7 +4,7 @@ import useGetCards from '../hook/useGetCards'
 import { Link } from 'react-router-dom'
 import Lnb from '../components/Lnb/Lnb'
 import Card from '../components/Card/Card'
-// import { cardData } from '../data/CardData'
+import { Notice } from '../components/Widget/WidgetStyle'
 
 function Main() {
   const [categoryQuery, setCategoryQuery] = useState('all')
@@ -73,10 +73,14 @@ function Main() {
             </Link>
           </Col>
         ))} */}
-        <div>
-          <h2>{loading && 'loading...'}</h2>
-        </div>
-        <div>{error && 'error...'}</div>
+      </Row>
+      <Row>
+        <Col>
+          <Notice>
+            <div>{loading && '로딩 중입니다...🐢'}</div>
+            <div>{error && '에러가 발생했습니다 🤔 '}</div>
+          </Notice>
+        </Col>
       </Row>
     </Container>
   )
