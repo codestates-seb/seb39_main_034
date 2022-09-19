@@ -4,14 +4,12 @@ import theme from '../../styles/theme'
 import { BsCheck } from 'react-icons/bs'
 
 export const TodoList = styled(Container)`
-  border: 1px solid ${theme.primary};
+  /* border-bottom: 1px solid ${theme.primary}; */
 `
 export const Remove = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: grey;
-  font-size: 24px;
+  color: ${theme.border};
   cursor: pointer;
   &:hover {
     color: red;
@@ -23,7 +21,10 @@ export const Edit = styled(Remove)``
 
 export const TodoItemBlock = styled.div`
   display: flex;
+  width: 100%;
   padding: 10px;
+  border-bottom: 1px solid ${theme.border};
+
   &:hover {
     ${Remove} {
       display: initial;

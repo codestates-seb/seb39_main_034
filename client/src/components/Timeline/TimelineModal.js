@@ -6,7 +6,12 @@ import {
   Icon,
   TimelineTextarea,
 } from './TimelineStyle'
-import { XBtn, AddPicBtn, AddEmojiBtn } from '../Widget/WidgetStyle'
+import {
+  XBtn,
+  AddPicBtn,
+  AddEmojiBtn,
+  CompleteBtn,
+} from '../Widget/WidgetStyle'
 import { AiFillCloseSquare } from 'react-icons/ai'
 
 export const TimelineModal = (props) => {
@@ -42,6 +47,9 @@ export const TimelineModal = (props) => {
         <div className="contents__timeline">
           <div className="contents">
             <TimelineTextarea />
+          </div>
+          <div className="button__complete">
+            <CompleteBtn>작성완료</CompleteBtn>
           </div>
         </div>
       </TimelineModalContainer>

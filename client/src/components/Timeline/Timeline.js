@@ -2,19 +2,29 @@ import { useState } from 'react'
 import data from '../../data/TimelineData'
 import { TimelineContainer, Text, Icon } from './TimelineStyle'
 import { EditBtn, OpenBtn, CloseBtn } from '../Widget/WidgetStyle'
-export default function Timeline() {
+// import { ModalWrapper } from '../../styles/globalStyles'
+
+export default function Timeline({ onClick }) {
   const [questions] = useState(data)
 
   return (
-    <TimelineContainer>
-      {questions.map((question) => {
-        return <TimelineContent key={question.id} {...question} />
-      })}
-    </TimelineContainer>
+    <>
+      <TimelineContainer>
+        {questions.map((question) => {
+          return (
+            <TimelineContent
+              key={question.id}
+              {...question}
+              onClick={onClick}
+            />
+          )
+        })}
+      </TimelineContainer>
+    </>
   )
 }
 
-export function TimelineContent({ today, info }) {
+export function TimelineContent({ today, info, onClick }) {
   const [showInfo, setShowInfo] = useState(false)
 
   return (
@@ -24,7 +34,7 @@ export function TimelineContent({ today, info }) {
         <Text>{today}</Text>
         <div className="header__timeline--icon">
           <Icon>
-            <EditBtn size={20} />
+            <EditBtn size={20} onClick={onClick} />
           </Icon>
           <Icon onClick={() => setShowInfo(!showInfo)}>
             {showInfo ? <CloseBtn size={40} /> : <OpenBtn size={40} />}
