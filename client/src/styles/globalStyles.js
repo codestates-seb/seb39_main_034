@@ -141,6 +141,8 @@ export const ModalBackground = styled(ModalWrapper)`
 export const Input = styled.input`
   border: none;
   outline: none;
+  font-size: 16px;
+  color: ${(props) => props.theme.primary};
 `
 
 export const Textarea = styled.textarea`
