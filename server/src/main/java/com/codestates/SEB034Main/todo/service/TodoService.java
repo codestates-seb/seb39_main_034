@@ -3,7 +3,6 @@ package com.codestates.SEB034Main.todo.service;
 import com.codestates.SEB034Main.exception.BusinessLogicException;
 import com.codestates.SEB034Main.exception.ExceptionCode;
 import com.codestates.SEB034Main.goal.entity.Goal;
-import com.codestates.SEB034Main.goal.service.GoalService;
 import com.codestates.SEB034Main.todo.dto.CreateTodoDto;
 import com.codestates.SEB034Main.todo.entity.Todo;
 import com.codestates.SEB034Main.todo.repository.TodoRepository;
@@ -65,7 +64,4 @@ public class TodoService {
                         new BusinessLogicException(ExceptionCode.TODO_NOT_FOUND));
         return findTodo;
     }
-
-
-
 }

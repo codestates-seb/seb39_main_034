@@ -1,3 +1,4 @@
+/*
 package com.codestates.SEB034Main.infra.S3;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -29,3 +30,4 @@ public class S3Config {
                 .build();
     }
 }
+*/
