@@ -1,27 +1,25 @@
-package com.codestates.SEB034Main.comment.entity;
+package com.codestates.SEB034Main.image.entity;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
 @Entity
-public class Comment {
+public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long commentId;
-
-    @ManyToOne
-    @JoinColumn(name = "goalId")
-    private Goal goal;
+    private Long imageId;
 
     @Column(nullable = false)
-    private String comment;
+    private String url;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
     private LocalDateTime modifiedAt = LocalDateTime.now();
+
+    @ManyToOne
+    @JoinColumn(name = "goalId")
+    private Goal goal;
 }

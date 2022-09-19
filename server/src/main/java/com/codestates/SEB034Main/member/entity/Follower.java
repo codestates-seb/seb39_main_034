@@ -1,4 +1,4 @@
-package com.codestates.SEB034Main.timeline.entity;
+package com.codestates.SEB034Main.member.entity;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
 
@@ -6,14 +6,11 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class Timeline {
+public class Follower {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long timelineId;
-
-    @Column(nullable = false)
-    private String description;
+    private Long followerId;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
@@ -22,4 +19,8 @@ public class Timeline {
     @ManyToOne
     @JoinColumn(name = "goalId")
     private Goal goal;
+
+    @ManyToOne
+    @JoinColumn(name = "memberId")
+    private Member member;
 }
