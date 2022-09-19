@@ -1,0 +1,1 @@
+insert into Category (category_id, category_name, created_at, modified_at) values (default, '운동', now(), now()), (default, '생활습관', now(), now()), (default, '독서', now(), now()), (default, '공부', now(), now());

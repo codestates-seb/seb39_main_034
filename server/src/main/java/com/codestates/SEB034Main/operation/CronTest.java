@@ -1,4 +1,4 @@
-package com.codestates.SEB034Main.testcall;
+package com.codestates.SEB034Main.operation;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -10,5 +10,9 @@ public class CronTest {
     //@Scheduled(fixedDelay=3000)
     public void cronTest() {
         System.out.println("Cron Test");
+    }
+
+    public void updateGoalSchedule() {
+
     }
 }

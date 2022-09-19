@@ -1,10 +1,15 @@
 package com.codestates.SEB034Main.todo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.codestates.SEB034Main.goal.entity.Goal;
+import lombok.Builder;
+import lombok.Getter;
 
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Getter
+@Builder
 @Entity
 public class Todo {
 
@@ -12,4 +17,18 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long todoId;
 
+    private String title;
+
+    @Column(columnDefinition = "TINYINT", length = 1)
+    private int completed;
+
+    private LocalDate completedTime;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    private LocalDateTime modifiedAt = LocalDateTime.now();
+
+    @ManyToOne
+    @JoinColumn(name = "goalId")
+    private Goal goal;
 }
