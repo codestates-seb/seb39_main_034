@@ -25,7 +25,7 @@ time, mark, audio, video {
     padding: 0;
     border: 0;
     vertical-align: baseline;
-    color: ${({ theme }) => theme.dark};
+    /* color: ${({ theme }) => theme.dark}; */
     text-decoration: none;
 }
 ol, ul, li{
@@ -70,7 +70,7 @@ export const MainHeading = styled.h1`
   color: ${({ color }) => (color ? color : (props) => props.theme.primary)};
   width: 100%;
   letter-spacing: 4px;
-  text-align: center;
+  text-align: left;
 `
 export const Heading = styled.h2`
   font-size: clamp(1.3rem, 13vw, 3.1rem);
