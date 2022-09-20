@@ -3,8 +3,47 @@ import styled from 'styled-components'
 export const CardWrapper = styled.div`
   width: 100%;
   height: 400px;
+  margin: 8px 0;
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 10px;
+`
+export const CardBanner = styled.div`
+  position: relative;
+  height: 40%;
+  background-color: ${({ theme }) => theme.background};
+  div {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+  }
+`
+
+export const CardBody = styled.div`
+  padding: 8px;
+  h4 {
+    font-size: ${(props) => props.theme.font20};
+    font-weight: 500;
+  }
+  div {
+    height: 30px;
+    padding: 4px;
+    box-sizing: border-box;
+    font-size: ${(props) => props.theme.font16};
+    line-height: 20px;
+    .item {
+      padding-right: 4px;
+      border-right: 3px solid ${({ theme }) => theme.border};
+      font-weight: 500;
+    }
+    .test {
+      padding-left: 4px;
+    }
+  }
+`
+
+export const CardFooter = styled.div`
+  border-top: 1px solid ${({ theme }) => theme.border};
+  text-align: right;
 `
 
 export const CategoryTag = styled.div`
@@ -20,9 +59,7 @@ export const CategoryTag = styled.div`
   filter: drop-shadow(0px 1px 3px rgba(115, 115, 115, 0.25));
 `
 const StatusTagBase = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: inline-flex;
   .emoji {
     width: 20px;
     height: 20px;
