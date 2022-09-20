@@ -5,14 +5,19 @@ import Timeline from '../components/Timeline/Timeline'
 import Reaction from '../components/Reaction/Reaction'
 import { PlusBtn } from '../components/Widget/WidgetStyle'
 import { TimelineModal } from '../components/Timeline/TimelineModal'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { TodoCreate } from '../components/Todo/TodoCreate'
+import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
 function DetailView() {
   //timeline modal
   const [isOpen, setIsOpen] = useState(false)
   const [openCreateChecklist, setOpenCreateChecklist] = useState(false)
   const [isOpenTimelineEditModal, setIsOpenTimelineEditModal] = useState(false)
+
+  const [goals, setGoals] = useState([])
+  const { id } = useParams()
 
   const createChecklistToggle = () => {
     setOpenCreateChecklist(!openCreateChecklist)
@@ -26,11 +31,25 @@ function DetailView() {
     setIsOpen(!isOpen)
   }
 
+  useEffect(() => {
+    console.log('test:', goals)
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/v1/goal/${id}`)
+      .then((res) => {
+        // console.log(res.data)
+        setGoals(res.data)
+      })
+      .catch((err) => {
+        console.log('ERROR: ', err)
+      })
+  }, [])
+  console.log('test2:', goals)
+
   return (
     <>
       <Container>
         <Row>
-          <Milestone></Milestone>
+          <Milestone goals={goals}></Milestone>
         </Row>
         <Row>
           <Todo></Todo>
