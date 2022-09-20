@@ -1,52 +1,5 @@
 import styled from 'styled-components'
 import theme from '../../styles/theme'
-import { Col } from '../../styles/responsive'
-
-const ProgressBarStyle = styled.div`
-  width: 100%;
-  height: 34px;
-  border-radius: 10px;
-  .wrapper {
-    width: 100%;
-    background-color: #dedede;
-    font-weight: 600;
-    font-size: 0.8rem;
-  }
-
-  .inner {
-    width: ${({ percentage }) => percentage}%;
-    padding: 0;
-    text-align: center;
-    background-color: #4f98ff;
-    color: #111;
-  }
-`
-
-const ProgressBarCount = styled(Col)`
-  font-weight: 500;
-  color: ${({ color, theme }) => (color ? theme.violet_m : '')};
-`
-
-export const ProgressBar = ({ total, current }) => {
-  const percentage = Math.floor((current / total) * 100)
-  return (
-    <>
-      <ProgressBarCount lg={1}>
-        {current} / {total}
-      </ProgressBarCount>
-      <Col lg={10}>
-        <ProgressBarStyle percentage={percentage}>
-          <div className="wrapper">
-            <div className="inner"></div>
-          </div>
-        </ProgressBarStyle>
-      </Col>
-      <ProgressBarCount lg={1} color="violet">
-        {percentage}%
-      </ProgressBarCount>
-    </>
-  )
-}
 
 export const MilestoneContainer = styled.div`
   .inputs {
