@@ -1,6 +1,7 @@
 package com.codestates.SEB034Main.member.entity;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
+@Builder
 @Entity
 public class Follower {
 
@@ -15,8 +17,10 @@ public class Follower {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long followerId;
 
+    @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @Builder.Default
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
     @ManyToOne

@@ -1,5 +1,6 @@
 package com.codestates.SEB034Main.member.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
+@Builder
 @Entity
 public class Member {
 
@@ -23,11 +25,14 @@ public class Member {
     @Column(nullable = false)
     private String password;
 
+    @Builder.Default
     @Enumerated(value = EnumType.STRING)
     private MemberRole role = MemberRole.ROLE_USER;
 
+    @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @Builder.Default
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
     public enum MemberRole {

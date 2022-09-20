@@ -1,14 +1,15 @@
 package com.codestates.SEB034Main.comment.entity;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
 @Getter
+@Builder
 @Entity
 public class Comment {
 
@@ -23,7 +24,9 @@ public class Comment {
     @Column(nullable = false)
     private String comment;
 
+    @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @Builder.Default
     private LocalDateTime modifiedAt = LocalDateTime.now();
 }
