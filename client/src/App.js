@@ -25,7 +25,7 @@ function App() {
           <Route exact path="/" element={<Landing />} />
           <Route exact path="/main" element={<Main />} />
           <Route exact path="/goal" element={<Goal />} />
-          <Route exact path="/detail" element={<DetailView />} />
+          <Route exact path="/goal/detail/:id" element={<DetailView />} />
           <Route exact path="/create" element={<Create />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/login" element={<Login />} />

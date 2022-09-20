@@ -1,7 +1,8 @@
 import styled from 'styled-components'
+import { Container } from '../../styles/responsive'
 import theme from '../../styles/theme'
 
-export const MilestoneContainer = styled.div`
+export const MilestoneContainer = styled(Container)`
   .inputs {
     padding: 10px 0;
     > input {
@@ -26,11 +27,38 @@ export const MilestoneContainer = styled.div`
       }
     }
   }
+  .header__milestone {
+    .milestone__info {
+      display: flex;
+    }
+  }
+  .descriptions {
+    border: 2px solid ${theme.border};
+    border-radius: 10px;
+    padding: 10px;
+    .description {
+      display: flex;
+      > h3 {
+        background-color: ${theme.border};
+        width: 80px;
+        text-align: end;
+        padding: 5px;
+        margin: 5px 0;
+      }
+      > p {
+        padding: 5px;
+        margin: 5px 0;
+      }
+    }
+  }
   .button__complete {
     display: flex;
     justify-content: end;
   }
 `
+
+export const Wrapper = styled.div``
+
 export const CalendarContainer = styled.div`
   padding: 10px;
   border-radius: 10px;
@@ -57,14 +85,14 @@ export const CalendarContainer = styled.div`
   /* ~~~ button styles ~~~ */
   button {
     margin: 2px;
-    background-color: ${theme.violet_l};
+    /* background-color: ${theme.violet_l}; */
     border: 0;
     border-radius: 3px;
     padding: 5px 0;
     cursor: pointer;
 
     &:active {
-      background-color: ${theme.violet_d};
+      /* background-color: ${theme.violet_d}; */
     }
   }
   /* ~~~ day grid styles ~~~ */
@@ -79,10 +107,12 @@ export const CalendarContainer = styled.div`
 
   /* ~~~ neighboring month & weekend styles ~~~ */
   .react-calendar__month-view__days__day--neighboringMonth {
+    /* background-color: #dfdfdf; */
     opacity: 0.6;
   }
   .react-calendar__month-view__days__day--weekend {
-    color: #dfdfdf;
+    color: red !important;
+    /* background-color: red; */
   }
 
   /* ~~~ active day styles ~~~ */
