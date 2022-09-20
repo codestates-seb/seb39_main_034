@@ -1,7 +1,6 @@
 import { Container, Row } from '../../styles/responsive'
 import TodoItem from './TodoItem'
-import { TodoList } from './ChecklistStyle'
-import { ProgressBar } from './TodoStyle'
+import { TodoList, ProgressBar } from './ChecklistStyle'
 import todos from '../../data/TodoData'
 
 function Checklist() {
