@@ -19,5 +19,5 @@ public class GoalResponseDto {
 
     private int numberOfCompletedTodos;
 
-    private int numberOfSupporters;
+    private int numberOfFollowers;
 }

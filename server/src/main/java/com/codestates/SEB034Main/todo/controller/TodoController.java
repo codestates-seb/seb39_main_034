@@ -2,7 +2,8 @@ package com.codestates.SEB034Main.todo.controller;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
 import com.codestates.SEB034Main.goal.service.GoalService;
-import com.codestates.SEB034Main.todo.dto.CreateTodoDto;
+import com.codestates.SEB034Main.todo.dto.PostTodoDto;
+import com.codestates.SEB034Main.todo.dto.PatchTodoDto;
 import com.codestates.SEB034Main.todo.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,9 +22,9 @@ public class TodoController {
     private final GoalService goalService;
 
     @PostMapping("/goal/{goalId}")
-    public ResponseEntity createTodo(@RequestBody CreateTodoDto createTodoDto, @PathVariable @Positive long goalId) {
+    public ResponseEntity createTodo(@RequestBody PostTodoDto postTodoDto, @PathVariable @Positive long goalId) {
         Goal verifiedGoal = goalService.findVerifiedGoal(goalId);
-        todoService.createTodo(createTodoDto, verifiedGoal);
+        todoService.createTodo(postTodoDto, verifiedGoal);
 
         return new ResponseEntity(HttpStatus.CREATED);
     }
@@ -39,6 +40,20 @@ public class TodoController {
     public ResponseEntity cancelCompletedTodo(@PathVariable @Positive long todoId) {
 
         todoService.cancelCompletedTodo(todoId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/todo/{todoId}")
+    public ResponseEntity deleteTodo(@PathVariable @Positive long todoId) {
+
+        todoService.deleteTodo(todoId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/todo/{todoId}")
+    public ResponseEntity updateTodo(@RequestBody PatchTodoDto patchTodoDto, @PathVariable @Positive long todoId) {
+
+        todoService.updateTodo(patchTodoDto, todoId);
         return new ResponseEntity(HttpStatus.OK);
     }
 

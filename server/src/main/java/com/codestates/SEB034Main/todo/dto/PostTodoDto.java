@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateTodoDto {
+public class PostTodoDto {
 
     public String title;
 }

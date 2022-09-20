@@ -1,12 +1,11 @@
 package com.codestates.SEB034Main.goal.dto;
 
-
 import lombok.Getter;
 
 import java.time.LocalDate;
 
 @Getter
-public class CreateGoalDto {
+public class PatchGoalDto {
 
     private String title;
 

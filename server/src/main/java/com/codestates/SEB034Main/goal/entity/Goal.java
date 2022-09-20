@@ -79,4 +79,28 @@ public class Goal {
     public void setViews(Long views) {
         this.views = views;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSuccessAward(String successAward) {
+        this.successAward = successAward;
+    }
+
+    public void setFailurePenalty(String failurePenalty) {
+        this.failurePenalty = failurePenalty;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }

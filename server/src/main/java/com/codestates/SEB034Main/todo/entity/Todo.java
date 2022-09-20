@@ -49,4 +49,8 @@ public class Todo {
     public void setCompletedAt(LocalDate completedAt) {
         this.completedAt = completedAt;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

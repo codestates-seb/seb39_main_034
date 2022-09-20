@@ -30,7 +30,7 @@ public class GoalMapper {
             goalResponseDto.setCategory(eachGoal.getCategory().getCategoryName());
             goalResponseDto.setNumberOfTodos(eachGoal.getTodoList().size());
             goalResponseDto.setNumberOfCompletedTodos(numberOfCompletedTodos);
-            goalResponseDto.setNumberOfSupporters(3);
+            goalResponseDto.setNumberOfFollowers(3);
 
             if (eachGoal.getStatus() == 0) {
                 goalResponseDto.setStatus("진행중");

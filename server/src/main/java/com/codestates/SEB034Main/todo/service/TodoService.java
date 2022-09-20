@@ -3,7 +3,8 @@ package com.codestates.SEB034Main.todo.service;
 import com.codestates.SEB034Main.exception.BusinessLogicException;
 import com.codestates.SEB034Main.exception.ExceptionCode;
 import com.codestates.SEB034Main.goal.entity.Goal;
-import com.codestates.SEB034Main.todo.dto.CreateTodoDto;
+import com.codestates.SEB034Main.todo.dto.PostTodoDto;
+import com.codestates.SEB034Main.todo.dto.PatchTodoDto;
 import com.codestates.SEB034Main.todo.entity.Todo;
 import com.codestates.SEB034Main.todo.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +20,10 @@ public class TodoService {
 
     private final TodoRepository todoRepository;
 
-    public Todo defaultCreateTodo(CreateTodoDto createTodoDto, Goal goal) {
+    public Todo defaultCreateTodo(PostTodoDto postTodoDto, Goal goal) {
 
         Todo todo = Todo.builder()
-                .title(createTodoDto.getTitle())
+                .title(postTodoDto.getTitle())
                 .goal(goal)
                 .build();
 
@@ -30,9 +31,9 @@ public class TodoService {
         return todo;
     }
 
-    public void createTodo(CreateTodoDto createTodoDto, Goal goal) {
+    public void createTodo(PostTodoDto postTodoDto, Goal goal) {
         Todo todo = Todo.builder()
-                .title(createTodoDto.getTitle())
+                .title(postTodoDto.getTitle())
                 .goal(goal)
                 .build();
 
@@ -56,11 +57,24 @@ public class TodoService {
     }
 
 
+    public void deleteTodo(long todoId) {
+        Todo verifiedTodo = findVerifiedTodo(todoId);
+
+        todoRepository.delete(verifiedTodo);
+    }
+
+    public void updateTodo(PatchTodoDto patchTodoDto, long todoId) {
+        Todo verifiedTodo = findVerifiedTodo(todoId);
+        verifiedTodo.setTitle(patchTodoDto.getTitle());
+
+        todoRepository.save(verifiedTodo);
+    }
+
     @Transactional(readOnly = true)
     public Todo findVerifiedTodo(long todoId) {
-        Optional<Todo> optionalQuestion = todoRepository.findById(todoId);
+        Optional<Todo> optionalTodo = todoRepository.findById(todoId);
         Todo findTodo =
-                optionalQuestion.orElseThrow(() ->
+                optionalTodo.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.TODO_NOT_FOUND));
         return findTodo;
     }
