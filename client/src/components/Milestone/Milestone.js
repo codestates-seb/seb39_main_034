@@ -3,7 +3,6 @@ import { MainHeading } from '../../styles/globalStyles'
 
 import moment from 'moment'
 
-
 export default function Milestone({ goals }) {
   // const today = new Date()
   // const dday = new Date(`

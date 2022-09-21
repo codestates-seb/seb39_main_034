@@ -43,7 +43,7 @@ function Main() {
           if (cards.length === idx + 1) {
             return (
               <Col lg={4} sm={4} ref={handleLastCardRef} key={card.goadId}>
-                <Link to={`/detail`}>
+                <Link to={`/goal/detail/${card.goalId}`}>
                   <Card
                     category={card.category}
                     title={card.title}
@@ -55,7 +55,7 @@ function Main() {
           } else {
             return (
               <Col lg={4} sm={4} key={card.goadId}>
-                <Link to={`/detail`}>
+                <Link to={`/goal/detail/${card.goalId}`}>
                   <Card
                     category={card.category}
                     title={card.title}

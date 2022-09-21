@@ -1,4 +1,4 @@
-import { Container, Row } from '../styles/globalStyles'
+import { Col, Container, Row } from '../styles/globalStyles'
 import Milestone from '../components/Milestone/Milestone'
 import Todo from '../components/Todo/Checklist'
 import Timeline from '../components/Timeline/Timeline'
@@ -49,18 +49,29 @@ function DetailView() {
     <>
       <Container>
         <Row>
-          <Milestone goals={goals}></Milestone>
+          <Col>
+            <Milestone goals={goals}></Milestone>
+          </Col>
         </Row>
         <Row>
-          <Todo></Todo>
-          {openCreateChecklist && <TodoCreate />}
-          <PlusBtn onClick={createChecklistToggle}></PlusBtn>
+          <Col>
+            {' '}
+            <Todo></Todo>
+            {openCreateChecklist && <TodoCreate />}
+            <PlusBtn onClick={createChecklistToggle}></PlusBtn>
+          </Col>
         </Row>
         <Row>
-          <Timeline onClick={openTimelineEditModal}></Timeline>
-          <PlusBtn onClick={openTimelineModal} />
+          <Col>
+            <Timeline onClick={openTimelineEditModal}></Timeline>
+            <PlusBtn onClick={openTimelineModal} />
+          </Col>
         </Row>
-        <Reaction></Reaction>
+        <Row>
+          <Col>
+            <Reaction></Reaction>
+          </Col>
+        </Row>
       </Container>
       {isOpenTimelineEditModal && (
         <TimelineModal setIsOpen={setIsOpenTimelineEditModal} />

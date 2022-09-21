@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const CardWrapper = styled.div`
   width: 100%;
   height: 400px;
-  margin: 8px 0;
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 10px;
 `

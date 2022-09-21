@@ -29,7 +29,7 @@ const lgMaxContainer = 1140
 
 export const Container = styled.div`
   width: 100%;
-  max-width: ${lgMaxContainer}px;
+  max-width: ${lgMaxContainer + 20}px;
   margin: 0 auto;
   @media screen and (max-width: ${breakpoint}px) {
     padding: 0 ${smMargin}px;
