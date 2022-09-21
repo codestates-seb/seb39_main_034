@@ -1,7 +1,7 @@
 import { Col, Container, Row } from '../styles/globalStyles'
 import Milestone from '../components/Milestone/Milestone'
-import Todo from '../components/Todo/Checklist'
-import { ProgressBar } from '../components/Todo/ChecklistStyle'
+import Todo from '../components/Todo/Todolist'
+import { ProgressBar } from '../components/Todo/TodolistStyle'
 import Timeline from '../components/Timeline/Timeline'
 import Reaction from '../components/Reaction/Reaction'
 import { PlusBtn } from '../components/Widget/WidgetStyle'
@@ -17,7 +17,9 @@ function DetailView() {
   const [openCreateChecklist, setOpenCreateChecklist] = useState(false)
   const [isOpenTimelineEditModal, setIsOpenTimelineEditModal] = useState(false)
 
-  const [goals, setGoals] = useState([])
+  const [goals, setGoals] = useState({
+    todoList: [],
+  })
   const { id } = useParams()
 
   const createChecklistToggle = () => {
@@ -32,8 +34,8 @@ function DetailView() {
     setIsOpen(!isOpen)
   }
 
+  console.log('axios 호출 전에:', goals)
   useEffect(() => {
-    // console.log('axios 호출 전에:', goals)
     async function getDetail() {
       await axios
         .get(`/v1/goal/${id}`)
@@ -63,7 +65,7 @@ function DetailView() {
             <ProgressBar total={5} done={2}></ProgressBar>
           </Col>
           <Col>
-            <Todo goals={goals}></Todo>
+            <Todo todoList={goals.todoList}></Todo>
           </Col>
           <Col>{openCreateChecklist && <TodoCreate />}</Col>
           <Col>

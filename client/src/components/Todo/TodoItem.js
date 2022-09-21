@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { TodoItemBlock, CheckBox, Text, Remove, Edit } from './ChecklistStyle'
+import { TodoItemBlock, CheckBox, Text, Remove, Edit } from './TodolistStyle'
 import { DeleteBtn, EditBtn } from '../Widget/WidgetStyle'
 
 function handleClick() {

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { TodoItemBlock, CheckBox, Text } from './ChecklistStyle'
+import { TodoItemBlock, CheckBox, Text } from './TodolistStyle'
 import { Input } from '../../styles/globalStyles'
 import { CompleteBtn } from '../Widget/WidgetStyle'
 
