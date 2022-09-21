@@ -1,9 +1,9 @@
 import { Container, Row } from '../../styles/responsive'
 import TodoItem from './TodoItem'
 import { TodoList, ProgressBar } from './ChecklistStyle'
-import todos from '../../data/TodoData'
+// import todos from '../../data/TodoData'
 
-function Checklist() {
+function Checklist({ goals }) {
   return (
     <Container>
       <Row>
@@ -11,7 +11,7 @@ function Checklist() {
       </Row>
       <Row>
         <TodoList>
-          {todos.map((todo) => (
+          {goals.map((todo) => (
             <TodoItem key={todo.id} title={todo.title} done={todo.done} />
           ))}
         </TodoList>
