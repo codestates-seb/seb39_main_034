@@ -8,6 +8,7 @@ function Checklist({ data }) {
         {data.goal.todoList.map((todo) => (
           <TodoItem
             key={todo.todoId}
+            todoId={todo.todoId}
             title={todo.title}
             done={todo.completed}
           />

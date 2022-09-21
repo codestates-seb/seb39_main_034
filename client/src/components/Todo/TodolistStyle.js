@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { Container } from '../../styles/responsive'
 import theme from '../../styles/theme'
 import { BsCheck } from 'react-icons/bs'
+import { Input } from '../../styles/globalStyles'
 
 const ProgressBarWrapper = styled.div`
   width: 100%;
@@ -85,7 +86,7 @@ export const Remove = styled.div`
   &:hover {
     color: red;
   }
-  display: none;
+  /* display: none; */
 `
 
 export const Edit = styled(Remove)``
@@ -96,14 +97,14 @@ export const TodoItemBlock = styled.div`
   padding: 10px;
   border-bottom: 1px solid ${theme.border};
 
-  &:hover {
+  /* &:hover {
     ${Remove} {
       display: initial;
     }
-  }
+  } */
 `
 
-const CheckBoxBase = styled.div`
+const CheckBoxBase = styled.button`
   width: 32px;
   height: 32px;
   border-radius: 10px;
@@ -119,8 +120,8 @@ const CheckBoxBase = styled.div`
   cursor: pointer;
 `
 
-export const CheckBox = ({ done }) => (
-  <CheckBoxBase done={done}>
+export const CheckBox = ({ done, onClick }) => (
+  <CheckBoxBase done={done} onClick={onClick}>
     <BsCheck />
   </CheckBoxBase>
 )
@@ -130,4 +131,8 @@ export const Text = styled.div`
   line-height: 35px;
   font-size: ${theme.font16};
   color: ${theme.primary};
+`
+export const NewInput = styled(Input)`
+  border-bottom: 2px solid ${theme.border};
+  width: 100%;
 `

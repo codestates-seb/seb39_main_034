@@ -1,24 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { TodoItemBlock, Text, Remove, Edit } from './TodolistStyle'
+import { EditBtn } from '../Widget/WidgetStyle'
+import TodoDelete from './TodoDelete'
+import TodoEdit from './TodoEdit'
+import TodoCheck from './TodoCheck'
 
-import { TodoItemBlock, CheckBox, Text, Remove, Edit } from './TodolistStyle'
-import { DeleteBtn, EditBtn } from '../Widget/WidgetStyle'
+function TodoItem({ todoId, title, done }) {
+  const [openEdit, setOpenEdit] = useState(false)
 
-function handleClick() {
-  alert('deleted!')
-}
+  const editChecklistToggle = () => {
+    setOpenEdit(!openEdit)
+  }
 
-function TodoItem({ title, done }) {
   return (
-    <TodoItemBlock>
-      <CheckBox done={done} />
-      <Text>{title}</Text>
-      <Edit>
-        <EditBtn onClick={handleClick} />
-      </Edit>
-      <Remove>
-        <DeleteBtn onClick={handleClick} />
-      </Remove>
-    </TodoItemBlock>
+    <>
+      {openEdit ? (
+        <TodoEdit
+          todoId={todoId}
+          title={title}
+          done={done}
+          setOpenEdit={setOpenEdit}
+        />
+      ) : (
+        <TodoItemBlock>
+          <TodoCheck todoId={todoId} done={done} />
+          <Text>{title}</Text>
+          <Edit>
+            <EditBtn onClick={editChecklistToggle} />
+          </Edit>
+          <Remove>
+            <TodoDelete todoId={todoId} title={title} />
+          </Remove>
+        </TodoItemBlock>
+      )}
+    </>
   )
 }
 
