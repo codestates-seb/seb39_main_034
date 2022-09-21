@@ -1,6 +1,7 @@
 import { Col, Container, Row } from '../styles/globalStyles'
 import Milestone from '../components/Milestone/Milestone'
 import Todo from '../components/Todo/Checklist'
+import { ProgressBar } from '../components/Todo/ChecklistStyle'
 import Timeline from '../components/Timeline/Timeline'
 import Reaction from '../components/Reaction/Reaction'
 import { PlusBtn } from '../components/Widget/WidgetStyle'
@@ -32,9 +33,9 @@ function DetailView() {
   }
 
   useEffect(() => {
-    console.log('test:', goals)
+    // console.log('test:', goals)
     axios
-      .get(`${process.env.REACT_APP_API_URL}/v1/goal/${id}`)
+      .get(`/v1/goal/${id}`)
       .then((res) => {
         // console.log(res.data)
         setGoals(res.data)
@@ -43,7 +44,7 @@ function DetailView() {
         console.log('ERROR: ', err)
       })
   }, [])
-  console.log('test2:', goals)
+  // console.log('test2:', goals)
 
   return (
     <>
@@ -54,19 +55,24 @@ function DetailView() {
           </Col>
         </Row>
         <Row>
+          <h3>할일</h3>
           <Col>
-            {' '}
+            <ProgressBar total={5} done={2}></ProgressBar>
+          </Col>
+          <Col>
             <Todo></Todo>
             {openCreateChecklist && <TodoCreate />}
           </Col>
           <Col>
-            {' '}
             <PlusBtn onClick={createChecklistToggle}></PlusBtn>
           </Col>
         </Row>
         <Row>
+          <h3>타임라인</h3>
           <Col>
             <Timeline onClick={openTimelineEditModal}></Timeline>
+          </Col>
+          <Col>
             <PlusBtn onClick={openTimelineModal} />
           </Col>
         </Row>

@@ -38,7 +38,7 @@ export const MilestoneContainer = styled(Container)`
     padding: 10px;
     .description {
       display: flex;
-      > h3 {
+      > h4 {
         background-color: ${theme.border};
         width: 80px;
         text-align: end;

@@ -1,50 +1,75 @@
 import styled from 'styled-components'
-import { Container, Col } from '../../styles/responsive'
+import { Container } from '../../styles/responsive'
 import theme from '../../styles/theme'
 import { BsCheck } from 'react-icons/bs'
 
-const ProgressBarStyle = styled.div`
+const ProgressBarWrapper = styled.div`
   width: 100%;
+  display: flex;
+  padding: 4px 0;
+  margin-bottom: 4px;
+  > div {
+    flex-basis: 36px;
+  }
+`
+
+const ProgressBarStyle = styled.div`
+  width: 200px;
   height: 34px;
-  border-radius: 10px;
+  flex-grow: 10;
+  @keyframes increase {
+    0% {
+      width: 0%;
+    }
+    50% {
+      width: ${({ percentage }) => percentage}*7 / 10%;
+    }
+    100% {
+      width: ${({ percentage }) => percentage}%;
+    }
+  }
   .wrapper {
     width: 100%;
-    background-color: #dedede;
+    height: 34px;
+    border-radius: 34px;
+    background: ${({ theme }) => theme.border};
     font-weight: 600;
     font-size: 0.8rem;
   }
-
   .inner {
     width: ${({ percentage }) => percentage}%;
+    height: 34px;
+    border-radius: 34px;
+    float: left;
     padding: 0;
-    text-align: center;
-    background-color: #4f98ff;
-    color: #111;
+    background: ${({ theme }) => theme.violet_m};
+    animation: increase 1s ease;
   }
 `
 
-const ProgressBarCount = styled(Col)`
+const ProgressBarCount = styled.div`
+  flex-grow: 1;
   font-weight: 500;
+  text-align: center;
+  line-height: 32px;
   color: ${({ color, theme }) => (color ? theme.violet_m : '')};
 `
 
-export const ProgressBar = ({ total, current }) => {
-  const percentage = Math.floor((current / total) * 100)
+export const ProgressBar = ({ total, done }) => {
+  const percentage = Math.floor((done / total) * 100)
   return (
     <>
-      <ProgressBarCount lg={1}>
-        {current} / {total}
-      </ProgressBarCount>
-      <Col lg={10}>
+      <ProgressBarWrapper>
+        <ProgressBarCount>
+          {done} / {total}
+        </ProgressBarCount>
         <ProgressBarStyle percentage={percentage}>
           <div className="wrapper">
             <div className="inner"></div>
           </div>
         </ProgressBarStyle>
-      </Col>
-      <ProgressBarCount lg={1} color="violet">
-        {percentage}%
-      </ProgressBarCount>
+        <ProgressBarCount color="violet">{percentage}%</ProgressBarCount>
+      </ProgressBarWrapper>
     </>
   )
 }

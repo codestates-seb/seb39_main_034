@@ -40,6 +40,9 @@ footer, header, hgroup, menu, nav, section {
 body {
     line-height: 1;
 }
+h3{
+  margin: 20px 0;
+}
 ol, ul {
     list-style: none;
 }
