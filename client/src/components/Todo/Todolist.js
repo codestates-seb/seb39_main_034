@@ -1,11 +1,11 @@
 import TodoItem from './TodoItem'
 import { TodoList } from './TodolistStyle'
 
-function Checklist({ todoList }) {
+function Checklist({ data }) {
   return (
     <>
       <TodoList>
-        {todoList.map((todo) => (
+        {data.goal.todoList.map((todo) => (
           <TodoItem
             key={todo.todoId}
             title={todo.title}

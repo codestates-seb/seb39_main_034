@@ -17,8 +17,9 @@ function DetailView() {
   const [openCreateChecklist, setOpenCreateChecklist] = useState(false)
   const [isOpenTimelineEditModal, setIsOpenTimelineEditModal] = useState(false)
 
-  const [goals, setGoals] = useState({
-    todoList: [],
+  const [data, setData] = useState({
+    goal: { todoList: [] },
+    metadata: {},
   })
   const { id } = useParams()
 
@@ -34,14 +35,14 @@ function DetailView() {
     setIsOpen(!isOpen)
   }
 
-  console.log('axios 호출 전에:', goals)
+  console.log('axios 호출 전에:', data)
   useEffect(() => {
     async function getDetail() {
       await axios
         .get(`/v1/goal/${id}`)
         .then((res) => {
           console.log(res.data)
-          setGoals(res.data)
+          setData(res.data)
         })
         .catch((err) => {
           console.log('ERROR: ', err)
@@ -49,23 +50,25 @@ function DetailView() {
     }
     getDetail()
   }, [])
-  // console.log('axios 호출 밖에서:', goals)
+  // console.log('axios 호출 밖에서:', data)
 
   return (
     <>
       <Container>
         <Row>
           <Col>
-            <Milestone goals={goals}></Milestone>
+            <Milestone data={data}></Milestone>
           </Col>
         </Row>
         <Row>
-          <h3>할일</h3>
+          <Col>
+            <h3>할일</h3>
+          </Col>
           <Col>
             <ProgressBar total={5} done={2}></ProgressBar>
           </Col>
           <Col>
-            <Todo todoList={goals.todoList}></Todo>
+            <Todo data={data}></Todo>
           </Col>
           <Col>{openCreateChecklist && <TodoCreate />}</Col>
           <Col>
@@ -73,7 +76,9 @@ function DetailView() {
           </Col>
         </Row>
         <Row>
-          <h3>타임라인</h3>
+          <Col>
+            <h3>타임라인</h3>
+          </Col>
           <Col>
             <Timeline onClick={openTimelineEditModal}></Timeline>
           </Col>
