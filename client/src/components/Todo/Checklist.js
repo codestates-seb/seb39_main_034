@@ -11,8 +11,12 @@ function Checklist({ goals }) {
       </Row>
       <Row>
         <TodoList>
-          {goals.map((todo) => (
-            <TodoItem key={todo.id} title={todo.title} done={todo.done} />
+          {goals.todoList.map((todo) => (
+            <TodoItem
+              key={todo.goalId}
+              title={todo.title}
+              done={todo.completed}
+            />
           ))}
         </TodoList>
       </Row>
