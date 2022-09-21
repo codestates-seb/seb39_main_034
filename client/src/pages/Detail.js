@@ -1,6 +1,7 @@
 import { Col, Container, Row } from '../styles/globalStyles'
 import Milestone from '../components/Milestone/Milestone'
 import Todo from '../components/Todo/Checklist'
+import { ProgressBar } from '../components/Todo/ChecklistStyle'
 import Timeline from '../components/Timeline/Timeline'
 import Reaction from '../components/Reaction/Reaction'
 import { PlusBtn } from '../components/Widget/WidgetStyle'
@@ -35,7 +36,7 @@ function DetailView() {
     // console.log('axios 호출 전에:', goals)
     async function getDetail() {
       await axios
-        .get(`${process.env.REACT_APP_API_URL}/v1/goal/${id}`)
+        .get(`/v1/goal/${id}`)
         .then((res) => {
           console.log(res.data)
           setGoals(res.data)
@@ -57,6 +58,10 @@ function DetailView() {
           </Col>
         </Row>
         <Row>
+          <h3>할일</h3>
+          <Col>
+            <ProgressBar total={5} done={2}></ProgressBar>
+          </Col>
           <Col>
             <Todo goals={goals}></Todo>
           </Col>
@@ -66,6 +71,7 @@ function DetailView() {
           </Col>
         </Row>
         <Row>
+          <h3>타임라인</h3>
           <Col>
             <Timeline onClick={openTimelineEditModal}></Timeline>
           </Col>

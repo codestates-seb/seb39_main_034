@@ -1,16 +1,11 @@
-import { Container, Row } from '../../styles/responsive'
 import TodoItem from './TodoItem'
-import { TodoList, ProgressBar } from './ChecklistStyle'
-// import todos from '../../data/TodoData'
+import { TodoList } from './ChecklistStyle'
+import todos from '../../data/TodoData'
 
 function Checklist({ goals }) {
   return (
-    <Container>
-      <Row>
-        <ProgressBar total={5} current={2}></ProgressBar>
-      </Row>
-      <Row>
-        <TodoList>
+    <>
+      <TodoList>
           {goals.todoList.map((todo) => (
             <TodoItem
               key={todo.goalId}
@@ -19,8 +14,7 @@ function Checklist({ goals }) {
             />
           ))}
         </TodoList>
-      </Row>
-    </Container>
+    </>
   )
 }
 

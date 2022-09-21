@@ -23,18 +23,18 @@ export default function Milestone({ goals }) {
           <p>진행중</p>
         </div>
       </header>
+      <h3>목표</h3>
       <div className="descriptions">
-        <h2>목표</h2>
         <div className="description">
-          <h3>소개</h3>
+          <h4>소개</h4>
           <p>{goals.description}</p>
         </div>
         <div className="description">
-          <h3>성공시</h3>
+          <h4>성공시</h4>
           <p>{goals.successAward}</p>
         </div>
         <div className="description">
-          <h3>실패시</h3>
+          <h4>실패시</h4>
           <p>{goals.failurePenalty}</p>
         </div>
       </div>

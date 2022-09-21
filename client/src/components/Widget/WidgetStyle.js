@@ -117,3 +117,29 @@ export const Notice = styled.div`
     text-align: center;
   }
 `
+
+const ProfileBase = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 30px;
+  cursor: pointer;
+  div.image {
+    width: 28px;
+    height: 28px;
+    background-image: url(${({ image }) => image});
+    background-size: cover;
+    background-position: center;
+    margin-right: 4px;
+  }
+  div.text {
+    font-size: ${({ theme }) => theme.font16};
+  }
+`
+
+export const Profile = ({ image, author }) => (
+  <ProfileBase image={image}>
+    <div className="image"></div>
+    <div className="text">{author}</div>
+  </ProfileBase>
+)

@@ -47,7 +47,15 @@ function Main() {
                   <Card
                     category={card.category}
                     title={card.title}
-                    status={card.status}
+                    status={card.status === '진행중' && card.status}
+                    done={card.numberOfCompletedTodos}
+                    todo={card.numberOfFollowers}
+                    follow={card.numberOfFollowers}
+                    banner="https://www.telegraph.co.uk/content/dam/health-fitness/2018/08/31/TELEMMGLPICT000156474637_trans_NvBQzQNjv4BqpVlberWd9EgFPZtcLiMQfyf2A9a6I9YchsjMeADBa08.jpeg?imwidth=680"
+                    image={
+                      'https://images.pexels.com/photos/1310522/pexels-photo-1310522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                    }
+                    author={'조안나'}
                   />
                 </Link>
               </Col>
@@ -59,7 +67,15 @@ function Main() {
                   <Card
                     category={card.category}
                     title={card.title}
-                    status={card.status === '진행완료' ? card.result : 0}
+                    status={card.status === '진행중' && card.status}
+                    done={card.numberOfCompletedTodos}
+                    todo={card.numberOfFollowers}
+                    follow={card.numberOfFollowers}
+                    banner="https://www.telegraph.co.uk/content/dam/health-fitness/2018/08/31/TELEMMGLPICT000156474637_trans_NvBQzQNjv4BqpVlberWd9EgFPZtcLiMQfyf2A9a6I9YchsjMeADBa08.jpeg?imwidth=680"
+                    image={
+                      'https://images.pexels.com/photos/1310522/pexels-photo-1310522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                    }
+                    author={'조안나'}
                   />
                 </Link>
               </Col>
