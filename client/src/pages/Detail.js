@@ -58,7 +58,7 @@ function DetailView() {
         </Row>
         <Row>
           <Col>
-            <Todo goals={goals.todoList}></Todo>
+            <Todo goals={goals}></Todo>
           </Col>
           <Col>{openCreateChecklist && <TodoCreate />}</Col>
           <Col>
