@@ -32,18 +32,21 @@ function DetailView() {
   }
 
   useEffect(() => {
-    console.log('test:', goals)
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/v1/goal/${id}`)
-      .then((res) => {
-        // console.log(res.data)
-        setGoals(res.data)
-      })
-      .catch((err) => {
-        console.log('ERROR: ', err)
-      })
+    // console.log('axios 호출 전에:', goals)
+    async function getDetail() {
+      await axios
+        .get(`${process.env.REACT_APP_API_URL}/v1/goal/${id}`)
+        .then((res) => {
+          console.log(res.data)
+          setGoals(res.data)
+        })
+        .catch((err) => {
+          console.log('ERROR: ', err)
+        })
+    }
+    getDetail()
   }, [])
-  console.log('test2:', goals)
+  // console.log('axios 호출 밖에서:', goals)
 
   return (
     <>
@@ -55,15 +58,18 @@ function DetailView() {
         </Row>
         <Row>
           <Col>
-            {' '}
-            <Todo></Todo>
-            {openCreateChecklist && <TodoCreate />}
+            <Todo goals={goals.todoList}></Todo>
+          </Col>
+          <Col>{openCreateChecklist && <TodoCreate />}</Col>
+          <Col>
             <PlusBtn onClick={createChecklistToggle}></PlusBtn>
           </Col>
         </Row>
         <Row>
           <Col>
             <Timeline onClick={openTimelineEditModal}></Timeline>
+          </Col>
+          <Col>
             <PlusBtn onClick={openTimelineModal} />
           </Col>
         </Row>
