@@ -24,8 +24,6 @@ public class PostGoalDto {
     private String failurePenalty;
 
     @NotBlank
-    @Pattern(regexp = "^[0-9]+$",
-            message = "숫자를 입력해주세요")
     private LocalDate endDate;
 
     @NotBlank

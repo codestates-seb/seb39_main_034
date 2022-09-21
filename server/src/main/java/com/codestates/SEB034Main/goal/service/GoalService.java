@@ -62,6 +62,9 @@ public class GoalService {
     }
 
     public Page<Goal> statusOnlyFilter(int status, int page, int size) {
+        if (status == 0) {
+            return goalRepository.findAll(PageRequest.of(page, size, Sort.by("goalId").descending()));
+        }
         if (status == 1) {
             return goalRepository.findByStatus(0, PageRequest.of(page, size, Sort.by("goalId").descending()));
         }
@@ -76,6 +79,9 @@ public class GoalService {
     }
     public Page<Goal> categoryAndStatusFilter(int categoryId, int status, int page, int size) {
         if (categoryId == 0) {
+            if (status == 0) {
+                return goalRepository.findAll(PageRequest.of(page, size, Sort.by("goalId").descending()));
+            }
             if (status == 1) {
                 return goalRepository.findByStatus(0, PageRequest.of(page, size, Sort.by("goalId").descending()));
             }
@@ -87,6 +93,9 @@ public class GoalService {
                 return goalRepository.findByResult(result, PageRequest.of(page, size, Sort.by("goal_id").descending()));
             }
         } else if (categoryId != 0) {
+            if (status == 0) {
+                return goalRepository.findByCategory(categoryId, PageRequest.of(page, size, Sort.by("goal_id").descending()));
+            }
             if (status == 1) {
                 return goalRepository.findByCategoryAndGoingStatus(categoryId, PageRequest.of(page, size, Sort.by("goal_id").descending()));
             }

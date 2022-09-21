@@ -26,7 +26,6 @@ public class Image {
     @Builder.Default
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    @ManyToOne
-    @JoinColumn(name = "goalId")
+    @OneToOne(mappedBy = "image", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Goal goal;
 }

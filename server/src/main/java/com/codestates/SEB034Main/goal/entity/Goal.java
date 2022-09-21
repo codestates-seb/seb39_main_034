@@ -1,15 +1,15 @@
 package com.codestates.SEB034Main.goal.entity;
 
+import com.codestates.SEB034Main.image.entity.Image;
+import com.codestates.SEB034Main.timeline.entity.Timeline;
 import com.codestates.SEB034Main.todo.entity.Todo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -66,9 +66,18 @@ public class Goal {
     @JoinColumn(name = "categoryId")
     private Category category;
 
+    @OneToOne
+    @JoinColumn(name = "imageId")
+    private Image image;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "goal", cascade = CascadeType.REMOVE)
     private List<Todo> todoList;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "goal", cascade = CascadeType.REMOVE)
+    private List<Timeline> timelineList;
+
 
     public enum GoalResult {
         NONE,

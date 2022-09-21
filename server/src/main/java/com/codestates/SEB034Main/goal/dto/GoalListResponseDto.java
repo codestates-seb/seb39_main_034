@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class GoalResponseDto {
+public class GoalListResponseDto {
 
     private Long goalId;
 
@@ -14,6 +14,8 @@ public class GoalResponseDto {
     private String category;
 
     private String status;
+
+    private String result;
 
     private int numberOfTodos;
 
