@@ -1,26 +1,44 @@
 import { Container, Row } from '../../styles/responsive'
 import { CategoryBtn, StatusBtn, CreateBtn } from './LnbStyle'
 import { Link } from 'react-router-dom'
-// const categoryList = ['운동', '생활습관', '독서', '공부']
-const categoryList = ['workout', 'habit', 'reading', 'study']
 
-function Lnb({ setCategoryQuery }) {
-  function handleClick(e) {
-    console.log(e.target.textContent)
-    setCategoryQuery(e.target.textContent)
+const categoryList = ['전체보기', '운동', '생활습관', '독서', '공부']
+const statusList = ['선택안함', '진행중', '목표달성', '달성실패']
+
+function Lnb({ categoryId, setCategoryId, statusId, setStatusId }) {
+  function handleCategoryClick(e) {
+    setCategoryId(e.currentTarget.value)
   }
+
+  function handleStatusClick(e) {
+    console.log(e.currentTarget.value)
+    e.currentTarget.value === statusId
+      ? setStatusId(null)
+      : setStatusId(e.currentTarget.value)
+  }
+
   return (
     <Container>
       <Row>
-        <CategoryBtn onClick={handleClick}>all</CategoryBtn>
         {categoryList.map((category, idx) => (
-          <CategoryBtn onClick={handleClick} key={idx}>
+          <CategoryBtn
+            onClick={handleCategoryClick}
+            key={idx}
+            value={idx}
+            isActive={idx == categoryId ? 1 : 0}
+          >
             {category}
           </CategoryBtn>
         ))}
-        <StatusBtn status="pending" />
-        <StatusBtn status="success" />
-        <StatusBtn status="fail" />
+        {statusList.map((status, idx) => (
+          <StatusBtn
+            key={idx}
+            onClick={handleStatusClick}
+            status={status}
+            idx={idx}
+            statusId={statusId}
+          ></StatusBtn>
+        ))}
         <Link to="/goal">
           <CreateBtn />
         </Link>

@@ -127,6 +127,7 @@ const ProfileBase = styled.div`
   div.image {
     width: 28px;
     height: 28px;
+    border-radius: 28px;
     background-image: url(${({ image }) => image});
     background-size: cover;
     background-position: center;

@@ -21,6 +21,7 @@ export const MilestoneContainer = styled.div`
     }
     .p__guide {
       display: flex;
+      align-items: center;
       > p:nth-child(2) {
         color: ${theme.secondary};
         margin-left: 10px;
