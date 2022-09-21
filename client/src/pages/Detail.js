@@ -58,6 +58,9 @@ function DetailView() {
             {' '}
             <Todo></Todo>
             {openCreateChecklist && <TodoCreate />}
+          </Col>
+          <Col>
+            {' '}
             <PlusBtn onClick={createChecklistToggle}></PlusBtn>
           </Col>
         </Row>

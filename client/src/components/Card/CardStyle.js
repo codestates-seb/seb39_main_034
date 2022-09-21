@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 
 export const CardWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
   height: 400px;
   border: 1px solid ${({ theme }) => theme.border};
@@ -9,6 +12,9 @@ export const CardWrapper = styled.div`
 export const CardBanner = styled.div`
   position: relative;
   height: 40%;
+  background-size: cover;
+  background-position: center;
+  background-image: url(${({ banner }) => banner});
   background-color: ${({ theme }) => theme.background};
   div {
     position: absolute;
@@ -18,31 +24,35 @@ export const CardBanner = styled.div`
 `
 
 export const CardBody = styled.div`
-  padding: 8px;
+  padding: 0 12px;
   h4 {
+    width: 100%;
+    height: 54px;
+    margin: 6px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: ${(props) => props.theme.font20};
     font-weight: 500;
+    line-height: 28px;
   }
-  div {
-    height: 30px;
-    padding: 4px;
-    box-sizing: border-box;
+  .item {
+    height: 32px;
+    padding: 0 12px;
     font-size: ${(props) => props.theme.font16};
-    line-height: 20px;
-    .item {
+    line-height: 32px;
+    .item-title {
       padding-right: 4px;
       border-right: 3px solid ${({ theme }) => theme.border};
       font-weight: 500;
     }
-    .test {
-      padding-left: 4px;
+    .item-text {
+      padding-left: 12px;
     }
   }
-`
-
-export const CardFooter = styled.div`
-  border-top: 1px solid ${({ theme }) => theme.border};
-  text-align: right;
 `
 
 export const CategoryTag = styled.div`
@@ -59,6 +69,8 @@ export const CategoryTag = styled.div`
 `
 const StatusTagBase = styled.div`
   display: inline-flex;
+  align-items: center;
+  height: 30px;
   .emoji {
     width: 20px;
     height: 20px;
@@ -72,13 +84,14 @@ const StatusTagBase = styled.div`
   }
   .text {
     font-size: ${({ theme }) => theme.font16};
+    line-height: 36px;
   }
 `
 
 export const StatusTag = ({ status }) => (
   <StatusTagBase>
     <div className="emoji">
-      {status === 'pending'
+      {status === '진행중'
         ? '🏃'
         : status === 'success'
         ? '🎉'
@@ -87,7 +100,7 @@ export const StatusTag = ({ status }) => (
         : null}
     </div>
     <div className="text">
-      {status === 'pending'
+      {status === '진행중'
         ? '진행중'
         : status === 'success'
         ? '목표달성'
@@ -97,3 +110,12 @@ export const StatusTag = ({ status }) => (
     </div>
   </StatusTagBase>
 )
+
+export const CardFooter = styled.div`
+  height: 44px;
+  padding: 6px 12px;
+  border-top: 1px solid ${({ theme }) => theme.border};
+  > div {
+    float: right;
+  }
+`
