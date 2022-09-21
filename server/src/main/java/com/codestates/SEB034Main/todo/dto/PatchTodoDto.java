@@ -2,8 +2,23 @@ package com.codestates.SEB034Main.todo.dto;
 
 import lombok.Getter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Getter
 public class PatchTodoDto {
+    private long todoId;
 
+    @NotBlank(message = "제목은 공백이 아니어야 합니다.")
     public String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setTodoId(long todoId) {this.todoId = todoId;}
 }

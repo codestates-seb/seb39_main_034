@@ -8,9 +8,13 @@ import com.codestates.SEB034Main.todo.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
@@ -22,7 +26,7 @@ public class TodoController {
     private final GoalService goalService;
 
     @PostMapping("/goal/{goalId}")
-    public ResponseEntity createTodo(@RequestBody PostTodoDto postTodoDto, @PathVariable @Positive long goalId) {
+    public ResponseEntity createTodo(@Valid @RequestBody PostTodoDto postTodoDto, @PathVariable @Positive long goalId) {
         Goal verifiedGoal = goalService.findVerifiedGoal(goalId);
         todoService.createTodo(postTodoDto, verifiedGoal);
 
@@ -51,10 +55,15 @@ public class TodoController {
     }
 
     @PatchMapping("/todo/{todoId}")
-    public ResponseEntity updateTodo(@RequestBody PatchTodoDto patchTodoDto, @PathVariable @Positive long todoId) {
+    public ResponseEntity updateTodo(@Valid @RequestBody PatchTodoDto patchTodoDto, @PathVariable @Positive long todoId) {
 
         todoService.updateTodo(patchTodoDto, todoId);
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @ExceptionHandler
+    public ResponseEntity handleException(MethodArgumentNotValidException e) {
+        final List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+        return new ResponseEntity<>(fieldErrors, HttpStatus.BAD_REQUEST);
+    }
 }
