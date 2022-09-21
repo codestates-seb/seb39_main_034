@@ -2,14 +2,18 @@ import TodoItem from './TodoItem'
 import { TodoList } from './ChecklistStyle'
 import todos from '../../data/TodoData'
 
-function Checklist() {
+function Checklist({ goals }) {
   return (
     <>
       <TodoList>
-        {todos.map((todo) => (
-          <TodoItem key={todo.id} title={todo.title} done={todo.done} />
-        ))}
-      </TodoList>
+          {goals.todoList.map((todo) => (
+            <TodoItem
+              key={todo.goalId}
+              title={todo.title}
+              done={todo.completed}
+            />
+          ))}
+        </TodoList>
     </>
   )
 }

@@ -15,6 +15,8 @@ import Login from './pages/Login'
 import Gnb from './components/Gnb/Gnb'
 import Goal from './pages/Goal'
 
+import Test from './pages/Test'
+
 axios.defaults.baseURL = process.env.REACT_APP_API_URL
 // axios.defaults.withCredentials = true
 
@@ -31,6 +33,7 @@ function App() {
           <Route exact path="/goal/detail/:id" element={<DetailView />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/login" element={<Login />} />
+          <Route exact path="/test" element={<Test />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>

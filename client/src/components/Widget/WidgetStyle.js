@@ -9,6 +9,7 @@ import {
 } from 'react-icons/bs'
 import { ImFilePicture } from 'react-icons/im'
 import { AiFillCloseSquare } from 'react-icons/ai'
+import React from 'react'
 
 export const CompleteBtn = styled(Button)`
   width: 100px;
@@ -21,7 +22,7 @@ export const CompleteBtn = styled(Button)`
   }
 `
 export const PlusBtnBase = styled(Button)`
-  width: 1140px;
+  width: 100%;
   height: 60px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -32,11 +33,23 @@ export const PlusBtnBase = styled(Button)`
   }
 `
 
-export const PlusBtn = ({ onClick }) => (
-  <PlusBtnBase onClick={onClick}>
-    <FaPlus size="30" />
-  </PlusBtnBase>
-)
+export const PlusBtn = React.memo(function PlustBtn({ onClick }) {
+  // console.log('플러스 버튼 렌더링')
+  return (
+    <PlusBtnBase onClick={onClick}>
+      <FaPlus size="30" />
+    </PlusBtnBase>
+  )
+})
+
+export const PlusBtn2 = React.memo(function PlustBtn({ onClick }) {
+  console.log('플러스 버튼2 렌더링')
+  return (
+    <PlusBtnBase onClick={onClick}>
+      <FaPlus size="30" />
+    </PlusBtnBase>
+  )
+})
 
 const GrayBtn = styled.button`
   width: 24px;
