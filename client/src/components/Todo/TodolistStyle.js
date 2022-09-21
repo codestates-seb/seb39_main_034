@@ -86,7 +86,7 @@ export const Remove = styled.div`
   &:hover {
     color: red;
   }
-  display: none;
+  /* display: none; */
 `
 
 export const Edit = styled(Remove)``
@@ -97,14 +97,14 @@ export const TodoItemBlock = styled.div`
   padding: 10px;
   border-bottom: 1px solid ${theme.border};
 
-  &:hover {
+  /* &:hover {
     ${Remove} {
       display: initial;
     }
-  }
+  } */
 `
 
-const CheckBoxBase = styled.div`
+const CheckBoxBase = styled.button`
   width: 32px;
   height: 32px;
   border-radius: 10px;
@@ -120,8 +120,8 @@ const CheckBoxBase = styled.div`
   cursor: pointer;
 `
 
-export const CheckBox = ({ done }) => (
-  <CheckBoxBase done={done}>
+export const CheckBox = ({ done, onClick }) => (
+  <CheckBoxBase done={done} onClick={onClick}>
     <BsCheck />
   </CheckBoxBase>
 )
@@ -132,8 +132,7 @@ export const Text = styled.div`
   font-size: ${theme.font16};
   color: ${theme.primary};
 `
-export const NewTodoItemBlock = styled(TodoItemBlock)``
 export const NewInput = styled(Input)`
-  margin-left: -100px;
-  border: 1px solid red;
+  border-bottom: 2px solid ${theme.border};
+  width: 100%;
 `

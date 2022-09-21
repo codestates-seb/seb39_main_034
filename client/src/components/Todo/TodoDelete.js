@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 function TodoDelete({ todoId }) {
   const navigate = useNavigate
-  function handleDeleteClick() {
-    alert('deleted!')
+  const handleDeleteClick = () => {
     axios({
       method: 'delete',
       url: process.env.REACT_APP_API_URL + `/v1/todo/${todoId}`,
