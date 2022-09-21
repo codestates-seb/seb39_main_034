@@ -3,7 +3,7 @@ import { MainHeading } from '../../styles/globalStyles'
 
 import moment from 'moment'
 
-export default function Milestone({ goals }) {
+export default function Milestone({ data }) {
   // const today = new Date()
   // const dday = new Date(`
   // ${goals.endDate.slice(0, 4)},
@@ -14,11 +14,11 @@ export default function Milestone({ goals }) {
   return (
     <MilestoneContainer>
       <header className="header__milestone">
-        <MainHeading>{goals.title}</MainHeading>
+        <MainHeading>{data.goal.title}</MainHeading>
         <div className="milestone__info">
           <p>유저이름</p>
-          <p>시작일:{moment(goals.createdAt).format('YYYY-MM-DD')}</p>
-          <p>종료일:{goals.endDate}</p>
+          <p>시작일:{moment(data.createdAt).format('YYYY-MM-DD')}</p>
+          <p>종료일:{data.goal.endDate}</p>
           {/* <p>디데이: D-{result}</p> */}
           <p>진행중</p>
         </div>
@@ -27,15 +27,15 @@ export default function Milestone({ goals }) {
       <div className="descriptions">
         <div className="description">
           <h4>소개</h4>
-          <p>{goals.description}</p>
+          <p>{data.goal.description}</p>
         </div>
         <div className="description">
           <h4>성공시</h4>
-          <p>{goals.successAward}</p>
+          <p>{data.goal.successAward}</p>
         </div>
         <div className="description">
           <h4>실패시</h4>
-          <p>{goals.failurePenalty}</p>
+          <p>{data.goal.failurePenalty}</p>
         </div>
       </div>
     </MilestoneContainer>

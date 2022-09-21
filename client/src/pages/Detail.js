@@ -17,8 +17,9 @@ function DetailView() {
   const [openCreateChecklist, setOpenCreateChecklist] = useState(false)
   const [isOpenTimelineEditModal, setIsOpenTimelineEditModal] = useState(false)
 
-  const [goals, setGoals] = useState({
-    todoList: [],
+  const [data, setData] = useState({
+    goal: { todoList: [] },
+    metaData: [],
   })
   const { id } = useParams()
 
@@ -34,14 +35,14 @@ function DetailView() {
     setIsOpen(!isOpen)
   }
 
-  console.log('axios 호출 전에:', goals)
+  console.log('axios 호출 전에:', data)
   useEffect(() => {
     async function getDetail() {
       await axios
         .get(`/v1/goal/${id}`)
         .then((res) => {
           console.log(res.data)
-          setGoals(res.data)
+          setData(res.data)
         })
         .catch((err) => {
           console.log('ERROR: ', err)
@@ -56,7 +57,7 @@ function DetailView() {
       <Container>
         <Row>
           <Col>
-            <Milestone goals={goals}></Milestone>
+            <Milestone data={data}></Milestone>
           </Col>
         </Row>
         <Row>
@@ -65,7 +66,7 @@ function DetailView() {
             <ProgressBar total={5} done={2}></ProgressBar>
           </Col>
           <Col>
-            <Todo todoList={goals.todoList}></Todo>
+            <Todo data={data}></Todo>
           </Col>
           <Col>{openCreateChecklist && <TodoCreate />}</Col>
           <Col>

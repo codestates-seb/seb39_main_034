@@ -1,22 +1,20 @@
 import React from 'react'
-
 import { TodoItemBlock, CheckBox, Text, Remove, Edit } from './TodolistStyle'
-import { DeleteBtn, EditBtn } from '../Widget/WidgetStyle'
+import TodoDelete from './TodoDelete'
+import TodoEdit from './TodoEdit'
+// import TodoCheck from './Todolist'
 
-function handleClick() {
-  alert('deleted!')
-}
-
-function TodoItem({ title, done }) {
+function TodoItem({ todoId, title, done }) {
   return (
     <TodoItemBlock>
       <CheckBox done={done} />
+      {/* <TodoCheck /> */}
       <Text>{title}</Text>
       <Edit>
-        <EditBtn onClick={handleClick} />
+        <TodoEdit todoId={todoId} title={title} />
       </Edit>
       <Remove>
-        <DeleteBtn onClick={handleClick} />
+        <TodoDelete todoId={todoId} title={title} />
       </Remove>
     </TodoItemBlock>
   )

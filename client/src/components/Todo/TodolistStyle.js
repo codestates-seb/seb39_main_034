@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { Container } from '../../styles/responsive'
 import theme from '../../styles/theme'
 import { BsCheck } from 'react-icons/bs'
+import { Input } from '../../styles/globalStyles'
 
 const ProgressBarWrapper = styled.div`
   width: 100%;
@@ -130,4 +131,9 @@ export const Text = styled.div`
   line-height: 35px;
   font-size: ${theme.font16};
   color: ${theme.primary};
+`
+export const NewTodoItemBlock = styled(TodoItemBlock)``
+export const NewInput = styled(Input)`
+  margin-left: -100px;
+  border: 1px solid red;
 `
