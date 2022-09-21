@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export default function useGetCards(categoryQuery, pageNumber) {
+export default function useGetCards(categoryId, statusId, pageNumber) {
   // console.log('훅 실행될 때 찍은 로그')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -10,7 +10,7 @@ export default function useGetCards(categoryQuery, pageNumber) {
 
   useEffect(() => {
     setCards([])
-  }, [categoryQuery])
+  }, [categoryId, statusId])
 
   useEffect(() => {
     setLoading(true)
@@ -18,8 +18,13 @@ export default function useGetCards(categoryQuery, pageNumber) {
     let cancel
     axios({
       method: 'GET',
-      url: '/v1/goal/list',
-      params: { page: pageNumber, size: 12 },
+      url: '/v1/goal/list/filter',
+      params: {
+        page: pageNumber,
+        size: 12,
+        categoryId: categoryId,
+        status: statusId,
+      },
       cancelToken: new axios.CancelToken((c) => (cancel = c)),
     })
       .then((res) => {
@@ -38,7 +43,7 @@ export default function useGetCards(categoryQuery, pageNumber) {
         console.log('Error: ', err)
       })
     return () => cancel()
-  }, [categoryQuery, pageNumber])
+  }, [categoryId, statusId, pageNumber])
   // console.log('훅 마지막 줄에서 찍은 로그')
   return { loading, error, cards, hasMore }
 }

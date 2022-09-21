@@ -56,7 +56,7 @@ export const CardBody = styled.div`
   }
 `
 
-export const CategoryTag = styled.div`
+export const CategoryBadge = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,7 +68,7 @@ export const CategoryTag = styled.div`
   background: ${({ theme }) => theme.violet_m};
   filter: drop-shadow(0px 1px 3px rgba(115, 115, 115, 0.25));
 `
-const StatusTagBase = styled.div`
+const StatusBadgeBase = styled.div`
   display: inline-flex;
   align-items: center;
   height: 30px;
@@ -89,27 +89,27 @@ const StatusTagBase = styled.div`
   }
 `
 
-export const StatusTag = ({ status }) => (
-  <StatusTagBase>
+export const StatusBadge = ({ status }) => (
+  <StatusBadgeBase>
     <div className="emoji">
       {status === '진행중'
         ? '🏃'
-        : status === 'success'
+        : status === 'SUCCESS'
         ? '🎉'
-        : status === 'fail'
+        : status === 'FAILURE'
         ? '💦'
         : null}
     </div>
     <div className="text">
       {status === '진행중'
         ? '진행중'
-        : status === 'success'
+        : status === 'SUCCESS'
         ? '목표달성'
-        : status === 'fail'
+        : status === 'FAILURE'
         ? '달성실패'
         : null}
     </div>
-  </StatusTagBase>
+  </StatusBadgeBase>
 )
 
 export const CardFooter = styled.div`

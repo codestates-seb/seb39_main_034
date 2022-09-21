@@ -4,8 +4,8 @@ import {
   CardBody,
   CardFooter,
   CardWrapper,
-  CategoryTag,
-  StatusTag,
+  CategoryBadge,
+  StatusBadge,
 } from './CardStyle'
 
 function Card({
@@ -23,14 +23,14 @@ function Card({
     <>
       <CardWrapper>
         <CardBanner banner={banner}>
-          <CategoryTag>{category}</CategoryTag>
+          <CategoryBadge>{category}</CategoryBadge>
         </CardBanner>
         <CardBody>
           <h4>{title}</h4>
           <div className="item">
             <span className="item-title">진행</span>
             <span className="item-text">
-              <StatusTag className="item-text" status={status}></StatusTag>
+              <StatusBadge className="item-text" status={status}></StatusBadge>
             </span>
           </div>
           <div className="item">

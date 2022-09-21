@@ -6,9 +6,9 @@ import moment from 'moment'
 export default function Milestone({ data }) {
   // const today = new Date()
   // const dday = new Date(`
-  // ${goals.endDate.slice(0, 4)},
-  // ${goals.endDate.slice(6, 7)},
-  // ${goals.endDate.slice(8)}`).getTime()
+  // ${data.endDate.slice(0, 4)},
+  // ${data.endDate.slice(6, 7)},
+  // ${data.endDate.slice(8)}`).getTime()
   // const gap = dday - today
   // const result = Math.ceil(gap / (1000 * 60 * 60 * 24))
   return (
@@ -17,7 +17,7 @@ export default function Milestone({ data }) {
         <MainHeading>{data.goal.title}</MainHeading>
         <div className="milestone__info">
           <p>유저이름</p>
-          <p>시작일:{moment(data.createdAt).format('YYYY-MM-DD')}</p>
+          <p>시작일:{moment(data.goal.createdAt).format('YYYY-MM-DD')}</p>
           <p>종료일:{data.goal.endDate}</p>
           {/* <p>디데이: D-{result}</p> */}
           <p>진행중</p>

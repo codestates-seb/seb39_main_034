@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import { Container } from '../../styles/responsive'
+// import { Container } from '../../styles/responsive'
 import theme from '../../styles/theme'
 
-export const MilestoneContainer = styled(Container)`
+export const MilestoneContainer = styled.div`
   .inputs {
     padding: 10px 0;
     > input {
@@ -21,6 +21,7 @@ export const MilestoneContainer = styled(Container)`
     }
     .p__guide {
       display: flex;
+      align-items: center;
       > p:nth-child(2) {
         color: ${theme.secondary};
         margin-left: 10px;

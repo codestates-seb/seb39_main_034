@@ -19,7 +19,7 @@ function DetailView() {
 
   const [data, setData] = useState({
     goal: { todoList: [] },
-    metaData: [],
+    metadata: {},
   })
   const { id } = useParams()
 
@@ -50,7 +50,7 @@ function DetailView() {
     }
     getDetail()
   }, [])
-  // console.log('axios 호출 밖에서:', goals)
+  // console.log('axios 호출 밖에서:', data)
 
   return (
     <>
@@ -61,7 +61,9 @@ function DetailView() {
           </Col>
         </Row>
         <Row>
-          <h3>할일</h3>
+          <Col>
+            <h3>할일</h3>
+          </Col>
           <Col>
             <ProgressBar total={5} done={2}></ProgressBar>
           </Col>
@@ -74,7 +76,9 @@ function DetailView() {
           </Col>
         </Row>
         <Row>
-          <h3>타임라인</h3>
+          <Col>
+            <h3>타임라인</h3>
+          </Col>
           <Col>
             <Timeline onClick={openTimelineEditModal}></Timeline>
           </Col>

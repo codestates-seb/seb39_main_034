@@ -8,10 +8,12 @@ import { Notice } from '../components/Widget/WidgetStyle'
 
 function Main() {
   // console.log('메인뷰 실행될 때 찍은 로그')
-  const [categoryQuery, setCategoryQuery] = useState('all')
+  const [categoryId, setCategoryId] = useState(0)
+  const [statusId, setStatusId] = useState(0)
   const [pageNumber, setPageNumber] = useState(1)
   const { loading, error, cards, hasMore } = useGetCards(
-    categoryQuery,
+    categoryId,
+    statusId,
     pageNumber
   )
   const observer = useRef()
@@ -34,7 +36,12 @@ function Main() {
     <Container>
       <Row>
         <Col>
-          <Lnb setCategoryQuery={setCategoryQuery} />
+          <Lnb
+            categoryId={categoryId}
+            setCategoryId={setCategoryId}
+            setStatusId={setStatusId}
+            statusId={statusId}
+          />
         </Col>
       </Row>
       <Row>
@@ -67,7 +74,9 @@ function Main() {
                   <Card
                     category={card.category}
                     title={card.title}
-                    status={card.status === '진행중' && card.status}
+                    status={
+                      card.status === '진행중' ? card.status : card.result
+                    }
                     done={card.numberOfCompletedTodos}
                     todo={card.numberOfFollowers}
                     follow={card.numberOfFollowers}
