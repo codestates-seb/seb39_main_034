@@ -6,6 +6,7 @@ export const CardWrapper = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 400px;
+  margin: 8px 0;
   color: ${({ theme }) => theme.dark};
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 10px;
@@ -26,6 +27,7 @@ export const CardBanner = styled.div`
 
 export const CardBody = styled.div`
   padding: 0 12px;
+  margin: 0 auto;
   h4 {
     width: 100%;
     height: 54px;
