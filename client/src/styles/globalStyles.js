@@ -165,7 +165,6 @@ export const Textarea = styled.textarea`
     box-shadow: inset 0px 0px 5px white;
   }
 `
-
 /* 칼럼 그리드 컴포넌트들은 내용이 길어서 responsive.js에서 설정함
 improt한 후 그대로 export함*/
 export { Container, Row, Col }
