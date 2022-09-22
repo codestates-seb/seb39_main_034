@@ -41,6 +41,7 @@ function Main() {
             setCategoryId={setCategoryId}
             setStatusId={setStatusId}
             statusId={statusId}
+            setPageNumber={setPageNumber}
           />
         </Col>
       </Row>
@@ -54,7 +55,9 @@ function Main() {
                   <Card
                     category={card.category}
                     title={card.title}
-                    status={card.status === '진행중' && card.status}
+                    status={
+                      card.status === '진행중' ? card.status : card.result
+                    }
                     done={card.numberOfCompletedTodos}
                     todo={card.numberOfFollowers}
                     follow={card.numberOfFollowers}
@@ -96,7 +99,8 @@ function Main() {
         <Col>
           <Notice>
             <div>{loading && '로딩 중입니다...🐢'}</div>
-            <div>{error && '에러가 발생했습니다 🤔 '}</div>
+            <div>{error && '에러가 발생했어요 🤔 '}</div>
+            <div>{cards.length === 0 && '검색 결과가 없어요 🙅'}</div>
           </Notice>
         </Col>
       </Row>

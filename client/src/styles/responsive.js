@@ -65,10 +65,13 @@ export const Col = styled.div`
   width: ${({ lg }) =>
     lg ? lg * (lgUnit + gutter) : lgColumns * (lgUnit + gutter)}px;
   /* width: ${({ lg }) => (lg ? (lg / lgColumns) * 100 : 100)}%; */
-  min-width: ${lgColumns * (lgUnit + gutter)};
+  /* min-width: ${lgColumns * (lgUnit + gutter)}; */
   height: ${({ height }) => (height ? height : 'auto')};
   max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : 'auto')};
   min-height: ${({ minHeight }) => (minHeight ? minHeight : 'auto')};
+  > a {
+    width: 100%;
+  }
   @media screen and (max-width: ${breakpoint}px) {
     width: ${({ sm }) => (sm / smColumns) * 100}%;
   }

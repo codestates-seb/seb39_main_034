@@ -63,7 +63,6 @@ html{
 }
 a{
   display: 'inline-block';
-  width: 100%;
 }
 `
 

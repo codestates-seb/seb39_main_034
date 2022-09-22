@@ -35,7 +35,7 @@ function DetailView() {
     setIsOpen(!isOpen)
   }
 
-  console.log('axios 호출 전에:', data)
+  // console.log('axios 호출 전에:', data)
   useEffect(() => {
     async function getDetail() {
       await axios
@@ -65,7 +65,7 @@ function DetailView() {
             <h3>할일</h3>
           </Col>
           <Col>
-            <ProgressBar total={5} done={2}></ProgressBar>
+            <ProgressBar metadata={data.metadata}></ProgressBar>
           </Col>
           <Col>
             <Todo data={data}></Todo>
