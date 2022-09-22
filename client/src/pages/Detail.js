@@ -19,7 +19,7 @@ function DetailView() {
   const [isOpenTimelineEditModal, setIsOpenTimelineEditModal] = useState(false)
 
   const [data, setData] = useState({
-    goal: { todoList: [] },
+    goal: { todoList: [], timelineList: [] },
     metadata: {},
   })
   const { id } = useParams()
@@ -30,10 +30,12 @@ function DetailView() {
 
   const openTimelineEditModal = () => {
     setIsOpenTimelineEditModal(!isOpenTimelineEditModal)
+    document.body.style.overflow = 'hidden'
   }
 
   const openTimelineModal = () => {
     setIsOpen(!isOpen)
+    document.body.style.overflow = 'hidden'
   }
 
   // console.log('axios 호출 전에:', data)
@@ -81,7 +83,7 @@ function DetailView() {
             <h3>타임라인</h3>
           </Col>
           <Col>
-            <Timeline onClick={openTimelineEditModal}></Timeline>
+            <Timeline data={data} onClick={openTimelineEditModal}></Timeline>
           </Col>
           <Col>
             <PlusBtn onClick={openTimelineModal} />

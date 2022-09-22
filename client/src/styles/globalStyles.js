@@ -130,10 +130,12 @@ export const Button = styled.button`
   }
 `
 export const ModalWrapper = styled.div`
-  position: absolute;
-  top: 0;
+  position: fixed;
   width: 100%;
   height: 100vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `
 export const ModalBackground = styled(ModalWrapper)`
   background-color: ${(props) => props.theme.black};
@@ -167,6 +169,10 @@ export const Textarea = styled.textarea`
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
   }
+`
+
+export const Icon = styled.div`
+  padding: 20px 10px;
 `
 
 /* 칼럼 그리드 컴포넌트들은 내용이 길어서 responsive.js에서 설정함

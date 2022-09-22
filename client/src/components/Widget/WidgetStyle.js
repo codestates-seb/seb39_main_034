@@ -42,15 +42,6 @@ export const PlusBtn = React.memo(function PlustBtn({ onClick }) {
   )
 })
 
-export const PlusBtn2 = React.memo(function PlustBtn({ onClick }) {
-  console.log('플러스 버튼2 렌더링')
-  return (
-    <PlusBtnBase onClick={onClick}>
-      <FaPlus size="30" />
-    </PlusBtnBase>
-  )
-})
-
 const GrayBtn = styled.button`
   width: 24px;
   height: 24px;
