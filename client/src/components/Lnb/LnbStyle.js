@@ -7,8 +7,9 @@ export const CategoryBtn = styled(Button)`
   height: 35px;
   border-radius: 30px;
   margin: 0 4px;
-  color: ${({ theme }) => theme.dark};
-  background: ${({ theme }) => theme.background};
+  color: ${({ isActive, theme }) => (isActive ? theme.white : theme.dark)};
+  background: ${({ isActive, theme }) =>
+    isActive ? theme.violet_m : theme.background};
   &:active {
     color: ${({ theme }) => theme.white};
     background: ${({ theme }) => theme.violet_m};
@@ -18,19 +19,25 @@ export const CategoryBtn = styled(Button)`
 const StatusBtnBase = styled(CategoryBtn)`
   width: 50px;
   height: 50px;
+  display: ${({ value }) => (value === 0 ? 'none' : '')};
   div {
     font-size: 30px;
   }
 `
 
-export const StatusBtn = ({ status }) => (
-  <StatusBtnBase>
+export const StatusBtn = ({ onClick, status, idx, statusId }) => (
+  <StatusBtnBase
+    onClick={onClick}
+    status={status}
+    value={idx}
+    isActive={idx == statusId ? 1 : 0}
+  >
     <div>
-      {status === 'pending'
+      {status === '진행중'
         ? '🏃'
-        : status === 'success'
+        : status === '목표달성'
         ? '🎉'
-        : status === 'fail'
+        : status === '달성실패'
         ? '💦'
         : null}
     </div>

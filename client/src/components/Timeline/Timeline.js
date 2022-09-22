@@ -8,19 +8,13 @@ export default function Timeline({ onClick }) {
   const [questions] = useState(data)
 
   return (
-    <>
-      <TimelineContainer>
-        {questions.map((question) => {
-          return (
-            <TimelineContent
-              key={question.id}
-              {...question}
-              onClick={onClick}
-            />
-          )
-        })}
-      </TimelineContainer>
-    </>
+    <TimelineContainer>
+      {questions.map((question) => {
+        return (
+          <TimelineContent key={question.id} {...question} onClick={onClick} />
+        )
+      })}
+    </TimelineContainer>
   )
 }
 

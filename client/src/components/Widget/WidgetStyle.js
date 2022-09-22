@@ -9,6 +9,7 @@ import {
 } from 'react-icons/bs'
 import { ImFilePicture } from 'react-icons/im'
 import { AiFillCloseSquare } from 'react-icons/ai'
+import React from 'react'
 
 export const CompleteBtn = styled(Button)`
   width: 100px;
@@ -21,7 +22,7 @@ export const CompleteBtn = styled(Button)`
   }
 `
 export const PlusBtnBase = styled(Button)`
-  width: 1140px;
+  width: 100%;
   height: 60px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -32,11 +33,23 @@ export const PlusBtnBase = styled(Button)`
   }
 `
 
-export const PlusBtn = ({ onClick }) => (
-  <PlusBtnBase onClick={onClick}>
-    <FaPlus size="30" />
-  </PlusBtnBase>
-)
+export const PlusBtn = React.memo(function PlustBtn({ onClick }) {
+  // console.log('플러스 버튼 렌더링')
+  return (
+    <PlusBtnBase onClick={onClick}>
+      <FaPlus size="30" />
+    </PlusBtnBase>
+  )
+})
+
+export const PlusBtn2 = React.memo(function PlustBtn({ onClick }) {
+  console.log('플러스 버튼2 렌더링')
+  return (
+    <PlusBtnBase onClick={onClick}>
+      <FaPlus size="30" />
+    </PlusBtnBase>
+  )
+})
 
 const GrayBtn = styled.button`
   width: 24px;
@@ -50,7 +63,6 @@ const GrayBtn = styled.button`
   }
 `
 
-// 타임라인 수정 , 투두 수정, 마일스톤 수정 -> by click
 export const EditBtn = ({ onClick }) => (
   <GrayBtn onClick={onClick}>
     <RiPencilFill size="24" />
@@ -91,4 +103,44 @@ export const XBtn = ({ onClick }) => (
   <GrayBtn onClick={onClick}>
     <AiFillCloseSquare size="24" />
   </GrayBtn>
+)
+
+export const Notice = styled.div`
+  width: 100%;
+  height: 100px;
+  line-height: 100px;
+  font-size: 20px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.dark};
+  > div {
+    margin: 0 auto;
+    text-align: center;
+  }
+`
+
+const ProfileBase = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  height: 30px;
+  cursor: pointer;
+  div.image {
+    width: 28px;
+    height: 28px;
+    border-radius: 28px;
+    background-image: url(${({ image }) => image});
+    background-size: cover;
+    background-position: center;
+    margin-right: 4px;
+  }
+  div.text {
+    font-size: ${({ theme }) => theme.font16};
+  }
+`
+
+export const Profile = ({ image, author }) => (
+  <ProfileBase image={image}>
+    <div className="image"></div>
+    <div className="text">{author}</div>
+  </ProfileBase>
 )

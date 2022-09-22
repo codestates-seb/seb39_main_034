@@ -25,11 +25,11 @@ const smColumns = 4
 const smMargin = 5
 
 const gutter = 20
-const lgMaxContainer = (lgUnit + gutter) * lgColumns
+const lgMaxContainer = 1140
 
 export const Container = styled.div`
   width: 100%;
-  max-width: ${lgMaxContainer}px;
+  max-width: ${lgMaxContainer + 20}px;
   margin: 0 auto;
   @media screen and (max-width: ${breakpoint}px) {
     padding: 0 ${smMargin}px;
@@ -43,7 +43,7 @@ export const Row = styled.div`
   align-items: ${({ align }) => (align ? align : '')};
   gap: ${({ gap }) => (gap ? gap : '')};
   padding: ${({ padding }) => (padding ? padding : '')};
-  margin: ${({ margin }) => (margin ? margin : '')};
+  margin: 0 10px;
   position: ${({ position }) => (position ? position : '')};
   width: ${({ width }) => (width ? width : 'auto')};
   min-width: ${({ minWidth }) => (minWidth ? minWidth : 'auto')};
@@ -64,12 +64,12 @@ export const Col = styled.div`
   position: ${({ position }) => (position ? position : '')};
   width: ${({ lg }) =>
     lg ? lg * (lgUnit + gutter) : lgColumns * (lgUnit + gutter)}px;
-  min-width: ${({ minWidth }) => (minWidth ? minWidth : 'auto')};
-  max-width: ${({ maxWidth }) => (maxWidth ? maxWidth : 'auto')};
+  /* width: ${({ lg }) => (lg ? (lg / lgColumns) * 100 : 100)}%; */
+  min-width: ${lgColumns * (lgUnit + gutter)};
   height: ${({ height }) => (height ? height : 'auto')};
   max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : 'auto')};
   min-height: ${({ minHeight }) => (minHeight ? minHeight : 'auto')};
   @media screen and (max-width: ${breakpoint}px) {
-    width: ${(props) => (props.sm / smColumns) * 100}%;
+    width: ${({ sm }) => (sm / smColumns) * 100}%;
   }
 `

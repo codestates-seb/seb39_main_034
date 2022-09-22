@@ -40,6 +40,9 @@ footer, header, hgroup, menu, nav, section {
 body {
     line-height: 1;
 }
+h3{
+  margin: 20px 0;
+}
 ol, ul {
     list-style: none;
 }
@@ -139,8 +142,11 @@ export const ModalBackground = styled(ModalWrapper)`
   z-index: 1;
 `
 export const Input = styled.input`
+  width: 100%;
+  height: auto;
   border: none;
   outline: none;
+  line-height: 16px;
   font-size: 16px;
   color: ${(props) => props.theme.primary};
 `

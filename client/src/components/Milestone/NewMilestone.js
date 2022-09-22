@@ -71,7 +71,7 @@ export const NewMilestone = () => {
   return (
     <MilestoneContainer>
       <div className="inputs">
-        <p>분류</p>
+        <h3>분류</h3>
         <SelectBox
           options={Options}
           name="category"
@@ -80,7 +80,7 @@ export const NewMilestone = () => {
         />
       </div>
       <div className="inputs">
-        <p>제목</p>
+        <h3>제목</h3>
         <Input
           type="text"
           name="title"
@@ -92,7 +92,7 @@ export const NewMilestone = () => {
       </div>
       <div className="inputs">
         <div className="p__guide">
-          <p>소개</p>
+          <h3>소개</h3>
           <p>
             목표를 간단히 설명해 주세요. 한 번 작성한 목표는 수정할 수 없어요.
           </p>
@@ -108,7 +108,7 @@ export const NewMilestone = () => {
       </div>
       <div className="inputs">
         <div className="p__guide">
-          <p>성공시</p>
+          <h3>성공시</h3>
           <p>나와의 약속을 만들어주세요.</p>
         </div>
         <Input
@@ -122,7 +122,7 @@ export const NewMilestone = () => {
       </div>
       <div className="inputs">
         <div className="p__guide">
-          <p>실패시</p>
+          <h3>실패시</h3>
           <p>나와의 약속을 만들어주세요.</p>
         </div>
         <Input
@@ -136,7 +136,7 @@ export const NewMilestone = () => {
       </div>
       <div className="inputs">
         <div className="p__guide">
-          <p>기간 설정</p>
+          <h3>기간 설정</h3>
           <p>종료날짜를 설정해주세요</p>
         </div>
         <p>종료 날짜: {moment(endDate).format('YYYY-MM-DD')}</p>
