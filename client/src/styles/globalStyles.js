@@ -142,8 +142,11 @@ export const ModalBackground = styled(ModalWrapper)`
   z-index: 1;
 `
 export const Input = styled.input`
+  width: 100%;
+  height: auto;
   border: none;
   outline: none;
+  line-height: 16px;
   font-size: 16px;
   color: ${(props) => props.theme.primary};
 `

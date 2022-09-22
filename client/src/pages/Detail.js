@@ -1,15 +1,16 @@
-import { Col, Container, Row } from '../styles/globalStyles'
-import Milestone from '../components/Milestone/Milestone'
-import Todo from '../components/Todo/Todolist'
-import { ProgressBar } from '../components/Todo/TodolistStyle'
-import Timeline from '../components/Timeline/Timeline'
-import Reaction from '../components/Reaction/Reaction'
-import { PlusBtn } from '../components/Widget/WidgetStyle'
-import { TimelineModal } from '../components/Timeline/TimelineModal'
-import { useState, useEffect } from 'react'
-import { TodoCreate } from '../components/Todo/TodoCreate'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import Milestone from '../components/Milestone/Milestone'
+import Todo from '../components/Todo/Todolist'
+import Timeline from '../components/Timeline/Timeline'
+import Reaction from '../components/Reaction/Reaction'
+import Comment from '../components/Comment/Comment'
+import { ProgressBar } from '../components/Todo/TodolistStyle'
+import { TodoCreate } from '../components/Todo/TodoCreate'
+import { TimelineModal } from '../components/Timeline/TimelineModal'
+import { Col, Container, Row } from '../styles/globalStyles'
+import { PlusBtn } from '../components/Widget/WidgetStyle'
 
 function DetailView() {
   //timeline modal
@@ -89,6 +90,16 @@ function DetailView() {
         <Row>
           <Col>
             <Reaction></Reaction>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <h3>코멘트</h3>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Comment />
           </Col>
         </Row>
       </Container>
