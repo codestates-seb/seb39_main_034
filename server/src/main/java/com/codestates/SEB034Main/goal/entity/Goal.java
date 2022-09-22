@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -111,5 +113,13 @@ public class Goal {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setResult(GoalResult result) {
+        this.result = result;
     }
 }

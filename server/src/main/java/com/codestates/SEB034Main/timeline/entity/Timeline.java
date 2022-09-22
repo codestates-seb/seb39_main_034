@@ -39,4 +39,8 @@ public class Timeline {
     @OneToOne
     @JoinColumn(name = "imageId")
     private Image image;
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

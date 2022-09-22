@@ -9,6 +9,7 @@ import com.codestates.SEB034Main.goal.entity.Goal;
 import com.codestates.SEB034Main.goal.repository.CategoryRepository;
 import com.codestates.SEB034Main.goal.repository.GoalRepository;
 import com.codestates.SEB034Main.todo.dto.PostTodoDto;
+import com.codestates.SEB034Main.todo.entity.Todo;
 import com.codestates.SEB034Main.todo.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -77,6 +80,7 @@ public class GoalService {
         }
         return goalRepository.findAll(PageRequest.of(page, size, Sort.by("goalId").descending()));
     }
+
     public Page<Goal> categoryAndStatusFilter(int categoryId, int status, int page, int size) {
         if (categoryId == 0) {
             if (status == 0) {
@@ -116,6 +120,7 @@ public class GoalService {
 
         return verifiedGoal;
     }
+
     public Goal patchGoal(PatchGoalDto patchGoalDto, long goalId) {
         Goal verifiedGoal = findVerifiedGoal(goalId);
 
@@ -143,10 +148,37 @@ public class GoalService {
 
     @Transactional(readOnly = true)
     public Goal findVerifiedGoal(long goalId) {
-        Optional<Goal> optionalQuestion = goalRepository.findById(goalId);
+        Optional<Goal> optionalGoal = goalRepository.findById(goalId);
         Goal findGoal =
-                optionalQuestion.orElseThrow(() ->
+                optionalGoal.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.GOAL_NOT_FOUND));
         return findGoal;
+    }
+
+    @Transactional
+    public void decideGoalResult() {
+        List<Goal> allGoals = goalRepository.findAll();
+        LocalDate todayDate = LocalDate.now();
+        for (Goal goal : allGoals) {
+            double numberOfTodos = goal.getTodoList().size();
+            double numberOfCompletedTodos = 0;
+            for (Todo todo : goal.getTodoList()) {
+                if (todo.getCompleted() == 1) {
+                    numberOfCompletedTodos++;
+                }
+            }
+            double progress = Math.round((numberOfCompletedTodos / numberOfTodos) * 100) / 100.0;
+            int progressPercent = (int) (progress * 100);
+            if (goal.getEndDate().isBefore(todayDate)) {
+                goal.setStatus(1);
+                if (progressPercent >= 85) {
+                    goal.setResult(Goal.GoalResult.SUCCESS);
+                    goalRepository.save(goal);
+                } else {
+                    goal.setResult(Goal.GoalResult.FAILURE);
+                    goalRepository.save(goal);
+                }
+            } else continue;
+        }
     }
 }
