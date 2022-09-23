@@ -35,6 +35,7 @@ function Mypage() {
   return (
     <Container>
       <Row>
+        여기는 마이페이지
         <MyLnb
           categoryId={categoryId}
           setCategoryId={setCategoryId}

@@ -114,6 +114,7 @@ const ProfileBase = styled.div`
   justify-content: start;
   align-items: center;
   height: 30px;
+  padding: 4px 8px;
   cursor: pointer;
   div.image {
     width: 28px;
@@ -122,15 +123,15 @@ const ProfileBase = styled.div`
     background-image: url(${({ image }) => image});
     background-size: cover;
     background-position: center;
-    margin-right: 4px;
+    margin-right: 8px;
   }
   div.text {
     font-size: ${({ theme }) => theme.font16};
   }
 `
 
-export const Profile = ({ image, author }) => (
-  <ProfileBase image={image}>
+export const Profile = ({ image, author, onClick }) => (
+  <ProfileBase image={image} onClick={onClick}>
     <div className="image"></div>
     <div className="text">{author}</div>
   </ProfileBase>
