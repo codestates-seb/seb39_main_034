@@ -9,10 +9,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -20,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/v1")
 @RestController
+@Validated
 public class TodoController {
 
     private final TodoService todoService;
@@ -55,15 +58,9 @@ public class TodoController {
     }
 
     @PatchMapping("/todo/{todoId}")
-    public ResponseEntity updateTodo(@Valid @RequestBody PatchTodoDto patchTodoDto, @PathVariable @Positive long todoId) {
+    public ResponseEntity updateTodo(@Valid @RequestBody PatchTodoDto patchTodoDto, @Min(0) @PathVariable @Positive long todoId) {
 
         todoService.updateTodo(patchTodoDto, todoId);
         return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @ExceptionHandler
-    public ResponseEntity handleException(MethodArgumentNotValidException e) {
-        final List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
-        return new ResponseEntity<>(fieldErrors, HttpStatus.BAD_REQUEST);
     }
 }

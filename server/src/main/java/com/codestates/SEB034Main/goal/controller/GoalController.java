@@ -12,11 +12,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -25,6 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/v1")
 @RestController
+@Validated
 public class GoalController {
 
     private final GoalService goalService;
@@ -119,7 +120,7 @@ public class GoalController {
     }
 
     @PatchMapping("/goal/{goalId}")
-    public ResponseEntity patchGoal(@Valid @RequestBody PatchGoalDto patchGoalDto, @PathVariable("goalId") @Positive long goalId) {
+    public ResponseEntity patchGoal(@Valid @RequestBody PatchGoalDto patchGoalDto, @PathVariable("goalId") @Min(1) @Positive long goalId) {
         Goal goal = goalService.patchGoal(patchGoalDto, goalId);
 
         return new ResponseEntity<>(goal, HttpStatus.OK);
@@ -131,10 +132,4 @@ public class GoalController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-//    @ExceptionHandler
-//    public ResponseEntity handleException(MethodArgumentNotValidException e) {
-//        final List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
-//        return new ResponseEntity<>(fieldErrors, HttpStatus.BAD_REQUEST);
-//    }
 }
