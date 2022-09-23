@@ -14,4 +14,12 @@ public class PostTodoDto {
 
     @NotBlank(message = "제목은 공백이 아니어야 합니다.")
     public String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

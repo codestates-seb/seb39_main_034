@@ -20,5 +20,9 @@ public class PatchTodoDto {
         this.title = title;
     }
 
+    public long getTodoId() {
+        return todoId;
+    }
+
     public void setTodoId(long todoId) {this.todoId = todoId;}
 }
