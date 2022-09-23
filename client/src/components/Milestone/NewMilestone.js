@@ -7,6 +7,7 @@ import moment from 'moment'
 import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import ImageUpload from './ImageUpload'
 
 export const NewMilestone = () => {
   const navigate = useNavigate()
@@ -160,7 +161,8 @@ export const NewMilestone = () => {
           <p>배너 이미지를 업로드하세요</p>
         </div>
         <div className="input__file">
-          <CompleteBtn>업로드</CompleteBtn>
+          {/* <CompleteBtn>업로드</CompleteBtn> */}
+          <ImageUpload />
         </div>
       </div>
       <div className="button__complete">
