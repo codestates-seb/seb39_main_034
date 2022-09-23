@@ -84,11 +84,12 @@ export const ProfileTooltip = styled.div`
   border-radius: 10px;
   border: 1px solid ${({ theme }) => theme.white};
   background: ${({ theme }) => theme.white};
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25));
+
   &::before,
   &::after {
     position: absolute;
-    top: -16px;
+    top: -17px;
     left: 50%;
     transform: translate(-50%, 0);
     display: block;
@@ -97,9 +98,14 @@ export const ProfileTooltip = styled.div`
     border-top: 8px solid transparent;
     border-right: 8px solid transparent;
     border-left: 8px solid transparent;
-    border-bottom: 8px solid ${({ theme }) => theme.violet_m};
+    border-bottom: 8px solid ${({ theme }) => theme.border};
     content: '';
   }
+  &::after {
+    top: -16px;
+    border-bottom-color: ${({ theme }) => theme.white};
+  }
+
   li {
     height: 36px;
     text-align: center;
