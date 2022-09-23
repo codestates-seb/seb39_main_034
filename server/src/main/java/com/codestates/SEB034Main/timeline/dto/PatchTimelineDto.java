@@ -7,8 +7,8 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-public class PostTimelineDto {
+public class PatchTimelineDto {
 
-    @NotBlank(message = "타임라인 내용은 공백이 아니어야 합니다.")
+    @NotBlank(message = "타임라인 수정 내용은 공백이 아니어야 합니다.")
     private String description;
 }
