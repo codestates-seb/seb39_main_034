@@ -3,20 +3,22 @@ import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Milestone from '../components/Milestone/Milestone'
 import Todo from '../components/Todo/Todolist'
-import Timeline from '../components/Timeline/Timeline'
+import Timeline from '../components/Timeline/Timelinelist'
+import TimelineCreate from '../components/Timeline/TimelineCreate'
 import Reaction from '../components/Reaction/Reaction'
 import Comment from '../components/Comment/Comment'
 import { ProgressBar } from '../components/Todo/TodolistStyle'
 import { TodoCreate } from '../components/Todo/TodoCreate'
 import { TimelineModal } from '../components/Timeline/TimelineModal'
 import { Col, Container, Row } from '../styles/globalStyles'
-import { PlusBtn } from '../components/Widget/WidgetStyle'
+import { PlusBtn, MoreBtn } from '../components/Widget/WidgetStyle'
 
 function DetailView() {
   //timeline modal
   const [isOpen, setIsOpen] = useState(false)
   const [openCreateChecklist, setOpenCreateChecklist] = useState(false)
   const [isOpenTimelineEditModal, setIsOpenTimelineEditModal] = useState(false)
+  const [openCreateTimeline, setOpenCreateTimeline] = useState(false)
 
   const [data, setData] = useState({
     goal: { todoList: [], timelineList: [] },
@@ -24,6 +26,10 @@ function DetailView() {
   })
   const { id } = useParams()
 
+  const openTimelineModal = () => {
+    setIsOpen(!isOpen)
+    document.body.style.overflow = 'hidden'
+  }
   const createChecklistToggle = () => {
     setOpenCreateChecklist(!openCreateChecklist)
   }
@@ -32,10 +38,8 @@ function DetailView() {
     setIsOpenTimelineEditModal(!isOpenTimelineEditModal)
     document.body.style.overflow = 'hidden'
   }
-
-  const openTimelineModal = () => {
-    setIsOpen(!isOpen)
-    document.body.style.overflow = 'hidden'
+  const createTimelineToggle = () => {
+    setOpenCreateTimeline(!openCreateTimeline)
   }
 
   // console.log('axios 호출 전에:', data)
@@ -80,13 +84,19 @@ function DetailView() {
         </Row>
         <Row>
           <Col>
-            <h3>타임라인</h3>
+            <h3>타임라인 {data.goal.timelineList.length}</h3>
           </Col>
           <Col>
             <Timeline data={data} onClick={openTimelineEditModal}></Timeline>
           </Col>
+          <Col>{openCreateTimeline && <TimelineCreate />}</Col>
+          {/* 작성자일 경우 */}
           <Col>
-            <PlusBtn onClick={openTimelineModal} />
+            <PlusBtn onClick={createTimelineToggle} />
+          </Col>
+          {/* 작성자 아닐 경우 */}
+          <Col>
+            <MoreBtn onClick={openTimelineModal}></MoreBtn>
           </Col>
         </Row>
         <Row>
@@ -105,10 +115,13 @@ function DetailView() {
           </Col>
         </Row>
       </Container>
-      {isOpenTimelineEditModal && (
-        <TimelineModal setIsOpen={setIsOpenTimelineEditModal} />
+      {isOpen && (
+        <TimelineModal
+          data={data}
+          onClick={openTimelineEditModal}
+          setIsOpen={setIsOpen}
+        />
       )}
-      {isOpen && <TimelineModal setIsOpen={setIsOpen} />}
     </>
   )
 }

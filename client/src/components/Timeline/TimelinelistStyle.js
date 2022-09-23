@@ -9,21 +9,39 @@ import {
 import theme from '../../styles/theme'
 
 export const TimelineContainer = styled(Container)`
+  .header__timeline2 {
+    display: flex;
+    justify-content: space-between;
+  }
   > article {
     margin: 10px 0;
+    border: 1px solid ${theme.border};
+    border-radius: 5px;
   }
   .header__timeline {
     display: flex;
     justify-content: space-between;
     height: 60px;
-    background-color: ${theme.violet_l};
+    background-color: ${({ review }) => (review ? review : theme.violet_l)};
     border-radius: 10px 10px 0 0;
 
     .header__timeline--icon {
       display: flex;
     }
   }
+  .header__create-timeline--icon {
+    display: flex;
+    justify-content: end;
+    border-bottom: 1px solid ${theme.border};
+  }
+  .header__editor {
+    display: flex;
+    justify-content: end;
+    height: 60px;
+    border-bottom: 1px solid ${theme.tertiary};
+  }
   .contents__timeline {
+    padding: 30px 20px;
     .contents {
     }
   }
@@ -58,6 +76,9 @@ export const TimelineModalContainer = styled(Container)`
     border-bottom: 1px solid ${theme.tertiary};
   }
   .contents__timeline {
+    overflow-y: scroll;
+    height: 520px;
+    padding: 0 20px;
     .button__complete {
       display: flex;
       justify-content: end;
@@ -74,7 +95,14 @@ export const Text = styled(TextWrapper)`
 
 export const TimelineTextarea = styled(Textarea)`
   width: 100%;
-  height: 420px;
+  height: auto;
   font-size: 16px;
   padding: 10px;
+`
+
+export const EmojiPickerBox = styled.div`
+  position: absolute;
+  margin-left: -250px;
+  border: 1px solid red;
+  z-index: 1;
 `

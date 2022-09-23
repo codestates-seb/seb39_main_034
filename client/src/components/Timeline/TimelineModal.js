@@ -3,39 +3,14 @@ import {
   TimelineModalContainer,
   Wrapper,
   Text,
-  TimelineTextarea,
-} from './TimelineStyle'
-import {
-  XBtn,
-  AddPicBtn,
-  AddEmojiBtn,
-  CompleteBtn,
-} from '../Widget/WidgetStyle'
+} from './TimelinelistStyle'
+import { XBtn } from '../Widget/WidgetStyle'
 import { AiFillCloseSquare } from 'react-icons/ai'
 import { Icon } from '../../styles/globalStyles'
-import Picker from 'emoji-picker-react'
-import { useState } from 'react'
+import Timelinelist from './Timelinelist'
 
 export const TimelineModal = (props) => {
-  const { setIsOpen } = props
-  const [description, setDescription] = useState('')
-  const [openChoseEmoji, setOpenChoseEmoji] = useState(false)
-
-  const HnadleEmoji = () => {
-    setOpenChoseEmoji(!openChoseEmoji)
-  }
-  console.log(description)
-  const handleTextarea = (e) => {
-    setDescription(e.target.value)
-  }
-  const onEmojiClick = (event, emojiObject) => {
-    const textAreaElement = document.getElementById('text-area')
-    setDescription(
-      description.substr(0, textAreaElement.selectionStart) +
-        emojiObject.emoji +
-        description.substr(textAreaElement.selectionEnd)
-    )
-  }
+  const { data, onClick, setIsOpen } = props
 
   const closeTimelineModal = () => {
     setIsOpen(false)
@@ -50,7 +25,7 @@ export const TimelineModal = (props) => {
       <TimelineModalContainer>
         {/* --header-- */}
         <div className="header__timeline">
-          <Text>2022년 09월 22일</Text>
+          <Text>조안나(joAnna) 님의 타임라인</Text>
           <div className="header__timeline--icon"></div>
           <Icon>
             <XBtn onClick={closeTimelineModal}>
@@ -58,26 +33,10 @@ export const TimelineModal = (props) => {
             </XBtn>
           </Icon>
         </div>
-        <div className="header__editor">
-          <Icon>
-            <AddPicBtn />
-          </Icon>
-          <Icon>
-            <AddEmojiBtn onClick={HnadleEmoji} />
-            {openChoseEmoji ? <Picker onEmojiClick={onEmojiClick} /> : null}
-          </Icon>
-        </div>
         {/* --content-- */}
         <div className="contents__timeline">
           <div className="contents">
-            <TimelineTextarea
-              id="text-area"
-              value={description}
-              onChange={handleTextarea}
-            />
-          </div>
-          <div className="button__complete">
-            <CompleteBtn>작성완료</CompleteBtn>
+            <Timelinelist data={data} onClick={onClick} />
           </div>
         </div>
       </TimelineModalContainer>
