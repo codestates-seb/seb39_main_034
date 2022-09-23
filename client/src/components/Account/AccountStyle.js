@@ -4,17 +4,19 @@ import { Button, Input } from '../../styles/globalStyles'
 export const FormWrapper = styled.div`
   width: 100%;
   padding-top: 100px;
+  h2 {
+    text-align: center;
+  }
   .link {
     display: flex;
+    justify-content: center;
     align-items: center;
     margin: 8px auto;
     font-size: ${({ theme }) => theme.font14};
     color: ${({ theme }) => theme.secondary};
     font-weight: 500;
-    span {
-      a {
-        color: ${({ theme }) => theme.violet_m};
-      }
+    a {
+      color: ${({ theme }) => theme.violet_m};
     }
   }
 `
@@ -29,7 +31,6 @@ export const InputForm = styled.div`
     width: 100%;
     height: 55px;
     display: flex;
-    justify-content: start;
     align-items: center;
     border: 1px solid ${({ theme }) => theme.border};
     border-radius: 10px;

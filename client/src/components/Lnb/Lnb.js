@@ -30,7 +30,7 @@ function Lnb({
       <Col
         justify={'space-between'}
         align={'center'}
-        padding={4}
+        padding={8}
         margin={'30px 0 0 0'}
       >
         <ListWrapper>
@@ -55,7 +55,7 @@ function Lnb({
       <Col
         justify={'space-between'}
         align={'center'}
-        padding={4}
+        padding={8}
         margin={'0 0 30px 0'}
       >
         <ListWrapper>

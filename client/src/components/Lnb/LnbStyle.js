@@ -8,6 +8,8 @@ export const ListWrapper = styled.div`
   .listName {
     width: 80px;
     height: 32px;
+    padding-right: 12px;
+    text-align: right;
     font-size: ${({ theme }) => theme.font18};
     line-height: 36px;
     border-right: 3px solid ${({ theme }) => theme.border};

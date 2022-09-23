@@ -9,7 +9,7 @@ function SignupForm() {
   return (
     <Container>
       <Row direction={'column'} align={'center'}>
-        <Col lg={6} align={'center'}>
+        <Col lg={6} md={8} justify={'center'}>
           <FormWrapper>
             <h2>회원가입</h2>
             <InputForm>

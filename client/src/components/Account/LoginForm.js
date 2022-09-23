@@ -9,7 +9,7 @@ function LoginForm() {
   return (
     <Container>
       <Row direction={'column'} align={'center'}>
-        <Col lg={6} align={'center'}>
+        <Col lg={6} md={8} align={'center'}>
           <FormWrapper>
             <h2>로그인</h2>
             <InputForm>
@@ -34,7 +34,7 @@ function LoginForm() {
             </div>
           </FormWrapper>
         </Col>
-        <Col lg={6} direction={'column'} align={'center'}>
+        <Col lg={6} md={8} direction={'column'} align={'center'}>
           <AccountBtn bg="white">구글 로그인</AccountBtn>
           <AccountBtn bg="dark">깃허브 로그인</AccountBtn>
         </Col>

@@ -62,7 +62,7 @@ export const CategoryBadge = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
+  width: 112px;
   height: 35px;
   border-radius: 30px;
   color: ${({ theme }) => theme.white};
@@ -116,7 +116,7 @@ export const StatusBadge = ({ status }) => (
 
 export const CardFooter = styled.div`
   height: 44px;
-  padding: 6px 12px;
+  padding: 6px 8px;
   border-top: 1px solid ${({ theme }) => theme.border};
   > div {
     float: right;
