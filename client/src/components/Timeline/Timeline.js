@@ -1,31 +1,36 @@
 import { useState } from 'react'
-import data from '../../data/TimelineData'
-import { TimelineContainer, Text, Icon } from './TimelineStyle'
+import moment from 'moment'
+import { TimelineContainer, Text } from './TimelineStyle'
 import { EditBtn, OpenBtn, CloseBtn } from '../Widget/WidgetStyle'
-// import { ModalWrapper } from '../../styles/globalStyles'
+import { Icon } from '../../styles/globalStyles'
 
-export default function Timeline({ onClick }) {
-  const [questions] = useState(data)
-
+export default function Timeline({ data, onClick }) {
+  const length = data.goal.timelineList.length
   return (
     <TimelineContainer>
-      {questions.map((question) => {
+      {data.goal.timelineList.map((timeline) => {
         return (
-          <TimelineContent key={question.id} {...question} onClick={onClick} />
+          <TimelineContent
+            key={timeline.timelineId}
+            {...timeline}
+            onClick={onClick}
+            length={length}
+          />
         )
       })}
     </TimelineContainer>
   )
 }
 
-export function TimelineContent({ today, info, onClick }) {
+export function TimelineContent({ createdAt, description, onClick }) {
   const [showInfo, setShowInfo] = useState(false)
+  const today = moment(createdAt).format('YYYY년 MM일 DD일')
 
   return (
     <article>
       {/* --header-- */}
       <div className="header__timeline">
-        <Text>{today}</Text>
+        <Text>작성일: {today}</Text>
         <div className="header__timeline--icon">
           <Icon>
             <EditBtn size={20} onClick={onClick} />
@@ -37,7 +42,7 @@ export function TimelineContent({ today, info, onClick }) {
       </div>
       {/* --content-- */}
       <div className="contents__timeline">
-        <div className="contents">{showInfo && <p>{info}</p>}</div>
+        <div className="contents">{showInfo && <p>{description}</p>}</div>
       </div>
     </article>
   )

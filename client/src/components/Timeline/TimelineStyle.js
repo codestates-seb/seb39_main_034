@@ -71,9 +71,7 @@ export const Text = styled(TextWrapper)`
   line-height: 60px;
   margin-left: 10px;
 `
-export const Icon = styled.div`
-  padding: 20px 10px;
-`
+
 export const TimelineTextarea = styled(Textarea)`
   width: 100%;
   height: 420px;

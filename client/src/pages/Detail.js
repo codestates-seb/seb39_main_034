@@ -1,15 +1,16 @@
-import { Col, Container, Row } from '../styles/globalStyles'
-import Milestone from '../components/Milestone/Milestone'
-import Todo from '../components/Todo/Todolist'
-import { ProgressBar } from '../components/Todo/TodolistStyle'
-import Timeline from '../components/Timeline/Timeline'
-import Reaction from '../components/Reaction/Reaction'
-import { PlusBtn } from '../components/Widget/WidgetStyle'
-import { TimelineModal } from '../components/Timeline/TimelineModal'
-import { useState, useEffect } from 'react'
-import { TodoCreate } from '../components/Todo/TodoCreate'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import Milestone from '../components/Milestone/Milestone'
+import Todo from '../components/Todo/Todolist'
+import Timeline from '../components/Timeline/Timeline'
+import Reaction from '../components/Reaction/Reaction'
+import Comment from '../components/Comment/Comment'
+import { ProgressBar } from '../components/Todo/TodolistStyle'
+import { TodoCreate } from '../components/Todo/TodoCreate'
+import { TimelineModal } from '../components/Timeline/TimelineModal'
+import { Col, Container, Row } from '../styles/globalStyles'
+import { PlusBtn } from '../components/Widget/WidgetStyle'
 
 function DetailView() {
   //timeline modal
@@ -18,7 +19,7 @@ function DetailView() {
   const [isOpenTimelineEditModal, setIsOpenTimelineEditModal] = useState(false)
 
   const [data, setData] = useState({
-    goal: { todoList: [] },
+    goal: { todoList: [], timelineList: [] },
     metadata: {},
   })
   const { id } = useParams()
@@ -29,10 +30,12 @@ function DetailView() {
 
   const openTimelineEditModal = () => {
     setIsOpenTimelineEditModal(!isOpenTimelineEditModal)
+    document.body.style.overflow = 'hidden'
   }
 
   const openTimelineModal = () => {
     setIsOpen(!isOpen)
+    document.body.style.overflow = 'hidden'
   }
 
   // console.log('axios 호출 전에:', data)
@@ -80,7 +83,7 @@ function DetailView() {
             <h3>타임라인</h3>
           </Col>
           <Col>
-            <Timeline onClick={openTimelineEditModal}></Timeline>
+            <Timeline data={data} onClick={openTimelineEditModal}></Timeline>
           </Col>
           <Col>
             <PlusBtn onClick={openTimelineModal} />
@@ -89,6 +92,16 @@ function DetailView() {
         <Row>
           <Col>
             <Reaction></Reaction>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <h3>코멘트</h3>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Comment />
           </Col>
         </Row>
       </Container>

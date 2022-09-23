@@ -3,7 +3,6 @@ import {
   TimelineModalContainer,
   Wrapper,
   Text,
-  Icon,
   TimelineTextarea,
 } from './TimelineStyle'
 import {
@@ -13,12 +12,15 @@ import {
   CompleteBtn,
 } from '../Widget/WidgetStyle'
 import { AiFillCloseSquare } from 'react-icons/ai'
+import { Icon } from '../../styles/globalStyles'
 
 export const TimelineModal = (props) => {
   const { setIsOpen } = props
   const closeTimelineModal = () => {
     setIsOpen(false)
+    document.body.style.overflow = 'unset'
   }
+
   return (
     <Wrapper>
       {/*최상위에 있는 navigation 포함 black background를 씌어주기 위해 
@@ -27,7 +29,7 @@ export const TimelineModal = (props) => {
       <TimelineModalContainer>
         {/* --header-- */}
         <div className="header__timeline">
-          <Text>2022년 9월 19일(월)</Text>
+          <Text>2022년 09월 22일</Text>
           <div className="header__timeline--icon"></div>
           <Icon>
             <XBtn onClick={closeTimelineModal}>
