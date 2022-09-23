@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const categoryList = ['전체보기', '운동', '생활습관', '독서', '공부']
 const statusList = ['선택안함', '진행중', '목표달성', '달성실패']
 
-function Lnb({
+function MyLnb({
   categoryId,
   setCategoryId,
   statusId,
@@ -80,4 +80,4 @@ function Lnb({
   )
 }
 
-export default Lnb
+export default MyLnb
