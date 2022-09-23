@@ -1,13 +1,13 @@
-import { useState, useRef, useCallback } from 'react'
 import { Container, Row, Col } from '../styles/globalStyles'
-import useGetCards from '../hook/useGetCards'
+import { useState, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import Lnb from '../components/Lnb/Lnb'
-import Card from '../components/Card/Card'
+import useGetCards from '../hook/useGetCards'
 import { Notice } from '../components/Widget/WidgetStyle'
 
-function Main() {
-  // console.log('메인뷰 실행될 때 찍은 로그')
+import MyLnb from '../components/Lnb/MyLnb'
+import Card from '../components/Card/Card'
+
+function Mypage() {
   const [categoryId, setCategoryId] = useState(0)
   const [statusId, setStatusId] = useState(0)
   const [pageNumber, setPageNumber] = useState(1)
@@ -35,7 +35,7 @@ function Main() {
   return (
     <Container>
       <Row>
-        <Lnb
+        <MyLnb
           categoryId={categoryId}
           setCategoryId={setCategoryId}
           setStatusId={setStatusId}
@@ -113,4 +113,4 @@ function Main() {
   )
 }
 
-export default Main
+export default Mypage
