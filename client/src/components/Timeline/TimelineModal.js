@@ -13,9 +13,30 @@ import {
 } from '../Widget/WidgetStyle'
 import { AiFillCloseSquare } from 'react-icons/ai'
 import { Icon } from '../../styles/globalStyles'
+import Picker from 'emoji-picker-react'
+import { useState } from 'react'
 
 export const TimelineModal = (props) => {
   const { setIsOpen } = props
+  const [description, setDescription] = useState('')
+  const [openChoseEmoji, setOpenChoseEmoji] = useState(false)
+
+  const HnadleEmoji = () => {
+    setOpenChoseEmoji(!openChoseEmoji)
+  }
+  console.log(description)
+  const handleTextarea = (e) => {
+    setDescription(e.target.value)
+  }
+  const onEmojiClick = (event, emojiObject) => {
+    const textAreaElement = document.getElementById('text-area')
+    setDescription(
+      description.substr(0, textAreaElement.selectionStart) +
+        emojiObject.emoji +
+        description.substr(textAreaElement.selectionEnd)
+    )
+  }
+
   const closeTimelineModal = () => {
     setIsOpen(false)
     document.body.style.overflow = 'unset'
@@ -42,13 +63,18 @@ export const TimelineModal = (props) => {
             <AddPicBtn />
           </Icon>
           <Icon>
-            <AddEmojiBtn />
+            <AddEmojiBtn onClick={HnadleEmoji} />
+            {openChoseEmoji ? <Picker onEmojiClick={onEmojiClick} /> : null}
           </Icon>
         </div>
         {/* --content-- */}
         <div className="contents__timeline">
           <div className="contents">
-            <TimelineTextarea />
+            <TimelineTextarea
+              id="text-area"
+              value={description}
+              onChange={handleTextarea}
+            />
           </div>
           <div className="button__complete">
             <CompleteBtn>작성완료</CompleteBtn>
