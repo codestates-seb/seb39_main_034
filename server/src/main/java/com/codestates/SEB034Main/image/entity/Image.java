@@ -1,6 +1,7 @@
-package com.codestates.SEB034Main.comment.entity;
+package com.codestates.SEB034Main.image.entity;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,22 +12,23 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 @Entity
-public class Comment {
+@NoArgsConstructor
+@AllArgsConstructor
+public class Image {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long commentId;
-
-    @ManyToOne
-    @JoinColumn(name = "goalId")
-    private Goal goal;
+    private Long imageId;
 
     @Column(nullable = false)
-    private String comment;
+    private String url;
 
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Builder.Default
     private LocalDateTime modifiedAt = LocalDateTime.now();
+
+    @OneToOne(mappedBy = "image", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Goal goal;
 }
