@@ -1,6 +1,7 @@
 package com.codestates.SEB034Main.image.entity;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,8 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Image {
 
     @Id

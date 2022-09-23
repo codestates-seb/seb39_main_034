@@ -18,6 +18,12 @@ public class GoalMapper {
 
         for (Goal eachGoal: goal) {
             List<Todo> todoList = eachGoal.getTodoList();
+            String imageURL = "";
+
+            if (eachGoal.getImage() == null) {
+                imageURL = "";
+            } else imageURL = eachGoal.getImage().getUrl();
+
             int numberOfCompletedTodos = 0;
             for (Todo todos: todoList) {
                 if (todos.getCompleted() == 1) {
@@ -31,6 +37,7 @@ public class GoalMapper {
             goalListResponseDto.setCategory(eachGoal.getCategory().getCategoryName());
             goalListResponseDto.setNumberOfTodos(eachGoal.getTodoList().size());
             goalListResponseDto.setNumberOfCompletedTodos(numberOfCompletedTodos);
+            goalListResponseDto.setImageURL(imageURL);
             goalListResponseDto.setNumberOfFollowers(3);
 
             if (eachGoal.getStatus() == 0) {

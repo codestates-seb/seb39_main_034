@@ -13,15 +13,27 @@ spring:
       hibernate:
         format_sql: true
 
-#  config:
-#    import:
-#      - optional:classpath:/setting.yml
+  config:
+    import:
+      - optional:classpath:/setting.yml
 
 
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: iamjyoungkim@gmail.com
+    password:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
 
 
 logging:

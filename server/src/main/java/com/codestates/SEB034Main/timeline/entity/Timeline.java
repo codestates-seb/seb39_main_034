@@ -25,6 +25,10 @@ public class Timeline {
     @Column(nullable = false)
     private String description;
 
+    @Column(columnDefinition = "TINYINT", length = 1)
+    @Builder.Default
+    private int finalTimeline = 0;
+
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 

@@ -8,6 +8,8 @@ import com.codestates.SEB034Main.goal.entity.Category;
 import com.codestates.SEB034Main.goal.entity.Goal;
 import com.codestates.SEB034Main.goal.repository.CategoryRepository;
 import com.codestates.SEB034Main.goal.repository.GoalRepository;
+import com.codestates.SEB034Main.image.entity.Image;
+import com.codestates.SEB034Main.image.service.ImageService;
 import com.codestates.SEB034Main.todo.dto.PostTodoDto;
 import com.codestates.SEB034Main.todo.entity.Todo;
 import com.codestates.SEB034Main.todo.service.TodoService;
@@ -30,12 +32,16 @@ public class GoalService {
     private final GoalRepository goalRepository;
     private final CategoryRepository categoryRepository;
     private final TodoService todoService;
+    private final ImageService imageService;
 
     public Goal saveGoal(PostGoalDto postGoalDto) {
 
         String categoryName = postGoalDto.getCategory();
         Category byCategoryId = categoryRepository.findByCategoryName(categoryName);
-
+        Image verifiedImage = null;
+        if (postGoalDto.getImageId() != 0) {
+            verifiedImage = imageService.findVerifiedImage(postGoalDto.getImageId());
+        }
         Goal goal = Goal.builder()
                 .title(postGoalDto.getTitle())
                 .description(postGoalDto.getDescription())
@@ -43,6 +49,7 @@ public class GoalService {
                 .failurePenalty(postGoalDto.getFailurePenalty())
                 .endDate(postGoalDto.getEndDate())
                 .category(byCategoryId)
+                .image(verifiedImage)
                 .build();
 
         goalRepository.save(goal);

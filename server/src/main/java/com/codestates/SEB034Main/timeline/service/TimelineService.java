@@ -4,6 +4,8 @@ import com.codestates.SEB034Main.exception.BusinessLogicException;
 import com.codestates.SEB034Main.exception.ExceptionCode;
 import com.codestates.SEB034Main.goal.entity.Goal;
 import com.codestates.SEB034Main.goal.service.GoalService;
+import com.codestates.SEB034Main.image.entity.Image;
+import com.codestates.SEB034Main.image.service.ImageService;
 import com.codestates.SEB034Main.timeline.dto.PatchTimelineDto;
 import com.codestates.SEB034Main.timeline.dto.PostTimelineDto;
 import com.codestates.SEB034Main.timeline.entity.Timeline;
@@ -20,11 +22,17 @@ public class TimelineService {
 
     private final TimelineRepository timelineRepository;
     private final GoalService goalService;
+    private final ImageService imageService;
 
     public void createTimeline(PostTimelineDto postTimelineDto, long goalId) {
         Goal verifiedGoal = goalService.findVerifiedGoal(goalId);
+        Image verifiedImage = null;
+        if (postTimelineDto.getImageId() != 0) {
+            verifiedImage = imageService.findVerifiedImage(postTimelineDto.getImageId());
+        }
         Timeline timeline = Timeline.builder()
                 .description(postTimelineDto.getDescription())
+                .image(verifiedImage)
                 .goal(verifiedGoal)
                 .build();
 

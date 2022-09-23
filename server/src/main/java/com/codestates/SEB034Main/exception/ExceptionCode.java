@@ -7,7 +7,8 @@ public enum ExceptionCode {
     MEMBER_EXISTS(409, "Member exists"),
     GOAL_NOT_FOUND(404, "Goal not found"),
     TODO_NOT_FOUND(404, "Todo not found"),
-    TIMELINE_NOT_FOUND(404, "Timeline not found");
+    TIMELINE_NOT_FOUND(404, "Timeline not found"),
+    IMAGE_NOT_FOUND(404, "Image not found");
 
     @Getter
     private int status;

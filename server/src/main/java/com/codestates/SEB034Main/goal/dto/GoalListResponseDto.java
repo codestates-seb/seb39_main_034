@@ -17,6 +17,8 @@ public class GoalListResponseDto {
 
     private String result;
 
+    private String imageURL;
+
     private int numberOfTodos;
 
     private int numberOfCompletedTodos;
