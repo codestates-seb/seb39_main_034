@@ -1,5 +1,6 @@
-package com.codestates.SEB034Main.goal.controller;
+package com.codestates.SEB034Main.exception;
 
+import com.codestates.SEB034Main.exception.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

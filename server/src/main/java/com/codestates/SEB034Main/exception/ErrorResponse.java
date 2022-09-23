@@ -1,4 +1,4 @@
-package com.codestates.SEB034Main.goal.controller;
+package com.codestates.SEB034Main.exception;
 
 import lombok.Getter;
 import org.springframework.validation.BindingResult;
