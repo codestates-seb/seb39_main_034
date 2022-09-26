@@ -1,3 +1,4 @@
+/*
 package com.codestates.SEB034Main.infra.S3.service;
 
 import com.amazonaws.services.s3.AmazonS3;
@@ -40,3 +41,4 @@ public class S3Upload {
         return savedImage;
     }
 }
+*/

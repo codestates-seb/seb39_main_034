@@ -1,3 +1,4 @@
+/*
 package com.codestates.SEB034Main.infra.S3.controller;
 
 import com.codestates.SEB034Main.image.entity.Image;
@@ -25,3 +26,4 @@ public class S3Controller {
         return new ResponseEntity(s3Upload.upload(multipartFile), HttpStatus.CREATED);
     }
 }
+*/

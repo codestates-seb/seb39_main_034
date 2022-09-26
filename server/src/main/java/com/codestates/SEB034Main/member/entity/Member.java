@@ -1,5 +1,6 @@
 package com.codestates.SEB034Main.member.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,8 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member {
 
     @Id
@@ -36,6 +39,7 @@ public class Member {
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
     public enum MemberRole {
-        ROLE_USER
+        ROLE_USER,
+        ROLE_ADMIN
     }
 }
