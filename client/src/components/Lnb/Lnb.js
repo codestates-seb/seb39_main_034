@@ -20,7 +20,7 @@ function Lnb({
   function handleStatusClick(e) {
     console.log(e.currentTarget.value)
     e.currentTarget.value === statusId
-      ? setStatusId(null)
+      ? setStatusId(0)
       : setStatusId(e.currentTarget.value)
     setPageNumber(1)
   }

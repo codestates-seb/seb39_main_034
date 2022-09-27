@@ -18,7 +18,6 @@ function DetailView() {
   const [openCreateChecklist, setOpenCreateChecklist] = useState(false)
   const [isOpenTimelineEditModal, setIsOpenTimelineEditModal] = useState(false)
   const [openCreateTimeline, setOpenCreateTimeline] = useState(false)
-
   // const [data, setData] = useState({
   //   goal: { todoList: [], timelineList: [] },
   //   metadata: {},
