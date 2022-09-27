@@ -5,6 +5,8 @@ import { useState } from 'react'
 
 export default function Timeline({ data, onClick }) {
   const [isToggle, setIsToggle] = useState(true)
+  // const LimitData = data.goal.timelineList.slice(0, 5)
+  // const timelineData = data.goal.timelineList
   const closeToggle = () => {
     setIsToggle(false)
   }
@@ -19,11 +21,10 @@ export default function Timeline({ data, onClick }) {
             <h3>Today</h3>
             <OpenBtn onClick={closeToggle} />
           </div>
-          {data.goal.timelineList.map((timeline) => {
+          {data.map((timeline) => {
             return (
               <TimelineItem
                 key={timeline.timelineId}
-                timelineId={timeline.timelineId}
                 {...timeline}
                 onClick={onClick}
               />

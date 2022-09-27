@@ -1,21 +1,14 @@
 import TodoItem from './TodoItem'
 import { TodoList } from './TodolistStyle'
 
-function Checklist({ data }) {
+function Todolist({ data }) {
   return (
-    <>
-      <TodoList>
-        {data.goal.todoList.map((todo) => (
-          <TodoItem
-            key={todo.todoId}
-            todoId={todo.todoId}
-            title={todo.title}
-            done={todo.completed}
-          />
-        ))}
-      </TodoList>
-    </>
+    <TodoList>
+      {data.map((todo) => (
+        <TodoItem key={todo.todoId} {...todo} />
+      ))}
+    </TodoList>
   )
 }
 
-export default Checklist
+export default Todolist

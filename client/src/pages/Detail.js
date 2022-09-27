@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Milestone from '../components/Milestone/Milestone'
-import Todo from '../components/Todo/Todolist'
+import Todolist from '../components/Todo/Todolist'
 import Timeline from '../components/Timeline/Timelinelist'
 import TimelineCreate from '../components/Timeline/TimelineCreate'
 import Reaction from '../components/Reaction/Reaction'
@@ -14,16 +14,19 @@ import { Col, Container, Row } from '../styles/globalStyles'
 import { PlusBtn, MoreBtn } from '../components/Widget/WidgetStyle'
 
 function DetailView() {
-  //timeline modal
   const [isOpen, setIsOpen] = useState(false)
   const [openCreateChecklist, setOpenCreateChecklist] = useState(false)
   const [isOpenTimelineEditModal, setIsOpenTimelineEditModal] = useState(false)
   const [openCreateTimeline, setOpenCreateTimeline] = useState(false)
 
-  const [data, setData] = useState({
-    goal: { todoList: [], timelineList: [] },
-    metadata: {},
-  })
+  // const [data, setData] = useState({
+  //   goal: { todoList: [], timelineList: [] },
+  //   metadata: {},
+  // })
+  const [milestoneData, setMilestoneData] = useState({})
+  const [todoData, setTodoData] = useState([])
+  const [timelineData, setTimelineData] = useState([])
+  const [metaData, setMetaData] = useState({})
   const { id } = useParams()
 
   const openTimelineModal = () => {
@@ -42,14 +45,16 @@ function DetailView() {
     setOpenCreateTimeline(!openCreateTimeline)
   }
 
-  // console.log('axios 호출 전에:', data)
   useEffect(() => {
     async function getDetail() {
       await axios
         .get(`/v1/goal/${id}`)
         .then((res) => {
           console.log(res.data)
-          setData(res.data)
+          setMilestoneData(res.data.goal)
+          setTodoData(res.data.goal.todoList)
+          setTimelineData(res.data.goal.timelineList)
+          setMetaData(res.data.metadata)
         })
         .catch((err) => {
           console.log('ERROR: ', err)
@@ -57,14 +62,13 @@ function DetailView() {
     }
     getDetail()
   }, [])
-  // console.log('axios 호출 밖에서:', data)
 
   return (
     <>
       <Container>
         <Row>
           <Col>
-            <Milestone data={data}></Milestone>
+            <Milestone data={milestoneData}></Milestone>
           </Col>
         </Row>
         <Row>
@@ -72,27 +76,34 @@ function DetailView() {
             <h3>할일</h3>
           </Col>
           <Col>
-            <ProgressBar metadata={data.metadata}></ProgressBar>
+            <ProgressBar metadata={metaData}></ProgressBar>
           </Col>
           <Col>
-            <Todo data={data}></Todo>
+            <Todolist data={todoData}></Todolist>
           </Col>
-          <Col>{openCreateChecklist && <TodoCreate />}</Col>
           <Col>
-            <PlusBtn onClick={createChecklistToggle}></PlusBtn>
+            {openCreateChecklist && (
+              <TodoCreate todoData={todoData} setTodoData={setTodoData} />
+            )}
+          </Col>
+          <Col>
+            <PlusBtn onClick={createChecklistToggle} name="나는 투두"></PlusBtn>
           </Col>
         </Row>
         <Row>
           <Col>
-            <h3>타임라인 {data.goal.timelineList.length}</h3>
+            <h3>타임라인 {timelineData.length}</h3>
           </Col>
           <Col>
-            <Timeline data={data} onClick={openTimelineEditModal}></Timeline>
+            <Timeline
+              data={timelineData}
+              onClick={openTimelineEditModal}
+            ></Timeline>
           </Col>
           <Col>{openCreateTimeline && <TimelineCreate />}</Col>
           {/* 작성자일 경우 */}
           <Col>
-            <PlusBtn onClick={createTimelineToggle} />
+            <PlusBtn onClick={createTimelineToggle} name="나는 타임라인" />
           </Col>
           {/* 작성자 아닐 경우 */}
           <Col>
@@ -117,7 +128,7 @@ function DetailView() {
       </Container>
       {isOpen && (
         <TimelineModal
-          data={data}
+          data={timelineData}
           onClick={openTimelineEditModal}
           setIsOpen={setIsOpen}
         />

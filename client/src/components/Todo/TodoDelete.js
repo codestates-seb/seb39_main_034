@@ -1,9 +1,7 @@
 import { DeleteBtn } from '../Widget/WidgetStyle'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
 
 function TodoDelete({ todoId }) {
-  const navigate = useNavigate
   const handleDeleteClick = () => {
     axios({
       method: 'delete',
@@ -11,7 +9,7 @@ function TodoDelete({ todoId }) {
     })
       .then((res) => {
         console.log(res)
-        navigate(0)
+        alert('할 일 삭제')
       })
       .catch((err) => {
         console.log(err)

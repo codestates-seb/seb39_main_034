@@ -43,6 +43,10 @@ export const TimelineContainer = styled(Container)`
   .contents__timeline {
     padding: 30px 20px;
     .contents {
+      .contents__img {
+        width: 300px;
+        display: block;
+      }
     }
   }
 `
@@ -103,6 +107,15 @@ export const TimelineTextarea = styled(Textarea)`
 export const EmojiPickerBox = styled.div`
   position: absolute;
   margin-left: -250px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
+  z-index: 1;
+`
+export const ImageBox = styled.div`
+  position: absolute;
+  margin-left: -250px;
+  border: 1px solid ${theme.border};
+  background-color: ${theme.white};
+  border-radius: 5px;
+  padding: 10px;
   z-index: 1;
 `
