@@ -8,11 +8,27 @@ export default function useGetCards(categoryId, statusId, pageNumber) {
   const [cards, setCards] = useState([])
   const [hasMore, setHasMore] = useState(false)
 
+  // useEffect(() => {
+  //   setCards([])
+  //   console.log('useEffect#1')
+  // }, [categoryId, statusId])
+
+  // useEffect(() => {
+  //   if (categoryId) {
+  //     setCards([])
+  //     console.log('useEffect#1 카드리셋')
+  //   }
+  // }, [categoryId])
+
   useEffect(() => {
-    setCards([])
+    if (cards.length !== 0) {
+      setCards([])
+      console.log('useEffect#1 카드리셋')
+    }
   }, [categoryId, statusId])
 
   useEffect(() => {
+    // console.log('useEffect#2')
     setLoading(true)
     setError(false)
     let cancel
@@ -32,7 +48,7 @@ export default function useGetCards(categoryId, statusId, pageNumber) {
           return [...prevCards, ...res.data.data]
         })
         console.log('axios 받아옴')
-        console.log(res.data)
+        // console.log(res.data)
         setHasMore(res.data.pageInfo.totalPages > pageNumber)
         setLoading(false)
       })
@@ -42,6 +58,7 @@ export default function useGetCards(categoryId, statusId, pageNumber) {
         setError(true)
         console.log('Error: ', err)
       })
+    // console.log('useEffect#2 마지막 줄에서 찍은 로그')
     return () => cancel()
   }, [categoryId, statusId, pageNumber])
   // console.log('훅 마지막 줄에서 찍은 로그')

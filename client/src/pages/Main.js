@@ -23,7 +23,7 @@ function Main() {
       if (observer.current) observer.current.disconnect()
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          // console.log('마지막 요소 교차됨 => 커스텀훅 호출')
+          console.log('마지막 요소 교차됨 => 커스텀훅 호출')
           setPageNumber((prevPageNumber) => prevPageNumber + 1)
         }
       })
@@ -31,6 +31,9 @@ function Main() {
     },
     [loading, hasMore]
   )
+
+  console.log(categoryId, statusId, pageNumber)
+  console.log(loading, error, hasMore, cards.length)
 
   return (
     <Container>
@@ -45,7 +48,7 @@ function Main() {
       </Row>
       <Row>
         {cards.map((card, idx) => {
-          // console.log('카드 목록 렌더')
+          console.log('카드 목록 렌더')
           if (cards.length === idx + 1) {
             return (
               <Col
@@ -53,7 +56,7 @@ function Main() {
                 md={6}
                 sm={4}
                 ref={handleLastCardRef}
-                key={card.goadId}
+                key={card.goalId.toString()}
                 anchor={'100%'}
               >
                 <Link to={`/goal/detail/${card.goalId}`}>
@@ -77,7 +80,13 @@ function Main() {
             )
           } else {
             return (
-              <Col lg={4} md={6} sm={4} key={card.goadId} anchor={'100%'}>
+              <Col
+                lg={4}
+                md={6}
+                sm={4}
+                key={card.goalId.toString()}
+                anchor={'100%'}
+              >
                 <Link to={`/goal/detail/${card.goalId}`}>
                   <Card
                     category={card.category}

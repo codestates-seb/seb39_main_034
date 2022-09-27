@@ -1,4 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { SET_LOGIN, SET_LOGOUT } from '../../redux/authSlice'
 import { useState, useRef, useEffect } from 'react'
 import { FaTimes } from 'react-icons/fa'
 import { CgMenuRight } from 'react-icons/cg'
@@ -14,7 +16,8 @@ import {
 import { Profile } from '../Widget/WidgetStyle'
 
 function Gnb() {
-  const [isLogin, setIsLogin] = useState(false)
+  const dispatch = useDispatch()
+  const isLogin = useSelector((state) => state.auth.isLogin)
   const [showTooltip, setShowTooltip] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
   const navigate = useNavigate()
@@ -26,10 +29,15 @@ function Gnb() {
   })
   //로그인, 로그아웃 상태 변경
   const handleLogin = () => {
-    setIsLogin(!isLogin)
+    dispatch(
+      SET_LOGIN({
+        userName: '최강동안조안나',
+        accessToken: '12345678',
+      })
+    )
   }
   const handleLogout = () => {
-    setIsLogin(!isLogin)
+    dispatch(SET_LOGOUT())
     setShowTooltip(false)
     navigate('/main')
   }
@@ -46,7 +54,6 @@ function Gnb() {
     navigate('/mypage')
   }
   const handleClickOutSide = (e) => {
-    console.log(tooltipRef.current.contains(e.target))
     if (showTooltip && !tooltipRef.current.contains(e.target)) {
       setShowTooltip(false)
     }

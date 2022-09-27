@@ -1,3 +1,6 @@
+import { CookiesProvider } from 'react-cookie'
+import { Provider } from 'react-redux'
+import store from './redux/store'
 import { ThemeProvider } from 'styled-components'
 import theme from './styles/theme'
 import GlobalStyle, { Container, Col, Row } from './styles/globalStyles'
@@ -23,26 +26,30 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL
 function App() {
   return (
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Container>
-          <Row>
-            <Col>
-              <Gnb />
-            </Col>
-          </Row>
-        </Container>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/main" element={<Main />} />
-          <Route path="/goal" element={<Goal />} />
-          <Route path="/goal/detail/:id" element={<DetailView />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/mypage" element={<Mypage />} />
-          <Route path="/test" element={<Test />} />
-        </Routes>
-      </ThemeProvider>
+      <CookiesProvider>
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <Container>
+              <Row>
+                <Col>
+                  <Gnb />
+                </Col>
+              </Row>
+            </Container>
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/main" element={<Main />} />
+              <Route path="/goal" element={<Goal />} />
+              <Route path="/goal/detail/:id" element={<DetailView />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/mypage" element={<Mypage />} />
+              <Route path="/test" element={<Test />} />
+            </Routes>
+          </ThemeProvider>
+        </Provider>
+      </CookiesProvider>
     </BrowserRouter>
   )
 }

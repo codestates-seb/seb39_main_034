@@ -24,12 +24,13 @@ export const FormWrapper = styled.div`
 export const InputForm = styled.div`
   padding: 23px 0;
   > h4 {
-    padding: 16px 0 8px 0;
+    padding: 12px 0;
     color: ${({ theme }) => theme.secondary};
   }
   > div {
     width: 100%;
     height: 55px;
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
     border: 1px solid ${({ theme }) => theme.border};
@@ -39,6 +40,9 @@ export const InputForm = styled.div`
     svg {
       margin: 0 12px;
     }
+  }
+  > span {
+    color: ${({ theme }) => theme.tertiary};
   }
 `
 
