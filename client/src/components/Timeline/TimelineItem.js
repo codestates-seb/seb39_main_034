@@ -6,9 +6,15 @@ import { useState } from 'react'
 import TimelineEdit from './TimelineEdit'
 import TimelineDelete from './TimelineDelete'
 
-export default function TimelineList({ timelineId, description, createdAt }) {
+export default function TimelineList({
+  timelineId,
+  description,
+  createdAt,
+  image,
+}) {
   const today = moment(createdAt).format('YYYY년 MM일 DD일')
   const [openEdit, setOpenEdit] = useState(false)
+  // console.log(image.createdAt)
 
   const editTimelineToggle = () => {
     setOpenEdit(!openEdit)
@@ -35,7 +41,14 @@ export default function TimelineList({ timelineId, description, createdAt }) {
         />
       ) : (
         <div className="contents__timeline">
-          <div className="contents">{description}</div>
+          {image === null ? (
+            <div className="contents">{description} </div>
+          ) : (
+            <div className="contents">
+              <img alt="img" src={image.url} className="contents__img" />
+              {description}
+            </div>
+          )}
         </div>
       )}
     </article>

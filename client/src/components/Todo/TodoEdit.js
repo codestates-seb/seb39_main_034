@@ -1,11 +1,9 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { CompleteBtn } from '../Widget/WidgetStyle'
 import { TodoItemBlock, CheckBox, NewInput } from './TodolistStyle'
 
 function TodoEdit({ todoId, title, done, setOpenEdit }) {
-  const navigate = useNavigate()
   const [newTitle, setNewTitle] = useState(title)
 
   const handleCancleClick = () => {
@@ -24,9 +22,7 @@ function TodoEdit({ todoId, title, done, setOpenEdit }) {
       },
     })
       .then((res) => {
-        if (res.status === 200) {
-          navigate(0)
-        }
+        console.log(res)
       })
       .catch((err) => {
         console.log(err)
@@ -35,7 +31,6 @@ function TodoEdit({ todoId, title, done, setOpenEdit }) {
   return (
     <TodoItemBlock>
       <CheckBox done={done} />
-      {/* <TodoCheck /> */}
       <NewInput type="text" onChange={onChangeText} value={newTitle}></NewInput>
       <CompleteBtn onClick={handleEditClick}>수정완료</CompleteBtn>
       <CompleteBtn onClick={handleCancleClick}>수정 취소</CompleteBtn>

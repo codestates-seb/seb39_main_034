@@ -1,13 +1,14 @@
 import { Input, Textarea } from '../../styles/globalStyles'
 import { MilestoneContainer, CalendarContainer } from './MilestoneStyle'
-import { CompleteBtn } from '../Widget/WidgetStyle'
+import { CompleteBtn, AddPicBtn } from '../Widget/WidgetStyle'
 // eslint-disable-next-line import/no-named-as-default
 import Calendar from 'react-calendar'
 import moment from 'moment'
 import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import ImageUpload from './ImageUpload'
+import ImageUpload from '../Image/ImageUpload'
+// import { ImageForm } from '../Image/ImageForm'
 
 export const NewMilestone = () => {
   const navigate = useNavigate()
@@ -16,7 +17,12 @@ export const NewMilestone = () => {
   const [description, setDescription] = useState('')
   const [successAward, setSuccessAward] = useState('')
   const [failurePenalty, setFailurePenalty] = useState('')
+  const [imgBase, setImgBase] = useState([]) // 미리보기 이미지 데이터를 받을 곳
+  const [imgFile, setImgFile] = useState(null) //파일을 받을 곳
+  const [openChoseImage, setOpenChoseImage] = useState(false)
   const [endDate, setEndDate] = useState(new Date())
+  const [milestoneImageId, setMilestoneImageId] = useState()
+  // console.log('목표작성하기 이미지 아이디: ', milestoneImageId)
 
   let smallCalenderMinDate = new Date()
   let smallCalenderMaxDate = new Date(
@@ -43,9 +49,17 @@ export const NewMilestone = () => {
     setEndDate(moment(e).format('YYYY-MM-DD'))
     // console.log(moment(e).format('YYYY-MM-DD'))
   }
+  const parentFunction = (image) => {
+    console.log(image)
+  }
+  const HandleImage = () => {
+    setOpenChoseImage(!openChoseImage)
+  }
 
   const handleSubmitClick = () => {
-    console.log('click')
+    if (milestoneImageId === undefined) {
+      setMilestoneImageId('')
+    }
     axios({
       method: 'post',
       url: process.env.REACT_APP_API_URL + '/v1/goal/create',
@@ -56,6 +70,7 @@ export const NewMilestone = () => {
         failurePenalty: failurePenalty,
         endDate: endDate,
         category: category,
+        imageId: milestoneImageId,
       },
     })
       .then((res) => {
@@ -66,6 +81,24 @@ export const NewMilestone = () => {
       })
       .catch((err) => {
         console.log(err)
+      })
+  }
+  const formData = new FormData()
+  const handleUpload = () => {
+    Object.values(imgFile).forEach((file) => formData.append('image', file))
+
+    axios({
+      method: 'post',
+      url: process.env.REACT_APP_API_URL + `/v1/upload`,
+      data: formData,
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+      .then((res) => {
+        console.log(res)
+        setMilestoneImageId(res.data.imageId)
+      })
+      .catch((err) => {
+        console.log('Error: ', err)
       })
   }
 
@@ -162,7 +195,30 @@ export const NewMilestone = () => {
         </div>
         <div className="input__file">
           {/* <CompleteBtn>업로드</CompleteBtn> */}
-          <ImageUpload />
+          <AddPicBtn onClick={HandleImage} />
+          {openChoseImage ? (
+            <ImageUpload
+              parentFunction={parentFunction}
+              setImgBase={setImgBase}
+              setOpenChoseImage={setOpenChoseImage}
+              setImgFile={setImgFile}
+            />
+          ) : null}
+
+          {imgBase.map((item, idx) => {
+            return (
+              <>
+                <img
+                  key={idx}
+                  className="d-block w-100"
+                  src={item}
+                  alt="First slide"
+                  style={{ width: '30%', height: '250px' }}
+                />
+                <CompleteBtn onClick={handleUpload}>업로드</CompleteBtn>
+              </>
+            )
+          })}
         </div>
       </div>
       <div className="button__complete">

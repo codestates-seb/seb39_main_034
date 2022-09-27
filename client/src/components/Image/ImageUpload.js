@@ -1,31 +1,14 @@
-import axios from 'axios'
-import { useState } from 'react'
 // import { CompleteBtn } from '../Widget/WidgetStyle'
+// import { ImageForm } from './ImageForm'
 
-export default function ImageUpload() {
-  const [imgFile, setImgFile] = useState(null) //파일을 받을 곳
-  const [imgBase, setImgBase] = useState([]) // 미리보기 이미지 데이터를 받을 곳
-  const formData = new FormData()
-
-  const handleUpload = () => {
-    Object.values(imgFile).forEach((file) => formData.append('image', file))
-
-    axios({
-      method: 'post',
-      url: process.env.REACT_APP_API_URL + `/v1/upload`,
-      data: formData,
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => {
-        console.log('Error: ', err)
-      })
-  }
-
+export default function ImageUpload({
+  setImgBase,
+  setOpenChoseImage,
+  setImgFile,
+}) {
   //이미지 미리보기
   const handleChangeFile = (event) => {
+    setOpenChoseImage(false)
     console.log('파일내용: ', event.target.files)
     setImgFile(event.target.files)
     setImgBase([])
@@ -50,17 +33,7 @@ export default function ImageUpload() {
   }
   return (
     <>
-      {imgBase.map((item, idx) => {
-        return (
-          <img
-            key={idx}
-            className="d-block w-100"
-            src={item}
-            alt="First slide"
-            style={{ width: '30%', height: '250px' }}
-          />
-        )
-      })}
+      {/* <ImageForm imgBase={imgBase} /> */}
       <form id="form__photo">
         <input
           type="file"
@@ -71,9 +44,6 @@ export default function ImageUpload() {
         />
       </form>
       {/* <CompleteBtn onClick={handleUpload}>업로드</CompleteBtn> */}
-      <button type="submit" onClick={handleUpload}>
-        업로드
-      </button>
     </>
   )
 }
