@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import store from './redux/store'
 import { ThemeProvider } from 'styled-components'
 import theme from './styles/theme'
-import GlobalStyle, { Container, Col, Row } from './styles/globalStyles'
+import GlobalStyle from './styles/globalStyles'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import axios from 'axios'
 
@@ -21,7 +21,6 @@ import Goal from './pages/Goal'
 import Test from './pages/Test'
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL
-// axios.defaults.withCredentials = true
 
 function App() {
   return (
@@ -30,13 +29,7 @@ function App() {
         <Provider store={store}>
           <ThemeProvider theme={theme}>
             <GlobalStyle />
-            <Container>
-              <Row>
-                <Col>
-                  <Gnb />
-                </Col>
-              </Row>
-            </Container>
+            <Gnb />
             <Routes>
               <Route path="/" element={<Landing />} />
               <Route path="/main" element={<Main />} />

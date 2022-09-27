@@ -13,13 +13,6 @@ export default function useGetCards(categoryId, statusId, pageNumber) {
   //   console.log('useEffect#1')
   // }, [categoryId, statusId])
 
-  // useEffect(() => {
-  //   if (categoryId) {
-  //     setCards([])
-  //     console.log('useEffect#1 카드리셋')
-  //   }
-  // }, [categoryId])
-
   useEffect(() => {
     if (cards.length !== 0) {
       setCards([])
@@ -29,8 +22,13 @@ export default function useGetCards(categoryId, statusId, pageNumber) {
 
   useEffect(() => {
     // console.log('useEffect#2')
-    setLoading(true)
-    setError(false)
+    if (loading === false) {
+      setLoading(true)
+    }
+    if (error === true) {
+      setError(false)
+    }
+
     let cancel
     axios({
       method: 'GET',
