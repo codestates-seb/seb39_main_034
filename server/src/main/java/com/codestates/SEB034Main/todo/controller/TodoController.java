@@ -2,23 +2,20 @@ package com.codestates.SEB034Main.todo.controller;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
 import com.codestates.SEB034Main.goal.service.GoalService;
-import com.codestates.SEB034Main.todo.dto.PostTodoDto;
 import com.codestates.SEB034Main.todo.dto.PatchTodoDto;
+import com.codestates.SEB034Main.todo.dto.PostTodoDto;
 import com.codestates.SEB034Main.todo.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
-import java.util.List;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 @RequiredArgsConstructor
 @RequestMapping("/v1")
 @RestController

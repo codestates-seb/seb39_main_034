@@ -1,6 +1,7 @@
 package com.codestates.SEB034Main.image.entity;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +30,8 @@ public class Image {
     @Builder.Default
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    @OneToOne(mappedBy = "image", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private Goal goal;
+//    @JsonManagedReference
+//    @OneToOne
+//    @JoinColumn(name = "goalId")
+//    private Goal goal;
 }

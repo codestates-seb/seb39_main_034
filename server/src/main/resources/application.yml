@@ -17,7 +17,6 @@ spring:
 #    import:
 #      - optional:classpath:/setting.yml
 
-
   servlet:
     multipart:
       max-file-size: 10MB
@@ -46,7 +45,6 @@ logging:
       springframework:
         orm:
           jpa: DEBUG
-
 
 server:
   servlet:

@@ -21,7 +21,6 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
 @RequestMapping("/v1")
 @RestController

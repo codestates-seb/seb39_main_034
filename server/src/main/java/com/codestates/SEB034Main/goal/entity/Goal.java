@@ -3,14 +3,11 @@ package com.codestates.SEB034Main.goal.entity;
 import com.codestates.SEB034Main.image.entity.Image;
 import com.codestates.SEB034Main.timeline.entity.Timeline;
 import com.codestates.SEB034Main.todo.entity.Todo;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.time.LocalDate;

@@ -18,8 +18,9 @@ public class MemberService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     public Member creteMember(PostMemberDto postMemberDto) {
+
         if (!postMemberDto.getPassword().equals(postMemberDto.getRePassword())) {
-            new BusinessLogicException(ExceptionCode.PASSWORD_NOT_MATCH);
+            throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_MATCH);
         } else {
             Member member = Member.builder()
                     .username(postMemberDto.getUsername())
@@ -29,6 +30,5 @@ public class MemberService {
 
             return memberRepository.save(member);
         }
-        return null;
     }
 }

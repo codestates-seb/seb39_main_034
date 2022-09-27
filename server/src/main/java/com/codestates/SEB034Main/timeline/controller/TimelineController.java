@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 @RequiredArgsConstructor
 @RequestMapping("/v1")
 @RestController
