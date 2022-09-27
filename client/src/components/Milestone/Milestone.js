@@ -15,8 +15,21 @@ export default function Milestone({ data }) {
   return (
     <MilestoneContainer>
       <header className="header__milestone">
-        <DeleteMilestone goalId={data.goalId} />
-        <MainHeading>{data.title}</MainHeading>
+        {data.image === null || '' ? (
+          <div className="imgbox">
+            {/* 이미지 없을 경우 기본 이미지 */}
+            <img
+              src="https://www.telegraph.co.uk/content/dam/health-fitness/2018/08/31/TELEMMGLPICT000156474637_trans_NvBQzQNjv4BqpVlberWd9EgFPZtcLiMQfyf2A9a6I9YchsjMeADBa08.jpeg?imwidth=680"
+              alt="img"
+            />
+          </div>
+        ) : (
+          <img src={data.image} alt="img" />
+        )}
+        <div className="header__milestone--title">
+          <MainHeading>{data.title}</MainHeading>
+          <DeleteMilestone goalId={data.goalId} />
+        </div>
         <div className="milestone__info">
           <p>유저이름</p>
           <p>시작일:{moment(data.createdAt).format('YYYY-MM-DD')}</p>

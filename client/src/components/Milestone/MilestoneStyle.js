@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import theme from '../../styles/theme'
 
 export const MilestoneContainer = styled.div`
+  width: 100%;
   .inputs {
     padding: 10px 0;
     > input {
@@ -29,8 +30,22 @@ export const MilestoneContainer = styled.div`
     }
   }
   .header__milestone {
+    .header__milestone--title {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+    }
     .milestone__info {
       display: flex;
+    }
+    .imgbox {
+      height: 150px;
+      border: 1px solid ${theme.border};
+      overflow: hidden;
+      border-radius: 10px 10px 0 0;
+      img {
+        width: 100%;
+      }
     }
   }
   .descriptions {
