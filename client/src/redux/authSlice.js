@@ -12,7 +12,7 @@ const authSlice = createSlice({
       state.userName = action.payload.userName
       state.authorization = action.payload.authorization
     },
-    REFRESH: (state, action) => {
+    SET_REFRESH: (state, action) => {
       state.authorization = action.payload
     },
     SET_LOGOUT: (state) => {
@@ -24,5 +24,5 @@ const authSlice = createSlice({
   },
 })
 
-export const { SET_LOGIN, refresh, SET_LOGOUT } = authSlice.actions
+export const { SET_LOGIN, SET_REFRESH, SET_LOGOUT } = authSlice.actions
 export default authSlice

@@ -29,7 +29,11 @@ function LoginForm() {
       .then((res) => {
         console.log(res)
         if (res.status === 200) {
-          onLoginSuccess(loginData.username, res.headers)
+          onLoginSuccess(
+            res.headers.authorization,
+            res.headers.refresh,
+            loginData.username
+          )
           navigate('/main')
         }
       })
@@ -53,17 +57,19 @@ function LoginForm() {
     sendPost()
   }
 
-  const onLoginSuccess = (userName, headers) => {
-    console.log(headers.authorization)
+  const onLoginSuccess = (access, refresh, userName) => {
     // token과 이름을 localstorage에 저장
-    window.localStorage.setItem('userName', userName)
-    window.localStorage.setItem('authorization', headers.authorization)
+    if (userName) window.localStorage.setItem('userName', userName)
+    window.localStorage.setItem('authorization', access)
 
     //localstorage에 저장한 값을 redux로 받아옴
     onRemind()
 
     // refreshtoken을 쿠키에 저장
-    setRefreshToken(headers.refresh)
+    setRefreshToken(refresh)
+
+    // header에 accessToken 설정
+    axios.defaults.headers.common['Authorization'] = access
   }
 
   const onRemind = () => {
