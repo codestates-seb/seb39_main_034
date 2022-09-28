@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const CardWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -10,6 +11,18 @@ export const CardWrapper = styled.div`
   color: ${({ theme }) => theme.dark};
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 10px;
+  overflow: hidden;
+  ${({ status }) =>
+    status === '진행중'
+      ? null
+      : `&::after{position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: black;
+   opacity: 0.2;
+   content:''}`}
 `
 export const CardBanner = styled.div`
   position: relative;

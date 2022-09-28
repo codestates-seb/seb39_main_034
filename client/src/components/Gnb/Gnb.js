@@ -1,8 +1,10 @@
 import { NavLink, useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
 import { Container, Col, Row } from '../../styles/globalStyles'
-import { SET_LOGIN, SET_LOGOUT } from '../../redux/authSlice'
 import { useState, useRef, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { SET_LOGIN, SET_LOGOUT } from '../../redux/authSlice'
+import { Profile } from '../Widget/WidgetStyle'
+// import { onLogout } from '../Account/TokenAuth'
 import { FaTimes } from 'react-icons/fa'
 import { CgMenuRight } from 'react-icons/cg'
 import {
@@ -14,11 +16,14 @@ import {
   LoginMenu,
   ProfileTooltip,
 } from './GnbStyles.js'
-import { Profile } from '../Widget/WidgetStyle'
+// import axios from 'axios'
+import { removeCookieToken } from '../../data/Cookie'
+import { onRefreshTest } from '../Account/TokenAuth'
 
 function Gnb() {
   const dispatch = useDispatch()
   const isLogin = useSelector((state) => state.auth.isLogin)
+  const userName = useSelector((state) => state.auth.userName)
   const [showTooltip, setShowTooltip] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
   const navigate = useNavigate()
@@ -33,13 +38,21 @@ function Gnb() {
     dispatch(
       SET_LOGIN({
         userName: '최강동안조안나',
-        accessToken: '12345678',
+        authorization: '12345678',
       })
     )
   }
   const handleLogout = () => {
+    // localstorage에서 accessToken 삭제
+    window.localStorage.removeItem('userName')
+    window.localStorage.removeItem('authorization')
+
+    // redux에서 accessToken 삭제
     dispatch(SET_LOGOUT())
-    setShowTooltip(false)
+
+    // cookie에서 refreshToken 삭제
+    removeCookieToken()
+
     navigate('/main')
   }
   //모바일 메뉴 핸들러
@@ -58,6 +71,11 @@ function Gnb() {
     if (showTooltip && !tooltipRef.current.contains(e.target)) {
       setShowTooltip(false)
     }
+  }
+
+  // refresh 테스트할 용도
+  const handleRefresh = () => {
+    onRefreshTest()
   }
 
   useEffect(() => {
@@ -87,6 +105,7 @@ function Gnb() {
                   <li>이벤트</li>
                 </NavLink>
                 <button onClick={handleLogin}>임시 로그인 버튼</button>
+                <button onClick={handleRefresh}>refresh 테스트 버튼</button>
               </NavMenu>
             </div>
             <div className="gnb-right">
@@ -110,7 +129,7 @@ function Gnb() {
                   image={
                     'https://images.pexels.com/photos/1310522/pexels-photo-1310522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
                   }
-                  author={'최강동안조안나'}
+                  author={userName}
                 ></Profile>
                 <ProfileTooltip isOpen={showTooltip} ref={tooltipRef}>
                   <ul>

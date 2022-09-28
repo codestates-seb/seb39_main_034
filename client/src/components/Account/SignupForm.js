@@ -1,5 +1,5 @@
 import { Container, Row, Col } from '../../styles/responsive'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState, useCallback } from 'react'
 import axios from 'axios'
 import { FormWrapper, InputForm, InputBox, AccountBtn } from './AccountStyle'
@@ -23,6 +23,8 @@ function SignupForm() {
   const [isConfirmed, setIsConfirmed] = useState(false)
   const [isEmail, setIsEmail] = useState(false)
 
+  const navigate = useNavigate()
+
   // 이름 체크
   const onChangeName = useCallback((e) => {
     setName(e.target.value.trim())
@@ -39,7 +41,7 @@ function SignupForm() {
   const onChangePassword = useCallback(
     (e) => {
       const passwordRegex =
-        /^(?=.+[a-zA-Z])(?=.+[`~!@#$%^&*|₩'";:_-])(?=.+[0-9]).{4,24}$/
+        /^(?=.+[a-zA-Z0-9])(?=.+[`~!@#$%^&*|₩'";:_-])(?=.+[a-zA-Z0-9]).{4,24}$/
       const passwordCurrent = e.target.value.trim()
       setPassword(passwordCurrent)
 
@@ -102,14 +104,19 @@ function SignupForm() {
       if (isName && isEmail && isPassword && isConfirmed) {
         await axios({
           method: 'post',
-          url: process.env.REACT_APP_API_URL + '/v1/users/signup',
-          data: { username: name, email: email, password: password },
+          url: '/v1/member',
+          data: {
+            username: name,
+            email: email,
+            password: password,
+            rePassword: confirm,
+          },
         })
           .then((res) => {
+            console.log(res)
             if (res.status === 201) {
               alert(`${name}님 회원가입을 환영합니다!`)
-              // navigate('/questions')
-              console.log(res)
+              navigate('/main')
             }
           })
           .catch((err) => {

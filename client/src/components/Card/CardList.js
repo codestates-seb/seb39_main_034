@@ -26,7 +26,10 @@ const CardsList = React.memo(function CardList({ cards, handleLastCardRef }) {
                   done={card.numberOfCompletedTodos}
                   todo={card.numberOfFollowers}
                   follow={card.numberOfFollowers}
-                  banner="https://www.telegraph.co.uk/content/dam/health-fitness/2018/08/31/TELEMMGLPICT000156474637_trans_NvBQzQNjv4BqpVlberWd9EgFPZtcLiMQfyf2A9a6I9YchsjMeADBa08.jpeg?imwidth=680"
+                  banner={
+                    card.imageURL ||
+                    'https://www.telegraph.co.uk/content/dam/health-fitness/2018/08/31/TELEMMGLPICT000156474637_trans_NvBQzQNjv4BqpVlberWd9EgFPZtcLiMQfyf2A9a6I9YchsjMeADBa08.jpeg?imwidth=680'
+                  }
                   image={
                     'https://images.pexels.com/photos/1310522/pexels-photo-1310522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
                   }
@@ -52,8 +55,11 @@ const CardsList = React.memo(function CardList({ cards, handleLastCardRef }) {
                   done={card.numberOfCompletedTodos}
                   todo={card.numberOfFollowers}
                   follow={card.numberOfFollowers}
-                  banner="https://www.telegraph.co.uk/content/dam/health-fitness/2018/08/31/TELEMMGLPICT000156474637_trans_NvBQzQNjv4BqpVlberWd9EgFPZtcLiMQfyf2A9a6I9YchsjMeADBa08.jpeg?imwidth=680"
-                  image={
+                  banner={
+                    card.imageURL ||
+                    'https://www.telegraph.co.uk/content/dam/health-fitness/2018/08/31/TELEMMGLPICT000156474637_trans_NvBQzQNjv4BqpVlberWd9EgFPZtcLiMQfyf2A9a6I9YchsjMeADBa08.jpeg?imwidth=680'
+                  }
+                  profile={
                     'https://images.pexels.com/photos/1310522/pexels-photo-1310522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
                   }
                   author={'조안나'}
