@@ -16,12 +16,12 @@ function Card({
   todo,
   follow,
   banner,
-  image,
+  profile,
   author,
 }) {
   return (
     <>
-      <CardWrapper>
+      <CardWrapper status={status}>
         <CardBanner banner={banner}>
           <CategoryBadge>{category}</CategoryBadge>
         </CardBanner>
@@ -45,7 +45,7 @@ function Card({
           </div>
         </CardBody>
         <CardFooter>
-          <Profile image={image} author={author}></Profile>
+          <Profile image={profile} author={author}></Profile>
         </CardFooter>
       </CardWrapper>
     </>

@@ -1,4 +1,5 @@
 import { Container, Row, Col } from '../styles/globalStyles'
+<<<<<<< Updated upstream
 import {
   Picture,
   Concept,
@@ -47,6 +48,28 @@ function Landing() {
   useEffect(() => {
     setStyle({ marginLeft: `-${current}00%` })
   }, [current])
+=======
+import { Picture, Concept } from '../components/Landing/LandingStyle'
+// import { useEffect } from 'react'
+// import axios from 'axios'
+// import { useSelector } from 'react-redux'
+
+function Landing() {
+  // const accessToken = useSelector((state) => state.auth.authorization)
+  // useEffect(
+  //   axios({
+  //     method: 'get',
+  //     url: '/v1/authenticationTest',
+  //     headers: { Access: accessToken },
+  //   })
+  //     .then((res) => {
+  //       console.log(res)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //     })
+  // )
+>>>>>>> Stashed changes
 
   return (
     <Container>
@@ -76,7 +99,7 @@ function Landing() {
               <div id="outer2" className="outer">
                 <p>목표달성</p>
               </div>
-              <div className="mwrap">
+              <div className="midwrap">
                 <div className="mid"></div>
               </div>
             </div>

@@ -8,11 +8,6 @@ export default function useGetCards(categoryId, statusId, pageNumber) {
   const [cards, setCards] = useState([])
   const [hasMore, setHasMore] = useState(false)
 
-  // useEffect(() => {
-  //   setCards([])
-  //   console.log('useEffect#1')
-  // }, [categoryId, statusId])
-
   useEffect(() => {
     if (cards.length !== 0) {
       setCards([])
