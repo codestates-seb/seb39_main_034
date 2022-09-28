@@ -51,7 +51,18 @@ export const TimelineContainer = styled(Container)`
   }
 `
 export const TimelineReviewContainer = styled(TimelineContainer)`
-  border: 1px solid red;
+  /* border: 1px solid red; */
+  /* .header__timeline {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    background-color: ${({ review }) => (review ? review : theme.violet_l)};
+    border-radius: 10px 10px 0 0;
+  } */
+  border: 1px solid ${theme.border};
+  .header__timeline--review {
+    background-color: ${theme.yellow};
+  }
 `
 
 export const Wrapper = styled(ModalWrapper)`

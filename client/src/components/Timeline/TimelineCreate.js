@@ -13,7 +13,10 @@ import {
 import { CompleteBtn, AddPicBtn, AddEmojiBtn } from '../Widget/WidgetStyle'
 import { Icon } from '../../styles/globalStyles'
 
-export default function TimelineCreate({ setTimelineData }) {
+export default function TimelineCreate({
+  setTimelineData,
+  setOpenCreateTimeline,
+}) {
   const { id } = useParams()
   const date = new Date()
   const today = moment(date).format('YYYY년 MM일 DD일')
@@ -107,13 +110,19 @@ export default function TimelineCreate({ setTimelineData }) {
         url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
       }).then((res) => {
         setTimelineData(res.data.goal.timelineList)
-        setDescription('')
       })
+      setDescription('')
+      setOpenCreateTimeline(false)
       console.log('postResponse >>', postResponse)
       console.log('getResponse >>', getResponse)
     } catch (err) {
       console.log('Error >>', err)
     }
+  }
+
+  const handleClickSubmitCancle = () => {
+    setOpenCreateTimeline(false)
+    setDescription('')
   }
 
   return (
@@ -177,6 +186,9 @@ export default function TimelineCreate({ setTimelineData }) {
           </div>
           <div className="button__complete">
             <CompleteBtn onClick={handleClickSubmit}>작성완료</CompleteBtn>
+            <CompleteBtn onClick={handleClickSubmitCancle}>
+              작성취소
+            </CompleteBtn>
           </div>
         </div>
       </article>

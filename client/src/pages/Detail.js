@@ -23,6 +23,7 @@ function DetailView() {
   const [todoData, setTodoData] = useState([])
   const [timelineData, setTimelineData] = useState([])
   const [metaData, setMetaData] = useState({})
+  const [status, setStatus] = useState({})
   const { id } = useParams()
 
   const openTimelineModal = () => {
@@ -51,6 +52,7 @@ function DetailView() {
           setTodoData(res.data.goal.todoList)
           setTimelineData(res.data.goal.timelineList)
           setMetaData(res.data.metadata)
+          setStatus(res.data.goal.status)
         })
         .catch((err) => {
           console.log('ERROR: ', err)
@@ -98,12 +100,16 @@ function DetailView() {
               timelineData={timelineData}
               onClick={openTimelineEditModal}
               setTimelineData={setTimelineData}
+              status={status}
               mode="limit"
             ></Timelinelist>
           </Col>
           <Col>
             {openCreateTimeline && (
-              <TimelineCreate setTimelineData={setTimelineData} />
+              <TimelineCreate
+                setTimelineData={setTimelineData}
+                setOpenCreateTimeline={setOpenCreateTimeline}
+              />
             )}
           </Col>
           {/* 작성자일 경우 */}
