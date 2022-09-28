@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import theme from '../../styles/theme'
 
 export const Picture = styled.section`
   width: 100%;
@@ -128,8 +129,89 @@ export const Concept = styled.section`
     }
   }
 `
-
-export const Features = styled.section`
+export const FeaturesContainer = styled.section`
   width: 100%;
   height: 780px;
+  border: 1px solid red;
+  background-color: ${theme.border};
+  .feature__content {
+    display: flex;
+    .featurelist {
+      border: 1px solid red;
+      li {
+        border: 1px solid ${theme.border};
+        padding: 10px;
+      }
+    }
+    .imgBox {
+      width: 200px;
+      height: 200px;
+      border: 1px solid red;
+      > img {
+        width: 100%;
+      }
+    }
+  }
+`
+export const MemberContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 780px;
+  border: 1px solid red;
+  .slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    .window {
+      background: yellow;
+      width: 450px;
+      height: 100px;
+
+      overflow: hidden;
+      border: 1px solid red;
+      .flexbox {
+        display: flex;
+        .img {
+          width: 450px;
+          height: 250px;
+          background-position: 50% 50%;
+          background-size: contain;
+          background-repeat: no-repeat;
+          flex: none;
+        }
+      }
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-size: 3.3rem;
+      color: gray;
+      padding: 0 10px;
+    }
+  }
+
+  .position {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .dot {
+    background: lightgray;
+    border-radius: 100%;
+    height: 10px;
+    width: 10px;
+  }
+  .dot + .dot {
+    margin-left: 20px;
+  }
+
+  .current {
+    background: gray;
+  }
 `

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Milestone from '../components/Milestone/Milestone'
 import Todolist from '../components/Todo/Todolist'
-import Timeline from '../components/Timeline/Timelinelist'
+import Timelinelist from '../components/Timeline/Timelinelist'
 import TimelineCreate from '../components/Timeline/TimelineCreate'
 import Reaction from '../components/Reaction/Reaction'
 import Comment from '../components/Comment/Comment'
@@ -18,11 +18,8 @@ function DetailView() {
   const [openCreateChecklist, setOpenCreateChecklist] = useState(false)
   const [isOpenTimelineEditModal, setIsOpenTimelineEditModal] = useState(false)
   const [openCreateTimeline, setOpenCreateTimeline] = useState(false)
-  // const [data, setData] = useState({
-  //   goal: { todoList: [], timelineList: [] },
-  //   metadata: {},
-  // })
-  const [milestoneData, setMilestoneData] = useState({})
+
+  const [milestoneData, setMilestoneData] = useState({ image: {} })
   const [todoData, setTodoData] = useState([])
   const [timelineData, setTimelineData] = useState([])
   const [metaData, setMetaData] = useState({})
@@ -78,11 +75,14 @@ function DetailView() {
             <ProgressBar metadata={metaData}></ProgressBar>
           </Col>
           <Col>
-            <Todolist data={todoData}></Todolist>
+            <Todolist todoData={todoData} setTodoData={setTodoData}></Todolist>
           </Col>
           <Col>
             {openCreateChecklist && (
-              <TodoCreate todoData={todoData} setTodoData={setTodoData} />
+              <TodoCreate
+                setTodoData={setTodoData}
+                setOpenCreateChecklist={setOpenCreateChecklist}
+              />
             )}
           </Col>
           <Col>
@@ -94,12 +94,18 @@ function DetailView() {
             <h3>타임라인 {timelineData.length}</h3>
           </Col>
           <Col>
-            <Timeline
-              data={timelineData}
+            <Timelinelist
+              timelineData={timelineData}
               onClick={openTimelineEditModal}
-            ></Timeline>
+              setTimelineData={setTimelineData}
+              mode="limit"
+            ></Timelinelist>
           </Col>
-          <Col>{openCreateTimeline && <TimelineCreate />}</Col>
+          <Col>
+            {openCreateTimeline && (
+              <TimelineCreate setTimelineData={setTimelineData} />
+            )}
+          </Col>
           {/* 작성자일 경우 */}
           <Col>
             <PlusBtn onClick={createTimelineToggle} name="나는 타임라인" />
@@ -127,7 +133,7 @@ function DetailView() {
       </Container>
       {isOpen && (
         <TimelineModal
-          data={timelineData}
+          timelineData={timelineData}
           onClick={openTimelineEditModal}
           setIsOpen={setIsOpen}
         />
