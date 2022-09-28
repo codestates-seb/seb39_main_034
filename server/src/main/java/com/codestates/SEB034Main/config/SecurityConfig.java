@@ -38,10 +38,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     private final JwtTokenizer jwtTokenizer;
-
     public SecurityConfig(JwtTokenizer jwtTokenizer) {
         this.jwtTokenizer = jwtTokenizer;
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -66,7 +66,6 @@ public class SecurityConfig {
                 .accessDeniedHandler(new AccessDeniedHandler() {
                     @Override
                     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-                        System.out.println("여기 찍히나? 2");
                         response.sendError(403, "Authorization_Error");
                     }
                 });

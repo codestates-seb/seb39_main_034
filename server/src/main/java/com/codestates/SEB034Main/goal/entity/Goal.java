@@ -1,8 +1,10 @@
 package com.codestates.SEB034Main.goal.entity;
 
 import com.codestates.SEB034Main.image.entity.Image;
+import com.codestates.SEB034Main.member.entity.Member;
 import com.codestates.SEB034Main.timeline.entity.Timeline;
 import com.codestates.SEB034Main.todo.entity.Todo;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -79,6 +81,10 @@ public class Goal {
     @OneToMany(mappedBy = "goal", cascade = CascadeType.REMOVE)
     private List<Timeline> timelineList;
 
+
+    @ManyToOne
+    @JoinColumn(name = "memberId")
+    private Member member;
 
     public enum GoalResult {
         NONE,

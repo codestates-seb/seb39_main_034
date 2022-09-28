@@ -1,5 +1,9 @@
 package com.codestates.SEB034Main.member.entity;
 
+import com.codestates.SEB034Main.goal.entity.Goal;
+import com.codestates.SEB034Main.timeline.entity.Timeline;
+import com.codestates.SEB034Main.todo.entity.Todo;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,12 +11,15 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Builder
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "username")
+@JsonIdentityReference(alwaysAsId = true)
 public class Member {
 
     @Id
@@ -42,4 +49,16 @@ public class Member {
         ROLE_USER,
         ROLE_ADMIN
     }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Goal> goalList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Todo> todoList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Timeline> timelineList;
 }

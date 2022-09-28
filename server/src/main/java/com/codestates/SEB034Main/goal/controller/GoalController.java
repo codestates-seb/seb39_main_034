@@ -12,9 +12,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
@@ -30,9 +32,18 @@ public class GoalController {
     private final GoalService goalService;
     private final GoalMapper goalMapper;
 
+
     @PostMapping("/goal/create")
     public ResponseEntity createGoal(@Valid @RequestBody PostGoalDto postGoalDto) {
         Goal goal = goalService.saveGoal(postGoalDto);
+        Long goalId = goal.getGoalId();
+
+        return new ResponseEntity<>(goalId, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/goal")
+    public ResponseEntity postGoal(@Valid @RequestBody PostGoalDto postGoalDto, HttpServletRequest request) {
+        Goal goal = goalService.saveGoal2(postGoalDto, request);
         Long goalId = goal.getGoalId();
 
         return new ResponseEntity<>(goalId, HttpStatus.CREATED);
@@ -130,5 +141,12 @@ public class GoalController {
         goalService.deleteGoal(goalId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/goal/{goalId}/following")
+    public ResponseEntity followGoal(@PathVariable("goalId") @Positive long goalId, HttpServletRequest request) {
+        goalService.followGoal(goalId, request);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

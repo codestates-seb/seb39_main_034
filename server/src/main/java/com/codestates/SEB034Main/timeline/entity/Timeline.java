@@ -2,6 +2,7 @@ package com.codestates.SEB034Main.timeline.entity;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
 import com.codestates.SEB034Main.image.entity.Image;
+import com.codestates.SEB034Main.member.entity.Member;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,6 +44,12 @@ public class Timeline {
     @OneToOne
     @JoinColumn(name = "imageId")
     private Image image;
+
+
+    @ManyToOne
+    @JoinColumn(name = "memberId")
+    private Member member;
+
 
     public void setDescription(String description) {
         this.description = description;

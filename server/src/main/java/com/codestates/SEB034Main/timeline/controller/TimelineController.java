@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
@@ -22,6 +23,13 @@ public class TimelineController {
     @PostMapping("/goal/{goalId}/timeline")
     public ResponseEntity postTimeline(@PathVariable("goalId") @Positive long goalId, @Valid @RequestBody PostTimelineDto postTimelineDto) {
         timelineService.createTimeline(postTimelineDto, goalId);
+
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @PostMapping("/goal/{goalId}/timeline-test")
+    public ResponseEntity postTimeline2(@PathVariable("goalId") @Positive long goalId, @Valid @RequestBody PostTimelineDto postTimelineDto, HttpServletRequest request) {
+        timelineService.createTimeline_test(postTimelineDto, goalId, request);
 
         return new ResponseEntity(HttpStatus.CREATED);
     }

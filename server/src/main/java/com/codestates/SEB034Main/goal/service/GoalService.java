@@ -1,5 +1,6 @@
 package com.codestates.SEB034Main.goal.service;
 
+import com.codestates.SEB034Main.config.JwtTokenizer;
 import com.codestates.SEB034Main.exception.BusinessLogicException;
 import com.codestates.SEB034Main.exception.ExceptionCode;
 import com.codestates.SEB034Main.goal.dto.PatchGoalDto;
@@ -10,6 +11,10 @@ import com.codestates.SEB034Main.goal.repository.CategoryRepository;
 import com.codestates.SEB034Main.goal.repository.GoalRepository;
 import com.codestates.SEB034Main.image.entity.Image;
 import com.codestates.SEB034Main.image.service.ImageService;
+import com.codestates.SEB034Main.member.entity.Follower;
+import com.codestates.SEB034Main.member.entity.Member;
+import com.codestates.SEB034Main.member.repository.FollowerRepository;
+import com.codestates.SEB034Main.member.service.MemberService;
 import com.codestates.SEB034Main.todo.dto.PostTodoDto;
 import com.codestates.SEB034Main.todo.entity.Todo;
 import com.codestates.SEB034Main.todo.service.TodoService;
@@ -20,8 +25,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Transactional
@@ -30,9 +37,13 @@ import java.util.Optional;
 public class GoalService {
 
     private final GoalRepository goalRepository;
+    private final FollowerRepository followerRepository;
     private final CategoryRepository categoryRepository;
     private final TodoService todoService;
     private final ImageService imageService;
+    private final JwtTokenizer jwtTokenizer;
+    private final MemberService memberService;
+
 
     public Goal saveGoal(PostGoalDto postGoalDto) {
 
@@ -49,6 +60,39 @@ public class GoalService {
                 .failurePenalty(postGoalDto.getFailurePenalty())
                 .endDate(postGoalDto.getEndDate())
                 .category(byCategoryId)
+                .image(verifiedImage)
+                .build();
+
+        goalRepository.save(goal);
+
+        PostTodoDto tempPostTodoDto = new PostTodoDto("여기에 목표를 달성하기 위해 필요한 할일들 목록을 만들 수 있어요");
+        todoService.defaultCreateTodo(tempPostTodoDto, goal);
+
+        return goal;
+    }
+
+    public Goal saveGoal2(PostGoalDto postGoalDto, HttpServletRequest request) {
+
+        String categoryName = postGoalDto.getCategory();
+        Category byCategoryId = categoryRepository.findByCategoryName(categoryName);
+        Image verifiedImage = null;
+        if (postGoalDto.getImageId() != 0) {
+            verifiedImage = imageService.findVerifiedImage(postGoalDto.getImageId());
+        }
+        String jws = request.getHeader("Authorization").replace("Bearer ", "");
+        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+        Map<String, Object> claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
+        String username = (String) claims.get("username");
+        Member verifiedMember = memberService.findVerifiedMember(username);
+
+        Goal goal = Goal.builder()
+                .title(postGoalDto.getTitle())
+                .description(postGoalDto.getDescription())
+                .successAward(postGoalDto.getSuccessAward())
+                .failurePenalty(postGoalDto.getFailurePenalty())
+                .endDate(postGoalDto.getEndDate())
+                .category(byCategoryId)
+                .member(verifiedMember)
                 .image(verifiedImage)
                 .build();
 
@@ -187,5 +231,21 @@ public class GoalService {
                 }
             } else continue;
         }
+    }
+
+    public void followGoal(long goalId, HttpServletRequest request) {
+        String jws = request.getHeader("Authorization").replace("Bearer ", "");
+        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+        Map<String, Object> claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
+        String username = (String) claims.get("username");
+        Member verifiedMember = memberService.findVerifiedMember(username);
+        Goal verifiedGoal = findVerifiedGoal(goalId);
+
+        Follower follower = Follower.builder()
+                .goal(verifiedGoal)
+                .member(verifiedMember)
+                .build();
+
+        followerRepository.save(follower);
     }
 }

@@ -23,7 +23,15 @@ public class S3Controller {
     public ResponseEntity uploadFile(@RequestParam("image") MultipartFile multipartFile) throws IOException {
         Image uploadedImage = s3Upload.upload(multipartFile);
 
-        return new ResponseEntity(s3Upload.upload(multipartFile), HttpStatus.CREATED);
+        return new ResponseEntity(uploadedImage, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity deleteFile() {
+
+        s3Upload.delete();
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
 */

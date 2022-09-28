@@ -1,6 +1,7 @@
 package com.codestates.SEB034Main.todo.entity;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
+import com.codestates.SEB034Main.member.entity.Member;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,6 +42,11 @@ public class Todo {
     @ManyToOne
     @JoinColumn(name = "goalId")
     private Goal goal;
+
+    @ManyToOne
+    @JoinColumn(name = "memberId")
+    private Member member;
+
 
     public void setCompleted(int completed) {
         this.completed = completed;

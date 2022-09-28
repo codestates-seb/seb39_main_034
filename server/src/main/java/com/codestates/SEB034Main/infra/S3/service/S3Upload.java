@@ -40,5 +40,10 @@ public class S3Upload {
 
         return savedImage;
     }
+
+    public void delete() {
+        String s3FileName = "35c51cdb-56df-416b-9e48-ca50dd94543a-codestates.png";
+        amazonS3.deleteObject(bucket, s3FileName);
+    }
 }
 */

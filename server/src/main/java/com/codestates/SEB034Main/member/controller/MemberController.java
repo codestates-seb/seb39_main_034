@@ -1,6 +1,8 @@
 package com.codestates.SEB034Main.member.controller;
 
 import com.codestates.SEB034Main.config.JwtTokenizer;
+import com.codestates.SEB034Main.feed.entity.Feed;
+import com.codestates.SEB034Main.feed.service.FeedService;
 import com.codestates.SEB034Main.member.dto.PostMemberDto;
 import com.codestates.SEB034Main.member.entity.Member;
 import com.codestates.SEB034Main.member.service.MemberService;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.Positive;
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -20,6 +24,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final JwtTokenizer jwtTokenizer;
+    private final FeedService feedService;
 
     @PostMapping("/member")
     public ResponseEntity signupMember(@RequestBody PostMemberDto postMemberDto) {
@@ -28,6 +33,23 @@ public class MemberController {
         Long memberId = signedUpMember.getMemberId();
 
         return new ResponseEntity(memberId, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/member/{username}")
+    public ResponseEntity getMemberContents(@PathVariable("username") String username) {
+
+        Member verifiedMemberById = memberService.findVerifiedMember(username);
+
+        return new ResponseEntity<>(verifiedMemberById, HttpStatus.OK);
+    }
+
+    @GetMapping("/members/{username}/feed")
+    public ResponseEntity getMemberFeed(@PathVariable("username") String username) {
+
+        Member verifiedMember = memberService.findVerifiedMember(username);
+        List<Feed> feedsByMember = feedService.findFeedsByMember(verifiedMember);
+
+        return new ResponseEntity<>(feedsByMember, HttpStatus.OK);
     }
 
     @GetMapping("/users/info")
@@ -52,9 +74,14 @@ public class MemberController {
         String accessToken = result.get("newAccessToken");
         String refreshToken = result.get("newRefreshToken");
 
-        response.addHeader("New Authorization", "Bearer " + accessToken);
-        response.addHeader("New Refresh", refreshToken);
+        response.addHeader("New_Authorization", "Bearer " + accessToken);
+        response.addHeader("New_Refresh", refreshToken);
 
-        return new ResponseEntity(HttpStatus.OK);
+        if (result.get("newAccessToken") != null) {
+            result.clear();
+            result.put("token_status", "RE_ISSUED");
+        }
+
+        return new ResponseEntity(result, HttpStatus.OK);
     }
 }
