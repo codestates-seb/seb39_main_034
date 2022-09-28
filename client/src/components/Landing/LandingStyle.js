@@ -48,8 +48,6 @@ export const Concept = styled.section`
     font-size: ${({ theme }) => theme.font36};
   }
   .diagramm {
-    /* display: flex;
-    justify-content: center; */
     position: relative;
     width: 100%;
     div {
@@ -81,11 +79,11 @@ export const Concept = styled.section`
       right: 10%;
       animation: fromright 1.4s ease-out;
     }
-    .mwrap {
+    //outer1 위치에 있으면서 그 바깥부분은 보이지 않게 숨김
+    .midwrap {
       position: absolute;
       overflow: hidden;
       pointer-events: none;
-      /* background-color: aliceblue; */
       z-index: 1;
       left: 10%;
       animation: fromleft 1.4s ease-out;
@@ -106,7 +104,7 @@ export const Concept = styled.section`
           margin-left: 125%;
         }
         to {
-          opacity: 90%;
+          opacity: 100%;
           margin-left: 78%;
         }
       }

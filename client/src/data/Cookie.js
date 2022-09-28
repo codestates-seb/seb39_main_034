@@ -2,14 +2,15 @@ import { Cookies } from 'react-cookie'
 
 const cookies = new Cookies()
 
-export const setRefreshToken = (refreshToken) => {
-  const today = new Date()
-  const refresh_expire_date = today.setDate(today.getDate() + 7)
+export const setRefreshToken = (refresh_token) => {
+  // const today = new Date()
+  // const refresh_expire_date = today.setDate(today.getDate() + 7)
 
-  return Cookies.set('refresh_token', refreshToken, {
+  return cookies.set('refresh_token', refresh_token, {
     sameSite: 'strict',
     path: '/',
-    expires: new Date(refresh_expire_date),
+    HttpOnly: true,
+    // expires: new Date(refresh_expire_date),
   })
 }
 
@@ -21,5 +22,6 @@ export const removeCookieToken = () => {
   return cookies.remove('refresh_token', {
     sameSite: 'strict',
     path: '/',
+    HttpOnly: true,
   })
 }

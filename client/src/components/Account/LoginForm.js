@@ -2,13 +2,17 @@ import { Container, Row, Col } from '../../styles/responsive'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
-import { onLoginSuccess } from './TokenAuth'
+// import { onLoginSuccess } from './TokenAuth'
 import { FormWrapper, InputForm, InputBox, AccountBtn } from './AccountStyle'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { AiFillLock } from 'react-icons/ai'
 import { BiRightArrowAlt } from 'react-icons/bi'
+import { useDispatch } from 'react-redux'
+import { SET_LOGIN } from '../../redux/authSlice'
+import { setRefreshToken } from '../../data/Cookie'
 
 function LoginForm() {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [loginData, setLoginData] = useState({
     username: '',
@@ -19,17 +23,19 @@ function LoginForm() {
   const sendPost = () => {
     axios({
       method: 'post',
-      url: '/v1/users/login',
+      url: '/v1/auth/login',
       data: loginData,
     })
       .then((res) => {
+        console.log(res)
         if (res.status === 200) {
-          onLoginSuccess(res)
+          onLoginSuccess(loginData.username, res.headers)
           navigate('/main')
         }
       })
       .catch((err) => {
         console.log(err)
+        err.response.status === 401 ? alert('가입되지 않은 회원입니다') : null
         setErrorMessage('로그인 정보를 다시 확인해주세요')
       })
   }
@@ -45,6 +51,29 @@ function LoginForm() {
   function handleSubmitClick(e) {
     e.preventDefault()
     sendPost()
+  }
+
+  const onLoginSuccess = (userName, headers) => {
+    console.log(headers.authorization)
+    // token과 이름을 localstorage에 저장
+    window.localStorage.setItem('userName', userName)
+    window.localStorage.setItem('authorization', headers.authorization)
+
+    //localstorage에 저장한 값을 redux로 받아옴
+    onRemind()
+
+    // refreshtoken을 쿠키에 저장
+    setRefreshToken(headers.refresh)
+  }
+
+  const onRemind = () => {
+    // localstorage에서 redux로 옮겨와 저장
+    dispatch(
+      SET_LOGIN({
+        userName: window.localStorage.getItem('userName'),
+        authorization: window.localStorage.getItem('authorization'),
+      })
+    )
   }
 
   return (

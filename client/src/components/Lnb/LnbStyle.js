@@ -68,10 +68,9 @@ const CreateBtnBase = styled.div`
   align-items: center;
   width: 124px;
   height: 26px;
+  font-size: ${(props) => props.theme.font16};
+  color: ${({ theme }) => theme.dark};
   cursor: pointer;
-  div.text {
-    font-size: ${(props) => props.theme.font18};
-  }
   @media screen and (max-width: ${({ theme }) => theme.mdBreakpoint}) {
     display: ${({ viewSize }) => (viewSize === 'md' ? 'flex' : 'none')};
   }
