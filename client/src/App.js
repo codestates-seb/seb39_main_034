@@ -18,7 +18,6 @@ import Mypage from './pages/Mypage'
 //Components
 import Gnb from './components/Gnb/Gnb'
 import Goal from './pages/Goal'
-import Test from './pages/Test'
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL
 
@@ -38,7 +37,6 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
               <Route path="/mypage" element={<Mypage />} />
-              <Route path="/test" element={<Test />} />
             </Routes>
           </ThemeProvider>
         </Provider>
