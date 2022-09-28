@@ -1,14 +1,20 @@
 import styled from 'styled-components'
 import theme from '../../styles/theme'
 
-export const Picture = styled.section`
-  width: 100%;
-  height: 700px;
+export const Wrapper = styled.div`
+  /* border: 1px solid red; */
+  .row {
+    border: 1px solid blue;
+  }
+`
+export const BannerContainer = styled.section`
+  height: 90vh;
   background: url('https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80');
-  background-size: auto 120%;
+  background-size: auto 150%;
   background-repeat: no-repeat;
   background-position: center;
   > p {
+    width: 50%;
     position: relative;
     top: 38%;
     left: 18%;
@@ -40,7 +46,7 @@ export const Picture = styled.section`
 
 export const Concept = styled.section`
   width: 100%;
-  height: 560px;
+  height: 100vh;
   padding: 100px 4px;
   > h2 {
     margin: 60px auto;
@@ -132,46 +138,82 @@ export const Concept = styled.section`
 export const FeaturesContainer = styled.section`
   width: 100%;
   height: 780px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   background-color: ${theme.border};
+  overflow: hidden;
+  h2 {
+    margin: 30px 20px;
+  }
   .feature__content {
     display: flex;
-    .featurelist {
-      border: 1px solid red;
-      li {
-        border: 1px solid ${theme.border};
-        padding: 10px;
+    justify-content: center;
+    align-items: center;
+    height: 780px;
+    /* border: 1px solid red; */
+    .tabmenu {
+      display: flex;
+      flex-direction: column;
+      justify-items: center;
+      /* align-items: center; */
+      flex-grow: 1;
+      /* border: 1px solid red; */
+      .submenu {
+        width: 100% auto;
+        padding: 15px 10px;
+        margin: 5px 30px;
+        cursor: pointer;
+        border: ${theme.border};
+        border-radius: 10px;
+        outline: none;
+        .subicon {
+          /* border: 1px solid yellow; */
+          padding: 10px;
+          display: none;
+        }
+        .focused {
+          display: inline-block;
+          padding: 10px;
+        }
+      }
+      .focused {
+        background-color: ${theme.violet_m};
+        font-weight: bold;
       }
     }
-    .imgBox {
-      width: 200px;
-      height: 200px;
-      border: 1px solid red;
-      > img {
+    .tabimg {
+      /* border: 1px solid red; */
+      margin: 5px 30px;
+      width: 45%;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.25);
+      img {
         width: 100%;
       }
     }
   }
 `
+
 export const MemberContainer = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
   height: 780px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   .slide {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     .window {
-      background: yellow;
+      background: white;
+      border: 1px solid ${theme.border};
       width: 450px;
-      height: 100px;
+      height: 450px;
 
       overflow: hidden;
-      border: 1px solid red;
+      /* border: 1px solid red; */
       .flexbox {
         display: flex;
         .img {
@@ -214,4 +256,9 @@ export const MemberContainer = styled.section`
   .current {
     background: gray;
   }
+`
+export const FooterContainer = styled.div`
+  background-color: ${theme.violet_d};
+  width: 100%;
+  height: 300px;
 `
