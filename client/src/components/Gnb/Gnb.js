@@ -18,6 +18,7 @@ import {
 } from './GnbStyles.js'
 // import axios from 'axios'
 import { removeCookieToken } from '../../data/Cookie'
+import { onRefreshTest } from '../Account/TokenAuth'
 
 function Gnb() {
   const dispatch = useDispatch()
@@ -72,6 +73,11 @@ function Gnb() {
     }
   }
 
+  // refresh 테스트할 용도
+  const handleRefresh = () => {
+    onRefreshTest()
+  }
+
   useEffect(() => {
     if (showTooltip) document.addEventListener('mousedown', handleClickOutSide)
     return () => {
@@ -99,6 +105,7 @@ function Gnb() {
                   <li>이벤트</li>
                 </NavLink>
                 <button onClick={handleLogin}>임시 로그인 버튼</button>
+                <button onClick={handleRefresh}>refresh 테스트 버튼</button>
               </NavMenu>
             </div>
             <div className="gnb-right">
