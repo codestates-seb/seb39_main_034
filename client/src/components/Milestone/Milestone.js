@@ -24,7 +24,9 @@ export default function Milestone({ data }) {
             />
           </div>
         ) : (
-          <img src={data.image} alt="img" />
+          <div className="imgbox">
+            <img src={data.image.url} alt="img" />
+          </div>
         )}
         <div className="header__milestone--title">
           <MainHeading>{data.title}</MainHeading>

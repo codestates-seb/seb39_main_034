@@ -1,27 +1,37 @@
 import { TimelineContainer } from './TimelinelistStyle'
 import TimelineItem from './TimelineItem'
-import { CloseBtn, OpenBtn } from '../Widget/WidgetStyle'
-import { useState } from 'react'
+// import { CloseBtn, OpenBtn } from '../Widget/WidgetStyle'
+// import { useState } from 'react'
 
-export default function Timeline({ data, onClick }) {
-  const [isToggle, setIsToggle] = useState(true)
-  // const LimitData = data.goal.timelineList.slice(0, 5)
-  // const timelineData = data.goal.timelineList
-  const closeToggle = () => {
-    setIsToggle(false)
-  }
-  const openToggle = () => {
-    setIsToggle(!isToggle)
-  }
+export default function Timelinelist(props) {
+  const { timelineData, onClick, setTimelineData, mode } = props
+
+  // const [isToggle, setIsToggle] = useState(true)
+  const limitTimelineData = timelineData.slice(-5)
+  // const closeToggle = () => {
+  //   setIsToggle(false)
+  // }
+  // const openToggle = () => {
+  //   setIsToggle(!isToggle)
+  // }
   return (
-    <TimelineContainer>
-      {isToggle ? (
-        <>
-          <div className="header__timeline2">
-            <h3>Today</h3>
-            <OpenBtn onClick={closeToggle} />
-          </div>
-          {data.map((timeline) => {
+    <>
+      {mode === 'limit' ? (
+        <TimelineContainer>
+          {limitTimelineData.map((timeline) => {
+            return (
+              <TimelineItem
+                key={timeline.timelineId}
+                {...timeline}
+                setTimelineData={setTimelineData}
+                onClick={onClick}
+              />
+            )
+          })}
+        </TimelineContainer>
+      ) : (
+        <TimelineContainer>
+          {timelineData.map((timeline) => {
             return (
               <TimelineItem
                 key={timeline.timelineId}
@@ -30,13 +40,8 @@ export default function Timeline({ data, onClick }) {
               />
             )
           })}
-        </>
-      ) : (
-        <div className="header__timeline2">
-          <h3>Today</h3>
-          <CloseBtn onClick={openToggle} />
-        </div>
+        </TimelineContainer>
       )}
-    </TimelineContainer>
+    </>
   )
 }

@@ -10,7 +10,7 @@ import { Icon } from '../../styles/globalStyles'
 import Timelinelist from './Timelinelist'
 
 export const TimelineModal = (props) => {
-  const { data, onClick, setIsOpen } = props
+  const { timelineData, onClick, setIsOpen } = props
 
   const closeTimelineModal = () => {
     setIsOpen(false)
@@ -36,7 +36,7 @@ export const TimelineModal = (props) => {
         {/* --content-- */}
         <div className="contents__timeline">
           <div className="contents">
-            <Timelinelist data={data} onClick={onClick} />
+            <Timelinelist timelineData={timelineData} onClick={onClick} />
           </div>
         </div>
       </TimelineModalContainer>

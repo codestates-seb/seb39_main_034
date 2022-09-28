@@ -1,11 +1,11 @@
 import TodoItem from './TodoItem'
 import { TodoList } from './TodolistStyle'
 
-function Todolist({ data }) {
+function Todolist({ todoData, setTodoData }) {
   return (
     <TodoList>
-      {data.map((todo) => (
-        <TodoItem key={todo.todoId} {...todo} />
+      {todoData.map((todo) => (
+        <TodoItem key={todo.todoId} {...todo} setTodoData={setTodoData} />
       ))}
     </TodoList>
   )

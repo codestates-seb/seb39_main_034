@@ -5,28 +5,34 @@ import { CompleteBtn } from '../Widget/WidgetStyle'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
-export const TodoCreate = () => {
+export const TodoCreate = ({ setTodoData, setOpenCreateChecklist }) => {
   const { id } = useParams()
   const [addTodo, setAddTodo] = useState('')
 
   const onChange = (e) => {
     setAddTodo(e.target.value)
   }
-  const postTodo = (e) => {
+  const postTodo = async (e) => {
     e.preventDefault()
-    axios({
-      method: 'post',
-      url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
-      data: {
-        title: addTodo,
-      },
-    })
-      .then((res) => {
-        console.log(res)
+    try {
+      await axios({
+        method: 'post',
+        url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
+        data: {
+          title: addTodo,
+        },
       })
-      .catch((err) => {
-        console.log(err)
+      await axios({
+        method: 'get',
+        url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
+      }).then((res) => {
+        setTodoData(res.data.goal.todoList)
+        setAddTodo('')
+        setOpenCreateChecklist(false)
       })
+    } catch (err) {
+      console.log(err)
+    }
   }
   return (
     <TodoItemBlock>

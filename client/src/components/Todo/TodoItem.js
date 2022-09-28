@@ -8,14 +8,16 @@ import {
   CheckBox,
   NewInput,
 } from './TodolistStyle'
-import { EditBtn, CompleteBtn } from '../Widget/WidgetStyle'
-import TodoDelete from './TodoDelete'
+import { EditBtn, DeleteBtn, CompleteBtn } from '../Widget/WidgetStyle'
+import { useParams } from 'react-router-dom'
 // import TodoEdit from './TodoEdit'
-import TodoCheck from './TodoCheck'
+// import TodoCheck from './TodoCheck'
 
-function TodoItem({ todoId, title, completed }) {
-  const [openEdit, setOpenEdit] = useState(false)
+function TodoItem({ todoId, title, completed, setTodoData }) {
+  const { id } = useParams()
   const [newTitle, setNewTitle] = useState(title)
+  const [complete, setComplete] = useState(completed)
+  const [openEdit, setOpenEdit] = useState(false)
 
   const editChecklistToggle = () => {
     setOpenEdit(!openEdit)
@@ -27,27 +29,77 @@ function TodoItem({ todoId, title, completed }) {
     setNewTitle(e.target.value)
     // console.log(e.target.value)
   }
-  const handleEditClick = () => {
-    axios({
-      method: 'patch',
-      url: process.env.REACT_APP_API_URL + `/v1/todo/${todoId}`,
-      data: {
-        title: newTitle,
-      },
-    })
-      .then((res) => {
-        console.log(res)
+  const handleEditClick = async () => {
+    try {
+      await axios({
+        method: 'patch',
+        url: process.env.REACT_APP_API_URL + `/v1/todo/${todoId}`,
+        data: {
+          title: newTitle,
+        },
       })
-      .catch((err) => {
-        console.log(err)
+      await axios({
+        method: 'get',
+        url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
+      }).then((res) => {
+        setTodoData(res.data.goal.todoList)
+        setOpenEdit(!openEdit)
       })
+    } catch (err) {
+      console.log(err)
+    }
   }
-
+  const clickCheckBox = () => {
+    if (complete) {
+      axios({
+        method: 'get',
+        url: process.env.REACT_APP_API_URL + `/v1/todo/cancel/${todoId}`,
+      })
+        .then((res) => {
+          console.log(res)
+          setComplete(!complete)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    } else {
+      axios({
+        method: 'get',
+        url: process.env.REACT_APP_API_URL + `/v1/todo/${todoId}`,
+      })
+        .then((res) => {
+          console.log(res)
+          setComplete(!complete)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  }
+  const handleDeleteClick = async () => {
+    try {
+      await axios({
+        method: 'delete',
+        url: process.env.REACT_APP_API_URL + `/v1/todo/${todoId}`,
+      }).then((res) => {
+        console.log(res)
+        alert('할 일 삭제')
+      })
+      await axios({
+        method: 'get',
+        url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
+      }).then((res) => {
+        setTodoData(res.data.goal.todoList)
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <>
       {openEdit ? (
         <TodoItemBlock>
-          <CheckBox done={completed} />
+          <CheckBox done={complete} onClick={clickCheckBox} />
           <NewInput
             type="text"
             onChange={onChangeText}
@@ -58,13 +110,13 @@ function TodoItem({ todoId, title, completed }) {
         </TodoItemBlock>
       ) : (
         <TodoItemBlock>
-          <TodoCheck todoId={todoId} done={completed} />
+          <CheckBox done={complete} onClick={clickCheckBox} />
           <Text>{title}</Text>
           <Edit>
             <EditBtn onClick={editChecklistToggle} />
           </Edit>
           <Remove>
-            <TodoDelete todoId={todoId} title={title} />
+            <DeleteBtn onClick={handleDeleteClick} />
           </Remove>
         </TodoItemBlock>
       )}

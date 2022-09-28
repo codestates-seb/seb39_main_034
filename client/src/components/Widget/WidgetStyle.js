@@ -138,6 +138,6 @@ export const Profile = ({ image, author, onClick }) => (
   </ProfileBase>
 )
 
-export const MoreBtn = React.memo(function PlustBtn({ onClick }) {
+export const MoreBtn = React.memo(function MoreBtn({ onClick }) {
   return <button onClick={onClick}>더 보기</button>
 })

@@ -16,7 +16,7 @@ export const TimelineContainer = styled(Container)`
   > article {
     margin: 10px 0;
     border: 1px solid ${theme.border};
-    border-radius: 5px;
+    border-radius: 10px;
   }
   .header__timeline {
     display: flex;
