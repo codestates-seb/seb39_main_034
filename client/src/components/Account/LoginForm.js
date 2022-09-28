@@ -15,14 +15,12 @@ function LoginForm() {
     password: '',
   })
   const [errorMessage, setErrorMessage] = useState('')
-  const formData = new FormData()
 
   const sendPost = () => {
     axios({
       method: 'post',
       url: '/v1/users/login',
-      data: formData,
-      withCredentials: true,
+      data: loginData,
     })
       .then((res) => {
         if (res.status === 200) {
@@ -46,8 +44,6 @@ function LoginForm() {
 
   function handleSubmitClick(e) {
     e.preventDefault()
-    formData.append('username', loginData.username)
-    formData.append('password', loginData.password)
     sendPost()
   }
 
