@@ -38,6 +38,7 @@ public class GoalMapper {
             goalListResponseDto.setNumberOfTodos(eachGoal.getTodoList().size());
             goalListResponseDto.setNumberOfCompletedTodos(numberOfCompletedTodos);
             goalListResponseDto.setImageURL(imageURL);
+            goalListResponseDto.setMember(eachGoal.getMember());
             goalListResponseDto.setNumberOfFollowers(3);
 
             if (eachGoal.getStatus() == 0) {

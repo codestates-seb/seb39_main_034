@@ -26,6 +26,13 @@ public class Seb034MainApplication {
 					.email("test1@test.com")
 					.build();
 			memberRepository.save(member1);
+
+			Member member2 = Member.builder()
+					.username("test2")
+					.password(passwordEncoder.encode("1234"))
+					.email("test2@test.com")
+					.build();
+			memberRepository.save(member2);
 		};
 	}
 }

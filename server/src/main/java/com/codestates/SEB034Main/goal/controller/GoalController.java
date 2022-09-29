@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +42,7 @@ public class GoalController {
         return new ResponseEntity<>(goalId, HttpStatus.CREATED);
     }
 
+    @Secured("ROLE_USER")
     @PostMapping("/goal")
     public ResponseEntity postGoal(@Valid @RequestBody PostGoalDto postGoalDto, HttpServletRequest request) {
         Goal goal = goalService.saveGoal2(postGoalDto, request);
@@ -60,6 +62,20 @@ public class GoalController {
         return new ResponseEntity(new MultiResponseDto<>(goalListResponseDtoList, pageGoals), HttpStatus.OK);
     }
 
+//    @GetMapping("/{username}/goal/list")
+//    public ResponseEntity getGoalsByUsername(@Positive @RequestParam int page,
+//                                             @Positive @RequestParam int size,
+//                                             @PathVariable String username) {
+//        //Page<Goal> pageGoals = goalService.findGoals(page - 1, size);
+//
+//        Page<Goal> goalsByUsername = goalService.findGoalsByUsername(page - 1, size, username);
+//        List<Goal> goals = goalsByUsername.getContent();
+//
+//        List<GoalListResponseDto> goalListResponseDtoList = goalMapper.goalToGoalListResponseDto(goals);
+//
+//        return new ResponseEntity(new MultiResponseDto<>(goalListResponseDtoList, goalsByUsername), HttpStatus.OK);
+//    }
+
     @GetMapping("/goal/list/filter")
     public ResponseEntity getFilteredGoals(@Positive @RequestParam int page,
                                            @Positive @RequestParam int size,
@@ -72,26 +88,20 @@ public class GoalController {
             List<GoalListResponseDto> goalListResponseDtoList = goalMapper.goalToGoalListResponseDto(goals);
 
             return new ResponseEntity(new MultiResponseDto<>(goalListResponseDtoList, pageGoals), HttpStatus.OK);
-        }
-
-        else if (categoryId != null && status == null) {
+        } else if (categoryId != null && status == null) {
             Page<Goal> pageGoals = goalService.categoryOnlyFilter(categoryId, page - 1, size);
             List<Goal> goals = pageGoals.getContent();
             List<GoalListResponseDto> goalListResponseDtoList = goalMapper.goalToGoalListResponseDto(goals);
 
             return new ResponseEntity(new MultiResponseDto<>(goalListResponseDtoList, pageGoals), HttpStatus.OK);
-        }
-
-        else if (categoryId == null && status != null) {
+        } else if (categoryId == null && status != null) {
             Page<Goal> pageGoals = goalService.statusOnlyFilter(status, page - 1, size);
             List<Goal> goals = pageGoals.getContent();
             List<GoalListResponseDto> goalListResponseDtoList = goalMapper.goalToGoalListResponseDto(goals);
 
             return new ResponseEntity(new MultiResponseDto<>(goalListResponseDtoList, pageGoals), HttpStatus.OK);
-        }
-
-        else if (categoryId != null && status != null) {
-            Page<Goal> pageGoals = goalService.categoryAndStatusFilter(categoryId, status,page - 1, size);
+        } else if (categoryId != null && status != null) {
+            Page<Goal> pageGoals = goalService.categoryAndStatusFilter(categoryId, status, page - 1, size);
             List<Goal> goals = pageGoals.getContent();
             List<GoalListResponseDto> goalListResponseDtoList = goalMapper.goalToGoalListResponseDto(goals);
 
@@ -101,25 +111,6 @@ public class GoalController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("/goal/test")
-    public ResponseEntity testGet(@RequestParam Integer categoryId,
-                                  @RequestParam int page,
-                                  @RequestParam int size) {
-
-        Page<Goal> testfindgoal = goalService.categoryOnlyFilter(categoryId, page, size);
-        List<Goal> goals = testfindgoal.getContent();
-
-        return new ResponseEntity(new MultiResponseDto<>(goals, testfindgoal), HttpStatus.OK);
-    }
-
-    /*
-    ** 원본
-    @GetMapping("/goal/{goalId}")
-    public ResponseEntity getGoal(@PathVariable("goalId") @Positive long goalId) {
-        Goal goal = goalService.findGoal(goalId);
-
-        return new ResponseEntity<>(goal, HttpStatus.OK);
-    }*/
 
     @GetMapping("/goal/{goalId}")
     public ResponseEntity getGoal(@PathVariable("goalId") @Positive long goalId) {
@@ -138,6 +129,14 @@ public class GoalController {
 
     @DeleteMapping("/goal/{goalId}")
     public ResponseEntity deleteGoal(@PathVariable("goalId") @Positive long goalId) {
+        goalService.deleteGoal(goalId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @Secured("ROLE_USER")
+    @DeleteMapping("/goal/test/{goalId}")
+    public ResponseEntity deleteGoaltest(@PathVariable("goalId") @Positive long goalId) {
         goalService.deleteGoal(goalId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

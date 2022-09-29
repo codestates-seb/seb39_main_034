@@ -1,6 +1,7 @@
 package com.codestates.SEB034Main.goal.repository;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
+import com.codestates.SEB034Main.member.entity.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,4 +26,6 @@ public interface GoalRepository extends JpaRepository<Goal, Long> {
 
     @Query(value = "SELECT * FROM GOAL WHERE category_id = :categoryId AND result = :result", nativeQuery =true)
     Page<Goal> findByCategoryAndResult(int categoryId, String result, Pageable pageable);
+
+    Page<Goal> findAllByMember(Pageable pageable, Member member);
 }

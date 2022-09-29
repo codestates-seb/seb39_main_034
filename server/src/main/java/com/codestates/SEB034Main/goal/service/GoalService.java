@@ -108,6 +108,10 @@ public class GoalService {
         return goalRepository.findAll(PageRequest.of(page, size, Sort.by("goalId").descending()));
     }
 
+//    public Page<Goal> findGoalsByUsername(int page, int size, String username) {
+//        return goalRepository.findAllByUsername(PageRequest.of(page, size, Sort.by("goalId").descending()), username);
+//    }
+
     public Page<Goal> categoryOnlyFilter(int categoryId, int page, int size) {
         if (categoryId == 0) {
             return goalRepository.findAll(PageRequest.of(page, size, Sort.by("goalId").descending()));

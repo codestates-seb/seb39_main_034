@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -53,5 +54,9 @@ public class Timeline {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

@@ -23,7 +23,7 @@ import java.util.*;
 
 public class JwtVerificationFilter extends OncePerRequestFilter {
 
-    private static final String[] excludedEndpoints = new String[] {"/v1/testcall"};
+    private static final String[] excludedEndpoints = new String[] {"/v1/testcall", "/v1/users/validation"};
 
     private final JwtTokenizer jwtTokenizer;
 

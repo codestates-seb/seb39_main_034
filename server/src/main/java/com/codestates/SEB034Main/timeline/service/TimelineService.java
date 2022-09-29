@@ -97,7 +97,10 @@ public class TimelineService {
     public void updateTimeline(PatchTimelineDto patchTimelineDto, long timelineId) {
         Timeline verifiedTimeline = findVerifiedTimeline(timelineId);
 
-        verifiedTimeline.setDescription(patchTimelineDto.getDescription());
+        Optional.ofNullable(patchTimelineDto.getDescription())
+                .ifPresent(description -> verifiedTimeline.setDescription(description));
+        Optional.ofNullable(patchTimelineDto.getImageId())
+                .ifPresent(image -> verifiedTimeline.setImage(imageService.findVerifiedImage(patchTimelineDto.getImageId())));
 
         timelineRepository.save(verifiedTimeline);
     }

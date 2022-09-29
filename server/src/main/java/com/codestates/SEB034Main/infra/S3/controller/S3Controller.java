@@ -27,9 +27,17 @@ public class S3Controller {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity deleteFile() {
+    public ResponseEntity deleteFile(@RequestParam("imageId") long imageId) {
 
-        s3Upload.delete();
+        s3Upload.delete(imageId);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/delete/timelineImage")
+    public ResponseEntity deleteUploadedFile(@RequestParam("timelineId") long timelineId) {
+
+        s3Upload.deleteUploadedImage(timelineId);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

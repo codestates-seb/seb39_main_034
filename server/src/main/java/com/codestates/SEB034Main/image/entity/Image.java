@@ -1,6 +1,7 @@
 package com.codestates.SEB034Main.image.entity;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
+import com.codestates.SEB034Main.timeline.entity.Timeline;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,8 +31,5 @@ public class Image {
     @Builder.Default
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-//    @JsonManagedReference
-//    @OneToOne
-//    @JoinColumn(name = "goalId")
-//    private Goal goal;
+
 }
