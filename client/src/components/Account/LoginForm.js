@@ -7,11 +7,11 @@ import { FormWrapper, InputForm, InputBox, AccountBtn } from './AccountStyle'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { AiFillLock } from 'react-icons/ai'
 import { BiRightArrowAlt } from 'react-icons/bi'
-// import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { onLoginSuccess } from './TokenAuth'
 
 function LoginForm() {
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [loginData, setLoginData] = useState({
     username: '',
@@ -29,6 +29,7 @@ function LoginForm() {
         console.log(res)
         if (res.status === 200) {
           onLoginSuccess(
+            dispatch,
             res.headers.authorization,
             res.headers.refresh,
             loginData.username
