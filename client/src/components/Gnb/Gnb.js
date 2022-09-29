@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { Container, Col, Row } from '../../styles/globalStyles'
 import { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { SET_LOGIN, SET_LOGOUT } from '../../redux/authSlice'
+import { SET_LOGIN } from '../../redux/authSlice'
 import { Profile } from '../Widget/WidgetStyle'
 // import { onLogout } from '../Account/TokenAuth'
 import { FaTimes } from 'react-icons/fa'
@@ -17,13 +17,13 @@ import {
   ProfileTooltip,
 } from './GnbStyles.js'
 // import axios from 'axios'
-import { removeCookieToken } from '../../data/Cookie'
-import { onRefreshTest } from '../Account/TokenAuth'
+import { onLogout, onRefresh } from '../Account/TokenAuth'
 
 function Gnb() {
   const dispatch = useDispatch()
   const isLogin = useSelector((state) => state.auth.isLogin)
   const userName = useSelector((state) => state.auth.userName)
+  let accessToken = useSelector((state) => state.auth.authorization)
   const [showTooltip, setShowTooltip] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
   const navigate = useNavigate()
@@ -43,16 +43,7 @@ function Gnb() {
     )
   }
   const handleLogout = () => {
-    // localstorage에서 accessToken 삭제
-    window.localStorage.removeItem('userName')
-    window.localStorage.removeItem('authorization')
-
-    // redux에서 accessToken 삭제
-    dispatch(SET_LOGOUT())
-
-    // cookie에서 refreshToken 삭제
-    removeCookieToken()
-
+    onLogout(dispatch)
     navigate('/main')
   }
   //모바일 메뉴 핸들러
@@ -75,7 +66,8 @@ function Gnb() {
 
   // refresh 테스트할 용도
   const handleRefresh = () => {
-    onRefreshTest()
+    console.log('이전 access: ', accessToken)
+    onRefresh(dispatch)
   }
 
   useEffect(() => {

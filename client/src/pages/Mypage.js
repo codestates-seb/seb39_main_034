@@ -4,6 +4,8 @@ import useGetCards from '../hook/useGetCards'
 import { Notice } from '../components/Widget/WidgetStyle'
 import Lnb from '../components/Lnb/Lnb'
 import CardList from '../components/Card/CardList'
+import { onAccessTest } from '../components/Account/TokenAuth'
+import { useDispatch } from 'react-redux'
 
 function Mypage() {
   const [categoryId, setCategoryId] = useState(0)
@@ -14,7 +16,10 @@ function Mypage() {
     statusId,
     pageNumber
   )
+
+  const dispatch = useDispatch()
   const observer = useRef()
+
   const handleLastCardRef = useCallback(
     (target) => {
       if (loading) return
@@ -29,6 +34,8 @@ function Mypage() {
     },
     [loading, hasMore]
   )
+
+  onAccessTest(dispatch)
 
   return (
     <Container>

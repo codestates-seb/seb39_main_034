@@ -40,7 +40,7 @@ export default function useGetCards(categoryId, statusId, pageNumber) {
         setCards((prevCards) => {
           return [...prevCards, ...res.data.data]
         })
-        console.log('axios 받아옴')
+        // console.log('axios 받아옴')
         console.log(res.data)
         setHasMore(res.data.pageInfo.totalPages > pageNumber)
         setLoading(false)

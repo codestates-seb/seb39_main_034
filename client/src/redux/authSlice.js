@@ -7,13 +7,12 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     SET_LOGIN: (state, action) => {
-      console.log(action)
-      state.isLogin = true
+      if (action.payload.authorization) {
+        state.isLogin = true
+      }
       state.userName = action.payload.userName
       state.authorization = action.payload.authorization
-    },
-    SET_REFRESH: (state, action) => {
-      state.authorization = action.payload
+      console.log('로그인 여부: ', state.isLogin)
     },
     SET_LOGOUT: (state) => {
       console.log('logout')

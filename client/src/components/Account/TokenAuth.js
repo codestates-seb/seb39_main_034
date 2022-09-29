@@ -1,30 +1,13 @@
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
 import { SET_LOGIN, SET_LOGOUT } from '../../redux/authSlice'
 import {
   setRefreshToken,
   getCookieToken,
   removeCookieToken,
 } from '../../data/Cookie'
+import { useNavigate } from 'react-router-dom'
 
-export const onLoginSuccess = (access, refresh, userName) => {
-  // token과 이름을 localstorage에 저장
-  if (userName) window.localStorage.setItem('userName', userName)
-  window.localStorage.setItem('authorization', access)
-
-  // refreshtoken을 쿠키에 저장
-  removeCookieToken()
-  setRefreshToken(refresh)
-
-  //localstorage에 저장한 값을 redux로 받아옴
-  onRemind()
-
-  // header에 accessToken 설정
-  axios.defaults.headers.common['Authorization'] = access
-}
-
-export const onRemind = () => {
-  const dispatch = useDispatch()
+export const onRemind = (dispatch) => {
   // localstorage에서 redux로 옮겨와 저장
   dispatch(
     SET_LOGIN({
@@ -34,9 +17,30 @@ export const onRemind = () => {
   )
 }
 
-export const onLogout = () => {
-  const dispatch = useDispatch()
+export const onLoginSuccess = (dispatch, access, refresh, userName) => {
+  console.log('로그인 성공')
+  // token과 이름을 localstorage에 저장
+  if (userName) window.localStorage.setItem('userName', userName)
+  window.localStorage.setItem('authorization', access.slice())
 
+  // refreshtoken을 쿠키에 저장
+  removeCookieToken()
+  setRefreshToken(refresh)
+
+  //localstorage에 저장한 값을 redux로 받아옴
+  onRemind(dispatch)
+
+  // header에 accessToken 설정
+  axios.defaults.headers.common['Authorization'] = access
+
+  // access 유효시간 30분 테스트
+  console.log('받아온 Access : ', access)
+  setTimeout(() => {
+    console.log('Access 유효시간 만료')
+  }, 30 * 60 * 1000)
+}
+
+export const onLogout = (dispatch) => {
   // localstorage에서 accessToken 삭제
   window.localStorage.removeItem('userName')
   window.localStorage.removeItem('authorization')
@@ -51,28 +55,54 @@ export const onLogout = () => {
   axios.defaults.headers.common['Authorization'] = null
 }
 
-export const onRefresh = () => {
+export const onRefresh = (dispatch) => {
   const refresh_token = getCookieToken()
 
   // cookie에 refreshToken이 남아있다면 refresh 시도
   if (refresh_token) {
+    console.log('Refresh 시도')
     axios({
-      method: 'post',
+      method: 'get',
       url: '/v1/users/validation',
       headers: { Refresh: refresh_token },
     })
       .then((res) => {
         if (res.data.token_status === 'RE_ISSUED') {
-          onLoginSuccess(res.headers.new_authorization, res.headers.new_refresh)
+          console.log('Refresh 성공')
+          onLoginSuccess(
+            dispatch,
+            res.headers.new_authorization,
+            res.headers.new_refresh
+          )
         } else {
-          onLogout()
+          onLogout(dispatch)
+          alert('장시간 이용하지 않아 로그아웃 됩니다')
+          useNavigate('/')
         }
       })
       .catch((err) => {
         console.log(err)
-        onLogout()
+        onLogout(dispatch)
+        alert('계정에 오류가 발생해 로그아웃 됩니다')
+        useNavigate('/')
       })
   }
+}
+
+export const onAccessTest = (dispatch) => {
+  axios({
+    method: 'get',
+    url: 'v1/authenticationTest',
+  })
+    .then((res) => {
+      if (res.data.auth === 'Okay') {
+        console.log('Access 인증 통과')
+      } else {
+        console.log('Access 인증 실패')
+        onRefresh(dispatch)
+      }
+    })
+    .catch((err) => console.log(err))
 }
 
 // accessToken 만료하기 1분 전에 로그인 연장
@@ -89,30 +119,6 @@ export const onSilentRefresh = () => {
       .catch((err) => {
         console.log(err)
         onLogout()
-      })
-  }
-}
-
-// gnb에서 테스트할 용도
-export const onRefreshTest = () => {
-  const refresh_token = getCookieToken()
-  console.log('찾아온 쿠키 : ', refresh_token)
-
-  // cookie에 refreshToken이 남아있다면 refresh 시도
-  if (refresh_token) {
-    axios({
-      method: 'get',
-      url: '/v1/users/validation',
-      headers: { Refresh: refresh_token },
-    })
-      .then((res) => {
-        if (res.data.token_status === 'RE_ISSUED') {
-          console.log('새로받은 refreshtoken: ', res.headers.new_refresh)
-          onLoginSuccess(res.headers.new_authorization, res.headers.new_refresh)
-        }
-      })
-      .catch((err) => {
-        console.log(err)
       })
   }
 }

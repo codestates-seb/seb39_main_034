@@ -7,12 +7,11 @@ import { FormWrapper, InputForm, InputBox, AccountBtn } from './AccountStyle'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { AiFillLock } from 'react-icons/ai'
 import { BiRightArrowAlt } from 'react-icons/bi'
-import { useDispatch } from 'react-redux'
-import { SET_LOGIN } from '../../redux/authSlice'
-import { setRefreshToken } from '../../data/Cookie'
+// import { useDispatch } from 'react-redux'
+import { onLoginSuccess } from './TokenAuth'
 
 function LoginForm() {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const navigate = useNavigate()
   const [loginData, setLoginData] = useState({
     username: '',
@@ -55,31 +54,6 @@ function LoginForm() {
   function handleSubmitClick(e) {
     e.preventDefault()
     sendPost()
-  }
-
-  const onLoginSuccess = (access, refresh, userName) => {
-    // token과 이름을 localstorage에 저장
-    if (userName) window.localStorage.setItem('userName', userName)
-    window.localStorage.setItem('authorization', access)
-
-    //localstorage에 저장한 값을 redux로 받아옴
-    onRemind()
-
-    // refreshtoken을 쿠키에 저장
-    setRefreshToken(refresh)
-
-    // header에 accessToken 설정
-    axios.defaults.headers.common['Authorization'] = access
-  }
-
-  const onRemind = () => {
-    // localstorage에서 redux로 옮겨와 저장
-    dispatch(
-      SET_LOGIN({
-        userName: window.localStorage.getItem('userName'),
-        authorization: window.localStorage.getItem('authorization'),
-      })
-    )
   }
 
   return (
