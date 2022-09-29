@@ -6,8 +6,11 @@ import Lnb from '../components/Lnb/Lnb'
 import CardList from '../components/Card/CardList'
 import { onAccessTest } from '../components/Account/TokenAuth'
 import { useDispatch } from 'react-redux'
+// import { useNavigate } from 'react-router-dom'
 
 function Mypage() {
+  //필터링 관련
+  // const [authCheck, setAuthCheck] = useState(false)
   const [categoryId, setCategoryId] = useState(0)
   const [statusId, setStatusId] = useState(0)
   const [pageNumber, setPageNumber] = useState(1)
@@ -16,7 +19,6 @@ function Mypage() {
     statusId,
     pageNumber
   )
-
   const dispatch = useDispatch()
   const observer = useRef()
 
@@ -36,29 +38,41 @@ function Mypage() {
   )
 
   onAccessTest(dispatch)
+  // setAuthCheck(true)
 
   return (
-    <Container>
-      <Row>
-        <Lnb
-          categoryId={categoryId}
-          setCategoryId={setCategoryId}
-          setStatusId={setStatusId}
-          statusId={statusId}
-          setPageNumber={setPageNumber}
-        />
-      </Row>
-      <CardList cards={cards} handleLastCardRef={handleLastCardRef} />
-      <Row>
-        <Col>
-          <Notice>
-            <div>{loading && '로딩 중입니다...🐢'}</div>
-            <div>{error && '에러가 발생했어요 🤔 '}</div>
-            <div>{cards.length === 0 && '검색 결과가 없어요 🙅'}</div>
-          </Notice>
-        </Col>
-      </Row>
-    </Container>
+    <>
+      {/* {authCheck ? ( */}
+      <Container>
+        <Row>
+          여기는 마이페이지!!!!
+          <Lnb
+            categoryId={categoryId}
+            setCategoryId={setCategoryId}
+            setStatusId={setStatusId}
+            statusId={statusId}
+            setPageNumber={setPageNumber}
+          />
+        </Row>
+        <CardList cards={cards} handleLastCardRef={handleLastCardRef} />
+        <Row>
+          <Col>
+            <Notice>
+              <div>{loading && '로딩 중입니다...🐢'}</div>
+              <div>{error && '에러가 발생했어요 🤔 '}</div>
+              <div>{cards.length === 0 && '아직 목표가 없어요 🙅'}</div>
+            </Notice>
+          </Col>
+        </Row>
+      </Container>
+      {/* ) : (
+        <Container>
+          <Row>
+            <Col>아직 로그인 체크 중</Col>
+          </Row>
+        </Container>
+      )} */}
+    </>
   )
 }
 

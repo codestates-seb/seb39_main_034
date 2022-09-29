@@ -1,7 +1,8 @@
 import { Cookies } from 'react-cookie'
 
 const cookies = new Cookies()
-const refresh_max_age = 4 * 60 * 60
+// const refresh_max_age = 4 * 60 * 60
+const refresh_max_age = 3 * 60
 
 export const setRefreshToken = (refresh_token) => {
   return cookies.set('refresh_token', refresh_token, {

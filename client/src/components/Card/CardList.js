@@ -30,10 +30,10 @@ const CardsList = React.memo(function CardList({ cards, handleLastCardRef }) {
                     card.imageURL ||
                     'https://www.telegraph.co.uk/content/dam/health-fitness/2018/08/31/TELEMMGLPICT000156474637_trans_NvBQzQNjv4BqpVlberWd9EgFPZtcLiMQfyf2A9a6I9YchsjMeADBa08.jpeg?imwidth=680'
                   }
-                  image={
+                  profile={
                     'https://images.pexels.com/photos/1310522/pexels-photo-1310522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
                   }
-                  author={'조안나'}
+                  author={card.member}
                 />
               </Link>
             </Col>
@@ -62,7 +62,7 @@ const CardsList = React.memo(function CardList({ cards, handleLastCardRef }) {
                   profile={
                     'https://images.pexels.com/photos/1310522/pexels-photo-1310522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
                   }
-                  author={'조안나'}
+                  author={card.member}
                 />
               </Link>
             </Col>

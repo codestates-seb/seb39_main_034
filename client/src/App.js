@@ -21,6 +21,7 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL
 function App() {
   // 로그인 상태인지 확인
   const dispatch = useDispatch()
+
   onRemind(dispatch)
 
   return (

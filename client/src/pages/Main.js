@@ -33,22 +33,6 @@ function Main() {
     [loading, hasMore]
   )
 
-  // console.log(
-  //   'category:',
-  //   categoryId,
-  //   'status:',
-  //   statusId,
-  //   'page:',
-  //   pageNumber,
-  //   'loading:',
-  //   loading,
-  //   'error:',
-  //   error,
-  //   'hasMore:',
-  //   hasMore,
-  //   cards.length
-  // )
-
   return (
     <Container>
       <Row>
