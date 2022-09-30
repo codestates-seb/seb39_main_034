@@ -17,23 +17,16 @@ public class PatchGoalDto {
 
     private long goalId;
 
-    @NotBlank(message = "제목은 공백이 아니어야 합니다.")
     private String title;
 
-    @NotBlank(message = "목표 설명란은 공백이 아니어야 합니다.")
     private String description;
 
-    @NotBlank(message = "성공 보상은 공백이 아니어야 합니다.")
     private String successAward;
 
-    @NotBlank(message = "실패 패널티는 공백이 아니어야 합니다.")
     private String failurePenalty;
 
-//    @Pattern(regexp = "^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))$",
-//            message = "날짜를 올바르게 입력해주세요")
     private LocalDate endDate;
 
-    @NotBlank
     private String category;
 
     public String getTitle() {

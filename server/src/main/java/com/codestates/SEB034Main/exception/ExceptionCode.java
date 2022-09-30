@@ -8,7 +8,8 @@ public enum ExceptionCode {
     GOAL_NOT_FOUND(404, "Goal not found"),
     TODO_NOT_FOUND(404, "Todo not found"),
     TIMELINE_NOT_FOUND(404, "Timeline not found"),
-    IMAGE_NOT_FOUND(404, "Image not found");
+    IMAGE_NOT_FOUND(404, "Image not found"),
+    PASSWORD_NOT_MATCH(404, "Passwords do not match");
 
     @Getter
     private int status;

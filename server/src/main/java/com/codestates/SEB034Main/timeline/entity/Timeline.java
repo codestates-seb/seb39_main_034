@@ -2,11 +2,13 @@ package com.codestates.SEB034Main.timeline.entity;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
 import com.codestates.SEB034Main.image.entity.Image;
+import com.codestates.SEB034Main.member.entity.Member;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -44,7 +46,17 @@ public class Timeline {
     @JoinColumn(name = "imageId")
     private Image image;
 
+
+    @ManyToOne
+    @JoinColumn(name = "memberId")
+    private Member member;
+
+
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

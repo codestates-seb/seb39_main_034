@@ -1,11 +1,8 @@
 package com.codestates.SEB034Main.todo.dto;
 
-import lombok.Getter;
-
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
-@Getter
+
 public class PatchTodoDto {
     private long todoId;
 

@@ -1,5 +1,6 @@
 package com.codestates.SEB034Main.goal.dto;
 
+import com.codestates.SEB034Main.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,4 +25,6 @@ public class GoalListResponseDto {
     private int numberOfCompletedTodos;
 
     private int numberOfFollowers;
+
+    private Member member;
 }

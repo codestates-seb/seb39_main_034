@@ -1,6 +1,7 @@
 package com.codestates.SEB034Main.goal.mapper;
 
 
+import com.codestates.SEB034Main.dto.MyPageInfo;
 import com.codestates.SEB034Main.goal.dto.GoalListResponseDto;
 import com.codestates.SEB034Main.goal.entity.Goal;
 import com.codestates.SEB034Main.todo.entity.Todo;
@@ -16,7 +17,7 @@ public class GoalMapper {
 
         List<GoalListResponseDto> goalListResponseDtoList = new ArrayList<>();
 
-        for (Goal eachGoal: goal) {
+        for (Goal eachGoal : goal) {
             List<Todo> todoList = eachGoal.getTodoList();
             String imageURL = "";
 
@@ -25,7 +26,7 @@ public class GoalMapper {
             } else imageURL = eachGoal.getImage().getUrl();
 
             int numberOfCompletedTodos = 0;
-            for (Todo todos: todoList) {
+            for (Todo todos : todoList) {
                 if (todos.getCompleted() == 1) {
                     numberOfCompletedTodos++;
                 }
@@ -38,6 +39,7 @@ public class GoalMapper {
             goalListResponseDto.setNumberOfTodos(eachGoal.getTodoList().size());
             goalListResponseDto.setNumberOfCompletedTodos(numberOfCompletedTodos);
             goalListResponseDto.setImageURL(imageURL);
+            goalListResponseDto.setMember(eachGoal.getMember());
             goalListResponseDto.setNumberOfFollowers(3);
 
             if (eachGoal.getStatus() == 0) {
@@ -47,5 +49,24 @@ public class GoalMapper {
             goalListResponseDtoList.add(goalListResponseDto);
         }
         return goalListResponseDtoList;
+    }
+
+    public MyPageInfo goalListToMyPageInfo(List<Goal> goalList) {
+        int numberOfOngoingGoals = 0;
+        double numberOfEndedGoals = 0.0;
+        double numberOfSuccessGoals = 0.0;
+
+        for (Goal goal : goalList) {
+            if (goal.getStatus() == 0) {
+                numberOfOngoingGoals++;
+            } else if (goal.getStatus() == 1) {
+                numberOfEndedGoals++;
+            }
+            if (goal.getResult() == Goal.GoalResult.SUCCESS) {
+                numberOfSuccessGoals++;
+            }
+        }
+        MyPageInfo myPageInfo = new MyPageInfo(numberOfOngoingGoals, numberOfSuccessGoals, numberOfEndedGoals);
+        return myPageInfo;
     }
 }

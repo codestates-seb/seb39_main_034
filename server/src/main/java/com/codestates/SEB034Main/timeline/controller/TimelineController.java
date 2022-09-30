@@ -6,19 +6,21 @@ import com.codestates.SEB034Main.timeline.service.TimelineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 @RequiredArgsConstructor
 @RequestMapping("/v1")
 @RestController
 public class TimelineController {
 
     private final TimelineService timelineService;
-
+    @Secured("ROLE_USER")
     @PostMapping("/goal/{goalId}/timeline")
     public ResponseEntity postTimeline(@PathVariable("goalId") @Positive long goalId, @Valid @RequestBody PostTimelineDto postTimelineDto) {
         timelineService.createTimeline(postTimelineDto, goalId);
@@ -26,6 +28,7 @@ public class TimelineController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    @Secured("ROLE_USER")
     @PatchMapping("/goal/timeline/{timelineId}")
     public ResponseEntity patchTimeline(@PathVariable("timelineId") @Positive long timelineId, @RequestBody PatchTimelineDto patchTimelineDto) {
         timelineService.updateTimeline(patchTimelineDto, timelineId);
@@ -33,6 +36,7 @@ public class TimelineController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @Secured("ROLE_USER")
     @DeleteMapping("/goal/timeline/{timelineId}")
     public ResponseEntity deleteTimeline(@PathVariable("timelineId") @Positive long timelineId) {
         timelineService.deleteTimeline(timelineId);

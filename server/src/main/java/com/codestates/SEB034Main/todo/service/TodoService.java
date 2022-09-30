@@ -24,6 +24,7 @@ public class TodoService {
 
         Todo todo = Todo.builder()
                 .title(postTodoDto.getTitle())
+                .member(goal.getMember())
                 .goal(goal)
                 .build();
 
@@ -34,6 +35,7 @@ public class TodoService {
     public void createTodo(PostTodoDto postTodoDto, Goal goal) {
         Todo todo = Todo.builder()
                 .title(postTodoDto.getTitle())
+                .member(goal.getMember())
                 .goal(goal)
                 .build();
 

@@ -1,6 +1,8 @@
 package com.codestates.SEB034Main.image.entity;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
+import com.codestates.SEB034Main.timeline.entity.Timeline;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,12 +25,13 @@ public class Image {
     @Column(nullable = false)
     private String url;
 
+    private String filename;
+
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Builder.Default
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    @OneToOne(mappedBy = "image", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private Goal goal;
+
 }
