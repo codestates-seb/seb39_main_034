@@ -10,7 +10,7 @@ import theme from '../../styles/theme'
 
 // ~~~ Timeline style ~~~ //
 export const TimelineList = styled(Container)``
-export const TimelineContainer = styled.div`
+export const TimelineContainer = styled(Container)`
   > article {
     margin: 10px 0;
     border: 1px solid ${theme.border};

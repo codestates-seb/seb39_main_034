@@ -137,6 +137,18 @@ export const Profile = ({ image, author, onClick }) => (
   </ProfileBase>
 )
 
+export const MoreBase = styled.div`
+  width: 100%;
+  text-align: center;
+`
+export const MoreButton = styled(Button)`
+  padding: 10px;
+  margin: 10px;
+`
 export const MoreBtn = React.memo(function MoreBtn({ onClick }) {
-  return <button onClick={onClick}>더 보기</button>
+  return (
+    <MoreBase>
+      <MoreButton onClick={onClick}>타임라인 더 보기</MoreButton>
+    </MoreBase>
+  )
 })

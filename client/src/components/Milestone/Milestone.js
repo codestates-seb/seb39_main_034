@@ -18,18 +18,24 @@ export default function Milestone({ milestoneData }) {
 
   const navigate = useNavigate()
   const handleDeleteClick = () => {
-    axios({
-      method: 'delete',
-      url: process.env.REACT_APP_API_URL + `/v1/goal/${milestoneData.goalId}`,
-    })
-      .then((res) => {
-        console.log(res)
-        alert('목표 삭제')
-        navigate('/main')
+    const confirmResult = confirm('정말 목표를 삭자하시겠습니까?')
+    if (confirmResult) {
+      axios({
+        method: 'delete',
+        url: process.env.REACT_APP_API_URL + `/v1/goal/${milestoneData.goalId}`,
       })
-      .catch((err) => {
-        console.log(err)
-      })
+        .then((res) => {
+          console.log(res)
+          alert('목표 삭제')
+          navigate('/main')
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      alert('목표가 삭제되었습니다')
+    } else {
+      alert('취소되었습니다')
+    }
   }
 
   return (

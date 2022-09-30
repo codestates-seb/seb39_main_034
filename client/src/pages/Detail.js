@@ -86,9 +86,11 @@ function DetailView() {
             )}
           </Col>
           <Col>
+            {/* 작성자일 경우 */}
             {!openCreateChecklist ? (
               <PlusBtn onClick={createChecklistToggle}></PlusBtn>
             ) : null}
+            {/* 작성자 아닐 경우 null*/}
           </Col>
         </Row>
         <Row>

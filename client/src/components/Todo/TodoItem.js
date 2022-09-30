@@ -100,6 +100,7 @@ function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
   return (
     <>
       {openEdit ? (
+        //수정모드인 경우
         <TodoItemBlock>
           <CheckBox done={complete} onClick={handleClickCheckBox} />
           <NewInput
@@ -111,15 +112,18 @@ function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
           <CompleteBtn onClick={handleEditClickClose}>수정 취소</CompleteBtn>
         </TodoItemBlock>
       ) : (
+        // 수정 모드가 아닌 경우
         <TodoItemBlock>
           <CheckBox done={complete} onClick={handleClickCheckBox} />
           <Text>{title}</Text>
+          {/* 작성자일 경우: 요청시 헤더에 Authorization: 토큰을 전달해 유효한 토큰을 가지고 있는데 검토 */}
           <Edit>
             <EditBtn onClick={editChecklistToggle} />
           </Edit>
           <Remove>
             <DeleteBtn onClick={handleDeleteClick} />
           </Remove>
+          {/* 작성자가 아닐 경우 버튼 안보이게 */}
         </TodoItemBlock>
       )}
     </>

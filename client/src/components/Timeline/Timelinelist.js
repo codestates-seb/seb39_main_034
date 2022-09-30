@@ -22,7 +22,8 @@ export default function Timelinelist(props) {
       <HeadingH3 color mt="50px">
         타임라인
       </HeadingH3>
-      {status === (1 || 2) ? (
+      {/*후기: status가 false(진행중)일 때 타임라인만 나오고 true(진행종료)일 경우 후기창 띄움*/}
+      {status ? (
         <TimelineContainer>
           <div className="header__timeline review">
             <Text>후기 달성 창</Text>

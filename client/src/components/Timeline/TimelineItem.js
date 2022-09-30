@@ -176,8 +176,6 @@ export default function TimelineItem(props) {
 
   return (
     <article>
-      {/*후기 조건: status===0일 경우(진행중) 타임라인만 나오고*/}
-      {/*status===0이 아닐 경우(진행종료) 추가적으로 후기 타임라인이 나옴 */}
       {openEdit ? (
         <>
           {/* 타임라인 수정 창 열렸을 때 */}
@@ -309,12 +307,14 @@ export default function TimelineItem(props) {
           {/* ~~~ 타임라인 헤드 ~~~ */}
           <div className="header__timeline">
             <Text>작성일: {today}</Text>
+            {/* 작성자일 경우 보이게*/}
             <div className="header__timeline--icon">
               <Icon>
                 <EditBtn size={20} onClick={handleClickEdit} />
                 <DeleteBtn onClick={handleClickDelete} />
               </Icon>
             </div>
+            {/* 작성자가 아니라면 안보이게*/}
           </div>
           <div className="contents__timeline">
             {/* 이미지가 없다면 내용만 보이게: 분기를 나눈 이유는 이미지가 없을 때 image.url 을 찾을 수 없다는 에러가 나서 추가 */}
