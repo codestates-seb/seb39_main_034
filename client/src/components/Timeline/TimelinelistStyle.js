@@ -9,10 +9,6 @@ import {
 import theme from '../../styles/theme'
 
 export const TimelineContainer = styled(Container)`
-  .header__timeline2 {
-    display: flex;
-    justify-content: space-between;
-  }
   > article {
     margin: 10px 0;
     border: 1px solid ${theme.border};
@@ -22,7 +18,7 @@ export const TimelineContainer = styled(Container)`
     display: flex;
     justify-content: space-between;
     height: 60px;
-    background-color: ${({ review }) => (review ? review : theme.violet_l)};
+    background-color: ${name === 'review' ? theme.yellow : theme.violet_l};
     border-radius: 10px 10px 0 0;
 
     .header__timeline--icon {
@@ -41,8 +37,30 @@ export const TimelineContainer = styled(Container)`
     border-bottom: 1px solid ${theme.tertiary};
   }
   .contents__timeline {
-    padding: 30px 20px;
+    color: ${theme.primary};
+    /* border: 1px solid red; */
+    .filenames {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 20px;
+      background-color: ${theme.border_l};
+      box-shadow: 0px 2px 5px ${theme.border};
+      .filename span {
+        font-weight: bold;
+        margin: 0 0 0 10px;
+      }
+      .button__complete {
+        display: flex;
+        align-items: center;
+        span {
+          color: ${theme.primary};
+        }
+      }
+    }
     .contents {
+      padding: 30px 20px;
+
       .contents__img {
         width: 300px;
         display: block;
@@ -50,15 +68,7 @@ export const TimelineContainer = styled(Container)`
     }
   }
 `
-export const TimelineReviewContainer = styled(TimelineContainer)`
-  /* border: 1px solid red; */
-  /* .header__timeline {
-    display: flex;
-    justify-content: space-between;
-    height: 60px;
-    background-color: ${({ review }) => (review ? review : theme.violet_l)};
-    border-radius: 10px 10px 0 0;
-  } */
+export const TimelineReviewContainer = styled.div`
   border: 1px solid ${theme.border};
   .header__timeline--review {
     background-color: ${theme.yellow};
@@ -77,12 +87,16 @@ export const TimelineModalContainer = styled(Container)`
   width: 1000px;
   height: 600px;
   z-index: 10;
+
   .header__timeline {
     display: flex;
     justify-content: space-between;
     height: 60px;
-    background-color: ${theme.border};
+    background-color: ${theme.violet_l};
     border-radius: 10px 10px 0 0;
+  }
+  .modal {
+    background-color: ${theme.violet_m};
   }
   .header__editor {
     display: flex;
@@ -91,9 +105,31 @@ export const TimelineModalContainer = styled(Container)`
     border-bottom: 1px solid ${theme.tertiary};
   }
   .contents__timeline {
-    overflow-y: scroll;
-    height: 520px;
-    padding: 0 20px;
+    overflow: hidden;
+    .contents {
+      > div {
+        padding: 0 20px;
+        height: 470px;
+        overflow-y: scroll;
+        ::-webkit-scrollbar {
+          width: 25px;
+          border-radius: 5px;
+          background-color: ${theme.border_l};
+        }
+        ::-webkit-scrollbar-button {
+          display: none;
+        }
+        ::-webkit-scrollbar-thumb {
+          background-color: ${theme.violet_l};
+          border-radius: 10px;
+          border: 1px solid ${theme.border_l};
+        }
+        ::-webkit-scrollbar-track {
+          box-shadow: inset 0 0 5px ${theme.border};
+          border-radius: 10px;
+        }
+      }
+    }
     .button__complete {
       display: flex;
       justify-content: end;

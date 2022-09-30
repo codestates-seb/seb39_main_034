@@ -33,9 +33,8 @@ export const PlusBtnBase = styled(Button)`
   }
 `
 
-export const PlusBtn = React.memo(function PlusBtn({ onClick, name }) {
+export const PlusBtn = React.memo(function PlusBtn({ onClick }) {
   console.log('플러스 버튼 렌더링')
-  console.log(name)
   return (
     <PlusBtnBase onClick={onClick}>
       <FaPlus size="30" />

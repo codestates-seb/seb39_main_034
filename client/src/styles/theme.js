@@ -5,6 +5,7 @@ const theme = {
   secondary: '#8c8d96',
   tertiary: '#b2b3b9',
   border: '#e0e2e7',
+  border_l: '#F7F8FA',
   background: '#f7f8fa',
   white: '#ffffff',
   violet_d: '#240046',

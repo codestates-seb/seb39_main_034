@@ -7,7 +7,6 @@ import Timelinelist from '../components/Timeline/Timelinelist'
 import TimelineCreate from '../components/Timeline/TimelineCreate'
 import Reaction from '../components/Reaction/Reaction'
 import Comment from '../components/Comment/Comment'
-import { ProgressBar } from '../components/Todo/TodolistStyle'
 import { TodoCreate } from '../components/Todo/TodoCreate'
 import { TimelineModal } from '../components/Timeline/TimelineModal'
 import { Col, Container, Row } from '../styles/globalStyles'
@@ -19,7 +18,7 @@ function DetailView() {
   const [isOpenTimelineEditModal, setIsOpenTimelineEditModal] = useState(false)
   const [openCreateTimeline, setOpenCreateTimeline] = useState(false)
 
-  const [milestoneData, setMilestoneData] = useState({ image: {} })
+  const [milestoneData, setMilestoneData] = useState({ endDate: '', image: {} })
   const [todoData, setTodoData] = useState([])
   const [timelineData, setTimelineData] = useState([])
   const [metaData, setMetaData] = useState({})
@@ -57,6 +56,7 @@ function DetailView() {
         .catch((err) => {
           console.log('ERROR: ', err)
         })
+      console.log('axios 요청')
     }
     getDetail()
   }, [])
@@ -66,7 +66,7 @@ function DetailView() {
       <Container>
         <Row>
           <Col>
-            <Milestone data={milestoneData}></Milestone>
+            <Milestone milestoneData={milestoneData}></Milestone>
           </Col>
         </Row>
         <Row>
@@ -74,10 +74,11 @@ function DetailView() {
             <h3>할일</h3>
           </Col>
           <Col>
-            <ProgressBar metadata={metaData}></ProgressBar>
-          </Col>
-          <Col>
-            <Todolist todoData={todoData} setTodoData={setTodoData}></Todolist>
+            <Todolist
+              todoData={todoData}
+              setTodoData={setTodoData}
+              metaData={metaData}
+            ></Todolist>
           </Col>
           <Col>
             {openCreateChecklist && (
@@ -88,12 +89,14 @@ function DetailView() {
             )}
           </Col>
           <Col>
-            <PlusBtn onClick={createChecklistToggle} name="나는 투두"></PlusBtn>
+            {!openCreateChecklist ? (
+              <PlusBtn onClick={createChecklistToggle}></PlusBtn>
+            ) : null}
           </Col>
         </Row>
         <Row>
           <Col>
-            <h3>타임라인 {timelineData.length}</h3>
+            <h3>타임라인</h3>
           </Col>
           <Col>
             <Timelinelist
@@ -114,7 +117,9 @@ function DetailView() {
           </Col>
           {/* 작성자일 경우 */}
           <Col>
-            <PlusBtn onClick={createTimelineToggle} name="나는 타임라인" />
+            {!openCreateTimeline ? (
+              <PlusBtn onClick={createTimelineToggle} />
+            ) : null}
           </Col>
           {/* 작성자 아닐 경우 */}
           <Col>

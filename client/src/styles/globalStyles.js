@@ -73,7 +73,10 @@ export const MainHeading = styled.h1`
   width: 100%;
   letter-spacing: 4px;
   text-align: left;
+  padding: ${({ padding }) =>
+    padding ? padding : (props) => props.theme.primary};
 `
+
 export const Heading = styled.h2`
   font-size: clamp(1.3rem, 13vw, 3.1rem);
   margin: ${({ margin }) => (margin ? margin : '')};

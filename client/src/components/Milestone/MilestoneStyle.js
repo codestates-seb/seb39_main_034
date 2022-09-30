@@ -30,15 +30,34 @@ export const MilestoneContainer = styled.div`
     }
   }
   .header__milestone {
-    .header__milestone--title {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-    }
     .milestone__info {
       display: flex;
+      align-items: center;
+      .profile {
+        display: flex;
+        .userimg {
+          display: block;
+          width: 20px;
+          height: 20px;
+          background-color: black;
+          border-radius: 20px;
+        }
+        .username {
+          padding: 0 5px;
+          font-weight: bold;
+          line-height: 20px;
+        }
+      }
+      .dot {
+        padding: 0 5px;
+      }
+      .delete {
+        flex-grow: 1;
+        text-align: end;
+      }
     }
     .imgbox {
+      position: relative;
       height: 150px;
       border: 1px solid ${theme.border};
       overflow: hidden;
@@ -46,20 +65,28 @@ export const MilestoneContainer = styled.div`
       img {
         width: 100%;
       }
+      div {
+        position: absolute;
+        margin: 10px;
+        top: 8px;
+        right: 8px;
+      }
     }
   }
   .descriptions {
-    border: 2px solid ${theme.border};
+    border: 2px solid ${theme.violet_l};
     border-radius: 10px;
     padding: 10px;
     .description {
       display: flex;
       > h4 {
-        background-color: ${theme.border};
-        width: 80px;
+        background-color: ${theme.violet_l};
+        width: 90px;
         text-align: end;
         padding: 5px;
         margin: 5px 0;
+        border: 1px solid ${theme.border};
+        border-radius: 10px;
       }
       > p {
         padding: 5px;

@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom'
 // import TodoEdit from './TodoEdit'
 // import TodoCheck from './TodoCheck'
 
-function TodoItem({ todoId, title, completed, setTodoData }) {
+function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
   const { id } = useParams()
   const [newTitle, setNewTitle] = useState(title)
   const [complete, setComplete] = useState(completed)
@@ -22,7 +22,8 @@ function TodoItem({ todoId, title, completed, setTodoData }) {
   const editChecklistToggle = () => {
     setOpenEdit(!openEdit)
   }
-  const handleCancleClick = () => {
+
+  const handleEditClickClose = () => {
     setOpenEdit(false)
   }
   const onChangeText = (e) => {
@@ -44,12 +45,13 @@ function TodoItem({ todoId, title, completed, setTodoData }) {
       }).then((res) => {
         setTodoData(res.data.goal.todoList)
         setOpenEdit(!openEdit)
+        metaData(res.data.metadata)
       })
     } catch (err) {
       console.log(err)
     }
   }
-  const clickCheckBox = () => {
+  const handleClickCheckBox = () => {
     if (complete) {
       axios({
         method: 'get',
@@ -99,18 +101,18 @@ function TodoItem({ todoId, title, completed, setTodoData }) {
     <>
       {openEdit ? (
         <TodoItemBlock>
-          <CheckBox done={complete} onClick={clickCheckBox} />
+          <CheckBox done={complete} onClick={handleClickCheckBox} />
           <NewInput
             type="text"
             onChange={onChangeText}
             value={newTitle}
           ></NewInput>
           <CompleteBtn onClick={handleEditClick}>수정완료</CompleteBtn>
-          <CompleteBtn onClick={handleCancleClick}>수정 취소</CompleteBtn>
+          <CompleteBtn onClick={handleEditClickClose}>수정 취소</CompleteBtn>
         </TodoItemBlock>
       ) : (
         <TodoItemBlock>
-          <CheckBox done={complete} onClick={clickCheckBox} />
+          <CheckBox done={complete} onClick={handleClickCheckBox} />
           <Text>{title}</Text>
           <Edit>
             <EditBtn onClick={editChecklistToggle} />
