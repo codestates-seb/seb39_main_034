@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
 import { MilestoneContainer } from './MilestoneStyle'
-import { MainHeading } from '../../styles/globalStyles'
+import { HeadingH3, MainHeading } from '../../styles/globalStyles'
 import { DeleteBtn } from '../Widget/WidgetStyle'
 import { StatusBadge, CategoryBadge } from '../Card/CardStyle'
 
@@ -80,7 +80,9 @@ export default function Milestone({ milestoneData }) {
           {/* 작성자가 아닐 땐 null */}
         </div>
       </header>
-      <h3>목표</h3>
+      <HeadingH3 color mt="50px">
+        목표
+      </HeadingH3>
       <div className="descriptions">
         <div className="description">
           <h4>소개</h4>

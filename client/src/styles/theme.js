@@ -11,7 +11,7 @@ const theme = {
   violet_d: '#240046',
   violet_m: '#C77DFF',
   violet_l: '#EFD2FF',
-  yellow: 'FFFAD2',
+  yellow: '#FFFAD2',
   font36: '36px',
   font20: '20px',
   font18: '18px',

@@ -1,5 +1,6 @@
-import { TimelineContainer, TimelineReviewContainer } from './TimelinelistStyle'
+import { TimelineContainer, TimelineList, Text } from './TimelinelistStyle'
 import TimelineItem from './TimelineItem'
+import { HeadingH3 } from '../../styles/globalStyles'
 // import { CloseBtn, OpenBtn } from '../Widget/WidgetStyle'
 // import { useState } from 'react'
 
@@ -17,12 +18,19 @@ export default function Timelinelist(props) {
   //   setIsToggle(!isToggle)
   // }
   return (
-    <>
+    <TimelineList>
+      <HeadingH3 color mt="50px">
+        타임라인
+      </HeadingH3>
       {status === (1 || 2) ? (
-        <TimelineReviewContainer>
-          <div className="header__timeline--review">후기 달성 창</div>
-          <div className="contents__timeline">인풋창</div>
-        </TimelineReviewContainer>
+        <TimelineContainer>
+          <div className="header__timeline review">
+            <Text>후기 달성 창</Text>
+          </div>
+          <div className="contents__timeline review">
+            <div className="contents">인풋창</div>
+          </div>
+        </TimelineContainer>
       ) : length === 0 ? (
         <div>아직 데이터가 없습니다</div>
       ) : mode === 'limit' ? (
@@ -51,6 +59,6 @@ export default function Timelinelist(props) {
           })}
         </TimelineContainer>
       )}
-    </>
+    </TimelineList>
   )
 }

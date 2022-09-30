@@ -235,6 +235,7 @@ export default function TimelineCreate({
               id="text-area"
               value={description}
               onChange={handleChangeTextarea}
+              placeholder="타임라인 내용을 입력하고 이미지를 추가해보세요."
             />
           </div>
           <div className="button__complete">

@@ -8,7 +8,9 @@ import {
 } from '../../styles/globalStyles'
 import theme from '../../styles/theme'
 
-export const TimelineContainer = styled(Container)`
+// ~~~ Timeline style ~~~ //
+export const TimelineList = styled(Container)``
+export const TimelineContainer = styled.div`
   > article {
     margin: 10px 0;
     border: 1px solid ${theme.border};
@@ -18,7 +20,7 @@ export const TimelineContainer = styled(Container)`
     display: flex;
     justify-content: space-between;
     height: 60px;
-    background-color: ${name === 'review' ? theme.yellow : theme.violet_l};
+    background-color: ${theme.violet_l};
     border-radius: 10px 10px 0 0;
 
     .header__timeline--icon {
@@ -66,15 +68,21 @@ export const TimelineContainer = styled(Container)`
         display: block;
       }
     }
+    .button__complete {
+      padding: 10px;
+      text-align: end;
+    }
   }
-`
-export const TimelineReviewContainer = styled.div`
-  border: 1px solid ${theme.border};
-  .header__timeline--review {
+  .header__timeline.review {
     background-color: ${theme.yellow};
+    border: 1px solid ${theme.border};
+  }
+  .contents__timeline.review {
+    border: 1px solid ${theme.border};
   }
 `
 
+// ~~~ TimelineModal style ~~~ //
 export const Wrapper = styled(ModalWrapper)`
   display: flex;
   align-items: center;
@@ -137,6 +145,7 @@ export const TimelineModalContainer = styled(Container)`
   }
 `
 
+// ~~~ PUBLIC style ~~~ //
 export const Text = styled(TextWrapper)`
   color: ${theme.dark};
   font-size: ${theme.font18};

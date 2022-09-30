@@ -71,9 +71,6 @@ function DetailView() {
         </Row>
         <Row>
           <Col>
-            <h3>할일</h3>
-          </Col>
-          <Col>
             <Todolist
               todoData={todoData}
               setTodoData={setTodoData}
@@ -95,9 +92,6 @@ function DetailView() {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <h3>타임라인</h3>
-          </Col>
           <Col>
             <Timelinelist
               timelineData={timelineData}
@@ -121,7 +115,7 @@ function DetailView() {
               <PlusBtn onClick={createTimelineToggle} />
             ) : null}
           </Col>
-          {/* 작성자 아닐 경우 */}
+          {/* 작성자 & 작성자 아닐 경우 */}
           <Col>
             <MoreBtn onClick={openTimelineModal}></MoreBtn>
           </Col>
@@ -129,11 +123,6 @@ function DetailView() {
         <Row>
           <Col>
             <Reaction></Reaction>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <h3>코멘트</h3>
           </Col>
         </Row>
         <Row>

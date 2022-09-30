@@ -92,7 +92,10 @@ function Gnb() {
           <NavContainer>
             <div className="gnb-left">
               <NavLogo to="/">
-                <NavIcon src="/logo.png" alt="logo" />
+                <NavIcon
+                  src={`${process.env.PUBLIC_URL}/assets/logo_combination_sm.png`}
+                  alt="img"
+                />
               </NavLogo>
               <NavMenu showMenu={showMenu}>
                 <NavLink style={navStyle} to="/main">

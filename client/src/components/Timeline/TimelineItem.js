@@ -41,7 +41,13 @@ export default function TimelineItem(props) {
   // 수정 버튼 클릭 시 실행 시 이미지 아이디 값 받음
   const handleClickEdit = () => {
     setOpenEdit(!openEdit)
-    setTimelineImageId(image.imageId)
+    if (image === null) {
+      //이미지가 null 일땐 id가 없으므로 undefined
+      setTimelineImageId(undefined)
+    } else {
+      //이미지가 있을 땐 id 저장
+      setTimelineImageId(image.imageId)
+    }
   }
   const handleClickEmoji = () => {
     setOpenChoseEmoji(!openChoseEmoji)
@@ -248,10 +254,14 @@ export default function TimelineItem(props) {
                   value={newDdescription}
                   onChange={handleChangeTextarea}
                 />
-                <CompleteBtn onClick={handleClickSubmit}>수정완료</CompleteBtn>
-                <CompleteBtn onClick={handleClickSubmitCancle}>
-                  수정취소
-                </CompleteBtn>
+                <div className="button__complete">
+                  <CompleteBtn onClick={handleClickSubmit}>
+                    수정완료
+                  </CompleteBtn>
+                  <CompleteBtn onClick={handleClickSubmitCancle}>
+                    수정취소
+                  </CompleteBtn>
+                </div>
               </div>
             </div>
           ) : (

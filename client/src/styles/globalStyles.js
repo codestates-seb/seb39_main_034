@@ -88,7 +88,17 @@ export const Heading = styled.h2`
   text-align: center;
   width: ${({ width }) => (width ? width : '100%')};
 `
-
+export const HeadingH3 = styled.h3`
+  font-size: clamp(1.3rem, 13vw, 1.4rem);
+  margin: ${({ margin }) => (margin ? margin : '')};
+  margin-bottom: ${({ mb }) => (mb ? mb : '')};
+  margin-top: ${({ mt }) => (mt ? mt : '')};
+  color: ${({ color }) => (color ? (props) => props.theme.primary : '#fff')};
+  letter-spacing: 0.4rem;
+  line-height: 1.06;
+  text-align: start;
+  width: ${({ width }) => (width ? width : '100%')};
+`
 export const TextWrapper = styled.span`
   color: ${({ color }) => (color ? color : '')};
   font-size: ${({ size }) => (size ? size : '')};
