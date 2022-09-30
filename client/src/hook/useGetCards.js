@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-export default function useGetCards(categoryId, statusId, pageNumber) {
+export default function useGetCards(
+  categoryId,
+  statusId,
+  pageNumber,
+  userName
+) {
   // console.log('훅 실행될 때 찍은 로그')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [cards, setCards] = useState([])
+  const [metadata, setMetadata] = useState([])
   const [hasMore, setHasMore] = useState(false)
 
   useEffect(() => {
@@ -23,11 +29,13 @@ export default function useGetCards(categoryId, statusId, pageNumber) {
     if (error === true) {
       setError(false)
     }
-
+    const path = userName
+      ? `/v1/${userName}/goal/list/filter`
+      : '/v1/goal/list/filter'
     let cancel
     axios({
       method: 'GET',
-      url: '/v1/goal/list/filter',
+      url: path,
       params: {
         page: pageNumber,
         size: 12,
@@ -37,11 +45,12 @@ export default function useGetCards(categoryId, statusId, pageNumber) {
       cancelToken: new axios.CancelToken((c) => (cancel = c)),
     })
       .then((res) => {
+        // console.log('axios 받아옴')
+        console.log('res :', res.data)
         setCards((prevCards) => {
           return [...prevCards, ...res.data.data]
         })
-        // console.log('axios 받아옴')
-        console.log(res.data)
+        setMetadata({ ...res.data.pageInfo, ...res.data.myPageInfo })
         setHasMore(res.data.pageInfo.totalPages > pageNumber)
         setLoading(false)
       })
@@ -55,5 +64,5 @@ export default function useGetCards(categoryId, statusId, pageNumber) {
     return () => cancel()
   }, [categoryId, statusId, pageNumber])
   // console.log('훅 마지막 줄에서 찍은 로그')
-  return { loading, error, cards, hasMore }
+  return { loading, error, cards, metadata, hasMore }
 }

@@ -1,27 +1,31 @@
+import { useState, useRef, useCallback, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { Container, Row, Col } from '../styles/globalStyles'
-import { useState, useRef, useCallback } from 'react'
-import useGetCards from '../hook/useGetCards'
-import { Notice } from '../components/Widget/WidgetStyle'
+import MyPannel from '../components/MyPannel/MyPannel'
 import Lnb from '../components/Lnb/Lnb'
+import useGetCards from '../hook/useGetCards'
 import CardList from '../components/Card/CardList'
-import { onAccessTest } from '../components/Account/TokenAuth'
-import { useDispatch } from 'react-redux'
-// import { useNavigate } from 'react-router-dom'
+import { Notice } from '../components/Widget/WidgetStyle'
+import useGetAuth from '../hook/useGetAuth'
 
 function Mypage() {
+  const navigate = useNavigate()
+  //인증 관련
+  const { authLoading, authCheck } = useGetAuth()
+  const userName = useSelector((state) => state.auth.userName)
   //필터링 관련
-  // const [authCheck, setAuthCheck] = useState(false)
   const [categoryId, setCategoryId] = useState(0)
   const [statusId, setStatusId] = useState(0)
   const [pageNumber, setPageNumber] = useState(1)
-  const { loading, error, cards, hasMore } = useGetCards(
+  const { loading, error, cards, metadata, hasMore } = useGetCards(
     categoryId,
     statusId,
-    pageNumber
+    pageNumber,
+    userName
   )
-  const dispatch = useDispatch()
-  const observer = useRef()
 
+  const observer = useRef()
   const handleLastCardRef = useCallback(
     (target) => {
       if (loading) return
@@ -37,42 +41,51 @@ function Mypage() {
     [loading, hasMore]
   )
 
-  onAccessTest(dispatch)
-  // setAuthCheck(true)
+  useEffect(() => {
+    console.log('authcheck: ', authCheck)
+    if (authCheck === false) {
+      alert('로그인이 필요합니다')
+      navigate('/login')
+    }
+  }, [authCheck])
 
   return (
-    <>
-      {/* {authCheck ? ( */}
-      <Container>
+    <Container>
+      {authLoading ? (
         <Row>
-          여기는 마이페이지!!!!
-          <Lnb
-            categoryId={categoryId}
-            setCategoryId={setCategoryId}
-            setStatusId={setStatusId}
-            statusId={statusId}
-            setPageNumber={setPageNumber}
-          />
+          <Col>로그인 체크 중...</Col>
         </Row>
-        <CardList cards={cards} handleLastCardRef={handleLastCardRef} />
-        <Row>
-          <Col>
-            <Notice>
-              <div>{loading && '로딩 중입니다...🐢'}</div>
-              <div>{error && '에러가 발생했어요 🤔 '}</div>
-              <div>{cards.length === 0 && '아직 목표가 없어요 🙅'}</div>
-            </Notice>
-          </Col>
-        </Row>
-      </Container>
-      {/* ) : (
-        <Container>
+      ) : authCheck ? (
+        <>
           <Row>
-            <Col>아직 로그인 체크 중</Col>
+            <MyPannel metadata={metadata}></MyPannel>
           </Row>
-        </Container>
-      )} */}
-    </>
+          <Row>
+            <Lnb
+              categoryId={categoryId}
+              setCategoryId={setCategoryId}
+              setStatusId={setStatusId}
+              statusId={statusId}
+              setPageNumber={setPageNumber}
+            />
+          </Row>
+          <CardList cards={cards} handleLastCardRef={handleLastCardRef} />
+          <Row>
+            <Col>
+              <Notice>
+                <div>{loading && '로딩 중입니다...🐢'}</div>
+                <div>{error && '에러가 발생했어요 🤔 '}</div>
+                <div>{cards.length === 0 && '아직 목표가 없어요 🙅'}</div>
+              </Notice>
+            </Col>
+          </Row>
+        </>
+      ) : (
+        <Row>
+          <Col>로그인이 필요합니다</Col>
+        </Row>
+      )}
+    </Container>
   )
 }
 

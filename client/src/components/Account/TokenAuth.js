@@ -89,8 +89,8 @@ export const onRefresh = (dispatch) => {
   }
 }
 
-export const onAccessTest = async (dispatch) => {
-  await axios({
+export const onAccessTest = (dispatch) => {
+  axios({
     method: 'get',
     url: 'v1/authenticationTest',
   })
