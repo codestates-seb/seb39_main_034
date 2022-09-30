@@ -22,7 +22,8 @@ function Mypage() {
     categoryId,
     statusId,
     pageNumber,
-    userName
+    userName,
+    authLoading
   )
 
   const observer = useRef()

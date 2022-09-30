@@ -5,7 +5,8 @@ export default function useGetCards(
   categoryId,
   statusId,
   pageNumber,
-  userName
+  userName,
+  authLoading
 ) {
   // console.log('훅 실행될 때 찍은 로그')
   const [loading, setLoading] = useState(true)
@@ -62,7 +63,7 @@ export default function useGetCards(
       })
     // console.log('useEffect#2 마지막 줄에서 찍은 로그')
     return () => cancel()
-  }, [categoryId, statusId, pageNumber])
+  }, [categoryId, statusId, pageNumber, authLoading])
   // console.log('훅 마지막 줄에서 찍은 로그')
   return { loading, error, cards, metadata, hasMore }
 }

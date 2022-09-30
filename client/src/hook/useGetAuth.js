@@ -41,12 +41,14 @@ const useGetAuth = () => {
             refreshCheck.headers.new_refresh
           )
           setAuthCheck(true)
+          console.log('authcheck를 true로 변경')
         } else {
           onLogout(dispatch)
           setAuthCheck(false)
         }
       } finally {
         setAuthLoading(false)
+        console.log('로딩상태 종료')
       }
     }
     fetchData()
