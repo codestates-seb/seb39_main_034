@@ -131,6 +131,24 @@ const ProfileBase = styled.div`
   }
 `
 
+const BigProfileBase = styled(ProfileBase)`
+  div.image {
+    width: 84px;
+    height: 84px;
+    border-radius: 84px;
+    margin-right: 16px;
+  }
+  div.text {
+    font-size: ${({ theme }) => theme.font18};
+  }
+`
+export const BigProfile = ({ image, author, onClick }) => (
+  <BigProfileBase image={image} onClick={onClick}>
+    <div className="image"></div>
+    <div className="text">{author}</div>
+  </BigProfileBase>
+)
+
 export const Profile = ({ image, author, onClick }) => (
   <ProfileBase image={image} onClick={onClick}>
     <div className="image"></div>
