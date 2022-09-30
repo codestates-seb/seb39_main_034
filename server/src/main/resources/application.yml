@@ -13,9 +13,9 @@ spring:
       hibernate:
         format_sql: true
 
-#  config:
-#    import:
-#      - optional:classpath:/setting.yml
+  config:
+    import:
+      - optional:classpath:/setting.yml
 
   servlet:
     multipart:
@@ -35,7 +35,7 @@ spring:
           auth: true
 
 jwt:
-  secret-key: FDkTyPHw2mzshPSUL2Cxi2FBdsKQWFtD
+  secret-key:
   access-token-expiration-minutes: 1
   refresh-token-expiration-minutes: 3
 

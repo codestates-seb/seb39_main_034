@@ -25,6 +25,8 @@ public class Image {
     @Column(nullable = false)
     private String url;
 
+    private String filename;
+
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 

@@ -9,6 +9,7 @@ import com.codestates.SEB034Main.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,14 +36,8 @@ public class MemberController {
         return new ResponseEntity(memberId, HttpStatus.CREATED);
     }
 
-    @GetMapping("/member/{username}")
-    public ResponseEntity getMemberContents(@PathVariable("username") String username) {
 
-        Member verifiedMemberById = memberService.findVerifiedMember(username);
-
-        return new ResponseEntity<>(verifiedMemberById, HttpStatus.OK);
-    }
-
+    @Secured("ROLE_USER")
     @GetMapping("/members/{username}/feed")
     public ResponseEntity getMemberFeed(@PathVariable("username") String username) {
 

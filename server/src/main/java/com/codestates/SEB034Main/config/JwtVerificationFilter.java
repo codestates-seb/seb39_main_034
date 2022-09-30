@@ -23,7 +23,7 @@ import java.util.*;
 
 public class JwtVerificationFilter extends OncePerRequestFilter {
 
-    private static final String[] excludedEndpoints = new String[] {"/v1/testcall", "/v1/users/validation"};
+    private static final String[] excludedEndpoints = new String[]{"/v1/testcall", "/v1/users/validation", "/v1/goal/list", "/v1/goal/list/filter", "/v1/users/info", "/v1/member", "/v1/auth/login"};
 
     private final JwtTokenizer jwtTokenizer;
 
@@ -52,7 +52,12 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+
         String authorization = request.getHeader("Authorization");
+
+        if (request.getMethod().equals("GET") && request.getServletPath().contains("/v1/goal/") && !request.getServletPath().contains("following")) {
+            authorization = null;
+        }
 
         if (Arrays.stream(excludedEndpoints)
                 .anyMatch(e -> new AntPathMatcher().match(e, request.getServletPath())) && authorization != null) {

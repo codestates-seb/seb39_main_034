@@ -1,4 +1,3 @@
-/*
 package com.codestates.SEB034Main.infra.S3.service;
 
 import com.amazonaws.services.s3.AmazonS3;
@@ -45,6 +44,7 @@ public class S3Upload {
 
         Image image = Image.builder()
                 .url(imageURL)
+                .filename(multipartFile.getOriginalFilename())
                 .build();
         Image savedImage = imageRepository.save(image);
 
@@ -89,4 +89,3 @@ public class S3Upload {
         return image;
     }
 }
-*/

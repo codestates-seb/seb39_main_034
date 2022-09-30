@@ -8,9 +8,9 @@ import com.codestates.SEB034Main.feed.repository.FeedRepository;
 import com.codestates.SEB034Main.goal.entity.Goal;
 import com.codestates.SEB034Main.goal.service.GoalService;
 import com.codestates.SEB034Main.image.entity.Image;
+import com.codestates.SEB034Main.image.repository.ImageRepository;
 import com.codestates.SEB034Main.image.service.ImageService;
 import com.codestates.SEB034Main.member.entity.Follower;
-import com.codestates.SEB034Main.member.entity.Member;
 import com.codestates.SEB034Main.member.service.FollowerService;
 import com.codestates.SEB034Main.member.service.MemberService;
 import com.codestates.SEB034Main.timeline.dto.PatchTimelineDto;
@@ -22,9 +22,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -34,10 +32,12 @@ public class TimelineService {
     private final TimelineRepository timelineRepository;
     private final GoalService goalService;
     private final ImageService imageService;
+    private final ImageRepository imageRepository;
     private final JwtTokenizer jwtTokenizer;
     private final FollowerService followerService;
     private final FeedRepository feedRepository;
     private final MemberService memberService;
+
 
     public void createTimeline(PostTimelineDto postTimelineDto, long goalId) {
         Goal verifiedGoal = goalService.findVerifiedGoal(goalId);
@@ -48,32 +48,10 @@ public class TimelineService {
         Timeline timeline = Timeline.builder()
                 .description(postTimelineDto.getDescription())
                 .image(verifiedImage)
+                .member(verifiedGoal.getMember())
                 .goal(verifiedGoal)
                 .build();
-        timelineRepository.save(timeline);
 
-        updateFollowerTimeline(timeline, verifiedGoal);
-    }
-
-    public void createTimeline_test(PostTimelineDto postTimelineDto, long goalId, HttpServletRequest request) {
-        Goal verifiedGoal = goalService.findVerifiedGoal(goalId);
-        Image verifiedImage = null;
-        if (postTimelineDto.getImageId() != 0) {
-            verifiedImage = imageService.findVerifiedImage(postTimelineDto.getImageId());
-        }
-
-        String jws = request.getHeader("Authorization").replace("Bearer ", "");
-        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
-        Map<String, Object> claims = jwtTokenizer.getClaims(jws, base64EncodedSecretKey).getBody();
-        String username = (String) claims.get("username");
-        Member verifiedMember = memberService.findVerifiedMember(username);
-
-        Timeline timeline = Timeline.builder()
-                .description(postTimelineDto.getDescription())
-                .member(verifiedMember)
-                .image(verifiedImage)
-                .goal(verifiedGoal)
-                .build();
         timelineRepository.save(timeline);
 
         updateFollowerTimeline(timeline, verifiedGoal);
@@ -99,7 +77,7 @@ public class TimelineService {
 
         Optional.ofNullable(patchTimelineDto.getDescription())
                 .ifPresent(description -> verifiedTimeline.setDescription(description));
-        Optional.ofNullable(patchTimelineDto.getImageId())
+        Optional.ofNullable(imageRepository.findByImageId(patchTimelineDto.getImageId()))
                 .ifPresent(image -> verifiedTimeline.setImage(imageService.findVerifiedImage(patchTimelineDto.getImageId())));
 
         timelineRepository.save(verifiedTimeline);
