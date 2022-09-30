@@ -76,9 +76,7 @@ export const ProgressBar = ({ metadata }) => {
   )
 }
 
-export const TodoList = styled(Container)`
-  /* border-bottom: 1px solid ${theme.primary}; */
-`
+export const TodoList = styled(Container)``
 export const Remove = styled.div`
   display: flex;
   align-items: center;

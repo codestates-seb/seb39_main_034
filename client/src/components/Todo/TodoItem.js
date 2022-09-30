@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom'
 // import TodoEdit from './TodoEdit'
 // import TodoCheck from './TodoCheck'
 
-function TodoItem({ todoId, title, completed, setTodoData }) {
+function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
   const { id } = useParams()
   const [newTitle, setNewTitle] = useState(title)
   const [complete, setComplete] = useState(completed)
@@ -22,7 +22,8 @@ function TodoItem({ todoId, title, completed, setTodoData }) {
   const editChecklistToggle = () => {
     setOpenEdit(!openEdit)
   }
-  const handleCancleClick = () => {
+
+  const handleEditClickClose = () => {
     setOpenEdit(false)
   }
   const onChangeText = (e) => {
@@ -44,12 +45,13 @@ function TodoItem({ todoId, title, completed, setTodoData }) {
       }).then((res) => {
         setTodoData(res.data.goal.todoList)
         setOpenEdit(!openEdit)
+        metaData(res.data.metadata)
       })
     } catch (err) {
       console.log(err)
     }
   }
-  const clickCheckBox = () => {
+  const handleClickCheckBox = () => {
     if (complete) {
       axios({
         method: 'get',
@@ -98,26 +100,30 @@ function TodoItem({ todoId, title, completed, setTodoData }) {
   return (
     <>
       {openEdit ? (
+        //수정모드인 경우
         <TodoItemBlock>
-          <CheckBox done={complete} onClick={clickCheckBox} />
+          <CheckBox done={complete} onClick={handleClickCheckBox} />
           <NewInput
             type="text"
             onChange={onChangeText}
             value={newTitle}
           ></NewInput>
           <CompleteBtn onClick={handleEditClick}>수정완료</CompleteBtn>
-          <CompleteBtn onClick={handleCancleClick}>수정 취소</CompleteBtn>
+          <CompleteBtn onClick={handleEditClickClose}>수정 취소</CompleteBtn>
         </TodoItemBlock>
       ) : (
+        // 수정 모드가 아닌 경우
         <TodoItemBlock>
-          <CheckBox done={complete} onClick={clickCheckBox} />
+          <CheckBox done={complete} onClick={handleClickCheckBox} />
           <Text>{title}</Text>
+          {/* 작성자일 경우: 요청시 헤더에 Authorization: 토큰을 전달해 유효한 토큰을 가지고 있는데 검토 */}
           <Edit>
             <EditBtn onClick={editChecklistToggle} />
           </Edit>
           <Remove>
             <DeleteBtn onClick={handleDeleteClick} />
           </Remove>
+          {/* 작성자가 아닐 경우 버튼 안보이게 */}
         </TodoItemBlock>
       )}
     </>

@@ -6,11 +6,11 @@ export const ReactionBar = styled.div`
   height: 60px;
   padding: 0 12px;
   display: flex;
-  justify-content: start;
+  justify-content: end;
   align-items: center;
   background: ${({ theme }) => theme.border};
   > div {
-    margin-right: 12px;
+    margin: 0 20px;
   }
 `
 
@@ -27,7 +27,7 @@ const ReactionBtnBase = styled(Button)`
 `
 
 export const SubscribeBtn = ({ click }) => (
-  <ReactionBtnBase click={click}>👀</ReactionBtnBase>
+  <ReactionBtnBase click={click}>➕</ReactionBtnBase>
 )
 
 export const CheerBtn = ({ click }) => (

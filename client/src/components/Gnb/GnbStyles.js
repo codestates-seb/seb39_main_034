@@ -27,7 +27,7 @@ export const NavLogo = styled(Link)`
 
 export const NavIcon = styled.img`
   margin-right: 1rem;
-  width: 3rem;
+  width: 7rem;
 `
 
 export const NavMenu = styled.ul`

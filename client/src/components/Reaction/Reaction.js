@@ -5,10 +5,11 @@ function Reaction({ subscriber, cheers }) {
     <>
       <ReactionBar>
         <div>
+          {/* 작성자라면 팔로우 버튼 안보이게*/}
           <SubscribeBtn click={false} />
           {subscriber
-            ? `${subscriber.length}명이 구독하고 있어요`
-            : '아직 구독자가 없어요...'}
+            ? `${subscriber.length}명이 팔로우하고 있어요`
+            : '아직 팔로우가 없어요...'}
         </div>
         <div>
           <CheerBtn click={false} />

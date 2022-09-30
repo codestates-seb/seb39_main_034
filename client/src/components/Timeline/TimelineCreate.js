@@ -12,6 +12,7 @@ import {
 } from './TimelinelistStyle'
 import { CompleteBtn, AddPicBtn, AddEmojiBtn } from '../Widget/WidgetStyle'
 import { Icon } from '../../styles/globalStyles'
+import { FaPaperclip } from 'react-icons/fa'
 
 export default function TimelineCreate({
   setTimelineData,
@@ -22,10 +23,12 @@ export default function TimelineCreate({
   const today = moment(date).format('YYYY년 MM일 DD일')
   const [description, setDescription] = useState('') // 타임라인 내용을 받을 곳
   const [timelineImageId, setTimelineImageId] = useState() // 타임라인 이미지 아이디 받을 곳
+  const [imgName, setImgName] = useState('') // 이미지 이름 받을 곳
   const [imgFile, setImgFile] = useState(null) //이미지 파일을 받을 곳
   const [imgBase, setImgBase] = useState([]) // 이미지 미리보기 데이터를 받을 곳
   const [openChoseImage, setOpenChoseImage] = useState(false) // 이미지 버튼 상태 관리
   const [openChoseEmoji, setOpenChoseEmoji] = useState(false) // 이모지 버튼 상태 관리
+  // console.log(timelineImageId)
 
   const handleChangeTextarea = (e) => {
     setDescription(e.target.value)
@@ -39,7 +42,9 @@ export default function TimelineCreate({
 
   // 이미지 선택 시 실행
   const handleChangeImageFile = (event) => {
-    // console.log('파일내용: ', event.target.files)
+    // console.log('파일리스트: ', event.target.files)
+    // console.log('파일이름: ', event.target.files[0].name)
+    setImgName(event.target.files[0].name)
     setOpenChoseImage(false)
     setImgFile(event.target.files)
     setImgBase([])
@@ -81,6 +86,21 @@ export default function TimelineCreate({
       })
   }
 
+  // 이미지 삭제 버튼 클릭 시 실행
+  const handleClickImageDelete = () => {
+    axios({
+      method: 'delete',
+      url:
+        process.env.REACT_APP_API_URL + `/v1/delete?imageId=${timelineImageId}`,
+    }).then((res) => {
+      console.log(res)
+      setTimelineImageId()
+      setImgName('')
+      setImgBase([])
+      setImgFile(null)
+    })
+  }
+
   // 이모지 픽커 클릭 시 실행
   const onEmojiClick = (event, emojiObject) => {
     const textAreaElement = document.getElementById('text-area')
@@ -93,33 +113,46 @@ export default function TimelineCreate({
 
   //작성 완료 버튼 클릭 시 실행
   const handleClickSubmit = async () => {
-    if (timelineImageId === undefined) {
-      setTimelineImageId('')
+    //타임라인 내용을 입력하지 않았을 경우
+    if (description === '') {
+      alert('타임라인 내용을 입력하세요')
     }
-    try {
-      const postResponse = await axios({
-        method: 'post',
-        url: process.env.REACT_APP_API_URL + `/v1/goal/${id}/timeline`,
-        data: {
-          description: description,
-          imageId: timelineImageId,
-        },
-      })
-      const getResponse = await axios({
-        method: 'get',
-        url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
-      }).then((res) => {
-        setTimelineData(res.data.goal.timelineList)
-      })
-      setDescription('')
-      setOpenCreateTimeline(false)
-      console.log('postResponse >>', postResponse)
-      console.log('getResponse >>', getResponse)
-    } catch (err) {
-      console.log('Error >>', err)
+    //타임라인 내용을 입력했을 경우
+    else {
+      //이미지 아이디가 없는데 imgName이 있다면(이미지 업로드를 누르지 않았을 경우)
+      if (timelineImageId === undefined && imgName) {
+        alert('업로드하지 않은 이미지가 존재합니다. 이미지 업로드를 하세요.')
+      }
+      //그게 아닌 모든 경우엔 비어있는 문자열로 세팅한 후 axios 요청
+      else {
+        setTimelineImageId('')
+        try {
+          const postResponse = await axios({
+            method: 'post',
+            url: process.env.REACT_APP_API_URL + `/v1/goal/${id}/timeline`,
+            data: {
+              description: description,
+              imageId: timelineImageId,
+            },
+          })
+          const getResponse = await axios({
+            method: 'get',
+            url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
+          }).then((res) => {
+            setTimelineData(res.data.goal.timelineList)
+          })
+          setDescription('')
+          setOpenCreateTimeline(false)
+          console.log('postResponse >>', postResponse)
+          console.log('getResponse >>', getResponse)
+        } catch (err) {
+          console.log('Error >>', err)
+        }
+      }
     }
   }
 
+  // 작성 취소 버튼 클릭 시
   const handleClickSubmitCancle = () => {
     setOpenCreateTimeline(false)
     setDescription('')
@@ -142,6 +175,7 @@ export default function TimelineCreate({
                       type="file"
                       id="input__photo"
                       name="photo"
+                      accept="image/*" //이미지 파일만 선택할 수 있게
                       onChange={handleChangeImageFile}
                       multiple="multiple"
                     />
@@ -159,6 +193,28 @@ export default function TimelineCreate({
         </div>
         {/* ~~~ 타임라인 컨텐트 ~~~ */}
         <div className="contents__timeline">
+          {imgName.length > 0 ? (
+            <div className="filenames">
+              <div className="filename">
+                <FaPaperclip size={15} color="#240046" />
+                <span>FILE NAME: </span>
+                {imgName}
+              </div>
+              {timelineImageId === undefined ? (
+                <CompleteBtn onClick={handleClickImageUpload}>
+                  업로드
+                </CompleteBtn>
+              ) : (
+                <div className="button__complete">
+                  <span>업로드 완료</span>
+                  <CompleteBtn onClick={handleClickImageDelete}>
+                    이미지 삭제
+                  </CompleteBtn>
+                </div>
+              )}
+            </div>
+          ) : null}
+
           <div className="contents">
             {/* 이미지 선택 시 이미지 미리보기 */}
             {imgBase.map((item, idx) => {
@@ -171,9 +227,6 @@ export default function TimelineCreate({
                     alt="First slide"
                     style={{ width: '30%', height: '250px' }}
                   />
-                  <CompleteBtn onClick={handleClickImageUpload}>
-                    업로드
-                  </CompleteBtn>
                 </>
               )
             })}
@@ -182,6 +235,7 @@ export default function TimelineCreate({
               id="text-area"
               value={description}
               onChange={handleChangeTextarea}
+              placeholder="타임라인 내용을 입력하고 이미지를 추가해보세요."
             />
           </div>
           <div className="button__complete">

@@ -12,7 +12,7 @@ export const TodoCreate = ({ setTodoData, setOpenCreateChecklist }) => {
   const onChange = (e) => {
     setAddTodo(e.target.value)
   }
-  const postTodo = async (e) => {
+  const handleClickTodoPost = async (e) => {
     e.preventDefault()
     try {
       await axios({
@@ -34,6 +34,10 @@ export const TodoCreate = ({ setTodoData, setOpenCreateChecklist }) => {
       console.log(err)
     }
   }
+  const handleClickTodoPostCancle = () => {
+    setAddTodo('')
+    setOpenCreateChecklist(false)
+  }
   return (
     <TodoItemBlock>
       <CheckBox />
@@ -44,9 +48,8 @@ export const TodoCreate = ({ setTodoData, setOpenCreateChecklist }) => {
           placeholder="할 일을 입력하세요"
         />
       </Text>
-      <CompleteBtn type="submit" onClick={postTodo}>
-        작성 완료
-      </CompleteBtn>
+      <CompleteBtn onClick={handleClickTodoPost}>작성 완료</CompleteBtn>
+      <CompleteBtn onClick={handleClickTodoPostCancle}>작성 취소</CompleteBtn>
     </TodoItemBlock>
   )
 }
