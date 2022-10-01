@@ -18,7 +18,12 @@ function DetailView() {
   const [isOpenTimelineEditModal, setIsOpenTimelineEditModal] = useState(false)
   const [openCreateTimeline, setOpenCreateTimeline] = useState(false)
 
-  const [milestoneData, setMilestoneData] = useState({ endDate: '', image: {} })
+  const [milestoneData, setMilestoneData] = useState({
+    endDate: '',
+    image: {},
+    member: '',
+    profileImage: '',
+  })
   const [todoData, setTodoData] = useState([])
   const [timelineData, setTimelineData] = useState([])
   const [metaData, setMetaData] = useState({})

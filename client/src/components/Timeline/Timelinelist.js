@@ -10,7 +10,7 @@ export default function Timelinelist(props) {
   // const [isToggle, setIsToggle] = useState(true)
   const limitTimelineData = timelineData.slice(-5)
   const length = timelineData.length
-  console.log('status: ', status)
+  // console.log('status: ', status)
   // const closeToggle = () => {
   //   setIsToggle(false)
   // }

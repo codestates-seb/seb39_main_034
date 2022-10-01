@@ -5,8 +5,9 @@ import { CategoryBtn } from '../Lnb/LnbStyle'
 import { MyPannelContainer, MyProgressBar, MyLnb } from './MyPannelStyle'
 import { BigProfile } from '../Widget/WidgetStyle'
 
-export default function MyPannel({ metadata }) {
+export default function MyPannel({ tab, onClick, metadata }) {
   const userName = useSelector((state) => state.auth.userName)
+
   return (
     <>
       <MyPannelContainer>
@@ -38,8 +39,20 @@ export default function MyPannel({ metadata }) {
       </MyPannelContainer>
       <Col lg={12}>
         <MyLnb>
-          <CategoryBtn>내 목표 보기</CategoryBtn>
-          <CategoryBtn>구독 피드</CategoryBtn>
+          <CategoryBtn
+            value={'목표'}
+            isActive={tab === '목표'}
+            onClick={onClick}
+          >
+            내 목표 보기
+          </CategoryBtn>
+          <CategoryBtn
+            value={'피드'}
+            isActive={tab === '피드'}
+            onClick={onClick}
+          >
+            구독 피드
+          </CategoryBtn>
         </MyLnb>
       </Col>
     </>

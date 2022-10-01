@@ -1,5 +1,5 @@
 import { Col } from '../../styles/responsive'
-import { ListWrapper, CategoryBtn, StatusBtn, CreateBtn } from './LnbStyle'
+import { ListWrapper, CategoryBtn, StatusBtn, CreateBtn } from '../Lnb/LnbStyle'
 import { Link } from 'react-router-dom'
 
 const categoryList = ['전체보기', '운동', '생활습관', '독서', '공부']
@@ -59,7 +59,7 @@ function MyLnb({
         margin={'0 0 30px 0'}
       >
         <ListWrapper>
-          <div className="listName">진행사항</div>
+          <div className="listName">진행상항</div>
           <div className="list">
             {statusList.map((status, idx) => (
               <StatusBtn
