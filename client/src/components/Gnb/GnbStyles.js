@@ -84,6 +84,7 @@ export const ProfileTooltip = styled.div`
   border-radius: 10px;
   border: 1px solid ${({ theme }) => theme.white};
   background: ${({ theme }) => theme.white};
+  z-index: 3;
   filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25));
 
   &::before,

@@ -26,7 +26,6 @@ function LoginForm() {
       data: loginData,
     })
       .then((res) => {
-        console.log(res)
         if (res.status === 200) {
           onLoginSuccess(
             dispatch,
