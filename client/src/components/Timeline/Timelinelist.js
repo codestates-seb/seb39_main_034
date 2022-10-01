@@ -5,12 +5,12 @@ import { HeadingH3 } from '../../styles/globalStyles'
 // import { useState } from 'react'
 
 export default function Timelinelist(props) {
-  const { timelineData, onClick, setTimelineData, status, mode } = props
+  const { timelineData, setTimelineData, status, mode } = props
 
   // const [isToggle, setIsToggle] = useState(true)
   const limitTimelineData = timelineData.slice(-5)
   const length = timelineData.length
-  console.log('status: ', status)
+  // console.log('status: ', status)
   // const closeToggle = () => {
   //   setIsToggle(false)
   // }
@@ -19,9 +19,7 @@ export default function Timelinelist(props) {
   // }
   return (
     <TimelineList>
-      <HeadingH3 color mt="50px">
-        타임라인
-      </HeadingH3>
+      <HeadingH3 mt="50px">타임라인</HeadingH3>
       {/*후기: status가 false(진행중)일 때 타임라인만 나오고 true(진행종료)일 경우 후기창 띄움*/}
       {status ? (
         <TimelineContainer>
@@ -42,7 +40,6 @@ export default function Timelinelist(props) {
                 key={timeline.timelineId}
                 {...timeline}
                 setTimelineData={setTimelineData}
-                onClick={onClick}
               />
             )
           })}
@@ -50,13 +47,7 @@ export default function Timelinelist(props) {
       ) : (
         <TimelineContainer>
           {timelineData.map((timeline) => {
-            return (
-              <TimelineItem
-                key={timeline.timelineId}
-                {...timeline}
-                onClick={onClick}
-              />
-            )
+            return <TimelineItem key={timeline.timelineId} {...timeline} />
           })}
         </TimelineContainer>
       )}

@@ -86,9 +86,7 @@ export default function Milestone({ milestoneData }) {
           {/* 작성자가 아닐 땐 null */}
         </div>
       </header>
-      <HeadingH3 color mt="50px">
-        목표
-      </HeadingH3>
+      <HeadingH3 mt="50px">목표</HeadingH3>
       <div className="descriptions">
         <div className="description">
           <h4>소개</h4>

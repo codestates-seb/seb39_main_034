@@ -85,7 +85,7 @@ function Gnb() {
             <div className="gnb-left">
               <NavLogo to="/">
                 <NavIcon
-                  src={`${process.env.PUBLIC_URL}/assets/logo_combination_sm.png`}
+                  src="https://goalimage.s3.ap-northeast-2.amazonaws.com/images/logo_combination_sm.png"
                   alt="img"
                 />
               </NavLogo>

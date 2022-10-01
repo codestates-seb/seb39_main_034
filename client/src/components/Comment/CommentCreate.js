@@ -10,7 +10,7 @@ export default function CommentCreate() {
     <CommentCreateContainer>
       <InputEmoji value={text} onChange={setText} placeholder="텍스트 댓글" />
       {/* <Input placeholder="텍스트 댓글" /> */}
-      <CompleteBtn type="submit">생성하기</CompleteBtn>
+      <CompleteBtn type="submit" value="생성하기" />
     </CommentCreateContainer>
   )
 }

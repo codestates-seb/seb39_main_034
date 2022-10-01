@@ -5,9 +5,7 @@ import { HeadingH3 } from '../../styles/globalStyles'
 function Todolist({ todoData, setTodoData, metaData }) {
   return (
     <TodoList>
-      <HeadingH3 color mt="50px">
-        할일
-      </HeadingH3>
+      <HeadingH3 mt="50px">할일</HeadingH3>
       <ProgressBar metadata={metaData} />
       {todoData.map((todo) => (
         <TodoItem
