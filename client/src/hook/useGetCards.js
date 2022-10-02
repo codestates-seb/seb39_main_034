@@ -23,7 +23,7 @@ export default function useGetCards(
   }, [categoryId, statusId])
 
   useEffect(() => {
-    // console.log('useEffect#2')
+    console.log('useEffect#2')
     if (loading === false) {
       setLoading(true)
     }
@@ -53,14 +53,13 @@ export default function useGetCards(
         })
         setMetadata({ ...res.data.pageInfo, ...res.data.myPageInfo })
         setHasMore(res.data.pageInfo.totalPages > pageNumber)
-        setLoading(false)
       })
       .catch((err) => {
         if (axios.isCancel(err)) return
-        setLoading(false)
         setError(true)
-        console.log('Error: ', err)
+        console.log(err.message)
       })
+      .finally(setLoading(false))
     // console.log('useEffect#2 마지막 줄에서 찍은 로그')
     return () => cancel()
   }, [categoryId, statusId, pageNumber, authLoading])

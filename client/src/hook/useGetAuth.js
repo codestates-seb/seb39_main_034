@@ -4,15 +4,19 @@ import axios from 'axios'
 import { getCookieToken } from '../data/Cookie'
 import { onLoginSuccess, onLogout } from '../components/Account/TokenAuth'
 
-const useGetAuth = () => {
+const useGetAuth = (tryAuth) => {
+  const dispatch = useDispatch()
   const [authCheck, setAuthCheck] = useState(null)
   const [authLoading, setAuthLoading] = useState(true)
 
-  const dispatch = useDispatch()
-
   useEffect(() => {
+    console.log(tryAuth)
     const controller = new AbortController()
     const fetchData = async () => {
+      console.log('토큰 확인 과정 시작')
+      if (authLoading === false) {
+        setAuthLoading(true)
+      }
       try {
         const accessCheck = await axios({
           method: 'get',
@@ -26,7 +30,7 @@ const useGetAuth = () => {
         }
       } catch (err) {
         console.log(err.message)
-        //refresh 시도
+        console.log('refresh 시도')
         const refresh_token = getCookieToken()
         const refreshCheck = await axios({
           method: 'get',
@@ -51,12 +55,13 @@ const useGetAuth = () => {
         console.log('로딩상태 종료')
       }
     }
-    fetchData()
+
+    if (tryAuth !== false) fetchData()
 
     //useeffect cleanup function
     return () => controller.abort()
     //eslint-diable-next-line
-  }, [])
+  }, [tryAuth])
 
   return { authLoading, authCheck }
 }

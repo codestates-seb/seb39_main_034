@@ -14,7 +14,12 @@ import { PlusBtn, MoreBtn } from '../components/Widget/WidgetStyle'
 
 function DetailView() {
   const { id } = useParams()
-  const [milestoneData, setMilestoneData] = useState({ endDate: '', image: {} }) // 목표 데이터 받는 곳
+  const [milestoneData, setMilestoneData] = useState({
+    endDate: '',
+    image: {},
+    member: '',
+    profileImage: '',
+  }) // 목표 데이터 받는 곳
   const [todoData, setTodoData] = useState([]) // 투두 데이터 받는 곳
   const [timelineData, setTimelineData] = useState([]) // 타임라인 데이터 받는 곳
   const [metaData, setMetaData] = useState({}) // 메타 데이터 받는 곳

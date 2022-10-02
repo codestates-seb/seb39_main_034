@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
 import { MilestoneContainer } from './MilestoneStyle'
 import { HeadingH3, MainHeading } from '../../styles/globalStyles'
-import { DeleteBtn } from '../Widget/WidgetStyle'
+import { DeleteBtn, Profile } from '../Widget/WidgetStyle'
 import { StatusBadge, CategoryBadge } from '../Card/CardStyle'
 
 export default function Milestone({ milestoneData }) {
@@ -58,10 +58,10 @@ export default function Milestone({ milestoneData }) {
         )}
         <MainHeading padding="20px 0 0 0">{milestoneData.title}</MainHeading>
         <div className="milestone__info">
-          <div className="profile">
-            <span className="userimg"></span>
-            <span className="username">조안나</span>
-          </div>
+          <Profile
+            image={milestoneData.profileImage}
+            author={milestoneData.member}
+          />
           <span className="dot">·</span>
           <span>
             시작일: {moment(milestoneData.createdAt).format('YYYY-MM-DD')}

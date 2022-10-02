@@ -34,7 +34,6 @@ export const onLoginSuccess = (dispatch, access, refresh, userName) => {
   // header에 accessToken 설정
   axios.defaults.headers.common['Authorization'] = access
   // access 유효시간 30분 테스트
-  console.log('Access : ', access)
   setTimeout(() => {
     console.log('Access 유효시간 1분 만료')
   }, 60 * 1000)

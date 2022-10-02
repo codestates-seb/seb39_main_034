@@ -3,6 +3,7 @@ import { ProgressBar, TodoList } from './TodolistStyle'
 import { HeadingH3 } from '../../styles/globalStyles'
 
 function Todolist({ todoData, setTodoData, metaData }) {
+  console.log(todoData)
   return (
     <TodoList>
       <HeadingH3 mt="50px">할일</HeadingH3>

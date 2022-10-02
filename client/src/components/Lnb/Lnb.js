@@ -1,6 +1,7 @@
 import { Col } from '../../styles/responsive'
 import { ListWrapper, CategoryBtn, StatusBtn, CreateBtn } from './LnbStyle'
-import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const categoryList = ['전체보기', '운동', '생활습관', '독서', '공부']
 const statusList = ['선택안함', '진행중', '목표달성', '달성실패']
@@ -12,17 +13,29 @@ function Lnb({
   setStatusId,
   setPageNumber,
 }) {
+  const isLogin = useSelector((state) => state.auth.isLogin)
+  const navigate = useNavigate()
+
   function handleCategoryClick(e) {
     setCategoryId(e.currentTarget.value)
     setPageNumber(1)
   }
 
   function handleStatusClick(e) {
-    console.log(e.currentTarget.value)
     e.currentTarget.value === statusId
       ? setStatusId(0)
       : setStatusId(e.currentTarget.value)
     setPageNumber(1)
+  }
+
+  function handleCreate() {
+    if (isLogin === true) {
+      navigate('/goal')
+    } else {
+      console.log(isLogin)
+      alert('로그인이 필요한 서비스입니다')
+      navigate('/login')
+    }
   }
 
   return (
@@ -48,9 +61,7 @@ function Lnb({
             ))}
           </div>
         </ListWrapper>
-        <Link to="/goal">
-          <CreateBtn viewSize="lg" />
-        </Link>
+        <CreateBtn onClick={handleCreate} viewSize="lg" />
       </Col>
       <Col
         justify={'space-between'}
@@ -72,9 +83,7 @@ function Lnb({
             ))}
           </div>
         </ListWrapper>
-        <Link to="/goal">
-          <CreateBtn viewSize="md" />
-        </Link>
+        <CreateBtn onClick={handleCreate} viewSize="md" />
       </Col>
     </>
   )

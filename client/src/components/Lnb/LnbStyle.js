@@ -76,8 +76,8 @@ const CreateBtnBase = styled.div`
   }
 `
 
-export const CreateBtn = ({ viewSize }) => (
-  <CreateBtnBase viewSize={viewSize}>
+export const CreateBtn = ({ onClick, viewSize }) => (
+  <CreateBtnBase onClick={onClick} viewSize={viewSize}>
     <BsPlusSquareFill size="26" color="#C77DFF" />
     목표 작성하기
   </CreateBtnBase>
