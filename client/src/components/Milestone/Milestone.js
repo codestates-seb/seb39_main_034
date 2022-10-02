@@ -5,8 +5,12 @@ import { MilestoneContainer } from './MilestoneStyle'
 import { HeadingH3, MainHeading } from '../../styles/globalStyles'
 import { DeleteBtn, Profile } from '../Widget/WidgetStyle'
 import { StatusBadge, CategoryBadge } from '../Card/CardStyle'
+import { useSelector } from 'react-redux'
 
 export default function Milestone({ milestoneData }) {
+  const navigate = useNavigate()
+  const userName = useSelector((state) => state.auth.userName) // 로그인된 유저
+
   //D-DAY 계산
   const today = new Date()
   const dday = new Date(`
@@ -16,7 +20,6 @@ export default function Milestone({ milestoneData }) {
   const gap = dday - today
   const result = Math.ceil(gap / (1000 * 60 * 60 * 24))
 
-  const navigate = useNavigate()
   const handleDeleteClick = () => {
     const confirmResult = confirm('정말 목표를 삭자하시겠습니까?')
     if (confirmResult) {
@@ -78,11 +81,12 @@ export default function Milestone({ milestoneData }) {
           ) : milestoneData.result === 'FAILURE' ? (
             <StatusBadge status="FAILURE" />
           ) : null}
-          {/* isLogin이 true이고 유효한 토큰인지 검증받은 후 */}
-          {/* username이 작성자와 동일한 경우 */}
-          <div className="delete">
-            <DeleteBtn onClick={handleDeleteClick} />
-          </div>
+          {userName === milestoneData.member ? (
+            <div className="delete">
+              <DeleteBtn onClick={handleDeleteClick} />
+            </div>
+          ) : null}
+
           {/* 작성자가 아닐 땐 null */}
         </div>
       </header>

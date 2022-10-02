@@ -7,6 +7,7 @@ export const CommentContainer = styled(Container)`
   flex-direction: column;
   width: 100%;
   margin-top: 50px;
+  z-index: -1;
   article {
     display: flex;
     border-bottom: 2px solid ${theme.border};

@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
 import { useState, useEffect, useCallback } from 'react'
+import { useParams } from 'react-router-dom'
 import Milestone from '../components/Milestone/Milestone'
 import Todolist from '../components/Todo/Todolist'
 import Timelinelist from '../components/Timeline/Timelinelist'
@@ -8,12 +8,13 @@ import TimelineCreate from '../components/Timeline/TimelineCreate'
 import Reaction from '../components/Reaction/Reaction'
 import Comment from '../components/Comment/Comment'
 import { TodoCreate } from '../components/Todo/TodoCreate'
-import { TimelineModal } from '../components/Timeline/TimelineModal'
 import { Col, Container, Row } from '../styles/globalStyles'
-import { PlusBtn, MoreBtn } from '../components/Widget/WidgetStyle'
+import { PlusBtn } from '../components/Widget/WidgetStyle'
+import { useSelector } from 'react-redux'
 
 function DetailView() {
   const { id } = useParams()
+
   const [milestoneData, setMilestoneData] = useState({
     endDate: '',
     image: {},
@@ -27,7 +28,11 @@ function DetailView() {
 
   const [onCreateTodolist, setOnCreateTodolist] = useState(false) // 투두 생성 모드
   const [onCreateTimeline, setOnCreateTimeline] = useState(false) //타임라인 생성 모드
-  const [onTimelineModal, setOnTimelineModal] = useState(false) // 타임라인 모달(더보기) 상태
+
+  const userName = useSelector((state) => state.auth.userName) // 로그인된 유저
+  const writer = milestoneData.member
+  // console.log('username: ', userName)
+  // console.log('wirter: ', writer)
 
   const openCreateTodolist = useCallback(() => {
     setOnCreateTodolist(!onCreateTodolist)
@@ -36,11 +41,6 @@ function DetailView() {
   const openCreateTimeline = useCallback(() => {
     setOnCreateTimeline(!onCreateTimeline)
   }, [onCreateTimeline])
-
-  const openTimelineModal = () => {
-    setOnTimelineModal(!onTimelineModal)
-    document.body.style.overflow = 'hidden'
-  }
 
   useEffect(() => {
     async function getDetail() {
@@ -76,6 +76,7 @@ function DetailView() {
               todoData={todoData}
               setTodoData={setTodoData}
               metaData={metaData}
+              writer={writer}
             ></Todolist>
           </Col>
           <Col>
@@ -90,13 +91,16 @@ function DetailView() {
           </Col>
           <Col>
             {/* 작성자일 경우 */}
-            {!onCreateTodolist ? (
-              <PlusBtn
-                location="디테일 창"
-                plusState={onCreateTodolist}
-                onClick={openCreateTodolist}
-              ></PlusBtn>
+            {userName === writer ? (
+              !onCreateTodolist ? (
+                <PlusBtn
+                  location="디테일 창"
+                  plusState={onCreateTodolist}
+                  onClick={openCreateTodolist}
+                />
+              ) : null
             ) : null}
+
             {/* 작성자 아닐 경우 null*/}
           </Col>
         </Row>
@@ -106,6 +110,7 @@ function DetailView() {
               timelineData={timelineData}
               setTimelineData={setTimelineData}
               status={status}
+              writer={writer}
               mode="limit"
             ></Timelinelist>
           </Col>
@@ -120,19 +125,16 @@ function DetailView() {
             )}
           </Col>
           {/* 작성자일 경우 */}
-          <Col>
-            {!onCreateTimeline ? (
+          {userName === writer ? (
+            !onCreateTimeline ? (
               <PlusBtn
                 location="디테일 창"
                 plusState={onCreateTimeline}
                 onClick={openCreateTimeline}
               />
-            ) : null}
-          </Col>
-          {/* 작성자 & 작성자 아닐 경우 */}
-          <Col>
-            <MoreBtn onClick={openTimelineModal}></MoreBtn>
-          </Col>
+            ) : null
+          ) : null}
+          <Col></Col>
         </Row>
         <Row>
           <Col>
@@ -145,12 +147,6 @@ function DetailView() {
           </Col>
         </Row>
       </Container>
-      {onTimelineModal && (
-        <TimelineModal
-          timelineData={timelineData}
-          setOnTimelineModal={setOnTimelineModal}
-        />
-      )}
     </>
   )
 }

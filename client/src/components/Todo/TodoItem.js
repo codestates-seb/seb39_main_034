@@ -10,12 +10,15 @@ import {
 } from './TodolistStyle'
 import { EditBtn, DeleteBtn, CompleteBtn } from '../Widget/WidgetStyle'
 import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
+function TodoItem({ todoId, title, completed, setTodoData, metaData, writer }) {
   const { id } = useParams()
   const [newTitle, setNewTitle] = useState(title)
   const [complete, setComplete] = useState(completed)
   const [onEditTodolist, setOnEditTodolist] = useState(false)
+
+  const userName = useSelector((state) => state.auth.userName)
   // console.log({ location })
 
   const editChecklistToggle = useCallback(() => {
@@ -125,20 +128,28 @@ function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
       ) : (
         // 수정 모드가 아닌 경우
         <TodoItemBlock>
-          <CheckBox done={complete} onClick={handleClickCheckBox} />
-          <Text>{title}</Text>
-          {/* 작성자일 경우: 요청시 헤더에 Authorization: 토큰을 전달해 유효한 토큰을 가지고 있는데 검토 */}
-          <Edit>
-            <EditBtn
-              onClick={editChecklistToggle}
-              location="TodoItem(default): 수정 버튼"
-              editState={onEditTodolist}
-            />
-          </Edit>
-          <Remove>
-            <DeleteBtn onClick={handleDeleteClick} />
-          </Remove>
-          {/* 작성자가 아닐 경우 버튼 안보이게 */}
+          {userName === writer ? (
+            <>
+              <CheckBox done={complete} onClick={handleClickCheckBox} />
+              <Text>{title}</Text>
+              <Edit>
+                <EditBtn
+                  onClick={editChecklistToggle}
+                  location="TodoItem(default): 수정 버튼"
+                  editState={onEditTodolist}
+                />
+              </Edit>
+              <Remove>
+                <DeleteBtn onClick={handleDeleteClick} />
+              </Remove>
+            </>
+          ) : (
+            <>
+              {/* 작성자가 아닐 경우 버튼 안보이게 */}
+              <CheckBox />
+              <Text>{title}</Text>
+            </>
+          )}
         </TodoItemBlock>
       )}
     </>

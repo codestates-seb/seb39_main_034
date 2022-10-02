@@ -18,10 +18,12 @@ import {
 import { Icon } from '../../styles/globalStyles'
 import { useParams } from 'react-router-dom'
 import { FaPaperclip } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 
 //TimelineItem와 TimelineEdit, TimelineDelete 파일을 합침.
 export default function TimelineItem(props) {
-  const { timelineId, description, createdAt, image, setTimelineData } = props
+  const { timelineId, description, createdAt, image, setTimelineData, writer } =
+    props
   const { id } = useParams()
   const today = moment(createdAt).format('YYYY년 MM일 DD일')
   const [newDdescription, setNewDescription] = useState(description) // 타임라인 수정 내용을 받을 곳
@@ -34,6 +36,8 @@ export default function TimelineItem(props) {
   // console.log('이미지 파일: ', imgFile)
   // console.log('타임라인 이미지 아이디: ', timelineImageId)
   // console.log('타임라인 아이디: ', timelineId)
+
+  const userName = useSelector((state) => state.auth.userName)
 
   const handleChangeTextarea = (e) => {
     setNewDescription(e.target.value)
@@ -315,15 +319,17 @@ export default function TimelineItem(props) {
             <Text>작성일: {today}</Text>
             {/* 작성자일 경우 보이게*/}
             <div className="header__timeline--icon">
-              <Icon>
-                <EditBtn
-                  size={20}
-                  onClick={handleClickEdit}
-                  location="TimelineItem(default): 수정 버튼"
-                  editState={onEditTimeline}
-                />
-                <DeleteBtn onClick={handleClickDelete} />
-              </Icon>
+              {userName === writer ? (
+                <Icon>
+                  <EditBtn
+                    size={20}
+                    onClick={handleClickEdit}
+                    location="TimelineItem(default): 수정 버튼"
+                    editState={onEditTimeline}
+                  />
+                  <DeleteBtn onClick={handleClickDelete} />
+                </Icon>
+              ) : null}
             </div>
             {/* 작성자가 아니라면 안보이게*/}
           </div>
