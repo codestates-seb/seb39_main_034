@@ -9,7 +9,7 @@ export default function Comment() {
 
   return (
     <CommentContainer>
-      <HeadingH3 color>코멘트</HeadingH3>
+      <HeadingH3>코멘트</HeadingH3>
       <CommentCreate />
       {comments.map((comment) => {
         return <CommentContent key={comment.commentId} {...comment} />

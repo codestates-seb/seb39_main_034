@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import {
   TodoItemBlock,
   Text,
@@ -10,21 +10,23 @@ import {
 } from './TodolistStyle'
 import { EditBtn, DeleteBtn, CompleteBtn } from '../Widget/WidgetStyle'
 import { useParams } from 'react-router-dom'
-// import TodoEdit from './TodoEdit'
-// import TodoCheck from './TodoCheck'
+import { useSelector } from 'react-redux'
 
-function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
+function TodoItem({ todoId, title, completed, setTodoData, metaData, writer }) {
   const { id } = useParams()
   const [newTitle, setNewTitle] = useState(title)
   const [complete, setComplete] = useState(completed)
-  const [openEdit, setOpenEdit] = useState(false)
+  const [onEditTodolist, setOnEditTodolist] = useState(false)
 
-  const editChecklistToggle = () => {
-    setOpenEdit(!openEdit)
-  }
+  const userName = useSelector((state) => state.auth.userName)
+  // console.log({ location })
+
+  const editChecklistToggle = useCallback(() => {
+    setOnEditTodolist(!onEditTodolist)
+  }, [onEditTodolist])
 
   const handleEditClickClose = () => {
-    setOpenEdit(false)
+    setOnEditTodolist(false)
   }
   const onChangeText = (e) => {
     setNewTitle(e.target.value)
@@ -44,7 +46,7 @@ function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
         url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
       }).then((res) => {
         setTodoData(res.data.goal.todoList)
-        setOpenEdit(!openEdit)
+        setOnEditTodolist(!onEditTodolist)
         metaData(res.data.metadata)
       })
     } catch (err) {
@@ -99,7 +101,7 @@ function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
   }
   return (
     <>
-      {openEdit ? (
+      {onEditTodolist ? (
         //수정모드인 경우
         <TodoItemBlock>
           <CheckBox done={complete} onClick={handleClickCheckBox} />
@@ -108,22 +110,46 @@ function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
             onChange={onChangeText}
             value={newTitle}
           ></NewInput>
-          <CompleteBtn onClick={handleEditClick}>수정완료</CompleteBtn>
-          <CompleteBtn onClick={handleEditClickClose}>수정 취소</CompleteBtn>
+          <CompleteBtn
+            onClick={handleEditClick}
+            location="TodoItem: 수정완료 버튼"
+            editState={onEditTodolist}
+            value="수정완료"
+          />
+          <CompleteBtn
+            onClick={handleEditClickClose}
+            location="TodoItem: 수정취소 버튼"
+            editState={onEditTodolist}
+            value="수정취소"
+          >
+            수정 취소
+          </CompleteBtn>
         </TodoItemBlock>
       ) : (
         // 수정 모드가 아닌 경우
         <TodoItemBlock>
-          <CheckBox done={complete} onClick={handleClickCheckBox} />
-          <Text>{title}</Text>
-          {/* 작성자일 경우: 요청시 헤더에 Authorization: 토큰을 전달해 유효한 토큰을 가지고 있는데 검토 */}
-          <Edit>
-            <EditBtn onClick={editChecklistToggle} />
-          </Edit>
-          <Remove>
-            <DeleteBtn onClick={handleDeleteClick} />
-          </Remove>
-          {/* 작성자가 아닐 경우 버튼 안보이게 */}
+          {userName === writer ? (
+            <>
+              <CheckBox done={complete} onClick={handleClickCheckBox} />
+              <Text>{title}</Text>
+              <Edit>
+                <EditBtn
+                  onClick={editChecklistToggle}
+                  location="TodoItem(default): 수정 버튼"
+                  editState={onEditTodolist}
+                />
+              </Edit>
+              <Remove>
+                <DeleteBtn onClick={handleDeleteClick} />
+              </Remove>
+            </>
+          ) : (
+            <>
+              {/* 작성자가 아닐 경우 버튼 안보이게 */}
+              <CheckBox />
+              <Text>{title}</Text>
+            </>
+          )}
         </TodoItemBlock>
       )}
     </>

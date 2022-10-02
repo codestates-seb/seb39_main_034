@@ -9,6 +9,7 @@ export const ReactionBar = styled.div`
   justify-content: end;
   align-items: center;
   background: ${({ theme }) => theme.border};
+  z-index: -1;
   > div {
     margin: 0 20px;
   }
