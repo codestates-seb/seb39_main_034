@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom'
 import { Row, Col } from '../../styles/responsive'
 import Card from './Card'
 
-const CardsList = React.memo(function CardList({ cards, handleLastCardRef }) {
+const CardsList = React.memo(function CardList({
+  cards,
+  type,
+  handleLastCardRef,
+}) {
   return (
     <Row>
       {cards.map((card, idx) => {
@@ -15,7 +19,7 @@ const CardsList = React.memo(function CardList({ cards, handleLastCardRef }) {
               md={6}
               sm={4}
               ref={handleLastCardRef}
-              key={card.goalId.toString()}
+              key={type + card.goalId.toString()}
               anchor={'100%'}
             >
               <Link to={`/goal/detail/${card.goalId}`}>

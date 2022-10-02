@@ -4,22 +4,23 @@ import { useSelector } from 'react-redux'
 import { Container, Row, Col } from '../styles/globalStyles'
 import MyPannel from '../components/MyPannel/MyPannel'
 import Lnb from '../components/Lnb/Lnb'
+import axios from 'axios'
 import useGetCards from '../hook/useGetCards'
 import CardsList from '../components/Card/CardList'
-import { Notice } from '../components/Widget/WidgetStyle'
 import useGetAuth from '../hook/useGetAuth'
+// 타임라인 관련
+import Feedlist from '../components/MyPannel/Feedlist'
+import TimelineCreate from '../components/Timeline/TimelineCreate'
+import { PlusBtn, MoreBtn, Notice } from '../components/Widget/WidgetStyle'
 
 function Mypage() {
   const navigate = useNavigate()
-  // const location = useLocation()
-  // console.log(location)
   const userName = useSelector((state) => state.auth.userName)
   const [tab, setTab] = useState('목표')
   // 토큰 조회
   const [trouble, setTrouble] = useState('')
   const [tryAuth, setTryAuth] = useState(null)
   const { authLoading, authCheck } = useGetAuth(tryAuth)
-
   // 카드 조회
   const [categoryId, setCategoryId] = useState((location[0] = 0))
   const [statusId, setStatusId] = useState((location[1] = 0))
@@ -31,6 +32,11 @@ function Mypage() {
     userName,
     authLoading
   )
+  //피드 조회
+  const [isOpen, setIsOpen] = useState(false)
+  const [timelineData, setTimelineData] = useState([])
+  const [openCreateTimeline, setOpenCreateTimeline] = useState(false)
+  const [isOpenTimelineEditModal, setIsOpenTimelineEditModal] = useState(false)
 
   const observer = useRef()
   const handleLastCardRef = useCallback(
@@ -48,18 +54,32 @@ function Mypage() {
     [loading, hasMore]
   )
 
+  // lnb 탭 클릭
   const handleTab = (e) => {
     console.log(tab)
     console.log(e.target.value)
     setTab(e.target.value)
   }
 
+  // 피드 관련
+  const openTimelineModal = () => {
+    setIsOpen(!isOpen)
+    document.body.style.overflow = 'hidden'
+  }
+  const openTimelineEditModal = () => {
+    setIsOpenTimelineEditModal(!isOpenTimelineEditModal)
+    document.body.style.overflow = 'hidden'
+  }
+  const createTimelineToggle = () => {
+    setOpenCreateTimeline(!openCreateTimeline)
+  }
+
   useEffect(() => {
-    console.log('auth 로딩 상태 ', authLoading)
-    console.log('card 로딩 상태 ', loading)
-    console.log('로그인 상태: ', authCheck)
-    console.log('card 에러 ', error)
-    console.log('trouble shooting :', trouble)
+    // console.log('auth 로딩 상태 ', authLoading)
+    // console.log('card 로딩 상태 ', loading)
+    // console.log('로그인 상태: ', authCheck)
+    // console.log('card 에러 ', error)
+    // console.log('trouble shooting :', trouble)
 
     // 아직 auth 검사가 진행중이라면 스탑
     if (authLoading === true) {
@@ -91,11 +111,47 @@ function Mypage() {
     }
   }, [authLoading, error])
 
+  //임시로 30번 게시글 데이터 조회
+  useEffect(() => {
+    async function getFeed() {
+      await axios
+        .get(`/v1/goal/30`)
+        .then((res) => {
+          console.log(res.data)
+          setTimelineData(res.data.goal.timelineList)
+        })
+        .catch((err) => {
+          console.log('ERROR: ', err)
+        })
+    }
+    getFeed()
+  }, [])
+
+  // useEffect(() => {
+  //   async function getFeed() {
+  //     await axios
+  //       .get(`/v1/feed/${userName}`)
+  //       .then((res) => {
+  //         console.log(res.data)
+  //         setTimelineData(res.data.goal.timelineList)
+  //       })
+  //       .catch((err) => {
+  //         console.log('ERROR: ', err)
+  //       })
+  //   }
+  //   if (tab === '피드') getFeed()
+  // }, [tab])
+
   return (
     <Container>
+      {/*상단 패널*/}
       {authLoading ? (
         <Row>
-          <Col>로그인 체크 중...</Col>
+          <Col>
+            <Notice>
+              <div>로그인 체크 중...</div>
+            </Notice>
+          </Col>
         </Row>
       ) : authCheck ? (
         <Row>
@@ -107,10 +163,15 @@ function Mypage() {
         </Row>
       ) : (
         <Row>
-          <Col>로그인이 필요합니다</Col>
+          <Col>
+            <Notice>
+              <div>로그인이 필요합니다</div>
+            </Notice>
+          </Col>
         </Row>
       )}
-      {tab === '목표' ? (
+      {/*하단 페이지*/}
+      {authCheck && tab === '목표' ? (
         <>
           <Row>
             <Lnb
@@ -121,7 +182,11 @@ function Mypage() {
               setPageNumber={setPageNumber}
             />
           </Row>
-          <CardsList cards={cards} handleLastCardRef={handleLastCardRef} />
+          <CardsList
+            type={'my'}
+            cards={cards}
+            handleLastCardRef={handleLastCardRef}
+          />
           <Row>
             <Col>
               <Notice>
@@ -135,7 +200,35 @@ function Mypage() {
           </Row>
         </>
       ) : (
-        <Row>여기는 구독 피드</Row>
+        <Row>
+          <Col>
+            <Feedlist
+              timelineData={timelineData}
+              onClick={openTimelineEditModal}
+              setTimelineData={setTimelineData}
+              status={status}
+              mode="limit"
+            ></Feedlist>
+          </Col>
+          <Col>
+            {openCreateTimeline && (
+              <TimelineCreate
+                setTimelineData={setTimelineData}
+                setOpenCreateTimeline={setOpenCreateTimeline}
+              />
+            )}
+          </Col>
+          {/* 작성자일 경우 */}
+          <Col>
+            {!openCreateTimeline ? (
+              <PlusBtn onClick={createTimelineToggle} />
+            ) : null}
+          </Col>
+          {/* 작성자 & 작성자 아닐 경우 */}
+          <Col>
+            <MoreBtn onClick={openTimelineModal}></MoreBtn>
+          </Col>
+        </Row>
       )}
     </Container>
   )

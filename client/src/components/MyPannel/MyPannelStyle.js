@@ -88,3 +88,14 @@ export const MyProgressBar = ({ percentage }) => {
     </ProgressBarStyle>
   )
 }
+
+export const FeedTitle = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  margin-top: 24px;
+  font-size: ${({ theme }) => theme.font18};
+  > div:last-child {
+    margin-left: 16px;
+  }
+`
