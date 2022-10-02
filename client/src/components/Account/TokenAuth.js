@@ -58,34 +58,32 @@ export const onLogout = (dispatch) => {
 }
 
 export const onRefresh = (dispatch) => {
-  const refresh_token = getCookieToken()
-
-  // cookie에 refreshToken이 남아있다면 refresh 시도
-  if (refresh_token) {
-    console.log('Refresh 시도')
-    axios({
-      method: 'get',
-      url: '/v1/users/validation',
-      headers: { Refresh: refresh_token },
-    })
-      .then((res) => {
-        console.log(res)
-        if (res.data.token_status === 'RE_ISSUED') {
-          console.log('Refresh 성공')
-          onLoginSuccess(
-            dispatch,
-            res.headers.new_authorization,
-            res.headers.new_refresh
-          )
-        }
-      })
-      .catch((err) => {
-        console.log(err)
+  // const refresh_token = getCookieToken()
+  axios({
+    method: 'get',
+    url: '/v1/users/validation',
+    headers: { Refresh: getCookieToken() },
+  })
+    .then((res) => {
+      console.log(res)
+      if (res.data.token_status === 'RE_ISSUED') {
+        console.log('Refresh 성공')
+        onLoginSuccess(
+          dispatch,
+          res.headers.new_authorization,
+          res.headers.new_refresh
+        )
+      } else if (res.data.token_status === 'NOT_VALID_TOKEN') {
         onLogout(dispatch)
-        alert('계정에 오류가 발생해 로그아웃 됩니다')
-        // navigate('/')
-      })
-  }
+        alert('장기간 이용하지 않아 로그아웃 됩니다')
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+      onLogout(dispatch)
+      alert('장기간 이용하지 않아 로그아웃 됩니다')
+      // navigate('/')
+    })
 }
 
 export const onAccessTest = (dispatch) => {

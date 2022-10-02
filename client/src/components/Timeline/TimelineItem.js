@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { onRefresh } from '../Account/TokenAuth'
 import moment from 'moment'
 import Picker from 'emoji-picker-react'
 import {
@@ -21,6 +23,7 @@ import { FaPaperclip } from 'react-icons/fa'
 
 //TimelineItem와 TimelineEdit, TimelineDelete 파일을 합침.
 export default function TimelineItem(props) {
+  const dispatch = useDispatch()
   const { timelineId, description, createdAt, image, setTimelineData } = props
   const { id } = useParams()
   const today = moment(createdAt).format('YYYY년 MM일 DD일')
@@ -96,7 +99,8 @@ export default function TimelineItem(props) {
         setTimelineImageId(res.data.imageId)
       })
       .catch((err) => {
-        console.log('Error: ', err)
+        console.log(err)
+        onRefresh(dispatch)
       })
   }
 
@@ -107,13 +111,18 @@ export default function TimelineItem(props) {
       url:
         process.env.REACT_APP_API_URL +
         `/v1/delete/timelineImage?timelineId=${timelineId}`,
-    }).then((res) => {
-      console.log(res)
-      //이미지가 삭제 되면 이미지의 모든 값 초기화
-      setTimelineImageId()
-      setImgBase([])
-      setImgFile(null)
     })
+      .then((res) => {
+        console.log(res)
+        //이미지가 삭제 되면 이미지의 모든 값 초기화
+        setTimelineImageId()
+        setImgBase([])
+        setImgFile(null)
+      })
+      .catch((err) => {
+        console.log(err)
+        onRefresh(dispatch)
+      })
   }
 
   // 이모지 픽커 클릭 시 실행
@@ -148,8 +157,23 @@ export default function TimelineItem(props) {
       })
     } catch (err) {
       console.log('Error >>', err)
+      handleAuthErr(err, handleClickSubmit)
     }
   }
+
+  async function handleAuthErr(err, func) {
+    try {
+      if (err.response.data.message === 'NOT_VALID_TOKEN') {
+        onRefresh(dispatch)
+        setTimeout(func, 3000)
+      } else if (err.response.data.message === 'Login_Required') {
+        console.log('디테일뷰에서 refresh 재시도 후', err)
+      }
+    } catch (err) {
+      console.log('디테일뷰에서 refresh 재시도 후', err)
+    }
+  }
+
   const handleClickSubmitCancle = () => {
     setOpenEdit(false)
     setNewDescription(description)
@@ -171,6 +195,7 @@ export default function TimelineItem(props) {
       })
     } catch (err) {
       console.log('Error >>', err)
+      onRefresh(dispatch)
     }
   }
 
