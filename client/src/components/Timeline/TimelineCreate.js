@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { handleAuthErr } from '../Account/TokenAuth'
 import moment from 'moment'
 import Picker from 'emoji-picker-react'
 import {
@@ -18,6 +20,8 @@ export default function TimelineCreate({
   setTimelineData,
   setOpenCreateTimeline,
 }) {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { id } = useParams()
   const date = new Date()
   const today = moment(date).format('YYYY년 MM일 DD일')
@@ -83,6 +87,7 @@ export default function TimelineCreate({
       })
       .catch((err) => {
         console.log('Error: ', err)
+        handleAuthErr(dispatch, navigate, err, handleClickImageUpload)
       })
   }
 
@@ -92,13 +97,18 @@ export default function TimelineCreate({
       method: 'delete',
       url:
         process.env.REACT_APP_API_URL + `/v1/delete?imageId=${timelineImageId}`,
-    }).then((res) => {
-      console.log(res)
-      setTimelineImageId()
-      setImgName('')
-      setImgBase([])
-      setImgFile(null)
     })
+      .then((res) => {
+        console.log(res)
+        setTimelineImageId()
+        setImgName('')
+        setImgBase([])
+        setImgFile(null)
+      })
+      .catch((err) => {
+        console.log('Error: ', err)
+        handleAuthErr(dispatch, navigate, err, handleClickImageDelete)
+      })
   }
 
   // 이모지 픽커 클릭 시 실행
@@ -147,6 +157,7 @@ export default function TimelineCreate({
           console.log('getResponse >>', getResponse)
         } catch (err) {
           console.log('Error >>', err)
+          handleAuthErr(dispatch, navigate, err, handleClickSubmit)
         }
       }
     }

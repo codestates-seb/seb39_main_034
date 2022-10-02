@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { onRefresh } from '../Account/TokenAuth'
+import { handleAuthErr } from '../Account/TokenAuth'
 import moment from 'moment'
 import Picker from 'emoji-picker-react'
 import {
@@ -18,12 +18,13 @@ import {
   DeleteBtn,
 } from '../Widget/WidgetStyle'
 import { Icon } from '../../styles/globalStyles'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { FaPaperclip } from 'react-icons/fa'
 
 //TimelineItem와 TimelineEdit, TimelineDelete 파일을 합침.
 export default function TimelineItem(props) {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { timelineId, description, createdAt, image, setTimelineData } = props
   const { id } = useParams()
   const today = moment(createdAt).format('YYYY년 MM일 DD일')
@@ -100,7 +101,7 @@ export default function TimelineItem(props) {
       })
       .catch((err) => {
         console.log(err)
-        onRefresh(dispatch)
+        handleAuthErr(dispatch, navigate, err, handleClickImageUpload)
       })
   }
 
@@ -121,7 +122,7 @@ export default function TimelineItem(props) {
       })
       .catch((err) => {
         console.log(err)
-        onRefresh(dispatch)
+        handleAuthErr(dispatch, navigate, err, handleClickImageDelete)
       })
   }
 
@@ -157,20 +158,7 @@ export default function TimelineItem(props) {
       })
     } catch (err) {
       console.log('Error >>', err)
-      handleAuthErr(err, handleClickSubmit)
-    }
-  }
-
-  async function handleAuthErr(err, func) {
-    try {
-      if (err.response.data.message === 'NOT_VALID_TOKEN') {
-        onRefresh(dispatch)
-        setTimeout(func, 3000)
-      } else if (err.response.data.message === 'Login_Required') {
-        console.log('디테일뷰에서 refresh 재시도 후', err)
-      }
-    } catch (err) {
-      console.log('디테일뷰에서 refresh 재시도 후', err)
+      handleAuthErr(dispatch, navigate, err, handleClickSubmit)
     }
   }
 
@@ -183,7 +171,7 @@ export default function TimelineItem(props) {
   // 타임라인 삭제 버튼 클릭 시 실행
   const handleClickDelete = async () => {
     try {
-      axios({
+      await axios({
         method: 'delete',
         url: process.env.REACT_APP_API_URL + `/v1/goal/timeline/${timelineId}`,
       })
@@ -195,7 +183,7 @@ export default function TimelineItem(props) {
       })
     } catch (err) {
       console.log('Error >>', err)
-      onRefresh(dispatch)
+      handleAuthErr(dispatch, navigate, err, handleClickDelete)
     }
   }
 

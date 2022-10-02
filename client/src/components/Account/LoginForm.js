@@ -45,6 +45,7 @@ function LoginForm() {
 
   function handleIdChange(e) {
     setLoginData({ ...loginData, username: e.target.value.trim() })
+    console.log(loginData)
   }
 
   function handlePasswordChange(e) {

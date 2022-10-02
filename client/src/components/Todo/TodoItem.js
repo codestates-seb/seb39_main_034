@@ -1,5 +1,8 @@
 import axios from 'axios'
 import { useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { handleAuthErr } from '../Account/TokenAuth'
 import {
   TodoItemBlock,
   Text,
@@ -9,11 +12,12 @@ import {
   NewInput,
 } from './TodolistStyle'
 import { EditBtn, DeleteBtn, CompleteBtn } from '../Widget/WidgetStyle'
-import { useParams } from 'react-router-dom'
 // import TodoEdit from './TodoEdit'
 // import TodoCheck from './TodoCheck'
 
 function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { id } = useParams()
   const [newTitle, setNewTitle] = useState(title)
   const [complete, setComplete] = useState(completed)
@@ -49,6 +53,7 @@ function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
       })
     } catch (err) {
       console.log(err)
+      handleAuthErr(dispatch, navigate, err, handleEditClick)
     }
   }
   const handleClickCheckBox = () => {
@@ -63,6 +68,7 @@ function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
         })
         .catch((err) => {
           console.log(err)
+          handleAuthErr(dispatch, navigate, err, handleClickCheckBox)
         })
     } else {
       axios({
@@ -75,6 +81,7 @@ function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
         })
         .catch((err) => {
           console.log(err)
+          handleAuthErr(dispatch, navigate, err, handleClickCheckBox)
         })
     }
   }
@@ -95,6 +102,7 @@ function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
       })
     } catch (err) {
       console.log(err)
+      handleAuthErr(dispatch, navigate, err, handleDeleteClick)
     }
   }
   return (

@@ -28,8 +28,12 @@ function SignupForm() {
   // 이름 체크
   const onChangeName = useCallback((e) => {
     setName(e.target.value.trim())
+    console.log(name)
     if (e.target.value.length < 2 || e.target.value.length > 15) {
       setNameMessage('아이디는 2에서 15글자 사이로 입력하세요')
+      setIsName(false)
+    } else if (e.target.value.includes(' ')) {
+      setNameMessage('아이디에는 공백이 포함될 수 없습니다')
       setIsName(false)
     } else {
       setNameMessage('')
@@ -62,14 +66,6 @@ function SignupForm() {
   const onChangeConfirm = useCallback(
     (e) => {
       setConfirm(e.target.value.trim())
-      console.log(
-        'password: ',
-        password,
-        ', 현재 value: ',
-        e.target.value.trim(),
-        ', confirm: ',
-        confirm
-      )
 
       if (password !== e.target.value.trim()) {
         setConfirmMessage('비밀번호가 일치하지 않습니다')
@@ -113,14 +109,13 @@ function SignupForm() {
           },
         })
           .then((res) => {
-            console.log(res)
             if (res.status === 201) {
               alert(`${name}님 회원가입을 환영합니다!`)
-              navigate('/main')
+              navigate('/login')
             }
           })
-          .catch((err) => {
-            alert('err: ', err)
+          .catch(() => {
+            alert('에러가 발생했습니다. 다시 시도해 주세요.')
           })
       } else {
         let messages = document.querySelectorAll('.error-message')
