@@ -12,6 +12,7 @@ export const TodoCreate = ({ setTodoData, setOpenCreateChecklist }) => {
   const navigate = useNavigate()
   const { id } = useParams()
   const [addTodo, setAddTodo] = useState('')
+  console.log({ location, plusState })
 
   const onChange = (e) => {
     setAddTodo(e.target.value)
@@ -32,7 +33,7 @@ export const TodoCreate = ({ setTodoData, setOpenCreateChecklist }) => {
       }).then((res) => {
         setTodoData(res.data.goal.todoList)
         setAddTodo('')
-        setOpenCreateChecklist(false)
+        setOnCreateTodolist(false)
       })
     } catch (err) {
       console.log(err)
@@ -41,7 +42,7 @@ export const TodoCreate = ({ setTodoData, setOpenCreateChecklist }) => {
   }
   const handleClickTodoPostCancle = () => {
     setAddTodo('')
-    setOpenCreateChecklist(false)
+    setOnCreateTodolist(false)
   }
   return (
     <TodoItemBlock>
@@ -53,8 +54,18 @@ export const TodoCreate = ({ setTodoData, setOpenCreateChecklist }) => {
           placeholder="할 일을 입력하세요"
         />
       </Text>
-      <CompleteBtn onClick={handleClickTodoPost}>작성 완료</CompleteBtn>
-      <CompleteBtn onClick={handleClickTodoPostCancle}>작성 취소</CompleteBtn>
+      <CompleteBtn
+        onClick={handleClickTodoPost}
+        location="TodoCreate: 작성완료버튼"
+        plusState={plusState}
+        value="작성완료"
+      />
+      <CompleteBtn
+        onClick={handleClickTodoPostCancle}
+        location="TodoCreate: 작성취소 버튼"
+        plusState={plusState}
+        value="작성취소"
+      />
     </TodoItemBlock>
   )
 }

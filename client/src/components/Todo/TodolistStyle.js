@@ -58,7 +58,7 @@ const ProgressBarCount = styled.div`
 
 export const ProgressBar = ({ todoData }) => {
   let total = todoData.length
-  let completed = todoData.filter((todo) => todo.completed === 0).length
+  let completed = todoData.filter((todo) => todo.completed === 1).length
   let percentage = Math.floor((completed / total) * 100)
   return (
     <>

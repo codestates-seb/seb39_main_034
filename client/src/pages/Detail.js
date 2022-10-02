@@ -1,6 +1,6 @@
 import axios from 'axios'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { useState, useEffect } from 'react'
 import Milestone from '../components/Milestone/Milestone'
 import Todolist from '../components/Todo/Todolist'
 import Timelinelist from '../components/Timeline/Timelinelist'
@@ -8,43 +8,39 @@ import TimelineCreate from '../components/Timeline/TimelineCreate'
 import Reaction from '../components/Reaction/Reaction'
 import Comment from '../components/Comment/Comment'
 import { TodoCreate } from '../components/Todo/TodoCreate'
-import { TimelineModal } from '../components/Timeline/TimelineModal'
 import { Col, Container, Row } from '../styles/globalStyles'
-import { PlusBtn, MoreBtn } from '../components/Widget/WidgetStyle'
+import { PlusBtn } from '../components/Widget/WidgetStyle'
+import { useSelector } from 'react-redux'
 
 function DetailView() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [openCreateChecklist, setOpenCreateChecklist] = useState(false)
-  const [isOpenTimelineEditModal, setIsOpenTimelineEditModal] = useState(false)
-  const [openCreateTimeline, setOpenCreateTimeline] = useState(false)
+  const { id } = useParams()
 
   const [milestoneData, setMilestoneData] = useState({
     endDate: '',
     image: {},
     member: '',
     profileImage: '',
-  })
-  const [todoData, setTodoData] = useState([])
-  const [timelineData, setTimelineData] = useState([])
-  const [metaData, setMetaData] = useState({})
-  const [status, setStatus] = useState({})
-  const { id } = useParams()
+  }) // 목표 데이터 받는 곳
+  const [todoData, setTodoData] = useState([]) // 투두 데이터 받는 곳
+  const [timelineData, setTimelineData] = useState([]) // 타임라인 데이터 받는 곳
+  const [metaData, setMetaData] = useState({}) // 메타 데이터 받는 곳
+  const [status, setStatus] = useState({}) // 상태값 받는 곳
 
-  const openTimelineModal = () => {
-    setIsOpen(!isOpen)
-    document.body.style.overflow = 'hidden'
-  }
-  const createChecklistToggle = () => {
-    setOpenCreateChecklist(!openCreateChecklist)
-  }
+  const [onCreateTodolist, setOnCreateTodolist] = useState(false) // 투두 생성 모드
+  const [onCreateTimeline, setOnCreateTimeline] = useState(false) //타임라인 생성 모드
 
-  const openTimelineEditModal = () => {
-    setIsOpenTimelineEditModal(!isOpenTimelineEditModal)
-    document.body.style.overflow = 'hidden'
-  }
-  const createTimelineToggle = () => {
-    setOpenCreateTimeline(!openCreateTimeline)
-  }
+  const userName = useSelector((state) => state.auth.userName) // 로그인된 유저
+  const writer = milestoneData.member
+  // console.log('username: ', userName)
+  // console.log('wirter: ', writer)
+
+  const openCreateTodolist = useCallback(() => {
+    setOnCreateTodolist(!onCreateTodolist)
+  }, [onCreateTodolist])
+
+  const openCreateTimeline = useCallback(() => {
+    setOnCreateTimeline(!onCreateTimeline)
+  }, [onCreateTimeline])
 
   useEffect(() => {
     async function getDetail() {
@@ -80,21 +76,31 @@ function DetailView() {
               todoData={todoData}
               setTodoData={setTodoData}
               metaData={metaData}
+              writer={writer}
             ></Todolist>
           </Col>
           <Col>
-            {openCreateChecklist && (
+            {onCreateTodolist && (
               <TodoCreate
+                location="투두 작성 창"
+                plusState={onCreateTodolist}
                 setTodoData={setTodoData}
-                setOpenCreateChecklist={setOpenCreateChecklist}
+                setOnCreateTodolist={setOnCreateTodolist}
               />
             )}
           </Col>
           <Col>
             {/* 작성자일 경우 */}
-            {!openCreateChecklist ? (
-              <PlusBtn onClick={createChecklistToggle}></PlusBtn>
+            {userName === writer ? (
+              !onCreateTodolist ? (
+                <PlusBtn
+                  location="디테일 창"
+                  plusState={onCreateTodolist}
+                  onClick={openCreateTodolist}
+                />
+              ) : null
             ) : null}
+
             {/* 작성자 아닐 경우 null*/}
           </Col>
         </Row>
@@ -102,30 +108,33 @@ function DetailView() {
           <Col>
             <Timelinelist
               timelineData={timelineData}
-              onClick={openTimelineEditModal}
               setTimelineData={setTimelineData}
               status={status}
+              writer={writer}
               mode="limit"
             ></Timelinelist>
           </Col>
           <Col>
-            {openCreateTimeline && (
+            {onCreateTimeline && (
               <TimelineCreate
+                location="타임라인 작성 창"
+                plusState={onCreateTimeline}
                 setTimelineData={setTimelineData}
-                setOpenCreateTimeline={setOpenCreateTimeline}
+                setOnCreateTimeline={setOnCreateTimeline}
               />
             )}
           </Col>
           {/* 작성자일 경우 */}
-          <Col>
-            {!openCreateTimeline ? (
-              <PlusBtn onClick={createTimelineToggle} />
-            ) : null}
-          </Col>
-          {/* 작성자 & 작성자 아닐 경우 */}
-          <Col>
-            <MoreBtn onClick={openTimelineModal}></MoreBtn>
-          </Col>
+          {userName === writer ? (
+            !onCreateTimeline ? (
+              <PlusBtn
+                location="디테일 창"
+                plusState={onCreateTimeline}
+                onClick={openCreateTimeline}
+              />
+            ) : null
+          ) : null}
+          <Col></Col>
         </Row>
         <Row>
           <Col>
@@ -138,13 +147,6 @@ function DetailView() {
           </Col>
         </Row>
       </Container>
-      {isOpen && (
-        <TimelineModal
-          timelineData={timelineData}
-          onClick={openTimelineEditModal}
-          setIsOpen={setIsOpen}
-        />
-      )}
     </>
   )
 }
