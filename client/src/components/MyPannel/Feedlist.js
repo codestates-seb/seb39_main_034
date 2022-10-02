@@ -23,11 +23,6 @@ export default function Feedlist(props) {
   // }
   return (
     <TimelineList>
-      <div>제목이랑 작성자명은 하드코딩</div>
-      <div>
-        Feeditem 폴더에서 각 아이템마다 feedtitle을 달아줬어요. 잘못 복붙했는지
-        더보기 기능은 안되네영..
-      </div>
       {/* <HeadingH3 color mt="50px">
         타임라인
       </HeadingH3> */}

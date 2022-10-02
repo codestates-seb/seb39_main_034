@@ -3,14 +3,13 @@ import { TodoItemBlock, CheckBox, Text } from './TodolistStyle'
 import { Input } from '../../styles/globalStyles'
 import { CompleteBtn } from '../Widget/WidgetStyle'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { handleAuthErr } from '../Account/TokenAuth'
+import { useParams, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
-export const TodoCreate = ({
-  setTodoData,
-  setOnCreateTodolist,
-  location,
-  plusState,
-}) => {
+export const TodoCreate = ({ setTodoData, setOpenCreateChecklist }) => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { id } = useParams()
   const [addTodo, setAddTodo] = useState('')
   console.log({ location, plusState })
@@ -38,6 +37,7 @@ export const TodoCreate = ({
       })
     } catch (err) {
       console.log(err)
+      handleAuthErr(dispatch, navigate, err, () => handleClickTodoPost(e))
     }
   }
   const handleClickTodoPostCancle = () => {

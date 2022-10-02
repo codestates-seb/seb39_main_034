@@ -1,5 +1,7 @@
 import axios from 'axios'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { handleAuthErr } from '../Account/TokenAuth'
 import moment from 'moment'
 import Picker from 'emoji-picker-react'
 import {
@@ -16,14 +18,15 @@ import {
   DeleteBtn,
 } from '../Widget/WidgetStyle'
 import { Icon } from '../../styles/globalStyles'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { FaPaperclip } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 
 //TimelineItem와 TimelineEdit, TimelineDelete 파일을 합침.
 export default function TimelineItem(props) {
-  const { timelineId, description, createdAt, image, setTimelineData, writer } =
-    props
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { timelineId, description, createdAt, image, setTimelineData } = props
   const { id } = useParams()
   const today = moment(createdAt).format('YYYY년 MM일 DD일')
   const [newDdescription, setNewDescription] = useState(description) // 타임라인 수정 내용을 받을 곳
@@ -100,7 +103,8 @@ export default function TimelineItem(props) {
         setTimelineImageId(res.data.imageId)
       })
       .catch((err) => {
-        console.log('Error: ', err)
+        console.log(err)
+        handleAuthErr(dispatch, navigate, err, handleClickImageUpload)
       })
   }
 
@@ -111,13 +115,18 @@ export default function TimelineItem(props) {
       url:
         process.env.REACT_APP_API_URL +
         `/v1/delete/timelineImage?timelineId=${timelineId}`,
-    }).then((res) => {
-      console.log(res)
-      //이미지가 삭제 되면 이미지의 모든 값 초기화
-      setTimelineImageId()
-      setImgBase([])
-      setImgFile(null)
     })
+      .then((res) => {
+        console.log(res)
+        //이미지가 삭제 되면 이미지의 모든 값 초기화
+        setTimelineImageId()
+        setImgBase([])
+        setImgFile(null)
+      })
+      .catch((err) => {
+        console.log(err)
+        handleAuthErr(dispatch, navigate, err, handleClickImageDelete)
+      })
   }
 
   // 이모지 픽커 클릭 시 실행
@@ -152,8 +161,10 @@ export default function TimelineItem(props) {
       })
     } catch (err) {
       console.log('Error >>', err)
+      handleAuthErr(dispatch, navigate, err, handleClickSubmit)
     }
   }
+
   const handleClickSubmitCancle = () => {
     setOnEditTimeline(false)
     setNewDescription(description)
@@ -163,7 +174,7 @@ export default function TimelineItem(props) {
   // 타임라인 삭제 버튼 클릭 시 실행
   const handleClickDelete = async () => {
     try {
-      axios({
+      await axios({
         method: 'delete',
         url: process.env.REACT_APP_API_URL + `/v1/goal/timeline/${timelineId}`,
       })
@@ -175,6 +186,7 @@ export default function TimelineItem(props) {
       })
     } catch (err) {
       console.log('Error >>', err)
+      handleAuthErr(dispatch, navigate, err, handleClickDelete)
     }
   }
 

@@ -56,8 +56,6 @@ function Mypage() {
 
   // lnb 탭 클릭
   const handleTab = (e) => {
-    console.log(tab)
-    console.log(e.target.value)
     setTab(e.target.value)
   }
 

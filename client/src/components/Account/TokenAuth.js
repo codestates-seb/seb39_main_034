@@ -77,13 +77,15 @@ export const onRefresh = (dispatch) => {
             res.headers.new_authorization,
             res.headers.new_refresh
           )
+        } else if (res.data.token_status === 'NOT_VALID_TOKEN') {
+          onLogout(dispatch)
+          alert('로그인 토큰이 만료되어 로그아웃 됩니다')
         }
       })
       .catch((err) => {
         console.log(err)
         onLogout(dispatch)
-        alert('계정에 오류가 발생해 로그아웃 됩니다')
-        // navigate('/')
+        alert('로그인 토큰이 만료되어 로그아웃 됩니다')
       })
   }
 }
@@ -104,6 +106,26 @@ export const onAccessTest = (dispatch) => {
       console.log(err)
       onRefresh(dispatch)
     })
+}
+
+export const handleAuthErr = (dispatch, navigate, err, func) => {
+  // 에러객체와 시도했던 기능을 받아서
+  // 로그인 여부 확인하고 3초 뒤 재실행
+  console.log(err.response.data.message)
+  console.log(func)
+  try {
+    if (err.response.data.message === 'NOT_VALID_TOKEN') {
+      onRefresh(dispatch)
+      alert('로그인 정보를 재확인합니다. 잠시 기다려주세요.')
+      setTimeout(func, 3000)
+    } else if (err.response.data.message === 'Login_Required') {
+      console.log('디테일뷰에서 refresh 실패', err)
+      navigate(0)
+    }
+  } catch (err) {
+    console.log('디테일뷰에서 최종 에러', err)
+    navigate(0)
+  }
 }
 
 // // accessToken 만료하기 1분 전에 로그인 연장
