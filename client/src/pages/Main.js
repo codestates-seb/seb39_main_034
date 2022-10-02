@@ -44,7 +44,11 @@ function Main() {
           setPageNumber={setPageNumber}
         />
       </Row>
-      <CardList cards={cards} handleLastCardRef={handleLastCardRef} />
+      <CardList
+        type={'main'}
+        cards={cards}
+        handleLastCardRef={handleLastCardRef}
+      />
       <Row>
         <Col>
           <Notice>
