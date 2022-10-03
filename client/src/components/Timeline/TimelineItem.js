@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useState, useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { handleAuthErr } from '../Account/TokenAuth'
 import moment from 'moment'
 import Picker from 'emoji-picker-react'
@@ -20,13 +20,13 @@ import {
 import { Icon } from '../../styles/globalStyles'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FaPaperclip } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
 
 //TimelineItem와 TimelineEdit, TimelineDelete 파일을 합침.
 export default function TimelineItem(props) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { timelineId, description, createdAt, image, setTimelineData } = props
+  const { timelineId, description, createdAt, image, setTimelineData, writer } =
+    props
   const { id } = useParams()
   const today = moment(createdAt).format('YYYY년 MM일 DD일')
   const [newDdescription, setNewDescription] = useState(description) // 타임라인 수정 내용을 받을 곳
