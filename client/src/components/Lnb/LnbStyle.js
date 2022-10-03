@@ -4,19 +4,26 @@ import { BsPlusSquareFill } from 'react-icons/bs'
 
 export const ListWrapper = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  margin-top: 75px;
+  .lists {
+    display: flex;
+    align-items: center;
+  }
   .listName {
-    width: 80px;
+    width: 100px;
     height: 32px;
-    padding-right: 12px;
+    padding: 0 10px;
     text-align: right;
     font-size: ${({ theme }) => theme.font18};
     line-height: 36px;
     border-right: 3px solid ${({ theme }) => theme.border};
+    margin: 10px;
+    /* border: 1px solid red; */
   }
   .list {
     display: flex;
-    padding-left: 12px;
+    margin: 10px;
   }
 `
 
