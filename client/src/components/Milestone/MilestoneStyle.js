@@ -1,9 +1,16 @@
 import styled from 'styled-components'
 // import { Container } from '../../styles/responsive'
 import theme from '../../styles/theme'
+export const Select = styled.select`
+  width: 20%;
+  height: 40px;
+  border-radius: 10px;
+  outline: none;
+`
 
 export const MilestoneContainer = styled.div`
   width: 100%;
+  margin: 90px 0;
   .inputs {
     padding: 10px 0;
     > input {

@@ -1,14 +1,58 @@
 import styled from 'styled-components'
 import theme from '../../styles/theme'
 
+const Dot = ({ num, scrollIndex }) => {
+  return (
+    <div
+      style={{
+        width: 10,
+        height: 10,
+        border: '1px solid black',
+        borderRadius: 50,
+        backgroundColor: scrollIndex === num ? 'black' : 'transparent',
+        transitionDuration: 1000,
+        transition: 'background-color 0.5s',
+      }}
+    ></div>
+  )
+}
+export const Dots = ({ scrollIndex }) => {
+  return (
+    <DotsBase>
+      <div className="dots">
+        <Dot num={1} scrollIndex={scrollIndex}></Dot>
+        <Dot num={2} scrollIndex={scrollIndex}></Dot>
+        <Dot num={3} scrollIndex={scrollIndex}></Dot>
+        <Dot num={4} scrollIndex={scrollIndex}></Dot>
+      </div>
+    </DotsBase>
+  )
+}
+const DotsBase = styled.div`
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  .dots {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 20px;
+    height: 100px;
+  }
+`
 export const Wrapper = styled.div`
-  /* border: 1px solid red; */
+  height: 100vh;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
   .row {
     border: 1px solid blue;
   }
 `
 export const BannerContainer = styled.section`
-  height: 90vh;
+  height: 100vh;
   background: url('https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80');
   background-size: auto 180%;
   background-repeat: no-repeat;
@@ -47,15 +91,15 @@ export const BannerContainer = styled.section`
 export const Concept = styled.section`
   width: 100%;
   height: 100vh;
-  padding: 100px 4px;
-  > h2 {
-    margin: 60px auto;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    margin: 50px 0;
     font-size: ${({ theme }) => theme.font36};
   }
   .diagramm {
-    /* display: flex;
-    justify-content: center; */
     position: relative;
     width: 100%;
     div {
@@ -136,27 +180,23 @@ export const Concept = styled.section`
   }
 `
 export const FeaturesContainer = styled.section`
-  width: 100%;
-  height: 780px;
-  /* border: 1px solid red; */
+  /* width: 100%; */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: ${theme.border};
-  overflow: hidden;
   h2 {
     margin: 30px 20px;
   }
   .feature__content {
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 780px;
-    /* border: 1px solid red; */
     .tabmenu {
       display: flex;
       flex-direction: column;
       justify-items: center;
-      /* align-items: center; */
       flex-grow: 1;
-      /* border: 1px solid red; */
       .submenu {
         width: 100% auto;
         padding: 15px 10px;
@@ -166,7 +206,6 @@ export const FeaturesContainer = styled.section`
         border-radius: 10px;
         outline: none;
         .subicon {
-          /* border: 1px solid yellow; */
           padding: 10px;
           display: none;
         }
@@ -181,9 +220,9 @@ export const FeaturesContainer = styled.section`
       }
     }
     .tabimg {
-      /* border: 1px solid red; */
       margin: 5px 30px;
       width: 45%;
+      height: 60vh;
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.25);
@@ -199,30 +238,42 @@ export const MemberContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  height: 780px;
-  /* border: 1px solid red; */
+  height: 100vh;
   .slide {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
     .window {
       background: white;
       border: 1px solid ${theme.border};
       width: 450px;
       height: 450px;
-
       overflow: hidden;
-      /* border: 1px solid red; */
       .flexbox {
         display: flex;
+        align-items: center;
+        width: 450px;
+        height: 450px;
+        /* border: 1px solid red; */
         .img {
-          width: 450px;
-          height: 250px;
-          background-position: 50% 50%;
+          width: 100%;
+          height: 450px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          flex: none;
+          background-position: center;
           background-size: contain;
           background-repeat: no-repeat;
-          flex: none;
+          overflow: hidden;
+          p {
+            padding: 5px;
+          }
+          img {
+            width: 100%;
+            height: 400px;
+          }
         }
       }
     }

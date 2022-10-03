@@ -1,10 +1,14 @@
-import { Container } from '../styles/globalStyles'
+import { Container, Row, Col } from '../styles/globalStyles'
 import { NewMilestone } from '../components/Milestone/NewMilestone'
 
 function Goal() {
   return (
     <Container>
-      <NewMilestone />
+      <Row>
+        <Col>
+          <NewMilestone />
+        </Col>
+      </Row>
     </Container>
   )
 }
