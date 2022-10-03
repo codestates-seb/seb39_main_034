@@ -253,10 +253,8 @@ export default function TimelineCreate({
             />
           </div>
           <div className="button__complete">
-            <CompleteBtn onClick={handleClickSubmit}>작성완료</CompleteBtn>
-            <CompleteBtn onClick={handleClickSubmitCancle}>
-              작성취소
-            </CompleteBtn>
+            <CompleteBtn onClick={handleClickSubmit} value="작성완료" />
+            <CompleteBtn onClick={handleClickSubmitCancle} value="작성취소" />
           </div>
         </div>
       </article>

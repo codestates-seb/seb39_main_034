@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { handleAuthErr } from '../Account/TokenAuth'
 import {
   TodoItemBlock,
@@ -15,7 +15,7 @@ import { EditBtn, DeleteBtn, CompleteBtn } from '../Widget/WidgetStyle'
 // import TodoEdit from './TodoEdit'
 // import TodoCheck from './TodoCheck'
 
-function TodoItem({ todoId, title, completed, setTodoData, metaData }) {
+function TodoItem({ todoId, title, completed, setTodoData, metaData, writer }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { id } = useParams()

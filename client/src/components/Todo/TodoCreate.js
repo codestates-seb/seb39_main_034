@@ -7,7 +7,7 @@ import { handleAuthErr } from '../Account/TokenAuth'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
-export const TodoCreate = ({ setTodoData, setOpenCreateChecklist }) => {
+export const TodoCreate = ({ setTodoData, setOnCreateTodolist, plusState }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { id } = useParams()
