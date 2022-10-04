@@ -79,6 +79,7 @@ function LoginForm() {
                   name="username"
                   value={loginData.username}
                   onChange={handleIdChange}
+                  autoComplete="off"
                 />
               </div>
 
@@ -91,6 +92,7 @@ function LoginForm() {
                   name="password"
                   value={loginData.password}
                   onChange={handlePasswordChange}
+                  autoComplete="off"
                 />
               </div>
               <span className="error-message">{errorMessage}</span>

@@ -72,11 +72,16 @@ export const AlertModal = ({ waiting, setIsAlertOpen }) => {
       <Col>
         <ModalBackgroundBlack></ModalBackgroundBlack>
         <AlertModalContainer>
+          <img
+            className="sticker"
+            src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/eb5c1f4e-4d7c-4bf6-9c4f-765287ffa8b1/yellow.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221004%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221004T151837Z&X-Amz-Expires=86400&X-Amz-Signature=e49d8dc8830d899c619d62b2becdf8475061d2a9363c957ccb910d5dbdd05618&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22yellow.png%22&x-id=GetObject"
+            alt="alert sticker"
+          ></img>
           {/* --content-- */}
           <div className="contents">
             <p>
-              👏 종료된 목표가 <span>{waiting}개</span> 있어요! 후기를 작성하러
-              가 볼까요?
+              종료된 목표가 <span>{waiting}개</span> 있어요! 후기를 작성하러 가
+              볼까요?
             </p>
             <p>
               후기를 작성하며 목표를 되돌아보면, 다음 번 목표를 성취할 힘이
