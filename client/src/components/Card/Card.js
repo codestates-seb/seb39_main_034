@@ -6,6 +6,7 @@ import {
   CardWrapper,
   CategoryBadge,
   StatusBadge,
+  Sticker,
 } from './CardStyle'
 
 function Card({
@@ -47,6 +48,7 @@ function Card({
         <CardFooter>
           <Profile image={profile} author={author}></Profile>
         </CardFooter>
+        <Sticker></Sticker>
       </CardWrapper>
     </>
   )

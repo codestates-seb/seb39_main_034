@@ -54,7 +54,13 @@ function LoginForm() {
 
   function handleSubmitClick(e) {
     e.preventDefault()
-    sendPost()
+    if (loginData.username === '' || loginData.password === '') {
+      alert(
+        '로그인 정보를 바르게 입력해주세요. 자동완성 기능을 사용 시 제대로 입력되지 않을 수 있습니다.'
+      )
+    } else {
+      sendPost()
+    }
   }
 
   return (

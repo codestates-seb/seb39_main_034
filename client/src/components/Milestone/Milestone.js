@@ -25,7 +25,7 @@ export default function Milestone({ milestoneData }) {
     if (confirmResult) {
       axios({
         method: 'delete',
-        url: `/v1/goal/${milestoneData.goalId}`,
+        url: process.env.REACT_APP_API_URL + `/v1/goal/${milestoneData.goalId}`,
       })
         .then((res) => {
           console.log(res)

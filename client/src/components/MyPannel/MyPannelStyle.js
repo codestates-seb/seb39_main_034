@@ -89,6 +89,56 @@ export const MyProgressBar = ({ percentage }) => {
   )
 }
 
+export const AlertModalContainer = styled.div`
+  background-color: ${({ theme }) => theme.white};
+  border-radius: 10px;
+  width: 28%;
+  min-width: 300px;
+  margin: 0 auto;
+  overflow: hidden;
+  box-shadow: 0px 0px 12px ${({ theme }) => theme.tertiary};
+  z-index: 10;
+
+  .contents {
+    overflow: wrap;
+    padding: 32px;
+    overflow-y: scroll;
+    > p {
+      :first-child {
+        padding: 4px 0 12px 0;
+        font-size: ${({ theme }) => theme.font18};
+        font-weight: 500;
+        line-height: 32px;
+        span {
+          color: ${({ theme }) => theme.violet_m};
+        }
+      }
+      :last-child {
+        font-size: ${({ theme }) => theme.font16};
+        color: ${({ theme }) => theme.primary};
+        line-height: 28px;
+      }
+    }
+  }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 28px;
+    background-color: ${({ theme }) => theme.violet_m};
+    button {
+      color: ${({ theme }) => theme.background};
+      background: none;
+      border: none;
+      cursor: pointer;
+      :hover {
+        color: ${({ theme }) => theme.primary};
+      }
+    }
+  }
+`
+
 export const FeedTitle = styled.div`
   display: flex;
   align-items: center;

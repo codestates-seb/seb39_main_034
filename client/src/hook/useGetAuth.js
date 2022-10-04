@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
-import { getCookieToken } from '../data/Cookie'
-import { onLoginSuccess, onLogout } from '../components/Account/TokenAuth'
+// import { getCookieToken } from '../data/Cookie'
+// import { onLoginSuccess, onLogout } from '../components/Account/TokenAuth'
+import { handleAuthErr } from '../components/Account/TokenAuth'
+import { useNavigate } from 'react-router-dom'
 
 const useGetAuth = (tryAuth) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [authCheck, setAuthCheck] = useState(null)
   const [authLoading, setAuthLoading] = useState(true)
 
@@ -29,27 +32,28 @@ const useGetAuth = (tryAuth) => {
           setAuthCheck(true)
         }
       } catch (err) {
-        console.log(err.message)
-        console.log('refresh 시도')
-        const refresh_token = getCookieToken()
-        const refreshCheck = await axios({
-          method: 'get',
-          url: '/v1/users/validation',
-          headers: { Refresh: refresh_token },
-        })
-        if (refreshCheck.data.token_status === 'RE_ISSUED') {
-          console.log('Refresh 성공')
-          onLoginSuccess(
-            dispatch,
-            refreshCheck.headers.new_authorization,
-            refreshCheck.headers.new_refresh
-          )
-          setAuthCheck(true)
-          console.log('authcheck를 true로 변경')
-        } else {
-          onLogout(dispatch)
-          setAuthCheck(false)
-        }
+        handleAuthErr(dispatch, navigate, err, fetchData)
+        // console.log(err.message)
+        // console.log('refresh 시도')
+        // const refresh_token = getCookieToken()
+        // const refreshCheck = await axios({
+        //   method: 'get',
+        //   url: '/v1/users/validation',
+        //   headers: { Refresh: refresh_token },
+        // })
+        // if (refreshCheck.data.token_status === 'RE_ISSUED') {
+        //   console.log('Refresh 성공')
+        //   onLoginSuccess(
+        //     dispatch,
+        //     refreshCheck.headers.new_authorization,
+        //     refreshCheck.headers.new_refresh
+        //   )
+        //   setAuthCheck(true)
+        //   console.log('authcheck를 true로 변경')
+        // } else {
+        //   onLogout(dispatch)
+        //   setAuthCheck(false)
+        // }
       } finally {
         setAuthLoading(false)
         console.log('로딩상태 종료')

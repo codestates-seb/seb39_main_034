@@ -1,5 +1,5 @@
+import { Cookies } from 'react-cookie'
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Container, Row, Col } from '../styles/globalStyles'
 import MyPannel from '../components/MyPannel/MyPannel'
@@ -10,16 +10,14 @@ import CardsList from '../components/Card/CardList'
 import useGetAuth from '../hook/useGetAuth'
 // 타임라인 관련
 import Feedlist from '../components/MyPannel/Feedlist'
-import FeedModal from '../components/MyPannel/FeedModal'
+import { FeedModal, AlertModal } from '../components/MyPannel/FeedModal'
 import { MoreBtn, Notice } from '../components/Widget/WidgetStyle'
 
 function Mypage() {
-  const navigate = useNavigate()
   const userName = useSelector((state) => state.auth.userName)
   const [tab, setTab] = useState('목표')
   // 토큰 조회
-  const [trouble, setTrouble] = useState('')
-  const [tryAuth, setTryAuth] = useState(null)
+  const [tryAuth, setTryAuth] = useState()
   const { authLoading, authCheck } = useGetAuth(tryAuth)
   // 카드 조회
   const [categoryId, setCategoryId] = useState((location[0] = 0))
@@ -32,11 +30,13 @@ function Mypage() {
     userName,
     authLoading
   )
-  //피드 조회
-  const [isOpen, setIsOpen] = useState(false)
+  const [isAlertOpen, setIsAlertOpen] = useState(false)
+  // 피드 조회
+  const [isFeedOpen, setIsFeedOpen] = useState(false)
   const [feedData, setFeedData] = useState([{ timeline: { image: {} } }])
-  console.log(isOpen)
+  console.log(isFeedOpen)
 
+  // 내 목표 카드 받아오기
   const observer = useRef()
   const handleLastCardRef = useCallback(
     (target) => {
@@ -53,49 +53,30 @@ function Mypage() {
     [loading, hasMore]
   )
 
+  // 피드 열기 모달
+  const openTimelineModal = () => {
+    setIsFeedOpen(!isFeedOpen)
+    document.body.style.overflow = 'hidden'
+  }
+
+  // 피드 열기 모달
+  const openAlertModal = () => {
+    setIsAlertOpen(!isFeedOpen)
+    document.body.style.overflow = 'hidden'
+  }
   // lnb 탭 클릭
   const handleTab = (e) => {
     setTab(e.target.value)
   }
 
-  // 피드 관련
-  const openTimelineModal = () => {
-    setIsOpen(!isOpen)
-    document.body.style.overflow = 'hidden'
-  }
-
+  // 카드와 토큰 오류 처리
   useEffect(() => {
-    // console.log('auth 로딩 상태 ', authLoading)
-    // console.log('card 로딩 상태 ', loading)
-    // console.log('로그인 상태: ', authCheck)
-    // console.log('card 에러 ', error)
-    // console.log('trouble shooting :', trouble)
-
-    // 아직 auth 검사가 진행중이라면 스탑
-    if (authLoading === true) {
-      null
-    } else if (authCheck === false) {
-      console.log('authcheck: ', authCheck)
-      alert('장기간 이용하지 않아 로그아웃 되었습니다')
-      navigate('/login')
-    } else if ((authCheck === true, error === false)) {
-      setTrouble('')
-    }
-    // authCheck true 였다가 만료된 경우 -> auth 훅 재실행
-    else if (authCheck === true && error === true && trouble === '') {
-      setTrouble('auth 재실행')
+    if (error === true) {
       setTryAuth(true)
-    } else if (
-      authCheck === true &&
-      error === false &&
-      trouble === 'auth 재실행'
-    ) {
-      setTrouble('')
-      console.log('재실행한 뒤 카드 불러옴')
     }
-  }, [authLoading, error])
+  }, [error])
 
-  //임시로 30번 게시글 데이터 조회
+  // 피드 정보 받아오기
   useEffect(() => {
     async function getFeed() {
       await axios
@@ -112,6 +93,15 @@ function Mypage() {
       getFeed()
     }
   }, [tab])
+
+  useEffect(() => {
+    const cookies = new Cookies()
+    const closeAlert = cookies.get('closeAlert')
+    console.log('closeAlert: ', closeAlert)
+    if (closeAlert !== 'true' && metadata.numberOfWaitingFinalTimeline) {
+      openAlertModal()
+    }
+  }, [metadata])
 
   return (
     <>
@@ -198,7 +188,15 @@ function Mypage() {
           </Row>
         )}
       </Container>
-      {isOpen && <FeedModal feedData={feedData} setIsOpen={setIsOpen} />}
+      {isFeedOpen && (
+        <FeedModal feedData={feedData} setIsFeedOpen={setIsFeedOpen} />
+      )}
+      {isAlertOpen && (
+        <AlertModal
+          waiting={metadata.numberOfWaitingFinalTimeline}
+          setIsAlertOpen={setIsAlertOpen}
+        />
+      )}
     </>
   )
 }
