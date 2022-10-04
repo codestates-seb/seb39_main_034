@@ -21,14 +21,14 @@ export const TodoCreate = ({ setTodoData, setOpenCreateChecklist }) => {
     try {
       await axios({
         method: 'post',
-        url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
+        url: `/v1/goal/${id}`,
         data: {
           title: addTodo,
         },
       })
       await axios({
         method: 'get',
-        url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
+        url: `/v1/goal/${id}`,
       }).then((res) => {
         setTodoData(res.data.goal.todoList)
         setAddTodo('')

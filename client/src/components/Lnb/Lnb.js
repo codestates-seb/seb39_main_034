@@ -1,5 +1,11 @@
 import { Col } from '../../styles/responsive'
-import { ListWrapper, CategoryBtn, StatusBtn, CreateBtn } from './LnbStyle'
+import {
+  // ListContainer,
+  ListWrapper,
+  CategoryBtn,
+  StatusBtn,
+  CreateBtn,
+} from './LnbStyle'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -40,6 +46,7 @@ function Lnb({
 
   return (
     <>
+      {' '}
       <Col
         justify={'space-between'}
         align={'center'}

@@ -10,8 +10,8 @@ import CardsList from '../components/Card/CardList'
 import useGetAuth from '../hook/useGetAuth'
 // 타임라인 관련
 import Feedlist from '../components/MyPannel/Feedlist'
-import TimelineCreate from '../components/Timeline/TimelineCreate'
-import { PlusBtn, MoreBtn, Notice } from '../components/Widget/WidgetStyle'
+import FeedModal from '../components/MyPannel/FeedModal'
+import { MoreBtn, Notice } from '../components/Widget/WidgetStyle'
 
 function Mypage() {
   const navigate = useNavigate()
@@ -34,9 +34,8 @@ function Mypage() {
   )
   //피드 조회
   const [isOpen, setIsOpen] = useState(false)
-  const [timelineData, setTimelineData] = useState([])
-  const [openCreateTimeline, setOpenCreateTimeline] = useState(false)
-  const [isOpenTimelineEditModal, setIsOpenTimelineEditModal] = useState(false)
+  const [feedData, setFeedData] = useState([{ timeline: { image: {} } }])
+  console.log(isOpen)
 
   const observer = useRef()
   const handleLastCardRef = useCallback(
@@ -64,13 +63,6 @@ function Mypage() {
     setIsOpen(!isOpen)
     document.body.style.overflow = 'hidden'
   }
-  const openTimelineEditModal = () => {
-    setIsOpenTimelineEditModal(!isOpenTimelineEditModal)
-    document.body.style.overflow = 'hidden'
-  }
-  const createTimelineToggle = () => {
-    setOpenCreateTimeline(!openCreateTimeline)
-  }
 
   useEffect(() => {
     // console.log('auth 로딩 상태 ', authLoading)
@@ -86,20 +78,14 @@ function Mypage() {
       console.log('authcheck: ', authCheck)
       alert('장기간 이용하지 않아 로그아웃 되었습니다')
       navigate('/login')
-    } else if ((authLoading === false, authCheck === true, error === false)) {
+    } else if ((authCheck === true, error === false)) {
       setTrouble('')
     }
     // authCheck true 였다가 만료된 경우 -> auth 훅 재실행
-    else if (
-      authLoading === false &&
-      authCheck === true &&
-      error === true &&
-      trouble === ''
-    ) {
+    else if (authCheck === true && error === true && trouble === '') {
       setTrouble('auth 재실행')
       setTryAuth(true)
     } else if (
-      authLoading === false &&
       authCheck === true &&
       error === false &&
       trouble === 'auth 재실행'
@@ -113,122 +99,107 @@ function Mypage() {
   useEffect(() => {
     async function getFeed() {
       await axios
-        .get(`/v1/goal/30`)
+        .get(`/v1/members/${userName}/feed`)
         .then((res) => {
           console.log(res.data)
-          setTimelineData(res.data.goal.timelineList)
+          setFeedData(res.data)
         })
         .catch((err) => {
           console.log('ERROR: ', err)
         })
     }
-    getFeed()
-  }, [])
-
-  // useEffect(() => {
-  //   async function getFeed() {
-  //     await axios
-  //       .get(`/v1/feed/${userName}`)
-  //       .then((res) => {
-  //         console.log(res.data)
-  //         setTimelineData(res.data.goal.timelineList)
-  //       })
-  //       .catch((err) => {
-  //         console.log('ERROR: ', err)
-  //       })
-  //   }
-  //   if (tab === '피드') getFeed()
-  // }, [tab])
+    if (tab === '피드') {
+      getFeed()
+    }
+  }, [tab])
 
   return (
-    <Container>
-      {/*상단 패널*/}
-      {authLoading ? (
-        <Row>
-          <Col>
-            <Notice>
-              <div>로그인 체크 중...</div>
-            </Notice>
-          </Col>
-        </Row>
-      ) : authCheck ? (
-        <Row>
-          <MyPannel
-            tab={tab}
-            onClick={handleTab}
-            metadata={metadata}
-          ></MyPannel>
-        </Row>
-      ) : (
-        <Row>
-          <Col>
-            <Notice>
-              <div>로그인이 필요합니다</div>
-            </Notice>
-          </Col>
-        </Row>
-      )}
-      {/*하단 페이지*/}
-      {authCheck && tab === '목표' ? (
-        <>
-          <Row>
-            <Lnb
-              categoryId={categoryId}
-              setCategoryId={setCategoryId}
-              setStatusId={setStatusId}
-              statusId={statusId}
-              setPageNumber={setPageNumber}
-            />
-          </Row>
-          <CardsList
-            type={'my'}
-            cards={cards}
-            handleLastCardRef={handleLastCardRef}
-          />
+    <>
+      <Container>
+        {/*상단 패널*/}
+        {authLoading ? (
           <Row>
             <Col>
               <Notice>
-                <div>{loading && '로딩 중입니다...🐢'}</div>
-                <div>
-                  {error && '에러가 발생했어요. 다시 시도해 보세요. 🤔 '}
-                </div>
-                <div>{cards.length === 0 && '아직 목표가 없어요 🙅'}</div>
+                <div>로그인 체크 중...</div>
               </Notice>
             </Col>
           </Row>
-        </>
-      ) : (
-        <Row>
-          <Col>
-            <Feedlist
-              timelineData={timelineData}
-              onClick={openTimelineEditModal}
-              setTimelineData={setTimelineData}
-              status={status}
-              mode="limit"
-            ></Feedlist>
-          </Col>
-          <Col>
-            {openCreateTimeline && (
-              <TimelineCreate
-                setTimelineData={setTimelineData}
-                setOpenCreateTimeline={setOpenCreateTimeline}
+        ) : authCheck ? (
+          <Row>
+            <MyPannel
+              tab={tab}
+              onClick={handleTab}
+              metadata={metadata}
+            ></MyPannel>
+          </Row>
+        ) : (
+          <Row>
+            <Col>
+              <Notice>
+                <div>로그인이 필요합니다</div>
+              </Notice>
+            </Col>
+          </Row>
+        )}
+        {/*하단 페이지*/}
+        {authCheck && tab === '목표' ? (
+          <>
+            <Row>
+              <Lnb
+                categoryId={categoryId}
+                setCategoryId={setCategoryId}
+                setStatusId={setStatusId}
+                statusId={statusId}
+                setPageNumber={setPageNumber}
               />
-            )}
-          </Col>
-          {/* 작성자일 경우 */}
-          <Col>
-            {!openCreateTimeline ? (
-              <PlusBtn onClick={createTimelineToggle} />
-            ) : null}
-          </Col>
-          {/* 작성자 & 작성자 아닐 경우 */}
-          <Col>
-            <MoreBtn onClick={openTimelineModal}></MoreBtn>
-          </Col>
-        </Row>
-      )}
-    </Container>
+            </Row>
+            <CardsList
+              type={'my'}
+              cards={cards}
+              handleLastCardRef={handleLastCardRef}
+            />
+            <Row>
+              <Col>
+                <Notice>
+                  <div>{loading && '로딩 중입니다...🐢'}</div>
+                  <div>
+                    {error && '에러가 발생했어요. 다시 시도해 보세요. 🤔 '}
+                  </div>
+                  <div>{cards.length === 0 && '아직 목표가 없어요 🙅'}</div>
+                </Notice>
+              </Col>
+            </Row>
+          </>
+        ) : authCheck && tab === '피드' ? (
+          <Row>
+            <Col>
+              <Feedlist
+                feedData={feedData}
+                status={status}
+                mode="limit"
+              ></Feedlist>
+            </Col>
+            {/* 더보기 모달 버튼 */}
+            <Col>
+              <MoreBtn
+                text={'피드 더보기'}
+                onClick={openTimelineModal}
+              ></MoreBtn>
+            </Col>
+          </Row>
+        ) : (
+          <Row>
+            <Col>
+              <Notice>
+                <div>로그인이 필요합니다</div>
+              </Notice>
+            </Col>
+          </Row>
+        )}
+      </Container>
+      {isOpen && <FeedModal feedData={feedData} setIsOpen={setIsOpen} />}
+    </>
   )
 }
 

@@ -23,7 +23,7 @@ export const CompleteBtn = styled(Button)`
 `
 export const PlusBtnBase = styled(Button)`
   width: 100%;
-  height: 60px;
+  height: 52px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   color: ${({ theme }) => theme.white};
@@ -158,15 +158,15 @@ export const Profile = ({ image, author, onClick }) => (
 export const MoreBase = styled.div`
   width: 100%;
   text-align: center;
+  padding: 16px 0 24px 0;
 `
 export const MoreButton = styled(Button)`
-  padding: 10px;
-  margin: 10px;
+  padding: 12px 16px;
 `
-export const MoreBtn = React.memo(function MoreBtn({ onClick }) {
+export const MoreBtn = React.memo(function MoreBtn({ onClick, text }) {
   return (
     <MoreBase>
-      <MoreButton onClick={onClick}>타임라인 더 보기</MoreButton>
+      <MoreButton onClick={onClick}>{text}</MoreButton>
     </MoreBase>
   )
 })

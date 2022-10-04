@@ -2,6 +2,12 @@ import styled from 'styled-components'
 import { Button } from '../../styles/globalStyles'
 import { BsPlusSquareFill } from 'react-icons/bs'
 
+// export const ListContainer = styled.div`
+//   background: ${({ theme }) => theme.border};
+//   background-blend-mode: lighten;
+//   border-radius: 10px;
+// `
+
 export const ListWrapper = styled.div`
   display: flex;
   align-items: center;

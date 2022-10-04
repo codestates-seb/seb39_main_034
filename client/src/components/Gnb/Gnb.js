@@ -2,7 +2,6 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { Container, Col, Row } from '../../styles/globalStyles'
 import { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { SET_LOGIN } from '../../redux/authSlice'
 import { Profile } from '../Widget/WidgetStyle'
 // import { onLogout } from '../Account/TokenAuth'
 import { FaTimes } from 'react-icons/fa'
@@ -17,13 +16,12 @@ import {
   ProfileTooltip,
 } from './GnbStyles.js'
 // import axios from 'axios'
-import { onLogout, onRefresh } from '../Account/TokenAuth'
+import { onLogout } from '../Account/TokenAuth'
 
 function Gnb() {
   const dispatch = useDispatch()
   const isLogin = useSelector((state) => state.auth.isLogin)
   const userName = useSelector((state) => state.auth.userName)
-  let accessToken = useSelector((state) => state.auth.authorization)
   const [showTooltip, setShowTooltip] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
   const navigate = useNavigate()
@@ -33,15 +31,6 @@ function Gnb() {
   const navStyle = ({ isActive }) => ({
     color: isActive ? '#C77DFF' : '#191a20',
   })
-  //로그인, 로그아웃 상태 변경
-  const handleLogin = () => {
-    dispatch(
-      SET_LOGIN({
-        userName: '최강동안조안나',
-        authorization: '12345678',
-      })
-    )
-  }
   const handleLogout = () => {
     onLogout(dispatch)
     navigate('/main')
@@ -62,12 +51,6 @@ function Gnb() {
     if (showTooltip && !tooltipRef.current.contains(e.target)) {
       setShowTooltip(false)
     }
-  }
-
-  // refresh 테스트할 용도
-  const handleRefresh = () => {
-    console.log('이전 access: ', accessToken)
-    onRefresh(dispatch)
   }
 
   useEffect(() => {
@@ -99,8 +82,6 @@ function Gnb() {
                 <NavLink style={navStyle} to="/">
                   <li>이벤트</li>
                 </NavLink>
-                <button onClick={handleLogin}>임시 로그인 버튼</button>
-                <button onClick={handleRefresh}>refresh 테스트 버튼</button>
               </NavMenu>
             </div>
             <div className="gnb-right">

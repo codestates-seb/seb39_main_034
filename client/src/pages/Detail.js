@@ -124,7 +124,10 @@ function DetailView() {
           </Col>
           {/* 작성자 & 작성자 아닐 경우 */}
           <Col>
-            <MoreBtn onClick={openTimelineModal}></MoreBtn>
+            <MoreBtn
+              text={'타임라인 더보기'}
+              onClick={openTimelineModal}
+            ></MoreBtn>
           </Col>
         </Row>
         <Row>
@@ -140,6 +143,7 @@ function DetailView() {
       </Container>
       {isOpen && (
         <TimelineModal
+          title={milestoneData.title}
           timelineData={timelineData}
           onClick={openTimelineEditModal}
           setIsOpen={setIsOpen}

@@ -19,47 +19,55 @@ export default function Timelinelist(props) {
   // }
   return (
     <TimelineList>
-      <HeadingH3 color mt="50px">
-        타임라인
-      </HeadingH3>
+      {mode === 'limit' ? (
+        <HeadingH3 color mt="50px">
+          타임라인 ({timelineData.length})
+        </HeadingH3>
+      ) : null}
       {/*후기: status가 false(진행중)일 때 타임라인만 나오고 true(진행종료)일 경우 후기창 띄움*/}
-      {status ? (
-        <TimelineContainer>
-          <div className="header__timeline review">
-            <Text>후기 달성 창</Text>
+      <TimelineContainer>
+        {status ? (
+          <>
+            <div className="header__timeline review">
+              <Text>후기 달성 창</Text>
+            </div>
+            <div className="contents__timeline review">
+              <div className="contents">인풋창</div>
+            </div>
+          </>
+        ) : length === 0 ? (
+          <div className="notice">
+            아직 작성된 글이 없어요
+            <br />
+            함께 힘을 내 볼까요? 🏋️‍♀️🏋️‍♂️
           </div>
-          <div className="contents__timeline review">
-            <div className="contents">인풋창</div>
-          </div>
-        </TimelineContainer>
-      ) : length === 0 ? (
-        <div>아직 데이터가 없습니다</div>
-      ) : mode === 'limit' ? (
-        <TimelineContainer>
-          {limitTimelineData.map((timeline) => {
-            return (
-              <TimelineItem
-                key={timeline.timelineId}
-                {...timeline}
-                setTimelineData={setTimelineData}
-                onClick={onClick}
-              />
-            )
-          })}
-        </TimelineContainer>
-      ) : (
-        <TimelineContainer>
-          {timelineData.map((timeline) => {
-            return (
-              <TimelineItem
-                key={timeline.timelineId}
-                {...timeline}
-                onClick={onClick}
-              />
-            )
-          })}
-        </TimelineContainer>
-      )}
+        ) : mode === 'limit' ? (
+          <>
+            {limitTimelineData.map((timeline) => {
+              return (
+                <TimelineItem
+                  key={timeline.timelineId}
+                  {...timeline}
+                  setTimelineData={setTimelineData}
+                  onClick={onClick}
+                />
+              )
+            })}
+          </>
+        ) : (
+          <>
+            {timelineData.map((timeline) => {
+              return (
+                <TimelineItem
+                  key={timeline.timelineId}
+                  {...timeline}
+                  onClick={onClick}
+                />
+              )
+            })}
+          </>
+        )}
+      </TimelineContainer>
     </TimelineList>
   )
 }

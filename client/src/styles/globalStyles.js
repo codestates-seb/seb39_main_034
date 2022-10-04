@@ -94,7 +94,7 @@ export const HeadingH3 = styled.h3`
   margin-bottom: ${({ mb }) => (mb ? mb : '')};
   margin-top: ${({ mt }) => (mt ? mt : '')};
   color: ${({ color }) => (color ? (props) => props.theme.primary : '#fff')};
-  letter-spacing: 0.4rem;
+  letter-spacing: 0.1rem;
   line-height: 1.06;
   text-align: start;
   width: ${({ width }) => (width ? width : '100%')};

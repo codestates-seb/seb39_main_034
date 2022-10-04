@@ -11,6 +11,7 @@ import theme from '../../styles/theme'
 // ~~~ Timeline style ~~~ //
 export const TimelineList = styled(Container)``
 export const TimelineContainer = styled(Container)`
+  padding: 12px 0;
   > article {
     margin: 10px 0;
     border: 1px solid ${theme.border};
@@ -80,6 +81,13 @@ export const TimelineContainer = styled(Container)`
   .contents__timeline.review {
     border: 1px solid ${theme.border};
   }
+  .notice {
+    padding: 12px;
+    text-align: center;
+    font-size: ${({ theme }) => theme.font16};
+    color: ${({ theme }) => theme.primary};
+    line-height: 28px;
+  }
 `
 
 // ~~~ TimelineModal style ~~~ //
@@ -89,11 +97,12 @@ export const Wrapper = styled(ModalWrapper)`
 `
 export const ModalBackgroundBlack = styled(ModalBackground)``
 
-export const TimelineModalContainer = styled(Container)`
+export const TimelineModalContainer = styled.div`
   background-color: ${theme.white};
   border-radius: 10px;
-  width: 1000px;
-  height: 600px;
+  width: 90%;
+  height: 80vh;
+  margin: 0 auto;
   z-index: 10;
 
   .header__timeline {
@@ -117,7 +126,7 @@ export const TimelineModalContainer = styled(Container)`
     .contents {
       > div {
         padding: 0 20px;
-        height: 470px;
+        height: 70vh;
         overflow-y: scroll;
         ::-webkit-scrollbar {
           width: 25px;
@@ -150,7 +159,7 @@ export const Text = styled(TextWrapper)`
   color: ${theme.dark};
   font-size: ${theme.font18};
   line-height: 60px;
-  margin-left: 10px;
+  margin-left: 16px;
 `
 
 export const TimelineTextarea = styled(Textarea)`
