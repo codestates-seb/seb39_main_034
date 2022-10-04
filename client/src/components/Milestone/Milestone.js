@@ -21,11 +21,11 @@ export default function Milestone({ milestoneData }) {
   const result = Math.ceil(gap / (1000 * 60 * 60 * 24))
 
   const handleDeleteClick = () => {
-    const confirmResult = confirm('정말 목표를 삭자하시겠습니까?')
+    const confirmResult = confirm('정말 목표를 삭제하시겠습니까?')
     if (confirmResult) {
       axios({
         method: 'delete',
-        url: process.env.REACT_APP_API_URL + `/v1/goal/${milestoneData.goalId}`,
+        url: `/v1/goal/${milestoneData.goalId}`,
       })
         .then((res) => {
           console.log(res)

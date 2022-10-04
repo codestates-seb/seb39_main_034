@@ -139,6 +139,7 @@ function DetailView() {
         <Row>
           <Col>
             <Timelinelist
+              title={milestoneData.title}
               timelineData={timelineData}
               setTimelineData={setTimelineData}
               status={status}
@@ -187,14 +188,6 @@ function DetailView() {
           </Col>
         </Row>
       </Container>
-      {isOpen && (
-        <TimelineModal
-          title={milestoneData.title}
-          timelineData={timelineData}
-          onClick={openTimelineEditModal}
-          setIsOpen={setIsOpen}
-        />
-      )}
     </>
   )
 }

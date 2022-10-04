@@ -10,7 +10,7 @@ import { Col, Icon } from '../../styles/globalStyles'
 import Timelinelist from './Timelinelist'
 
 export const TimelineModal = (props) => {
-  const { timelineData, setOnTimelineModal } = props
+  const { title, timelineData, setOnTimelineModal } = props
   const closeTimelineModal = () => {
     setOnTimelineModal(false)
     document.body.style.overflow = 'unset'
@@ -36,7 +36,7 @@ export const TimelineModal = (props) => {
           {/* --content-- */}
           <div className="contents__timeline">
             <div className="contents">
-              <Timelinelist timelineData={timelineData} onClick={onClick} />
+              <Timelinelist timelineData={timelineData} />
             </div>
           </div>
         </TimelineModalContainer>

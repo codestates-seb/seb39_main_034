@@ -40,6 +40,7 @@ export const Container = styled.div`
   width: 100%;
   max-width: ${lgMaxContainer + 20}px;
   margin: 0 auto;
+
   @media screen and (max-width: ${mdBreakpoint}px) {
     padding: 0 ${mdMargin}px;
   }
@@ -57,6 +58,7 @@ export const Row = styled.div`
   gap: ${({ gap }) => (gap ? gap : '')};
   padding: ${({ padding }) => (padding ? padding : '')};
   margin: 0 10px;
+  margin-top: ${({ mt }) => (mt ? mt : '')};
   position: ${({ position }) => (position ? position : '')};
   width: ${({ width }) => (width ? width : 'auto')};
   min-width: ${({ minWidth }) => (minWidth ? minWidth : 'auto')};

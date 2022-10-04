@@ -10,7 +10,7 @@ export const Select = styled.select`
 
 export const MilestoneContainer = styled.div`
   width: 100%;
-  margin: 90px 0;
+  margin-top: 100px;
   .inputs {
     padding: 10px 0;
     > input {

@@ -84,8 +84,6 @@ function Gnb() {
                   <NavLink style={navStyle} to="/">
                     <li>이벤트</li>
                   </NavLink>
-                  <button onClick={handleLogin}>임시 로그인 버튼</button>
-                  <button onClick={handleRefresh}>refresh 테스트 버튼</button>
                 </NavMenu>
               </div>
               <div className="gnb-right">

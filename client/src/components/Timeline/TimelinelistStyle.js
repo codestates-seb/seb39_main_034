@@ -12,6 +12,8 @@ import theme from '../../styles/theme'
 export const TimelineList = styled(Container)``
 export const TimelineContainer = styled(Container)`
   padding: 12px 0;
+  border-radius: 10px;
+  border: 1px solid ${({ theme }) => theme.border};
   > article {
     margin: 10px 0;
     border: 1px solid ${theme.border};
