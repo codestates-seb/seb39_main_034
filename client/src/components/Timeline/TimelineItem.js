@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useState, useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { handleAuthErr } from '../Account/TokenAuth'
 import moment from 'moment'
 import Picker from 'emoji-picker-react'
@@ -25,26 +25,29 @@ import { FaPaperclip } from 'react-icons/fa'
 export default function TimelineItem(props) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { timelineId, description, createdAt, image, setTimelineData } = props
+  const { timelineId, description, createdAt, image, setTimelineData, writer } =
+    props
   const { id } = useParams()
   const today = moment(createdAt).format('YYYY년 MM일 DD일')
   const [newDdescription, setNewDescription] = useState(description) // 타임라인 수정 내용을 받을 곳
   const [timelineImageId, setTimelineImageId] = useState() // 타임라인 이미지 아이디 받을 곳
   const [imgFile, setImgFile] = useState(null) //이미지 파일을 받을 곳
   const [imgBase, setImgBase] = useState([]) // 이미지 미리보기 데이터를 받을 곳
-  const [openEdit, setOpenEdit] = useState(false) // 수정 버튼(수정 창) 상태 관리
+  const [onEditTimeline, setOnEditTimeline] = useState(false) // 수정 버튼(수정 창) 상태 관리
   const [openChoseImage, setOpenChoseImage] = useState(false) // 이미지 버튼 상태 관리
   const [openChoseEmoji, setOpenChoseEmoji] = useState(false) // 이모지 버튼 상태 관리
   // console.log('이미지 파일: ', imgFile)
   // console.log('타임라인 이미지 아이디: ', timelineImageId)
   // console.log('타임라인 아이디: ', timelineId)
 
+  const userName = useSelector((state) => state.auth.userName)
+
   const handleChangeTextarea = (e) => {
     setNewDescription(e.target.value)
   }
   // 수정 버튼 클릭 시 실행 시 이미지 아이디 값 받음
-  const handleClickEdit = () => {
-    setOpenEdit(!openEdit)
+  const handleClickEdit = useCallback(() => {
+    setOnEditTimeline(!onEditTimeline)
     if (image === null) {
       //이미지가 null 일땐 id가 없으므로 undefined
       setTimelineImageId(undefined)
@@ -52,7 +55,7 @@ export default function TimelineItem(props) {
       //이미지가 있을 땐 id 저장
       setTimelineImageId(image.imageId)
     }
-  }
+  }, [onEditTimeline])
   const handleClickEmoji = () => {
     setOpenChoseEmoji(!openChoseEmoji)
   }
@@ -154,7 +157,7 @@ export default function TimelineItem(props) {
         url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
       }).then((res) => {
         setTimelineData(res.data.goal.timelineList)
-        setOpenEdit(!openEdit)
+        setOnEditTimeline(!onEditTimeline)
       })
     } catch (err) {
       console.log('Error >>', err)
@@ -163,7 +166,7 @@ export default function TimelineItem(props) {
   }
 
   const handleClickSubmitCancle = () => {
-    setOpenEdit(false)
+    setOnEditTimeline(false)
     setNewDescription(description)
     setImgBase([])
   }
@@ -189,7 +192,7 @@ export default function TimelineItem(props) {
 
   return (
     <article>
-      {openEdit ? (
+      {onEditTimeline ? (
         <>
           {/* 타임라인 수정 창 열렸을 때 */}
           {/* ~~~ 타임라인 헤드 ~~~ */}
@@ -266,12 +269,18 @@ export default function TimelineItem(props) {
                   onChange={handleChangeTextarea}
                 />
                 <div className="button__complete">
-                  <CompleteBtn onClick={handleClickSubmit}>
-                    수정완료
-                  </CompleteBtn>
-                  <CompleteBtn onClick={handleClickSubmitCancle}>
-                    수정취소
-                  </CompleteBtn>
+                  <CompleteBtn
+                    onClick={handleClickSubmit}
+                    location="TimelineItem(edit): 수정 완료 버튼"
+                    editState={onEditTimeline}
+                    value="수정완료"
+                  />
+                  <CompleteBtn
+                    onClick={handleClickSubmitCancle}
+                    location="TimelineItem(edit): 수정 취소 버튼"
+                    editState={onEditTimeline}
+                    value="수정취소"
+                  />
                 </div>
               </div>
             </div>
@@ -322,10 +331,17 @@ export default function TimelineItem(props) {
             <Text>{today}</Text>
             {/* 작성자일 경우 보이게*/}
             <div className="header__timeline--icon">
-              <Icon>
-                <EditBtn size={20} onClick={handleClickEdit} />
-                <DeleteBtn onClick={handleClickDelete} />
-              </Icon>
+              {userName === writer ? (
+                <Icon>
+                  <EditBtn
+                    size={20}
+                    onClick={handleClickEdit}
+                    location="TimelineItem(default): 수정 버튼"
+                    editState={onEditTimeline}
+                  />
+                  <DeleteBtn onClick={handleClickDelete} />
+                </Icon>
+              ) : null}
             </div>
             {/* 작성자가 아니라면 안보이게*/}
           </div>

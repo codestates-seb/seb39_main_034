@@ -1,6 +1,12 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
+export const Wrapper = styled.div`
+  position: fixed;
+  width: 100%;
+  background-color: white;
+  z-index: 100;
+`
 export const NavContainer = styled.div`
   width: 100%;
   height: 92px;

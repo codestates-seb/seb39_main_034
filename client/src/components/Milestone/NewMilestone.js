@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import Calendar from 'react-calendar'
 import moment from 'moment'
 import { Input, Textarea } from '../../styles/globalStyles'
-import { MilestoneContainer, CalendarContainer } from './MilestoneStyle'
+import { MilestoneContainer, CalendarContainer, Select } from './MilestoneStyle'
 import { CompleteBtn, AddPicBtn } from '../Widget/WidgetStyle'
 import useGetAuth from '../../hook/useGetAuth'
 
@@ -305,7 +305,7 @@ export const NewMilestone = () => {
       </div>
       <div className="inputs">
         <div className="p__guide">
-          <p>배너 이미지 업로드</p>
+          <h3>배너 이미지 업로드</h3>
           <p>배너 이미지를 업로드하세요</p>
         </div>
         <div className="input__file">
@@ -338,13 +338,17 @@ export const NewMilestone = () => {
                 <span>FILE NAME: </span>
                 {imgName}
                 {milestoneImageId === undefined ? (
-                  <CompleteBtn onClick={handleClickUpload}>업로드</CompleteBtn>
+                  <CompleteBtn
+                    onClick={handleClickUpload}
+                    value="업로드"
+                  ></CompleteBtn>
                 ) : (
                   <div className="button__complete">
                     <span>업로드 완료</span>
-                    <CompleteBtn onClick={handleClickImageDelete}>
-                      이미지 삭제
-                    </CompleteBtn>
+                    <CompleteBtn
+                      onClick={handleClickImageDelete}
+                      value="이미지 삭제"
+                    />
                   </div>
                 )}
               </>
@@ -353,9 +357,11 @@ export const NewMilestone = () => {
         </div>
       </div>
       <div className="button__complete">
-        <CompleteBtn type="submit" onClick={handleClickSubmit}>
-          생성하기
-        </CompleteBtn>
+        <CompleteBtn
+          type="submit"
+          onClick={handleClickSubmit}
+          value="생성하기"
+        />
       </div>
     </MilestoneContainer>
   )
@@ -372,12 +378,12 @@ const Options = [
 
 const SelectBox = (props) => {
   return (
-    <select onChange={props.onChange}>
+    <Select onChange={props.onChange}>
       {props.options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.name}
         </option>
       ))}
-    </select>
+    </Select>
   )
 }

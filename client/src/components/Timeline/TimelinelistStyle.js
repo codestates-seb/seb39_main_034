@@ -95,7 +95,9 @@ export const Wrapper = styled(ModalWrapper)`
   display: flex;
   align-items: center;
 `
-export const ModalBackgroundBlack = styled(ModalBackground)``
+export const ModalBackgroundBlack = styled(ModalBackground)`
+  z-index: 1;
+`
 
 export const TimelineModalContainer = styled.div`
   background-color: ${theme.white};

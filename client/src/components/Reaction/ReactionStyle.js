@@ -6,11 +6,23 @@ export const ReactionBar = styled.div`
   height: 60px;
   padding: 0 12px;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
   background: ${({ theme }) => theme.border};
-  > div {
-    margin: 0 20px;
+  .reaction {
+    p {
+      padding: 5px 0;
+    }
+  }
+  .button__reaction {
+    > div {
+      display: flex;
+    }
+    > div > div {
+      display: flex;
+      align-items: center;
+      padding: 0 5px;
+    }
   }
 `
 
@@ -19,17 +31,21 @@ const ReactionBtnBase = styled(Button)`
   height: 44px;
   margin-right: 8px;
   border-radius: 22px;
-  background: ${({ click, theme }) =>
-    click ? theme.violet_m : theme.background};
+  background: ${({ follower, liker, theme }) =>
+    follower || liker ? theme.violet_m : theme.background};
   &:active {
     background: ${({ theme }) => theme.violet_m};
   }
 `
 
-export const SubscribeBtn = ({ click }) => (
-  <ReactionBtnBase click={click}>➕</ReactionBtnBase>
+export const SubscribeBtn = ({ onClick, follower }) => (
+  <ReactionBtnBase onClick={onClick} follower={follower}>
+    {follower ? '➖' : '➕'}
+  </ReactionBtnBase>
 )
 
-export const CheerBtn = ({ click }) => (
-  <ReactionBtnBase click={click}>👍</ReactionBtnBase>
+export const CheerBtn = ({ onClick, liker }) => (
+  <ReactionBtnBase onClick={onClick} liker={liker}>
+    {liker ? '✊' : '👍'}
+  </ReactionBtnBase>
 )

@@ -10,10 +10,9 @@ import { Col, Icon } from '../../styles/globalStyles'
 import Timelinelist from './Timelinelist'
 
 export const TimelineModal = (props) => {
-  const { title, timelineData, onClick, setIsOpen } = props
-  console.log('모달에서', timelineData)
+  const { timelineData, setOnTimelineModal } = props
   const closeTimelineModal = () => {
-    setIsOpen(false)
+    setOnTimelineModal(false)
     document.body.style.overflow = 'unset'
   }
 

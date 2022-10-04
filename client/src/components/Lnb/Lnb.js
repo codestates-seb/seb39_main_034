@@ -54,44 +54,47 @@ function Lnb({
         margin={'30px 0 0 0'}
       >
         <ListWrapper>
-          <div className="listName">분류</div>
-          <div className="list">
-            {categoryList.map((category, idx) => (
-              <CategoryBtn
-                onClick={handleCategoryClick}
-                key={idx}
-                value={idx}
-                isActive={idx == categoryId ? 1 : 0}
-              >
-                {category}
-              </CategoryBtn>
-            ))}
+          <div className="lists">
+            <div className="listName">분류</div>
+            <div className="list">
+              {categoryList.map((category, idx) => (
+                <CategoryBtn
+                  onClick={handleCategoryClick}
+                  key={idx}
+                  value={idx}
+                  isActive={idx == categoryId ? 1 : 0}
+                >
+                  {category}
+                </CategoryBtn>
+              ))}
+            </div>
+          </div>
+          <div className="lists">
+            <div className="listName">진행사항</div>
+            <div className="list">
+              {statusList.map((status, idx) => (
+                <StatusBtn
+                  key={idx}
+                  onClick={handleStatusClick}
+                  status={status}
+                  idx={idx}
+                  statusId={statusId}
+                ></StatusBtn>
+              ))}
+            </div>
           </div>
         </ListWrapper>
         <CreateBtn onClick={handleCreate} viewSize="lg" />
       </Col>
-      <Col
+      {/* <Col
         justify={'space-between'}
         align={'center'}
         padding={8}
         margin={'0 0 30px 0'}
-      >
-        <ListWrapper>
-          <div className="listName">진행사항</div>
-          <div className="list">
-            {statusList.map((status, idx) => (
-              <StatusBtn
-                key={idx}
-                onClick={handleStatusClick}
-                status={status}
-                idx={idx}
-                statusId={statusId}
-              ></StatusBtn>
-            ))}
-          </div>
-        </ListWrapper>
-        <CreateBtn onClick={handleCreate} viewSize="md" />
-      </Col>
+      > */}
+      <ListWrapper></ListWrapper>
+      <CreateBtn onClick={handleCreate} viewSize="md" />
+      {/* </Col> */}
     </>
   )
 }

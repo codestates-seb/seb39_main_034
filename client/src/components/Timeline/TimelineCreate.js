@@ -18,7 +18,9 @@ import { FaPaperclip } from 'react-icons/fa'
 
 export default function TimelineCreate({
   setTimelineData,
-  setOpenCreateTimeline,
+  setOnCreateTimeline,
+  location,
+  plusState,
 }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -33,6 +35,7 @@ export default function TimelineCreate({
   const [openChoseImage, setOpenChoseImage] = useState(false) // 이미지 버튼 상태 관리
   const [openChoseEmoji, setOpenChoseEmoji] = useState(false) // 이모지 버튼 상태 관리
   // console.log(timelineImageId)
+  console.log({ location, plusState })
 
   const handleChangeTextarea = (e) => {
     setDescription(e.target.value)
@@ -152,7 +155,7 @@ export default function TimelineCreate({
             setTimelineData(res.data.goal.timelineList)
           })
           setDescription('')
-          setOpenCreateTimeline(false)
+          setOnCreateTimeline(false)
           console.log('postResponse >>', postResponse)
           console.log('getResponse >>', getResponse)
         } catch (err) {
@@ -165,7 +168,7 @@ export default function TimelineCreate({
 
   // 작성 취소 버튼 클릭 시
   const handleClickSubmitCancle = () => {
-    setOpenCreateTimeline(false)
+    setOnCreateTimeline(false)
     setDescription('')
   }
 
@@ -250,10 +253,8 @@ export default function TimelineCreate({
             />
           </div>
           <div className="button__complete">
-            <CompleteBtn onClick={handleClickSubmit}>작성완료</CompleteBtn>
-            <CompleteBtn onClick={handleClickSubmitCancle}>
-              작성취소
-            </CompleteBtn>
+            <CompleteBtn onClick={handleClickSubmit} value="작성완료" />
+            <CompleteBtn onClick={handleClickSubmitCancle} value="작성취소" />
           </div>
         </div>
       </article>

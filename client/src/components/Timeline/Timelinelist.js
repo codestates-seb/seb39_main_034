@@ -1,22 +1,28 @@
-import { TimelineContainer, TimelineList, Text } from './TimelinelistStyle'
+import {
+  TimelineContainer,
+  TimelineList,
+  TimelineTextarea,
+  Text,
+} from './TimelinelistStyle'
 import TimelineItem from './TimelineItem'
 import { HeadingH3 } from '../../styles/globalStyles'
+import { useState, useCallback } from 'react'
+import { MoreBtn, CompleteBtn } from '../Widget/WidgetStyle'
+import { TimelineModal } from './TimelineModal'
 // import { CloseBtn, OpenBtn } from '../Widget/WidgetStyle'
 // import { useState } from 'react'
 
 export default function Timelinelist(props) {
-  const { timelineData, onClick, setTimelineData, status, mode } = props
-
-  // const [isToggle, setIsToggle] = useState(true)
+  const { timelineData, setTimelineData, writer, status, mode } = props
+  const [onTimelineModal, setOnTimelineModal] = useState(false) // 타임라인 모달(더보기) 상태
   const limitTimelineData = timelineData.slice(-5)
   const length = timelineData.length
-  // console.log('status: ', status)
-  // const closeToggle = () => {
-  //   setIsToggle(false)
-  // }
-  // const openToggle = () => {
-  //   setIsToggle(!isToggle)
-  // }
+
+  const openTimelineModal = useCallback(() => {
+    setOnTimelineModal(!onTimelineModal)
+    document.body.style.overflow = 'hidden'
+  })
+
   return (
     <TimelineList>
       {mode === 'limit' ? (
@@ -49,25 +55,36 @@ export default function Timelinelist(props) {
                   key={timeline.timelineId}
                   {...timeline}
                   setTimelineData={setTimelineData}
-                  onClick={onClick}
+                  writer={writer}
                 />
               )
             })}
-          </>
-        ) : (
-          <>
+          </TimelineContainer>
+         <MoreBtn text={'타임라인 더보기'} onClick={openTimelineModal}></MoreBtn>
+        </>
+      ) : (
+        <>
+          <TimelineContainer>
+            {/* 모달 내부에서: 후기 타임라인이 있다면 타임라인 상단에 보여주기 */}
             {timelineData.map((timeline) => {
               return (
                 <TimelineItem
                   key={timeline.timelineId}
                   {...timeline}
-                  onClick={onClick}
+                  writer={writer}
                 />
               )
             })}
-          </>
-        )}
-      </TimelineContainer>
+          </TimelineContainer>
+          <MoreBtn text={'타임라인 더보기'} onClick={openTimelineModal}></MoreBtn>
+        </>
+      )}
+      {onTimelineModal && (
+        <TimelineModal
+          timelineData={timelineData}
+          setOnTimelineModal={setOnTimelineModal}
+        />
+      )}
     </TimelineList>
   )
 }

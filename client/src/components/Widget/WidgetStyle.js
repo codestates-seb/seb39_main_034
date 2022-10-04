@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import { Button } from '../../styles/globalStyles'
 import { RiPencilFill } from 'react-icons/ri'
@@ -9,9 +10,8 @@ import {
 } from 'react-icons/bs'
 import { ImFilePicture } from 'react-icons/im'
 import { AiFillCloseSquare } from 'react-icons/ai'
-import React from 'react'
 
-export const CompleteBtn = styled(Button)`
+export const CompleteBtnBase = styled(Button)`
   width: 100px;
   height: 40px;
   margin: 0 4px;
@@ -21,6 +21,22 @@ export const CompleteBtn = styled(Button)`
     background: ${({ theme }) => theme.violet_l};
   }
 `
+export const CompleteBtn = React.memo(function CompleteBtn({
+  onClick,
+  location,
+  editState,
+  value,
+  plusState,
+}) {
+  if (editState === undefined) {
+    console.log({ location, plusState })
+  } else if (plusState === undefined) {
+    console.log({ location, editState })
+  }
+
+  return <CompleteBtnBase onClick={onClick}>{value}</CompleteBtnBase>
+})
+
 export const PlusBtnBase = styled(Button)`
   width: 100%;
   height: 52px;
@@ -33,7 +49,12 @@ export const PlusBtnBase = styled(Button)`
   }
 `
 
-export const PlusBtn = React.memo(function PlusBtn({ onClick }) {
+export const PlusBtn = React.memo(function PlusBtn({
+  location,
+  plusState,
+  onClick,
+}) {
+  console.log({ location, plusState })
   return (
     <PlusBtnBase onClick={onClick}>
       <FaPlus size="30" />
@@ -53,11 +74,18 @@ const GrayBtn = styled.button`
   }
 `
 
-export const EditBtn = ({ onClick }) => (
-  <GrayBtn onClick={onClick}>
-    <RiPencilFill size="24" />
-  </GrayBtn>
-)
+export const EditBtn = React.memo(function EditBtn({
+  onClick,
+  location,
+  editState,
+}) {
+  console.log({ location, editState })
+  return (
+    <GrayBtn onClick={onClick}>
+      <RiPencilFill size="24" />
+    </GrayBtn>
+  )
+})
 
 export const DeleteBtn = ({ onClick }) => (
   <GrayBtn onClick={onClick}>
