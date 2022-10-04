@@ -30,37 +30,41 @@ export default function useGetCards(
     if (error === true) {
       setError(false)
     }
-    const path = userName
-      ? `/v1/${userName}/goal/list/filter`
-      : '/v1/goal/list/filter'
     let cancel
-    axios({
-      method: 'GET',
-      url: path,
-      params: {
-        page: pageNumber,
-        size: 12,
-        categoryId: categoryId,
-        status: statusId,
-      },
-      cancelToken: new axios.CancelToken((c) => (cancel = c)),
-    })
-      .then((res) => {
-        // console.log('axios 받아옴')
-        console.log('res :', res.data)
-        setCards((prevCards) => {
-          return [...prevCards, ...res.data.data]
+    function getCards() {
+      console.log('getCards 실행')
+      const path = userName
+        ? `/v1/${userName}/goal/list/filter`
+        : '/v1/goal/list/filter'
+      axios({
+        method: 'GET',
+        url: path,
+        params: {
+          page: pageNumber,
+          size: 12,
+          categoryId: categoryId,
+          status: statusId,
+        },
+        cancelToken: new axios.CancelToken((c) => (cancel = c)),
+      })
+        .then((res) => {
+          console.log('cards axios 받아옴')
+          console.log('res :', res.data)
+          setCards((prevCards) => {
+            return [...prevCards, ...res.data.data]
+          })
+          setMetadata({ ...res.pageInfo, ...res.data.myPageInfo })
+          setHasMore(res.data.pageInfo.totalPages > pageNumber)
         })
-        setMetadata({ ...res.data.pageInfo, ...res.data.myPageInfo })
-        setHasMore(res.data.pageInfo.totalPages > pageNumber)
-      })
-      .catch((err) => {
-        if (axios.isCancel(err)) return
-        setError(true)
-        console.log(err.message)
-      })
-      .finally(setLoading(false))
+        .catch((err) => {
+          if (axios.isCancel(err)) return
+          setError(true)
+          console.log(err.message)
+        })
+        .finally(setLoading(false))
+    }
     // console.log('useEffect#2 마지막 줄에서 찍은 로그')
+    getCards()
     return () => cancel()
   }, [categoryId, statusId, pageNumber, authLoading])
   // console.log('훅 마지막 줄에서 찍은 로그')

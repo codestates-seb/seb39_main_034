@@ -12,8 +12,6 @@ import theme from '../../styles/theme'
 export const TimelineList = styled(Container)``
 export const TimelineContainer = styled(Container)`
   padding: 12px 0;
-  border-radius: 10px;
-  border: 1px solid ${({ theme }) => theme.border};
   > article {
     margin: 10px 0;
     border: 1px solid ${theme.border};
@@ -85,6 +83,8 @@ export const TimelineContainer = styled(Container)`
   }
   .notice {
     padding: 12px;
+    border-radius: 10px;
+    border: 1px solid ${({ theme }) => theme.border};
     text-align: center;
     font-size: ${({ theme }) => theme.font16};
     color: ${({ theme }) => theme.primary};

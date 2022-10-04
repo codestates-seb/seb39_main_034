@@ -24,6 +24,13 @@ export const CardWrapper = styled.div`
    opacity: 0.2;
    content:''}`}
 `
+export const Sticker = styled.img`
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 2px solid white;
+`
+
 export const CardBanner = styled.div`
   position: relative;
   height: 40%;
