@@ -112,14 +112,7 @@ export const onAccessTest = (dispatch) => {
     })
 }
 
-export const handleAuthErr = (
-  dispatch,
-  navigate,
-  err,
-  func = () => {
-    return null
-  }
-) => {
+export const handleAuthErr = (dispatch, navigate, err, func) => {
   // 에러객체와 원래 시도했던 기능을 받아서
   // 로그인 여부 확인하고 3초 뒤 재실행
   console.log(err.response)
@@ -128,10 +121,7 @@ export const handleAuthErr = (
       err.response.data.message === 'NOT_VALID_TOKEN' ||
       err.response.data.message === 'ACCESS_NOT_VALID_TOKEN'
     ) {
-      setTimeout(() => {
-        func()
-        console.log('기능 재시도')
-      }, 1500)
+      setTimeout(func, 1800)
       // alert('로그인 정보를 재확인합니다. 잠시 기다려주세요.')
       onRefresh(dispatch)
     } else if (

@@ -1,5 +1,9 @@
 import styled from 'styled-components'
 
+export const CardContainer = styled.div`
+  position: relative;
+`
+
 export const CardWrapper = styled.div`
   position: relative;
   display: flex;
@@ -26,9 +30,12 @@ export const CardWrapper = styled.div`
 `
 export const Sticker = styled.img`
   position: absolute;
-  width: 30px;
-  height: 30px;
-  border: 2px solid white;
+  top: 30px;
+  left: 30px;
+  width: auto;
+  height: 100px;
+  transform: rotate(-10deg);
+  z-index: 1;
 `
 
 export const CardBanner = styled.div`

@@ -24,6 +24,7 @@ const CardsList = React.memo(function CardList({
             >
               <Link to={`/goal/detail/${card.goalId}`}>
                 <Card
+                  type={type}
                   category={card.category}
                   title={card.title}
                   status={card.status === '진행중' ? card.status : card.result}
@@ -38,6 +39,7 @@ const CardsList = React.memo(function CardList({
                     'https://images.pexels.com/photos/1310522/pexels-photo-1310522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
                   }
                   author={card.member}
+                  final={card.finalTimelineStatus}
                 />
               </Link>
             </Col>
@@ -53,6 +55,7 @@ const CardsList = React.memo(function CardList({
             >
               <Link to={`/goal/detail/${card.goalId}`}>
                 <Card
+                  type={type}
                   category={card.category}
                   title={card.title}
                   status={card.status === '진행중' ? card.status : card.result}
@@ -67,6 +70,7 @@ const CardsList = React.memo(function CardList({
                     'https://images.pexels.com/photos/1310522/pexels-photo-1310522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
                   }
                   author={card.member}
+                  final={card.finalTimelineStatus}
                 />
               </Link>
             </Col>

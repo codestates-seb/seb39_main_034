@@ -38,9 +38,10 @@ export const MyLnb = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin: ${({ margin }) => (margin ? margin : '')};
   height: 46px;
   border-radius: 10px;
-  background: ${({ theme }) => theme.border};
+  background: ${({ bg, theme }) => (bg ? bg : theme.border)};
 `
 
 const ProgressBarStyle = styled.div`
@@ -90,6 +91,7 @@ export const MyProgressBar = ({ percentage }) => {
 }
 
 export const AlertModalContainer = styled.div`
+  position: relative;
   background-color: ${({ theme }) => theme.white};
   border-radius: 10px;
   width: 28%;
@@ -97,15 +99,23 @@ export const AlertModalContainer = styled.div`
   margin: 0 auto;
   overflow: hidden;
   box-shadow: 0px 0px 12px ${({ theme }) => theme.tertiary};
-  z-index: 10;
+  z-index: 1;
 
+  .sticker {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: auto;
+    height: 32px;
+    transform: rotate(-10deg);
+  }
   .contents {
     overflow: wrap;
     padding: 32px;
     overflow-y: scroll;
     > p {
       :first-child {
-        padding: 4px 0 12px 0;
+        padding: 12px 0 12px 0;
         font-size: ${({ theme }) => theme.font18};
         font-weight: 500;
         line-height: 32px;

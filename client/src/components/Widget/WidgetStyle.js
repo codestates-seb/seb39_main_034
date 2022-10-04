@@ -198,3 +198,28 @@ export const MoreBtn = React.memo(function MoreBtn({ onClick, text }) {
     </MoreBase>
   )
 })
+
+export const EventBanner = styled.div`
+  width: 100%;
+  height: 230px;
+  margin: 12px 0;
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px ${({ theme }) => theme.tertiary};
+  overflow: hidden;
+  cursor: pointer;
+  .event_header {
+    height: 50px;
+    padding: 0 12px;
+    line-height: 54px;
+    font-weight: 500;
+    font-size: ${({ theme }) => theme.font16};
+    background: ${({ theme }) => theme.background};
+  }
+  .event_content {
+    height: 180px;
+    width: 100%;
+    background-image: url(${({ url }) => url});
+    background-size: cover;
+    background-position: center;
+  }
+`
