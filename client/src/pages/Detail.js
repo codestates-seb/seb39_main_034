@@ -23,6 +23,8 @@ function DetailView() {
   }) // 목표 데이터 받는 곳
   const [todoData, setTodoData] = useState([]) // 투두 데이터 받는 곳
   const [timelineData, setTimelineData] = useState([]) // 타임라인 데이터 받는 곳
+  const [followerData, setFollowerData] = useState([]) // 팔로우 데이터 받는 곳
+  const [likerData, setLikerData] = useState([]) // 응원자(liker) 데이터 받는 곳
   const [metaData, setMetaData] = useState({}) // 메타 데이터 받는 곳
   const [status, setStatus] = useState({}) // 상태값 받는 곳
 
@@ -42,24 +44,54 @@ function DetailView() {
     setOnCreateTimeline(!onCreateTimeline)
   }, [onCreateTimeline])
 
-  useEffect(() => {
-    async function getDetail() {
-      await axios
-        .get(`/v1/goal/${id}`)
-        .then((res) => {
-          console.log(res.data)
-          setMilestoneData(res.data.goal)
-          setTodoData(res.data.goal.todoList)
-          setTimelineData(res.data.goal.timelineList)
-          setMetaData(res.data.metadata)
-          setStatus(res.data.goal.status)
-        })
-        .catch((err) => {
-          console.log('ERROR: ', err)
-        })
-      console.log('axios 요청')
+  const getTodoData = useCallback(() => {
+    try {
+      axios.get(`/v1/goal/${id}`).then((res) => {
+        setTodoData(res.data.goal.todoList)
+      })
+    } catch (err) {
+      console.log('ERROR getTodo: ', err)
     }
+  }, [todoData])
+
+  const getFollower = useCallback(() => {
+    try {
+      axios.get(`/v1/goal/${id}`).then((res) => {
+        setFollowerData(res.data.goal.followerList)
+      })
+    } catch (err) {
+      console.log('ERROR getFollower: ', err)
+    }
+  }, [followerData])
+
+  const getLiker = useCallback(() => {
+    try {
+      axios.get(`/v1/goal/${id}`).then((res) => {
+        setLikerData(res.data.goal.likerList)
+      })
+    } catch (err) {
+      console.log('ERROR getLiker: ', err)
+    }
+  }, [likerData])
+
+  const getDetail = () => {
+    try {
+      axios.get(`/v1/goal/${id}`).then((res) => {
+        console.log(res.data)
+        setMilestoneData(res.data.goal)
+        setMetaData(res.data.metadata)
+        setTodoData(res.data.goal.todoList)
+        setTimelineData(res.data.goal.timelineList)
+        setStatus(res.data.goal.status)
+      })
+    } catch (err) {
+      console.log('ERROR: ', err)
+    }
+  }
+
+  useEffect(() => {
     getDetail()
+    console.log('axios 요청')
   }, [])
 
   return (
@@ -74,8 +106,8 @@ function DetailView() {
           <Col>
             <Todolist
               todoData={todoData}
-              setTodoData={setTodoData}
               metaData={metaData}
+              getTodoData={getTodoData}
               writer={writer}
             ></Todolist>
           </Col>
@@ -138,7 +170,15 @@ function DetailView() {
         </Row>
         <Row>
           <Col>
-            <Reaction></Reaction>
+            <Reaction
+              goalId={id}
+              writer={writer}
+              followerData={followerData}
+              likerData={likerData}
+              metaData={metaData}
+              getFollower={getFollower}
+              getLiker={getLiker}
+            ></Reaction>
           </Col>
         </Row>
         <Row>
