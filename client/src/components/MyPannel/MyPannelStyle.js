@@ -94,6 +94,7 @@ export const FeedTitle = styled.div`
   align-items: center;
   padding: 4px;
   margin-top: 24px;
+  color: ${({ theme }) => theme.dark};
   font-size: ${({ theme }) => theme.font18};
   > div:last-child {
     margin-left: 16px;

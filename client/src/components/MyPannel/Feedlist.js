@@ -1,69 +1,55 @@
-import {
-  TimelineContainer,
-  TimelineList,
-  Text,
-} from '../Timeline/TimelinelistStyle'
-import TimelineItem from './FeedItem'
+import { TimelineContainer, TimelineList } from '../Timeline/TimelinelistStyle'
+import FeedItem from './FeedItem'
 // import { HeadingH3 } from '../../styles/globalStyles'
 // import { CloseBtn, OpenBtn } from '../Widget/WidgetStyle'
 // import { useState } from 'react'
 
-export default function Feedlist(props) {
-  const { timelineData, onClick, setTimelineData, status, mode } = props
-
+export default function Feedlist({ feedData, mode }) {
   // const [isToggle, setIsToggle] = useState(true)
-  const limitTimelineData = timelineData.slice(-5)
-  const length = timelineData.length
-  // console.log('status: ', status)
-  // const closeToggle = () => {
-  //   setIsToggle(false)
-  // }
-  // const openToggle = () => {
-  //   setIsToggle(!isToggle)
-  // }
+  const limitedFeedData = feedData.slice(-5)
+  console.log('현재모드', mode)
+  console.log('현재 데이터', feedData)
   return (
     <TimelineList>
-      {/* <HeadingH3 color mt="50px">
-        타임라인
-      </HeadingH3> */}
-      {/*후기: status가 false(진행중)일 때 타임라인만 나오고 true(진행종료)일 경우 후기창 띄움*/}
-      {status ? (
-        <TimelineContainer>
-          <div className="header__timeline review">
-            <Text>후기 달성 창</Text>
+      <TimelineContainer>
+        {feedData.length === 0 ? (
+          <div className="notice">
+            아직 업데이트 된 글이 없어요
+            <br />
+            함께 힘을 내 볼까요? 🏋️‍♀️🏋️‍♂️
           </div>
-          <div className="contents__timeline review">
-            <div className="contents">인풋창</div>
-          </div>
-        </TimelineContainer>
-      ) : length === 0 ? (
-        <div>아직 데이터가 없습니다</div>
-      ) : mode === 'limit' ? (
-        <TimelineContainer>
-          {limitTimelineData.map((timeline) => {
-            return (
-              <TimelineItem
-                key={timeline.timelineId}
-                {...timeline}
-                setTimelineData={setTimelineData}
-                onClick={onClick}
-              />
-            )
-          })}
-        </TimelineContainer>
-      ) : (
-        <TimelineContainer>
-          {timelineData.map((timeline) => {
-            return (
-              <TimelineItem
-                key={timeline.timelineId}
-                {...timeline}
-                onClick={onClick}
-              />
-            )
-          })}
-        </TimelineContainer>
-      )}
+        ) : mode === 'limit' ? (
+          <>
+            {limitedFeedData.map((feed) => {
+              return (
+                <FeedItem
+                  key={'feed' + feed.feedId}
+                  goalId={feed.goalId}
+                  member={'지금 limited' + feed.timeline.member}
+                  description={feed.timeline.description}
+                  createdAt={feed.timeline.createdAt}
+                  image={feed.timeline.image}
+                />
+              )
+            })}
+          </>
+        ) : (
+          <>
+            {feedData.map((feed) => {
+              return (
+                <FeedItem
+                  key={feed.feedId}
+                  goalId={feed.goalId}
+                  member={feed.member}
+                  description={feed.timeline.description}
+                  createdAt={feed.timeline.createdAt}
+                  image={feed.timeline.image}
+                />
+              )
+            })}
+          </>
+        )}
+      </TimelineContainer>
     </TimelineList>
   )
 }

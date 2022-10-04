@@ -197,7 +197,7 @@ export default function TimelineItem(props) {
           {/* 타임라인 수정 창 열렸을 때 */}
           {/* ~~~ 타임라인 헤드 ~~~ */}
           <div className="header__timeline">
-            <Text>작성일: {today}</Text>
+            <Text>{today}</Text>
             <div className="header__timeline--icon">
               <Icon>
                 <AddPicBtn onClick={handleClickImage} />
@@ -328,7 +328,7 @@ export default function TimelineItem(props) {
           {/* 타임라인 수정 창 닫혔을 때 */}
           {/* ~~~ 타임라인 헤드 ~~~ */}
           <div className="header__timeline">
-            <Text>작성일: {today}</Text>
+            <Text>{today}</Text>
             {/* 작성자일 경우 보이게*/}
             <div className="header__timeline--icon">
               {userName === writer ? (

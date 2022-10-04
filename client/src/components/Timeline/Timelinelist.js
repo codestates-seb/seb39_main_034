@@ -25,33 +25,30 @@ export default function Timelinelist(props) {
 
   return (
     <TimelineList>
-      <HeadingH3 mt="50px">타임라인</HeadingH3>
-      {/*목표 진행 종료일 경우 후기 작성 창 띄움*/}
-      {status === 1 ? (
-        <TimelineContainer>
-          <div className="header__timeline review">
-            <Text>후기 달성 창</Text>
-          </div>
-          <div className="contents__timeline review">
-            <div className="contents">
-              <TimelineTextarea placeholder="후기 내용을 입력하세요!" />
-              <div className="button__complete">
-                <CompleteBtn value="작성완료" />
-                <CompleteBtn value="나중에 작성" />
-              </div>
-            </div>
-          </div>
-        </TimelineContainer>
+      {mode === 'limit' ? (
+        <HeadingH3 color mt="50px">
+          타임라인 ({timelineData.length})
+        </HeadingH3>
       ) : null}
-
-      {length === 0 ? (
-        //타임라인 데이터가 없을 경우
-        <div>아직 데이터가 없습니다</div>
-      ) : //타임라인 데이터가 있을 경우
-      mode === 'limit' ? (
-        <>
-          <TimelineContainer>
-            {/* 후기 타임라인이 있다면 타임라인 상단에 보여주기 */}
+      {/*후기: status가 false(진행중)일 때 타임라인만 나오고 true(진행종료)일 경우 후기창 띄움*/}
+      <TimelineContainer>
+        {status ? (
+          <>
+            <div className="header__timeline review">
+              <Text>후기 달성 창</Text>
+            </div>
+            <div className="contents__timeline review">
+              <div className="contents">인풋창</div>
+            </div>
+          </>
+        ) : length === 0 ? (
+          <div className="notice">
+            아직 작성된 글이 없어요
+            <br />
+            함께 힘을 내 볼까요? 🏋️‍♀️🏋️‍♂️
+          </div>
+        ) : mode === 'limit' ? (
+          <>
             {limitTimelineData.map((timeline) => {
               return (
                 <TimelineItem
@@ -63,7 +60,7 @@ export default function Timelinelist(props) {
               )
             })}
           </TimelineContainer>
-          <MoreBtn onClick={openTimelineModal}></MoreBtn>
+         <MoreBtn text={'타임라인 더보기'} onClick={openTimelineModal}></MoreBtn>
         </>
       ) : (
         <>
@@ -79,7 +76,7 @@ export default function Timelinelist(props) {
               )
             })}
           </TimelineContainer>
-          <MoreBtn onClick={openTimelineModal}></MoreBtn>
+          <MoreBtn text={'타임라인 더보기'} onClick={openTimelineModal}></MoreBtn>
         </>
       )}
       {onTimelineModal && (

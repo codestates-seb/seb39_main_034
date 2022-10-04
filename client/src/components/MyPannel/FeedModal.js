@@ -3,29 +3,29 @@ import {
   TimelineModalContainer,
   Wrapper,
   Text,
-} from './TimelinelistStyle'
+} from '../Timeline/TimelinelistStyle'
 import { XBtn } from '../Widget/WidgetStyle'
 import { AiFillCloseSquare } from 'react-icons/ai'
-import { Col, Icon } from '../../styles/globalStyles'
-import Timelinelist from './Timelinelist'
+import { Icon, Col } from '../../styles/globalStyles'
+import Feedlist from './Feedlist'
 
-export const TimelineModal = (props) => {
-  const { timelineData, setOnTimelineModal } = props
+export default function FeedModal({ feedData, setIsOpen }) {
   const closeTimelineModal = () => {
-    setOnTimelineModal(false)
+    setIsOpen(false)
     document.body.style.overflow = 'unset'
   }
 
   return (
     <Wrapper>
       <Col>
+        {' '}
         {/*최상위에 있는 navigation 포함 black background를 씌어주기 위해 
       globalStyle에서 Wrapper와 ModalBackground 컴포넌트를 추가함*/}
         <ModalBackgroundBlack></ModalBackgroundBlack>
         <TimelineModalContainer>
           {/* --header-- */}
           <div className="header__timeline modal">
-            <Text>&lt;{title}&gt;의 타임라인</Text>
+            <Text>구독중인 피드</Text>
             <div className="header__timeline--icon"></div>
             <Icon>
               <XBtn onClick={closeTimelineModal}>
@@ -34,9 +34,10 @@ export const TimelineModal = (props) => {
             </Icon>
           </div>
           {/* --content-- */}
+
           <div className="contents__timeline">
             <div className="contents">
-              <Timelinelist timelineData={timelineData} onClick={onClick} />
+              <Feedlist feedData={feedData} />
             </div>
           </div>
         </TimelineModalContainer>

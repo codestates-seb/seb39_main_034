@@ -187,6 +187,14 @@ function DetailView() {
           </Col>
         </Row>
       </Container>
+      {isOpen && (
+        <TimelineModal
+          title={milestoneData.title}
+          timelineData={timelineData}
+          onClick={openTimelineEditModal}
+          setIsOpen={setIsOpen}
+        />
+      )}
     </>
   )
 }

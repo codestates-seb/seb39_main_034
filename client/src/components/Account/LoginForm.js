@@ -33,7 +33,7 @@ function LoginForm() {
             res.headers.refresh,
             loginData.username
           )
-          navigate('/main')
+          navigate('/mypage')
         }
       })
       .catch((err) => {
