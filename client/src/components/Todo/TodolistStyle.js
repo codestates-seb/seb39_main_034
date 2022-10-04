@@ -56,22 +56,21 @@ const ProgressBarCount = styled.div`
   color: ${({ color, theme }) => (color ? theme.violet_m : '')};
 `
 
-export const ProgressBar = ({ todoData }) => {
-  let total = todoData.length
-  let completed = todoData.filter((todo) => todo.completed === 1).length
-  let percentage = Math.floor((completed / total) * 100)
+export const ProgressBar = ({ metaData }) => {
   return (
     <>
       <ProgressBarWrapper>
         <ProgressBarCount>
-          {completed} / {total}
+          {metaData.numberOfCompletedTodos} / {metaData.numberOfTodos}
         </ProgressBarCount>
-        <ProgressBarStyle percentage={percentage}>
+        <ProgressBarStyle percentage={metaData.progressPercent}>
           <div className="wrapper">
             <div className="inner"></div>
           </div>
         </ProgressBarStyle>
-        <ProgressBarCount color="violet">{percentage}%</ProgressBarCount>
+        <ProgressBarCount color="violet">
+          {metaData.progressPercent}%
+        </ProgressBarCount>
       </ProgressBarWrapper>
     </>
   )

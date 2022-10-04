@@ -12,6 +12,7 @@ import useGetAuth from '../hook/useGetAuth'
 import Feedlist from '../components/MyPannel/Feedlist'
 import { FeedModal, AlertModal } from '../components/MyPannel/FeedModal'
 import { MoreBtn, Notice } from '../components/Widget/WidgetStyle'
+import Footer from '../components/Footer/Footer'
 
 function Mypage() {
   const userName = useSelector((state) => state.auth.userName)
@@ -197,6 +198,7 @@ function Mypage() {
           setIsAlertOpen={setIsAlertOpen}
         />
       )}
+      <Footer />
     </>
   )
 }

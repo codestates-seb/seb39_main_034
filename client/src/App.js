@@ -15,7 +15,6 @@ import Goal from './pages/Goal'
 
 //Components
 import Gnb from './components/Gnb/Gnb'
-import Footer from './components/Footer/Footer'
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL
 
@@ -38,7 +37,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/mypage" element={<Mypage />} />
       </Routes>
-      <Footer />
     </>
   )
 }

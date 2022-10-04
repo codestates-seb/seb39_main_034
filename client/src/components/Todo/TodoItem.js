@@ -15,7 +15,14 @@ import { EditBtn, DeleteBtn, CompleteBtn } from '../Widget/WidgetStyle'
 // import TodoEdit from './TodoEdit'
 // import TodoCheck from './TodoCheck'
 
-function TodoItem({ todoId, title, completed, writer, getTodoData }) {
+function TodoItem({
+  todoId,
+  title,
+  completed,
+  writer,
+  getTodoData,
+  getMetaData,
+}) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [newTitle, setNewTitle] = useState(title)
@@ -52,33 +59,29 @@ function TodoItem({ todoId, title, completed, writer, getTodoData }) {
     }
   }
 
-  const handleClickCheckBox = () => {
+  const handleClickCheckBox = async () => {
     if (complete) {
-      axios({
-        method: 'get',
-        url: process.env.REACT_APP_API_URL + `/v1/todo/cancel/${todoId}`,
-      })
-        .then((res) => {
+      try {
+        await axios.get(`/v1/todo/cancel/${todoId}`).then((res) => {
           console.log(res)
           setComplete(!complete)
         })
-        .catch((err) => {
-          console.log(err)
-          handleAuthErr(dispatch, navigate, err, handleClickCheckBox)
-        })
+        await getMetaData()
+      } catch (err) {
+        console.log(err)
+        handleAuthErr(dispatch, navigate, err, handleClickCheckBox)
+      }
     } else {
-      axios({
-        method: 'get',
-        url: process.env.REACT_APP_API_URL + `/v1/todo/${todoId}`,
-      })
-        .then((res) => {
+      try {
+        await axios.get(`/v1/todo/${todoId}`).then((res) => {
           console.log(res)
           setComplete(!complete)
         })
-        .catch((err) => {
-          console.log(err)
-          handleAuthErr(dispatch, navigate, err, handleClickCheckBox)
-        })
+        await getMetaData()
+      } catch (err) {
+        console.log(err)
+        handleAuthErr(dispatch, navigate, err, handleClickCheckBox)
+      }
     }
   }
   const handleDeleteClick = async () => {

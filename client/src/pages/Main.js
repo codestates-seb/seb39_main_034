@@ -6,6 +6,7 @@ import Lnb from '../components/Lnb/Lnb'
 // import Card from '../components/Card/Card'
 import CardList from '../components/Card/CardList'
 import { Notice } from '../components/Widget/WidgetStyle'
+import Footer from '../components/Footer/Footer'
 
 function Main() {
   // console.log('메인뷰 실행될 때 찍은 로그')
@@ -34,31 +35,34 @@ function Main() {
   )
 
   return (
-    <Container>
-      <Row>
-        <Lnb
-          categoryId={categoryId}
-          setCategoryId={setCategoryId}
-          setStatusId={setStatusId}
-          statusId={statusId}
-          setPageNumber={setPageNumber}
+    <>
+      <Container>
+        <Row>
+          <Lnb
+            categoryId={categoryId}
+            setCategoryId={setCategoryId}
+            setStatusId={setStatusId}
+            statusId={statusId}
+            setPageNumber={setPageNumber}
+          />
+        </Row>
+        <CardList
+          type={'main'}
+          cards={cards}
+          handleLastCardRef={handleLastCardRef}
         />
-      </Row>
-      <CardList
-        type={'main'}
-        cards={cards}
-        handleLastCardRef={handleLastCardRef}
-      />
-      <Row>
-        <Col>
-          <Notice>
-            <div>{loading && '로딩 중입니다...🐢'}</div>
-            <div>{error && '에러가 발생했어요 🤔 '}</div>
-            <div>{cards.length === 0 && '검색 결과가 없어요 🙅'}</div>
-          </Notice>
-        </Col>
-      </Row>
-    </Container>
+        <Row>
+          <Col>
+            <Notice>
+              <div>{loading && '로딩 중입니다...🐢'}</div>
+              <div>{error && '에러가 발생했어요 🤔 '}</div>
+              <div>{cards.length === 0 && '검색 결과가 없어요 🙅'}</div>
+            </Notice>
+          </Col>
+        </Row>
+      </Container>
+      <Footer />
+    </>
   )
 }
 

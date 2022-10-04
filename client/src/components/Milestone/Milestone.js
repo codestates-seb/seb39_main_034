@@ -6,10 +6,22 @@ import { HeadingH3, MainHeading } from '../../styles/globalStyles'
 import { DeleteBtn, Profile } from '../Widget/WidgetStyle'
 import { StatusBadge, CategoryBadge } from '../Card/CardStyle'
 import { useSelector } from 'react-redux'
+import { SubscribeBtn, CheerBtn } from '../Reaction/ReactionStyle'
 
-export default function Milestone({ milestoneData }) {
+export default function Milestone({
+  milestoneData,
+  followerData,
+  likerData,
+  writer,
+  goalId,
+  getFollower,
+  getLiker,
+  metaData,
+}) {
   const navigate = useNavigate()
   const userName = useSelector((state) => state.auth.userName) // 로그인된 유저
+  const followerUser = followerData.filter((item) => item === userName) // 팔로우 리스트 중 로그인 유저 필터링
+  const likerUser = likerData.filter((item) => item === userName)
 
   //D-DAY 계산
   const today = new Date()
@@ -19,6 +31,26 @@ export default function Milestone({ milestoneData }) {
   ${milestoneData.endDate.slice(8)}`).getTime()
   const gap = dday - today
   const result = Math.ceil(gap / (1000 * 60 * 60 * 24))
+
+  const handleClickFllower = async () => {
+    try {
+      await axios.get(`/v1/goal/${goalId}/following`)
+      await getFollower()
+      console.log('handleClickFllower axios 요청')
+    } catch (err) {
+      console.log('ERROR: ', err)
+    }
+  }
+
+  const handleClickLiker = async () => {
+    try {
+      await axios.get(`/v1/goal/${goalId}/liking`)
+      await getLiker()
+      console.log('handleClickLiker axios 요청')
+    } catch (err) {
+      console.log('ERROR: ', err)
+    }
+  }
 
   const handleDeleteClick = () => {
     const confirmResult = confirm('정말 목표를 삭제하시겠습니까?')
@@ -90,7 +122,59 @@ export default function Milestone({ milestoneData }) {
           {/* 작성자가 아닐 땐 null */}
         </div>
       </header>
-      <HeadingH3 mt="50px">목표</HeadingH3>
+      <div className="header__reaction">
+        <div className="reaction">
+          <HeadingH3>목표</HeadingH3>
+          <div>
+            <span>{metaData.numberOfFollowers} 팔로우</span>
+            <span className="dot">·</span>
+            <span>{metaData.numberOfLiker} 응원</span>
+          </div>
+        </div>
+        <div className="button__reaction">
+          {userName === writer || userName === null ? (
+            // 비로그인 유저이거나 작성자일 경우 요청할 수 없게
+            <div>
+              <div>
+                <SubscribeBtn />
+                팔로우 하기
+              </div>
+              <div>
+                <CheerBtn />
+                응원하기
+              </div>
+            </div>
+          ) : (
+            // 로그인 유저이고 작성자가 아닐 경우
+            <div>
+              {/* 이미 팔로우를 한 유저라면 */}
+              {followerUser[0] === userName ? (
+                <div>
+                  <SubscribeBtn follower={true} />
+                  <div>팔로우 중</div>
+                </div>
+              ) : (
+                //팔로우 하지 않은 유저라면
+                <div>
+                  <SubscribeBtn onClick={handleClickFllower} />
+                  팔로우 하기
+                </div>
+              )}
+              {likerUser[0] === userName ? (
+                <div>
+                  <CheerBtn liker={true} />
+                  <div>응원 중</div>
+                </div>
+              ) : (
+                <div>
+                  <CheerBtn onClick={handleClickLiker} />
+                  응원하기
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
       <div className="descriptions">
         <div className="description">
           <h4>소개</h4>

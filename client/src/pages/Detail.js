@@ -5,12 +5,12 @@ import Milestone from '../components/Milestone/Milestone'
 import Todolist from '../components/Todo/Todolist'
 import Timelinelist from '../components/Timeline/Timelinelist'
 import TimelineCreate from '../components/Timeline/TimelineCreate'
-import Reaction from '../components/Reaction/Reaction'
 import Commentlist from '../components/Comment/Commentlist'
 import { TodoCreate } from '../components/Todo/TodoCreate'
 import { Col, Container, Row } from '../styles/globalStyles'
 import { PlusBtn } from '../components/Widget/WidgetStyle'
 import { useSelector } from 'react-redux'
+import Footer from '../components/Footer/Footer'
 
 function DetailView() {
   const { id } = useParams()
@@ -55,6 +55,16 @@ function DetailView() {
     }
   }, [todoData])
 
+  const getTimelineData = useCallback(() => {
+    try {
+      axios.get(`/v1/goal/${id}`).then((res) => {
+        setTimelineData(res.data.goal.timelineList)
+      })
+    } catch (err) {
+      console.log('ERROR getTodo: ', err)
+    }
+  }, [timelineData])
+
   const getCommentData = useCallback(() => {
     try {
       axios.get(`/v1/goal/${id}`).then((res) => {
@@ -85,6 +95,16 @@ function DetailView() {
     }
   }, [likerData])
 
+  const getMetaData = useCallback(() => {
+    try {
+      axios.get(`/v1/goal/${id}`).then((res) => {
+        setMetaData(res.data.metadata)
+      })
+    } catch (err) {
+      console.log('ERROR getMeta: ', err)
+    }
+  }, [metaData])
+
   const getDetail = () => {
     try {
       axios.get(`/v1/goal/${id}`).then((res) => {
@@ -111,25 +131,35 @@ function DetailView() {
       <Container>
         <Row>
           <Col>
-            <Milestone milestoneData={milestoneData}></Milestone>
+            <Milestone
+              goalId={id}
+              writer={writer}
+              metaData={metaData}
+              milestoneData={milestoneData}
+              followerData={followerData}
+              likerData={likerData}
+              getFollower={getFollower}
+              getLiker={getLiker}
+            ></Milestone>
           </Col>
         </Row>
         <Row>
           <Col>
             <Todolist
+              writer={writer}
               todoData={todoData}
               metaData={metaData}
               getTodoData={getTodoData}
-              writer={writer}
+              getMetaData={getMetaData}
             ></Todolist>
           </Col>
           <Col>
             {onCreateTodolist && (
               <TodoCreate
-                location="투두 작성 창"
-                plusState={onCreateTodolist}
-                setTodoData={setTodoData}
+                goalId={id}
                 setOnCreateTodolist={setOnCreateTodolist}
+                setTodoData={setTodoData}
+                getTodoData={getTodoData}
               />
             )}
           </Col>
@@ -154,6 +184,7 @@ function DetailView() {
               title={milestoneData.title}
               timelineData={timelineData}
               setTimelineData={setTimelineData}
+              getTimelineData={getTimelineData}
               status={status}
               writer={writer}
               mode="limit"
@@ -164,8 +195,8 @@ function DetailView() {
               <TimelineCreate
                 location="타임라인 작성 창"
                 plusState={onCreateTimeline}
-                setTimelineData={setTimelineData}
                 setOnCreateTimeline={setOnCreateTimeline}
+                getTimelineData={getTimelineData}
               />
             )}
           </Col>
@@ -183,7 +214,7 @@ function DetailView() {
         </Row>
         <Row>
           <Col>
-            <Reaction
+            {/* <Reaction
               goalId={id}
               writer={writer}
               followerData={followerData}
@@ -191,7 +222,7 @@ function DetailView() {
               metaData={metaData}
               getFollower={getFollower}
               getLiker={getLiker}
-            ></Reaction>
+            ></Reaction> */}
           </Col>
         </Row>
         <Row>
@@ -204,6 +235,7 @@ function DetailView() {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </>
   )
 }

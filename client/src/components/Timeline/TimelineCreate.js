@@ -17,10 +17,10 @@ import { Icon } from '../../styles/globalStyles'
 import { FaPaperclip } from 'react-icons/fa'
 
 export default function TimelineCreate({
-  setTimelineData,
   setOnCreateTimeline,
   location,
   plusState,
+  getTimelineData,
 }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -34,7 +34,6 @@ export default function TimelineCreate({
   const [imgBase, setImgBase] = useState([]) // 이미지 미리보기 데이터를 받을 곳
   const [openChoseImage, setOpenChoseImage] = useState(false) // 이미지 버튼 상태 관리
   const [openChoseEmoji, setOpenChoseEmoji] = useState(false) // 이모지 버튼 상태 관리
-  // console.log(timelineImageId)
   console.log({ location, plusState })
 
   const handleChangeTextarea = (e) => {
@@ -140,26 +139,17 @@ export default function TimelineCreate({
       else {
         setTimelineImageId('')
         try {
-          const postResponse = await axios({
+          await axios({
             method: 'post',
             url: process.env.REACT_APP_API_URL + `/v1/goal/${id}/timeline`,
             data: {
               description: description,
               imageId: timelineImageId,
             },
-          })
-          const getResponse = await axios({
-            method: 'get',
-            url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
-          }).then((res) => {
-            setTimelineData(res.data.goal.timelineList)
-          })
-          setDescription('')
-          setOnCreateTimeline(false)
-          console.log('postResponse >>', postResponse)
-          console.log('getResponse >>', getResponse)
+          }).then(setDescription(''), setOnCreateTimeline(false))
+          getTimelineData()
         } catch (err) {
-          console.log('Error >>', err)
+          console.log('Error: ', err)
           handleAuthErr(dispatch, navigate, err, handleClickSubmit)
         }
       }
