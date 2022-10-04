@@ -4,13 +4,17 @@ import { Input } from '../../styles/globalStyles'
 import { CompleteBtn } from '../Widget/WidgetStyle'
 import axios from 'axios'
 import { handleAuthErr } from '../Account/TokenAuth'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
-export const TodoCreate = ({ setTodoData, setOnCreateTodolist, plusState }) => {
+export const TodoCreate = ({
+  setOnCreateTodolist,
+  getTodoData,
+  goalId,
+  plusState,
+}) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { id } = useParams()
   const [addTodo, setAddTodo] = useState('')
   console.log({ location, plusState })
 
@@ -22,19 +26,12 @@ export const TodoCreate = ({ setTodoData, setOnCreateTodolist, plusState }) => {
     try {
       await axios({
         method: 'post',
-        url: `/v1/goal/${id}`,
+        url: process.env.REACT_APP_API_URL + `/v1/goal/${goalId}`,
         data: {
           title: addTodo,
         },
-      })
-      await axios({
-        method: 'get',
-        url: `/v1/goal/${id}`,
-      }).then((res) => {
-        setTodoData(res.data.goal.todoList)
-        setAddTodo('')
-        setOnCreateTodolist(false)
-      })
+      }).then(setAddTodo(''), setOnCreateTodolist(false))
+      await getTodoData()
     } catch (err) {
       console.log(err)
       handleAuthErr(dispatch, navigate, err, () => handleClickTodoPost(e))

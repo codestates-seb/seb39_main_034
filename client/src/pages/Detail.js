@@ -6,7 +6,7 @@ import Todolist from '../components/Todo/Todolist'
 import Timelinelist from '../components/Timeline/Timelinelist'
 import TimelineCreate from '../components/Timeline/TimelineCreate'
 import Reaction from '../components/Reaction/Reaction'
-import Comment from '../components/Comment/Comment'
+import Commentlist from '../components/Comment/Commentlist'
 import { TodoCreate } from '../components/Todo/TodoCreate'
 import { Col, Container, Row } from '../styles/globalStyles'
 import { PlusBtn } from '../components/Widget/WidgetStyle'
@@ -25,6 +25,7 @@ function DetailView() {
   const [timelineData, setTimelineData] = useState([]) // 타임라인 데이터 받는 곳
   const [followerData, setFollowerData] = useState([]) // 팔로우 데이터 받는 곳
   const [likerData, setLikerData] = useState([]) // 응원자(liker) 데이터 받는 곳
+  const [commentData, setCommentData] = useState([]) // 코멘트 데이터 받는 곳
   const [metaData, setMetaData] = useState({}) // 메타 데이터 받는 곳
   const [status, setStatus] = useState({}) // 상태값 받는 곳
 
@@ -54,6 +55,16 @@ function DetailView() {
     }
   }, [todoData])
 
+  const getCommentData = useCallback(() => {
+    try {
+      axios.get(`/v1/goal/${id}`).then((res) => {
+        setCommentData(res.data.goal.commentList)
+      })
+    } catch (err) {
+      console.log('ERROR getComment: ', err)
+    }
+  })
+
   const getFollower = useCallback(() => {
     try {
       axios.get(`/v1/goal/${id}`).then((res) => {
@@ -81,6 +92,7 @@ function DetailView() {
         setMilestoneData(res.data.goal)
         setMetaData(res.data.metadata)
         setTodoData(res.data.goal.todoList)
+        setCommentData(res.data.goal.commentList)
         setTimelineData(res.data.goal.timelineList)
         setStatus(res.data.goal.status)
       })
@@ -184,7 +196,11 @@ function DetailView() {
         </Row>
         <Row>
           <Col>
-            <Comment />
+            <Commentlist
+              goalId={id}
+              commentData={commentData}
+              getCommentData={getCommentData}
+            />
           </Col>
         </Row>
       </Container>

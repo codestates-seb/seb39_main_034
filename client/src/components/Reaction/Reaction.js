@@ -79,9 +79,7 @@ function Reaction({
                 //팔로우 하지 않은 유저라면
                 <div>
                   <SubscribeBtn onClick={handleClickFllower} />
-                  {metaData.numberOfFollowers > 0
-                    ? `팔로우 하기`
-                    : '아직 팔로워가 없어요..'}
+                  팔로우 하기
                 </div>
               )}
               {likerUser[0] === userName ? (
@@ -92,9 +90,7 @@ function Reaction({
               ) : (
                 <div>
                   <CheerBtn onClick={handleClickLiker} />
-                  {metaData.numberOfLiker > 0
-                    ? '응원하기'
-                    : '아직 응원이 없어요..'}
+                  응원하기
                 </div>
               )}
             </div>
