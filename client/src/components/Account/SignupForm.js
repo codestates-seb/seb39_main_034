@@ -168,7 +168,7 @@ function SignupForm() {
                 />
               </div>
               <span className="error-message">{confirmMessage}</span>
-              <h4>Name</h4>
+              <h4>E-mail</h4>
               <div>
                 <BsFillPencilFill size={22} />
                 <InputBox
