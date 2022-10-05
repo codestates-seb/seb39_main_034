@@ -33,7 +33,7 @@ export default function Event() {
         </Col>
       </Row>
       {tab === '진행중' ? (
-        <Row height={'100vh'}>
+        <Row minHeight={'80vh'} direction={'column'} justify={'start'}>
           <Col>
             <EventBanner
               url={
@@ -60,7 +60,7 @@ export default function Event() {
           </Col>
         </Row>
       ) : (
-        <Row height={'100vh'}>
+        <Row minHeight={'80vh'} direction={'column'} justify={'start'}>
           <Col>
             <EventBanner
               url={
