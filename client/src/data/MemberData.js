@@ -1,21 +1,21 @@
 const MemberData = [
   {
-    name: 'member1',
+    name: '[FE] 이솔',
     image:
       'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member1.jpg',
   },
   {
-    name: 'member2',
+    name: '[FE] 김시라',
     image:
       'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member2.jpeg',
   },
   {
-    name: 'member3',
+    name: '[BE]] 김재영',
     image:
       'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member3.png',
   },
   {
-    name: 'member4',
+    name: '[BE] 안형준',
     image:
       'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member4.png',
   },

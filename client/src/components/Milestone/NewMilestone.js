@@ -5,7 +5,12 @@ import { useNavigate } from 'react-router-dom'
 import Calendar from 'react-calendar'
 import moment from 'moment'
 import { Input, Textarea } from '../../styles/globalStyles'
-import { MilestoneContainer, CalendarContainer, Select } from './MilestoneStyle'
+import {
+  MilestoneContainer,
+  CalendarContainer,
+  Select,
+  ExBtn,
+} from './MilestoneStyle'
 import { CompleteBtn, AddPicBtn } from '../Widget/WidgetStyle'
 import useGetAuth from '../../hook/useGetAuth'
 
@@ -213,6 +218,13 @@ export const NewMilestone = () => {
   return (
     <MilestoneContainer>
       <div className="inputs">
+        <div className="p__guide">
+          <h2>목표 작성하기</h2>
+          <p>목표를 만들 수 있어요. 한 번 작성한 목표는 수정할 수 없습니다.</p>
+        </div>
+      </div>
+
+      <div className="inputs">
         <h3>분류</h3>
         <SelectBox
           options={Options}
@@ -235,9 +247,7 @@ export const NewMilestone = () => {
       <div className="inputs">
         <div className="p__guide">
           <h3>소개</h3>
-          <p>
-            목표를 간단히 설명해 주세요. 한 번 작성한 목표는 수정할 수 없어요.
-          </p>
+          <p>목표를 간단히 설명해 주세요.</p>
         </div>
         <Textarea
           type="text"
@@ -253,6 +263,19 @@ export const NewMilestone = () => {
           <h3>성공시</h3>
           <p>나와의 약속을 만들어주세요.</p>
         </div>
+        <div className="p__guide ex">
+          <p>예시: </p>
+          <ExBtn value="치킨 사먹기" onClick={HandleChangeSuccessAward}>
+            치킨 사먹기
+          </ExBtn>
+          <ExBtn value="여행 가기" onClick={HandleChangeSuccessAward}>
+            여행 가기
+          </ExBtn>
+          <ExBtn value="게임 3시간" onClick={HandleChangeSuccessAward}>
+            게임 3시간
+          </ExBtn>
+        </div>
+
         <Input
           type="text"
           name="successAward"
@@ -266,6 +289,21 @@ export const NewMilestone = () => {
         <div className="p__guide">
           <h3>실패시</h3>
           <p>나와의 약속을 만들어주세요.</p>
+        </div>
+        <div className="p__guide ex">
+          <p>예시: </p>
+          <ExBtn
+            value="출퇴근 시 계단만 이용"
+            onClick={HandleChangeFailurePenalty}
+          >
+            출퇴근 시 계단만 이용
+          </ExBtn>
+          <ExBtn value="스쿼트 3세트 추가" onClick={HandleChangeFailurePenalty}>
+            스쿼트 3세트 추가
+          </ExBtn>
+          <ExBtn value="유튜브 금지" onClick={HandleChangeFailurePenalty}>
+            유튜브 금지
+          </ExBtn>
         </div>
         <Input
           type="text"
@@ -307,51 +345,52 @@ export const NewMilestone = () => {
         <div className="p__guide">
           <h3>배너 이미지 업로드</h3>
           <p>배너 이미지를 업로드하세요</p>
-        </div>
-        <div className="input__file">
-          {/* 이미지 사진 선택 */}
           <AddPicBtn onClick={HandleClickImage} />
-          {openChoseImage ? (
-            <form id="form__photo">
-              <input
-                type="file"
-                id="input__photo"
-                name="photo"
-                onChange={handleChangeFile}
-                multiple="multiple"
-              />
-            </form>
-          ) : null}
+        </div>
+
+        {/* 이미지 사진 선택 */}
+        {openChoseImage ? (
+          <form id="form__photo">
+            <input
+              type="file"
+              id="input__photo"
+              name="photo"
+              onChange={handleChangeFile}
+              multiple="multiple"
+            />
+          </form>
+        ) : null}
+
+        <div className="input__file">
           {/* 이미지 미리보기 */}
           {imgBase.map((item, idx) => {
             return (
-              <>
-                <img
-                  key={idx}
-                  className="d-block w-100"
-                  src={item}
-                  alt="First slide"
-                  style={{ width: '30%', height: '250px' }}
-                />
-                {/* 이미지 업로드 */}
+              <div className="banner-img" key={idx}>
+                {imgName === '' ? null : (
+                  // 이미지 업로드
+                  <div className="upload">
+                    <span>
+                      <b>FILE NAME:</b> {imgName}
+                    </span>
 
-                <span>FILE NAME: </span>
-                {imgName}
-                {milestoneImageId === undefined ? (
-                  <CompleteBtn
-                    onClick={handleClickUpload}
-                    value="업로드"
-                  ></CompleteBtn>
-                ) : (
-                  <div className="button__complete">
-                    <span>업로드 완료</span>
-                    <CompleteBtn
-                      onClick={handleClickImageDelete}
-                      value="이미지 삭제"
-                    />
+                    {milestoneImageId === undefined ? (
+                      <CompleteBtn
+                        onClick={handleClickUpload}
+                        value="업로드"
+                      ></CompleteBtn>
+                    ) : (
+                      <div className="button__complete">
+                        <span>업로드 완료</span>
+                        <CompleteBtn
+                          onClick={handleClickImageDelete}
+                          value="이미지 삭제"
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
-              </>
+                <img src={item} alt="First slide" />
+              </div>
             )
           })}
         </div>

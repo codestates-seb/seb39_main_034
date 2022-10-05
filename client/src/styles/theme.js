@@ -17,6 +17,7 @@ const theme = {
   font18: '18px',
   font16: '16px',
   font14: '14px',
+  font12: '12px',
   mdBreakpoint: '860px',
   smBreakpoint: '586px',
 }

@@ -237,9 +237,12 @@ export const FeaturesContainer = styled.section`
 export const MemberContainer = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   height: 100vh;
+  > div {
+    margin-top: 150px;
+  }
   .slide {
     display: flex;
     justify-content: center;
@@ -253,7 +256,7 @@ export const MemberContainer = styled.section`
       .flexbox {
         display: flex;
         align-items: center;
-        width: 450px;
+        width: 100%;
         height: 450px;
         /* border: 1px solid red; */
         .img {

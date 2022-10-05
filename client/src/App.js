@@ -13,6 +13,7 @@ import Event from './pages/Event'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Mypage from './pages/Mypage'
+import Hall from './pages/Hall'
 
 //Components
 import Gnb from './components/Gnb/Gnb'
@@ -34,6 +35,7 @@ function App() {
         <Route path="/main" element={<Main />} />
         <Route path="/goal" element={<Goal />} />
         <Route path="/goal/detail/:id" element={<DetailView />} />
+        <Route path="/hall" element={<Hall />} />
         <Route path="/event" element={<Event />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
