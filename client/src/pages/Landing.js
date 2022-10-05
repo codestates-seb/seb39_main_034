@@ -192,52 +192,48 @@ export default function PullPage() {
           </Container>
         </FeaturesContainer>
         {/* 네 번째 컨텐츠: 멤버 소개 */}
-        <Container>
-          <Row>
-            <Col>
-              <MemberContainer>
-                <h2>팀원 소개</h2>
-                <div className="slide">
-                  <button
-                    className="btn"
-                    onClick={() => {
-                      moveSlide(-1)
-                    }}
-                  >
-                    &lt;
-                  </button>
-                  <div className="window">
-                    <div className="flexbox" style={style}>
-                      {memberList.current.map((item, idx) => (
-                        <div key={idx} className="img">
-                          <p>{item.name}</p>
-                          <img src={item.image} alt="img" />
-                        </div>
-                      ))}
+        <MemberContainer>
+          <Container>
+            <h2>팀원 소개</h2>
+            <div className="slide">
+              <button
+                className="btn"
+                onClick={() => {
+                  moveSlide(-1)
+                }}
+              >
+                &lt;
+              </button>
+              <div className="window">
+                <div className="flexbox" style={style}>
+                  {memberList.current.map((item, idx) => (
+                    <div key={idx} className="img">
+                      <p>{item.name}</p>
+                      <img src={item.image} alt="img" />
                     </div>
-                  </div>
-                  <button
-                    className="btn"
-                    onClick={() => {
-                      moveSlide(1)
-                    }}
-                  >
-                    &gt;
-                  </button>
-                </div>
-                <div className="position">
-                  {memberList.current.map((x, i) => (
-                    <div
-                      key={i}
-                      className={i === current ? 'dot current' : 'dot'}
-                    ></div>
                   ))}
                 </div>
-              </MemberContainer>
-            </Col>
-          </Row>
-        </Container>
-        <Footer />
+              </div>
+              <button
+                className="btn"
+                onClick={() => {
+                  moveSlide(1)
+                }}
+              >
+                &gt;
+              </button>
+            </div>
+            <div className="position">
+              {memberList.current.map((x, i) => (
+                <div
+                  key={i}
+                  className={i === current ? 'dot current' : 'dot'}
+                ></div>
+              ))}
+            </div>
+          </Container>
+          <Footer />
+        </MemberContainer>
       </Wrapper>
     </>
   )
