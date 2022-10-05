@@ -23,6 +23,7 @@ export default function Feedlist({ feedData, mode }) {
                 <FeedItem
                   key={'feed' + feed.feedId}
                   goalId={feed.goalId}
+                  title={feed.goalTitle}
                   member={feed.timeline.member}
                   description={feed.timeline.description}
                   createdAt={feed.timeline.createdAt}
