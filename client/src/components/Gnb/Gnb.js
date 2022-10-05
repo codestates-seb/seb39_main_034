@@ -78,7 +78,7 @@ function Gnb() {
                   <NavLink style={navStyle} to="/main">
                     <li>글보기</li>
                   </NavLink>
-                  <NavLink style={navStyle} to="/">
+                  <NavLink style={navStyle} to="/hall">
                     <li>명예의전당</li>
                   </NavLink>
                   <NavLink style={navStyle} to="/event">
