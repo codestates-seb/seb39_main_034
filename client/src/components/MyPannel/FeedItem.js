@@ -8,10 +8,12 @@ import { Profile } from '../Widget/WidgetStyle'
 //TimelineItem와 TimelineEdit, TimelineDelete 파일을 합침.
 export default function FeedItem({
   goalId,
+  title,
   member,
   description,
   createdAt,
   image,
+  isFinal,
 }) {
   const date = moment(createdAt).format('YYYY년 MM일 DD일')
   // console.log('이미지 파일: ', imgFile)
@@ -22,7 +24,7 @@ export default function FeedItem({
     <>
       <Link to={`/goal/detail/${goalId}`}>
         <FeedTitle>
-          <h4>출처 게시글의 제목</h4>
+          <h4>{title}</h4>
           <Profile author={member}></Profile>
         </FeedTitle>
       </Link>
@@ -30,10 +32,10 @@ export default function FeedItem({
         {
           <>
             {/* ~~~ 타임라인 헤드 ~~~ */}
-            <div className="header__timeline">
+            <div className={`header__timeline ${isFinal ? 'review' : ''}`}>
               <Text>{date}</Text>
             </div>
-            <div className="contents__timeline">
+            <div className={`contents__timeline ${isFinal ? 'review' : ''}`}>
               {/* 이미지가 없다면 내용만 보이게: 분기를 나눈 이유는 이미지가 없을 때 image.url 을 찾을 수 없다는 에러가 나서 추가 */}
               {/* 이미지가 있다면 이미지와 내용이 보이게 */}
               {image === null ? (

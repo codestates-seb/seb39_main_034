@@ -135,6 +135,7 @@ export const handleAuthErr = (dispatch, navigate, err, func) => {
     }
   } catch (err) {
     console.log('디테일뷰에서 최종 에러', err)
+    alert('로그인 토큰이 만료되어 로그아웃 됩니다')
     navigate('/login')
   }
 }

@@ -34,7 +34,6 @@ function Mypage() {
   // 피드 조회
   const [isFeedOpen, setIsFeedOpen] = useState(false)
   const [feedData, setFeedData] = useState([{ timeline: { image: {} } }])
-  console.log(isFeedOpen)
 
   // 내 목표 카드 받아오기
   const observer = useRef()
@@ -97,7 +96,6 @@ function Mypage() {
   useEffect(() => {
     const cookies = new Cookies()
     const closeAlert = cookies.get('closeAlert')
-    console.log('closeAlert: ', closeAlert)
     if (closeAlert !== 'true' && metadata.numberOfWaitingFinalTimeline) {
       openAlertModal()
     }

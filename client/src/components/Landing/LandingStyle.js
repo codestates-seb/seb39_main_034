@@ -54,7 +54,7 @@ export const Wrapper = styled.div`
 export const BannerContainer = styled.section`
   height: 100vh;
   background: url('https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80');
-  background-size: auto 180%;
+  background-size: auto 150%;
   background-repeat: no-repeat;
   background-position: center;
   > p {
@@ -83,7 +83,7 @@ export const BannerContainer = styled.section`
       background-position: 50% 50%;
     }
     to {
-      background-position: 50% 60%;
+      background-position: 50% 53%;
     }
   }
 `
@@ -102,6 +102,7 @@ export const Concept = styled.section`
   .diagramm {
     position: relative;
     width: 100%;
+    height: 180px;
     div {
       position: absolute;
       width: 45%;
@@ -125,11 +126,11 @@ export const Concept = styled.section`
     }
     #outer1 {
       left: 10%;
-      animation: fromleft 1.4s ease-out;
+      animation: ${({ show }) => (show ? 'fromleft 1.4s ease-out' : null)};
     }
     #outer2 {
       right: 10%;
-      animation: fromright 1.4s ease-out;
+      animation: ${({ show }) => (show ? 'fromright 1.4s ease-out' : null)};
     }
     .mwrap {
       position: absolute;
@@ -138,7 +139,7 @@ export const Concept = styled.section`
       /* background-color: aliceblue; */
       z-index: 1;
       left: 10%;
-      animation: fromleft 1.4s ease-out;
+      animation: ${({ show }) => (show ? 'fromleft 1.4s ease-out' : null)};
     }
     //outer2 위치에 있으면서 outer1 위치와 겹치는 부분만 보여짐
     .mid {
@@ -149,7 +150,7 @@ export const Concept = styled.section`
       background-color: ${({ theme }) => theme.violet_l};
       pointer-events: auto;
       z-index: 2;
-      animation: fadein 1.4s ease-out;
+      animation: ${({ show }) => (show ? 'fadein 1.4s ease-out' : null)};
       @keyframes fadein {
         from {
           opacity: 10%;

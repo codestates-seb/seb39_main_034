@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Container, Row, Col } from '../styles/globalStyles'
+import { Container, Row, Col } from '../styles/responsive'
 import { MyLnb } from '../components/MyPannel//MyPannelStyle'
 import { CategoryBtn } from '../components/Lnb/LnbStyle'
 import { EventBanner } from '../components/Widget/WidgetStyle'
@@ -33,7 +33,7 @@ export default function Event() {
         </Col>
       </Row>
       {tab === '진행중' ? (
-        <Row>
+        <Row height={'100vh'}>
           <Col>
             <EventBanner
               url={
@@ -60,7 +60,7 @@ export default function Event() {
           </Col>
         </Row>
       ) : (
-        <Row>
+        <Row height={'100vh'}>
           <Col>
             <EventBanner
               url={

@@ -7,8 +7,6 @@ import FeedItem from './FeedItem'
 export default function Feedlist({ feedData, mode }) {
   // const [isToggle, setIsToggle] = useState(true)
   const limitedFeedData = feedData.slice(-5)
-  console.log('현재모드', mode)
-  console.log('현재 데이터', feedData)
   return (
     <TimelineList>
       <TimelineContainer>
@@ -25,10 +23,11 @@ export default function Feedlist({ feedData, mode }) {
                 <FeedItem
                   key={'feed' + feed.feedId}
                   goalId={feed.goalId}
-                  member={'지금 limited' + feed.timeline.member}
+                  member={feed.timeline.member}
                   description={feed.timeline.description}
                   createdAt={feed.timeline.createdAt}
                   image={feed.timeline.image}
+                  isFinal={feed.timeline.finalTimeline}
                 />
               )
             })}
@@ -40,10 +39,12 @@ export default function Feedlist({ feedData, mode }) {
                 <FeedItem
                   key={feed.feedId}
                   goalId={feed.goalId}
+                  title={feed.goalTitle}
                   member={feed.member}
                   description={feed.timeline.description}
                   createdAt={feed.timeline.createdAt}
                   image={feed.timeline.image}
+                  isFinal={feed.timeline.finalTimeline}
                 />
               )
             })}

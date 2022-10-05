@@ -138,7 +138,7 @@ export default function PullPage() {
         <Container>
           <Row>
             <Col>
-              <Concept>
+              <Concept show={scrollIndex === 2}>
                 <h2>기획</h2>
                 <div className="diagramm">
                   <div id="outer1" className="outer">
@@ -162,7 +162,7 @@ export default function PullPage() {
         {/* 세 번째 컨텐츠: 주요 기능 */}
         <FeaturesContainer>
           <Container>
-            <h2>ㅇㅇ의 주요 기능</h2>
+            <h2>함께투두의 주요 기능</h2>
             <div className="feature__content">
               <ul className="tabmenu">
                 {FeatureData.map((item, idx) => (

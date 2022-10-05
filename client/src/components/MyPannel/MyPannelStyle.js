@@ -150,7 +150,7 @@ export const AlertModalContainer = styled.div`
 `
 
 export const FeedTitle = styled.div`
-  display: flex;
+  display: inline-flex;
   align-items: center;
   padding: 4px;
   margin-top: 24px;
