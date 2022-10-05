@@ -36,8 +36,16 @@ spring:
 
 jwt:
   secret-key:
-  access-token-expiration-minutes: 1
-  refresh-token-expiration-minutes: 3
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420
+
+#sentry:
+#  dsn: https://638b67825ebc48fbb9d2194d5a6f3bc9@o4503923677331456.ingest.sentry.io/4503923679494144
+#  traces-sample-rate: 1.0
+
+redis:
+  host: localhost
+  port: 6379
 
 logging:
   level:

@@ -4,9 +4,9 @@ import com.codestates.SEB034Main.dto.MultiResponseDto;
 import com.codestates.SEB034Main.dto.MyPageInfo;
 import com.codestates.SEB034Main.dto.MyPageMultiResponseDto;
 import com.codestates.SEB034Main.dto.SingleGoalResponseDto;
+import com.codestates.SEB034Main.goal.dto.GoalListResponseDto;
 import com.codestates.SEB034Main.goal.dto.PatchGoalDto;
 import com.codestates.SEB034Main.goal.dto.PostGoalDto;
-import com.codestates.SEB034Main.goal.dto.GoalListResponseDto;
 import com.codestates.SEB034Main.goal.entity.Goal;
 import com.codestates.SEB034Main.goal.mapper.GoalMapper;
 import com.codestates.SEB034Main.goal.service.GoalService;
@@ -15,7 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,6 +55,20 @@ public class GoalController {
         return new ResponseEntity(new MultiResponseDto<>(goalListResponseDtoList, pageGoals), HttpStatus.OK);
     }
 
+    //필터용
+    @GetMapping("/goal/list/filter")
+    public ResponseEntity getFilteredGoalList(@Positive @RequestParam int page,
+                                              @Positive @RequestParam int size,
+                                              @RequestParam(required = false) Integer categoryId,
+                                              @RequestParam(required = false) Integer status) {
+
+        Page<Goal> goals = goalService.getGoalListWithQuery(categoryId, status, page - 1, size);
+        List<Goal> content = goals.getContent();
+        List<GoalListResponseDto> goalListResponseDtos = goalMapper.goalToGoalListResponseDto(content);
+
+        return new ResponseEntity(new MultiResponseDto(goalListResponseDtos, goals), HttpStatus.OK);
+    }
+
     @Secured("ROLE_USER")
     @GetMapping("/{username}/goal/list")
     public ResponseEntity getGoalsByUsername(@Positive @RequestParam int page,
@@ -71,6 +84,86 @@ public class GoalController {
 
         return new ResponseEntity(new MyPageMultiResponseDto<>(goalListResponseDtoList, goalsByUsername, myPageInfo), HttpStatus.OK);
     }
+
+    //필터용
+    @Secured("ROLE_USER")
+    @GetMapping("/{username}/goal/list/filter")
+    public ResponseEntity getFilteredGoalListByUsername(@Positive @RequestParam int page,
+                                                        @Positive @RequestParam int size,
+                                                        @RequestParam(required = false) Integer categoryId,
+                                                        @RequestParam(required = false) Integer status,
+                                                        @PathVariable String username) {
+
+        Page<Goal> goals = goalService.findDynamicQueryWithPageByUsername(categoryId, status, page - 1, size, username);
+        List<Goal> content = goals.getContent();
+        List<GoalListResponseDto> goalListResponseDtos = goalMapper.goalToGoalListResponseDto(content);
+
+        List<Goal> allGoalsByMember = goalService.findAllGoalsByMember(username);
+        MyPageInfo myPageInfo = goalMapper.goalListToMyPageInfo(allGoalsByMember);
+
+        return new ResponseEntity(new MyPageMultiResponseDto<>(goalListResponseDtos, goals, myPageInfo), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/goal/{goalId}")
+    public ResponseEntity getGoal(@PathVariable("goalId") @Positive long goalId) {
+        Goal goal = goalService.findGoal(goalId);
+
+        return new ResponseEntity(new SingleGoalResponseDto(goal), HttpStatus.OK);
+    }
+
+    @Secured("ROLE_USER")
+    @PatchMapping("/goal/{goalId}")
+    public ResponseEntity patchGoal(@Valid @RequestBody PatchGoalDto patchGoalDto, @PathVariable("goalId") @Min(1) @Positive long goalId) {
+        Goal goal = goalService.patchGoal(patchGoalDto, goalId);
+
+        return new ResponseEntity<>(goal, HttpStatus.OK);
+    }
+
+    @Secured("ROLE_USER")
+    @DeleteMapping("/goal/{goalId}")
+    public ResponseEntity deleteGoal(@PathVariable("goalId") @Positive long goalId) {
+        goalService.deleteGoal(goalId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @Secured("ROLE_USER")
+    @GetMapping("/goal/{goalId}/following")
+    public ResponseEntity followGoal(@PathVariable("goalId") @Positive long goalId, HttpServletRequest request) {
+        goalService.followGoal(goalId, request);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @Secured("ROLE_USER")
+    @GetMapping("/goal/{goalId}/following-cancellation")
+    public ResponseEntity cancelFollowGoal(@PathVariable("goalId") @Positive long goalId, HttpServletRequest request) {
+        goalService.cancelFollowGoal(goalId, request);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @Secured("ROLE_USER")
+    @GetMapping("/goal/{goalId}/liking")
+    public ResponseEntity likeGoal(@PathVariable("goalId") @Positive long goalId, HttpServletRequest request) {
+
+        goalService.likeGoal(goalId, request);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @Secured("ROLE_USER")
+    @GetMapping("/goal/{goalId}/liking-cancellation")
+    public ResponseEntity cancelLikeGoal(@PathVariable("goalId") @Positive long goalId, HttpServletRequest request) {
+
+        goalService.cancelLikeGoal(goalId, request);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+
+    /* 기록보관용
 
     @GetMapping("/goal/list/filter")
     public ResponseEntity getFilteredGoals(@Positive @RequestParam int page,
@@ -114,7 +207,7 @@ public class GoalController {
                                                      @RequestParam(required = false) Integer categoryId,
                                                      @RequestParam(required = false) Integer status,
                                                      @PathVariable String username) {
-        //완료
+
         if (categoryId == null && status == null) {
             Page<Goal> pageGoals = goalService.findGoalsByUsername(page - 1, size, username);
             List<Goal> goals = pageGoals.getContent();
@@ -125,7 +218,7 @@ public class GoalController {
 
             return new ResponseEntity(new MyPageMultiResponseDto<>(goalListResponseDtoList, pageGoals, myPageInfo), HttpStatus.OK);
 
-            //완료
+
         } else if (categoryId != null && status == null) {
             Page<Goal> pageGoals = goalService.categoryOnlyFilter(categoryId, page - 1, size, username);
             List<Goal> goals = pageGoals.getContent();
@@ -136,7 +229,7 @@ public class GoalController {
 
             return new ResponseEntity(new MyPageMultiResponseDto<>(goalListResponseDtoList, pageGoals, myPageInfo), HttpStatus.OK);
 
-            //완료
+
         } else if (categoryId == null && status != null) {
             Page<Goal> pageGoals = goalService.statusOnlyFilter(status, page - 1, size, username);
             List<Goal> goals = pageGoals.getContent();
@@ -159,46 +252,5 @@ public class GoalController {
         }
 
         return new ResponseEntity(HttpStatus.OK);
-    }
-
-
-    @GetMapping("/goal/{goalId}")
-    public ResponseEntity getGoal(@PathVariable("goalId") @Positive long goalId) {
-        Goal goal = goalService.findGoal(goalId);
-
-        //return new ResponseEntity<>(goal, HttpStatus.OK);
-        return new ResponseEntity(new SingleGoalResponseDto(goal), HttpStatus.OK);
-    }
-
-    @Secured("ROLE_USER")
-    @PatchMapping("/goal/{goalId}")
-    public ResponseEntity patchGoal(@Valid @RequestBody PatchGoalDto patchGoalDto, @PathVariable("goalId") @Min(1) @Positive long goalId) {
-        Goal goal = goalService.patchGoal(patchGoalDto, goalId);
-
-        return new ResponseEntity<>(goal, HttpStatus.OK);
-    }
-
-    @Secured("ROLE_USER")
-    @DeleteMapping("/goal/{goalId}")
-    public ResponseEntity deleteGoal(@PathVariable("goalId") @Positive long goalId) {
-        goalService.deleteGoal(goalId);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    @Secured("ROLE_USER")
-    @GetMapping("/goal/{goalId}/following")
-    public ResponseEntity followGoal(@PathVariable("goalId") @Positive long goalId, HttpServletRequest request) {
-        goalService.followGoal(goalId, request);
-
-        return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @Secured("ROLE_USER")
-    @GetMapping("/goal/{goalId}/following-cancellation")
-    public ResponseEntity cancelFollowGoal(@PathVariable("goalId") @Positive long goalId, HttpServletRequest request) {
-        goalService.followGoal(goalId, request);
-
-        return new ResponseEntity(HttpStatus.OK);
-    }
+    }*/
 }

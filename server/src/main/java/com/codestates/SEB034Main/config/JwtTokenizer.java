@@ -11,19 +11,23 @@ import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class JwtTokenizer {
 
     private MemberRepository memberRepository;
+    private RedisTemplate<String, String> redisTemplate;
 
-    public JwtTokenizer(MemberRepository memberRepository) {
+    public JwtTokenizer(MemberRepository memberRepository, RedisTemplate<String, String> redisTemplate) {
         this.memberRepository = memberRepository;
+        this.redisTemplate = redisTemplate;
     }
 
     @Getter
@@ -57,13 +61,18 @@ public class JwtTokenizer {
     public String generateRefreshToken(Map<String, Object> claims, String subject, Date expiration, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
-        return Jwts.builder()
+        String refreshToken = Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(Calendar.getInstance().getTime())
                 .setExpiration(expiration)
                 .signWith(key)
                 .compact();
+
+        String username = (String) claims.get("username");
+        redisTemplate.opsForValue().set(username, refreshToken, refreshTokenExpirationMinutes, TimeUnit.MINUTES );
+
+        return refreshToken;
     }
 
     public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) {
@@ -93,13 +102,13 @@ public class JwtTokenizer {
             checkResult.put("username", username);
 
         } catch (ExpiredJwtException ee) {
-            checkResult.put("token_status", "NOT_VALID_TOKEN");
+            checkResult.put("token_status", "ACCESS_NOT_VALID_TOKEN");
         } catch (SignatureException se) {
-            checkResult.put("token_status", "NOT_VALID_TOKEN");
+            checkResult.put("token_status", "ACCESS_NOT_VALID_TOKEN");
         } catch (MalformedJwtException me) {
-            checkResult.put("token_status", "NOT_VALID_TOKEN");
+            checkResult.put("token_status", "ACCESS_NOT_VALID_TOKEN");
         } catch (UnsupportedJwtException ue) {
-            checkResult.put("token_status", "NOT_VALID_TOKEN");
+            checkResult.put("token_status", "ACCESS_NOT_VALID_TOKEN");
         }
         return checkResult;
     }
@@ -119,6 +128,9 @@ public class JwtTokenizer {
             Claims body = claims.getBody();
             String username = (String) body.get("username");
 
+//            String storedRefreshToken = redisTemplate.opsForValue().get(username);
+//            if (jws != storedRefreshToken) throw new SignatureException("REFRESH_NOT_VALID_TOKEN");
+
             Optional<Member> optionalMember = memberRepository.findByUsername(username);
             Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
             String subject = findMember.getEmail();
@@ -127,22 +139,23 @@ public class JwtTokenizer {
             newAccessClaims.put("roles", findMember.getRole().toString());
             newRefreshClaims.put("username", findMember.getUsername());
             Date expiration = getTokenExpiration(getAccessTokenExpirationMinutes());
+            Date refreshExpiration = getTokenExpiration(getRefreshTokenExpirationMinutes());
             String newBase64EncodedSecretKey = encodeBase64SecretKey(getSecretKey());
 
             String newAccessToken = generateAccessToken(newAccessClaims, subject, expiration, newBase64EncodedSecretKey);
-            String newRefreshToken = generateRefreshToken(newRefreshClaims, subject, expiration, newBase64EncodedSecretKey);
+            String newRefreshToken = generateRefreshToken(newRefreshClaims, subject, refreshExpiration, newBase64EncodedSecretKey);
 
             checkResult.put("newAccessToken", newAccessToken);
             checkResult.put("newRefreshToken", newRefreshToken);
 
         } catch (ExpiredJwtException ee) {
-            checkResult.put("token_status", "NOT_VALID_TOKEN");
+            checkResult.put("token_status", "REFRESH_NOT_VALID_TOKEN");
         } catch (SignatureException se) {
-            checkResult.put("token_status", "NOT_VALID_TOKEN");
+            checkResult.put("token_status", "REFRESH_NOT_VALID_TOKEN");
         } catch (MalformedJwtException me) {
-            checkResult.put("token_status", "NOT_VALID_TOKEN");
+            checkResult.put("token_status", "REFRESH_NOT_VALID_TOKEN");
         } catch (UnsupportedJwtException ue) {
-            checkResult.put("token_status", "NOT_VALID_TOKEN");
+            checkResult.put("token_status", "REFRESH_NOT_VALID_TOKEN");
         }
         return checkResult;
     }

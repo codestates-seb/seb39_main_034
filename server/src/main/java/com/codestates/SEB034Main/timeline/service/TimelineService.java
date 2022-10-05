@@ -17,6 +17,7 @@ import com.codestates.SEB034Main.timeline.dto.PatchTimelineDto;
 import com.codestates.SEB034Main.timeline.dto.PostTimelineDto;
 import com.codestates.SEB034Main.timeline.entity.Timeline;
 import com.codestates.SEB034Main.timeline.repository.TimelineRepository;
+import io.sentry.Sentry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -41,19 +42,24 @@ public class TimelineService {
 
     public void createTimeline(PostTimelineDto postTimelineDto, long goalId) {
         Goal verifiedGoal = goalService.findVerifiedGoal(goalId);
+        int finalTimeline = 0;
         Image verifiedImage = null;
+
         if (postTimelineDto.getImageId() != 0) {
             verifiedImage = imageService.findVerifiedImage(postTimelineDto.getImageId());
+        }
+        if (postTimelineDto.getFinalTimeline() != 0) {
+            finalTimeline = 1;
         }
         Timeline timeline = Timeline.builder()
                 .description(postTimelineDto.getDescription())
                 .image(verifiedImage)
+                .finalTimeline(finalTimeline)
                 .member(verifiedGoal.getMember())
                 .goal(verifiedGoal)
                 .build();
 
         timelineRepository.save(timeline);
-
         updateFollowerTimeline(timeline, verifiedGoal);
     }
 
@@ -70,6 +76,7 @@ public class TimelineService {
                 feedRepository.save(feed);
             }
         }
+
     }
 
     public void updateTimeline(PatchTimelineDto patchTimelineDto, long timelineId) {

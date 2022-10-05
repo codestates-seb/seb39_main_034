@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import javax.validation.constraints.Positive;
 @RequiredArgsConstructor
 @RequestMapping("/v1")
 @RestController
+@Validated
 public class TimelineController {
 
     private final TimelineService timelineService;

@@ -12,14 +12,17 @@ public class MyPageInfo {
 
     private double numberOfSuccessGoals;
 
+    private int numberOfWaitingFinalTimeline;
+
     private double successRate;
 
     private int successPercent;
 
-    public MyPageInfo(int numberOfOngoingGoals, double numberOfSuccessGoals, double numberOfEndedGoals) {
+    public MyPageInfo(int numberOfOngoingGoals, double numberOfSuccessGoals, double numberOfEndedGoals, int numberOfWaitingFinalTimeline) {
         this.numberOfOngoingGoals = numberOfOngoingGoals;
         this.numberOfSuccessGoals = numberOfSuccessGoals;
         this.numberOfEndedGoals = numberOfEndedGoals;
+        this.numberOfWaitingFinalTimeline = numberOfWaitingFinalTimeline;
         this.successRate = Math.round((numberOfSuccessGoals / numberOfEndedGoals) * 100) / 100.0;
         this.successPercent = (int) (successRate * 100);
     }
