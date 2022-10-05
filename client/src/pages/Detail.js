@@ -33,7 +33,6 @@ function DetailView() {
 
   const userName = useSelector((state) => state.auth.userName) // 로그인된 유저
   const writer = milestoneData.member
-  // console.log('username: ', userName)
   // console.log('wirter: ', writer)
 
   const openCreateTodolist = useCallback(() => {
@@ -113,6 +112,8 @@ function DetailView() {
         setTodoData(res.data.goal.todoList)
         setCommentData(res.data.goal.commentList)
         setTimelineData(res.data.goal.timelineList)
+        setLikerData(res.data.goal.likerList)
+        setFollowerData(res.data.goal.followerList)
       })
     } catch (err) {
       console.log('ERROR: ', err)

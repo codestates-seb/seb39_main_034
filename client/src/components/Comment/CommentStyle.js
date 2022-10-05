@@ -7,6 +7,14 @@ export const CommentContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   margin-top: 50px;
+  color: ${theme.primary};
+  margin: 10px 0 100px 0;
+  .not {
+    margin: 5px 0;
+    padding: 50px 20px;
+    border: 1px solid ${theme.border};
+    border-radius: 5px;
+  }
   article {
     border-bottom: 2px solid ${theme.border};
     padding: 20px 0;
@@ -17,6 +25,7 @@ export const CommentContainer = styled(Container)`
       display: flex;
       flex-grow: 1;
       align-items: center;
+      margin: 10px 0;
       .img {
         width: 40px;
         height: 40px;
@@ -49,11 +58,11 @@ export const CommentContainer = styled(Container)`
 `
 export const CommentCreateContainer = styled(Container)`
   display: flex;
-  border-bottom: 2px solid ${theme.border};
+  align-items: center;
 `
 export const CommentInput = styled(Input)`
   border: 1px solid ${theme.border};
-  padding: 0 10px;
+  padding: 10px 10px;
   border-radius: 10px;
 `
 export const CommentContent = styled.div`
