@@ -6,6 +6,7 @@ const refresh_max_age = 3 * 60
 
 export const setRefreshToken = (refresh_token) => {
   console.log('6. 쿠키에 토큰 저장:', refresh_token)
+  console.log('쿠키 저장시각:', new Date())
   return cookies.set('refresh_token', refresh_token, {
     sameSite: 'strict',
     path: '/',

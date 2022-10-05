@@ -19,6 +19,7 @@ function DetailView() {
     endDate: '',
     image: {},
     member: '',
+    category: '',
     profileImage: '',
   }) // 목표 데이터 받는 곳
   const [todoData, setTodoData] = useState([]) // 투두 데이터 받는 곳

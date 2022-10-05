@@ -3,7 +3,7 @@ import { Button, Input } from '../../styles/globalStyles'
 
 export const FormWrapper = styled.div`
   width: 100%;
-  padding-top: 100px;
+  margin-top: 180px;
   h2 {
     text-align: center;
   }

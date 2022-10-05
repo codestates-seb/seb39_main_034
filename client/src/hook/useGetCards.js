@@ -32,7 +32,7 @@ export default function useGetCards(
       ? `/v1/${userName}/goal/list/filter`
       : '/v1/goal/list/filter'
     function getCards() {
-      console.log('9. getCards 실행')
+      console.log('8. getCards 실행')
       if (loading === false) {
         setLoading(true)
       }

@@ -94,27 +94,43 @@ export default function Milestone({
   }
 
   return (
-    <MilestoneContainer>
+    <MilestoneContainer
+      image={
+        milestoneData.image === null || ''
+          ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/category_study2.jpg'
+          : milestoneData.image.url
+      }
+    >
       <header className="header__milestone">
-        {milestoneData.image === null || '' ? (
-          <div className="imgbox">
-            <CategoryBadge>{milestoneData.category.categoryName}</CategoryBadge>
-            {/* 이미지 없을 경우 기본 이미지 */}
+        <CategoryBadge className="header__category-badge">
+          {milestoneData.category.categoryName}
+        </CategoryBadge>
+        {/* <div className="imgbox">
+          {milestoneData.image === null || '' ? (
             <img
               src="https://www.telegraph.co.uk/content/dam/health-fitness/2018/08/31/TELEMMGLPICT000156474637_trans_NvBQzQNjv4BqpVlberWd9EgFPZtcLiMQfyf2A9a6I9YchsjMeADBa08.jpeg?imwidth=680"
               alt="img"
             />
-          </div>
-        ) : (
-          <div className="imgbox">
-            <CategoryBadge>카테고리야</CategoryBadge>
+          ) : (
             <img src={milestoneData.image.url} alt="img" />
-          </div>
-        )}
+          )}
+        </div> */}
+
         <MainHeading padding="20px 0 0 0">{milestoneData.title}</MainHeading>
         <div className="milestone__info">
           <Profile
-            image={milestoneData.profileImage}
+            // image={milestoneData.profileImage}
+            image={
+              milestoneData.member === '조안나'
+                ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member2.jpeg'
+                : milestoneData.member === 'sol-namoo'
+                ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member1.jpg'
+                : milestoneData.member === '재영킴'
+                ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member3.png'
+                : milestoneData.member === 'AhnHyungJoon'
+                ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member4.png'
+                : 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/logo_symbol.png'
+            }
             author={milestoneData.member}
           />
           <span className="dot">·</span>

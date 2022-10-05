@@ -62,8 +62,9 @@ export const BannerContainer = styled.section`
     position: relative;
     top: 38%;
     left: 18%;
-    font-size: ${({ theme }) => theme.font36};
-    line-height: 1.4em;
+    color: ${({ theme }) => theme.dark};
+    font-size: 4em;
+    line-height: 1.8em;
     font-weight: 500;
     animation: slide 1s ease-out;
     @keyframes slide {

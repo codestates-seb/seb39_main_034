@@ -41,7 +41,7 @@ export const ExBtn = styled(Button)`
 `
 export const MilestoneContainer = styled.div`
   width: 100%;
-  margin: 100px 0;
+  margin: 100px 0 48px 0;
   .inputs {
     padding: 10px 0;
     > input {
@@ -87,9 +87,40 @@ export const MilestoneContainer = styled.div`
     }
   }
   .header__milestone {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    height: 400px;
+    padding: 0 3rem 2rem 2rem;
+    border: 1px solid ${theme.border};
+    border-radius: 10px 10px 0 0;
+    background-image: url(${({ image }) => image}),
+      linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+
+    > h1 {
+      line-height: 1.2em;
+      margin-bottom: 20px;
+    }
+
+    .header__category-badge {
+      position: absolute;
+      margin: 10px;
+      top: 8px;
+      right: 8px;
+    }
+
     .milestone__info {
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
+      line-height: 28px;
+      color: ${({ theme }) => theme.background};
+
       .profile {
         display: flex;
         .userimg {
@@ -113,27 +144,28 @@ export const MilestoneContainer = styled.div`
         text-align: end;
       }
     }
-    .imgbox {
+    /* .imgbox {
       position: relative;
-      height: 150px;
+      height: 320px;
       border: 1px solid ${theme.border};
       overflow: hidden;
       border-radius: 10px 10px 0 0;
       img {
         width: 100%;
       }
-      div {
+      .header__category-badge {
         position: absolute;
         margin: 10px;
         top: 8px;
         right: 8px;
       }
-    }
+    } */
   }
   .header__reaction {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     margin: 50px 0 10px 0;
     .reaction {
       flex-grow: 1;

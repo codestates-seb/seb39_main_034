@@ -168,7 +168,7 @@ function SignupForm() {
                 />
               </div>
               <span className="error-message">{confirmMessage}</span>
-              <h4>Name</h4>
+              <h4>E-mail</h4>
               <div>
                 <BsFillPencilFill size={22} />
                 <InputBox
@@ -187,7 +187,7 @@ function SignupForm() {
               <span>로그인 하러가기</span>
               <BiRightArrowAlt size={24} />
               <Link to="/login">
-                <span>Create account</span>
+                <span>Go Login</span>
               </Link>
             </div>
           </FormWrapper>

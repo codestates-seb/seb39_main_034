@@ -147,7 +147,7 @@ const ProfileBase = styled.div`
     width: 28px;
     height: 28px;
     border-radius: 28px;
-    background-color: ${({ theme }) => theme.violet_l};
+    background-color: ${({ theme }) => theme.background};
     background-image: url(${({ image }) => image});
     background-size: cover;
     background-position: center;
