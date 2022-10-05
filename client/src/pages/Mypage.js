@@ -190,7 +190,8 @@ function Mypage() {
                 <Notice>
                   <div>{loading && '로딩 중입니다...🐢'}</div>
                   <div>
-                    {error && '에러가 발생했어요. 다시 시도해 보세요. 🤔 '}
+                    {error &&
+                      '에러가 발생했어요. 잠시 후 다시 시도해 보세요. 🤔 '}
                   </div>
                   <div>{cards.length === 0 && '아직 목표가 없어요 🙅'}</div>
                 </Notice>

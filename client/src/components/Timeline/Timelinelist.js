@@ -27,9 +27,7 @@ export default function Timelinelist(props) {
 
   return (
     <TimelineList>
-      {mode === 'limit' ? (
-        <HeadingH3 mt="50px">타임라인 ({timelineData.length})</HeadingH3>
-      ) : null}
+      {mode === 'limit' ? <HeadingH3 mt="50px">타임라인</HeadingH3> : null}
       {/*후기: status가 false(진행중)일 때 타임라인만 나오고 true(진행종료)일 경우 후기창 띄움*/}
       <TimelineContainer>
         {length === 0 ? (
@@ -51,7 +49,7 @@ export default function Timelinelist(props) {
               )
             })}
             <MoreBtn
-              text={'타임라인 더보기'}
+              text={`타임라인 더보기 ( ${timelineData.length} )`}
               onClick={openTimelineModal}
             ></MoreBtn>
           </>

@@ -2,23 +2,47 @@ import styled from 'styled-components'
 import theme from '../../styles/theme'
 
 export const HallContainer = styled.div`
-  .awards {
-    padding-top: 150px;
+  width: 100%;
+  h3.awards {
+    padding: 140px 0 20px 0;
+    font-size: ${theme.font20};
+    padding-left: 20px;
+  }
+  div.awards {
     display: flex;
-    justify-content: center;
-    .award {
+    justify-content: space-evenly;
+    align-items: flex-end;
+    width: 100%;
+    height: auto;
+    padding: 0 40px;
+    > .award {
       display: flex;
       flex-direction: column;
       align-items: center;
-      > div {
-        width: 160px;
-        height: 40px;
-        line-height: 40px;
-        background-color: ${theme.violet_m};
+      div {
         margin: 10px 20px;
-        border-radius: 5px;
+      }
+      .podium {
+        width: 160px;
+        height: auto;
         font-size: ${theme.font20};
         text-align: center;
+        line-height: 24px;
+        border-radius: 5px;
+        background-color: ${theme.violet_m};
+        span {
+          font-weight: 500;
+          color: ${theme.background};
+        }
+        &.first {
+          padding: 20px;
+        }
+        &.second {
+          padding: 12px;
+        }
+        &.third {
+          padding: 8px;
+        }
       }
       .img-box {
         width: 60px;
@@ -34,15 +58,33 @@ export const HallContainer = styled.div`
       }
     }
   }
-  .top {
+
+  h3.top {
+    padding: 50px 0 20px 0;
+    font-size: ${theme.font20};
+    padding-left: 24px;
+  }
+  div.top {
     display: flex;
-    padding: 50px 0 150px 0;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+    width: 100%;
+    padding-bottom: 150px;
     section {
-      flex-grow: 1;
-      margin: 0 20px;
-      text-align: center;
+      width: 100%;
+      /* flex-grow: 1; */
+      padding: 8px 0 12px 0;
+      border-radius: 10px;
       background-color: ${theme.border};
       box-shadow: 4px 4px 3px ${theme.background};
+      text-align: center;
+      cursor: pointer;
+      .card_wrapper {
+        background-color: ${theme.background};
+        &::after {
+          background: none;
+        }
+      }
       .item {
         text-align: start;
         .item-title {
@@ -53,7 +95,6 @@ export const HallContainer = styled.div`
       > div {
         width: 90%;
         margin: 0 auto;
-        border: 3px solid ${theme.yellow};
       }
       p {
         text-align: start;
