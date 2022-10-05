@@ -1,6 +1,6 @@
-import { TimelineContainer, TimelineList, Text } from './TimelinelistStyle'
+import { TimelineContainer, TimelineList } from './TimelinelistStyle'
 import TimelineItem from './TimelineItem'
-import { HeadingH3, Textarea } from '../../styles/globalStyles'
+import { HeadingH3 } from '../../styles/globalStyles'
 import { useState, useCallback } from 'react'
 import { MoreBtn } from '../Widget/WidgetStyle'
 import { TimelineModal } from './TimelineModal'
@@ -14,7 +14,6 @@ export default function Timelinelist(props) {
     setTimelineData,
     getTimelineData,
     writer,
-    status,
     mode,
   } = props
   const [onTimelineModal, setOnTimelineModal] = useState(false) // 타임라인 모달(더보기) 상태
@@ -41,18 +40,6 @@ export default function Timelinelist(props) {
           </div>
         ) : mode === 'limit' ? (
           <>
-            {status ? (
-              <>
-                <div className="header__timeline review">
-                  <Text>후기 달성 창</Text>
-                </div>
-                <div className="contents__timeline review">
-                  <div className="contents">
-                    <Textarea></Textarea>
-                  </div>
-                </div>
-              </>
-            ) : null}
             {limitTimelineData.map((timeline) => {
               return (
                 <TimelineItem

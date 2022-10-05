@@ -25,8 +25,15 @@ import { FaPaperclip } from 'react-icons/fa'
 export default function TimelineItem(props) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { timelineId, description, createdAt, image, writer, getTimelineData } =
-    props
+  const {
+    timelineId,
+    description,
+    createdAt,
+    finalTimeline,
+    image,
+    writer,
+    getTimelineData,
+  } = props
   const today = moment(createdAt).format('YYYY년 MM일 DD일')
   const [newDdescription, setNewDescription] = useState(description) // 타임라인 수정 내용을 받을 곳
   const [timelineImageId, setTimelineImageId] = useState() // 타임라인 이미지 아이디 받을 곳
@@ -303,24 +310,47 @@ export default function TimelineItem(props) {
         <>
           {/* 타임라인 수정 창 닫혔을 때 */}
           {/* ~~~ 타임라인 헤드 ~~~ */}
-          <div className="header__timeline">
-            <Text>{today}</Text>
-            {/* 작성자일 경우 보이게*/}
-            <div className="header__timeline--icon">
-              {userName === writer ? (
-                <Icon>
-                  <EditBtn
-                    size={20}
-                    onClick={handleClickEdit}
-                    location="TimelineItem(default): 수정 버튼"
-                    editState={onEditTimeline}
-                  />
-                  <DeleteBtn onClick={handleClickDelete} />
-                </Icon>
-              ) : null}
+          {/* 목표 종료 날짜 이후 후기 타임라인이라면 색으로 구분하기 */}
+          {finalTimeline ? (
+            <div className="header__timeline review">
+              <Text>{today}</Text>
+              <div className="header__timeline--icon">
+                {/* 작성자일 경우 보이게*/}
+                {userName === writer ? (
+                  <Icon>
+                    <EditBtn
+                      size={20}
+                      onClick={handleClickEdit}
+                      location="TimelineItem(default): 수정 버튼"
+                      editState={onEditTimeline}
+                    />
+                    <DeleteBtn onClick={handleClickDelete} />
+                  </Icon>
+                ) : null}
+              </div>
+              {/* 작성자가 아니라면 안보이게*/}
             </div>
-            {/* 작성자가 아니라면 안보이게*/}
-          </div>
+          ) : (
+            <div className="header__timeline">
+              <Text>{today}</Text>
+              <div className="header__timeline--icon">
+                {/* 작성자일 경우 보이게*/}
+                {userName === writer ? (
+                  <Icon>
+                    <EditBtn
+                      size={20}
+                      onClick={handleClickEdit}
+                      location="TimelineItem(default): 수정 버튼"
+                      editState={onEditTimeline}
+                    />
+                    <DeleteBtn onClick={handleClickDelete} />
+                  </Icon>
+                ) : null}
+              </div>
+              {/* 작성자가 아니라면 안보이게*/}
+            </div>
+          )}
+
           <div className="contents__timeline">
             {/* 이미지가 없다면 내용만 보이게: 분기를 나눈 이유는 이미지가 없을 때 image.url 을 찾을 수 없다는 에러가 나서 추가 */}
             {/* 이미지가 있다면 이미지와 내용이 보이게 */}

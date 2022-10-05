@@ -27,7 +27,6 @@ function DetailView() {
   const [likerData, setLikerData] = useState([]) // 응원자(liker) 데이터 받는 곳
   const [commentData, setCommentData] = useState([]) // 코멘트 데이터 받는 곳
   const [metaData, setMetaData] = useState({}) // 메타 데이터 받는 곳
-  const [status, setStatus] = useState({}) // 상태값 받는 곳
 
   const [onCreateTodolist, setOnCreateTodolist] = useState(false) // 투두 생성 모드
   const [onCreateTimeline, setOnCreateTimeline] = useState(false) //타임라인 생성 모드
@@ -114,7 +113,6 @@ function DetailView() {
         setTodoData(res.data.goal.todoList)
         setCommentData(res.data.goal.commentList)
         setTimelineData(res.data.goal.timelineList)
-        setStatus(res.data.goal.status)
       })
     } catch (err) {
       console.log('ERROR: ', err)
@@ -185,7 +183,6 @@ function DetailView() {
               timelineData={timelineData}
               setTimelineData={setTimelineData}
               getTimelineData={getTimelineData}
-              status={status}
               writer={writer}
               mode="limit"
             ></Timelinelist>
@@ -193,10 +190,9 @@ function DetailView() {
           <Col>
             {onCreateTimeline && (
               <TimelineCreate
-                location="타임라인 작성 창"
-                plusState={onCreateTimeline}
                 setOnCreateTimeline={setOnCreateTimeline}
                 getTimelineData={getTimelineData}
+                metaData={metaData}
               />
             )}
           </Col>

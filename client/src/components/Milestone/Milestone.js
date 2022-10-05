@@ -1,12 +1,11 @@
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
-import { MilestoneContainer } from './MilestoneStyle'
+import { MilestoneContainer, SubscribeBtn, CheerBtn } from './MilestoneStyle'
 import { HeadingH3, MainHeading } from '../../styles/globalStyles'
 import { DeleteBtn, Profile } from '../Widget/WidgetStyle'
 import { StatusBadge, CategoryBadge } from '../Card/CardStyle'
 import { useSelector } from 'react-redux'
-import { SubscribeBtn, CheerBtn } from '../Reaction/ReactionStyle'
 
 export default function Milestone({
   milestoneData,
