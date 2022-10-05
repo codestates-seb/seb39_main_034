@@ -17,10 +17,9 @@ import { Icon } from '../../styles/globalStyles'
 import { FaPaperclip } from 'react-icons/fa'
 
 export default function TimelineCreate({
-  setTimelineData,
   setOnCreateTimeline,
-  location,
-  plusState,
+  getTimelineData,
+  metaData,
 }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -34,8 +33,6 @@ export default function TimelineCreate({
   const [imgBase, setImgBase] = useState([]) // 이미지 미리보기 데이터를 받을 곳
   const [openChoseImage, setOpenChoseImage] = useState(false) // 이미지 버튼 상태 관리
   const [openChoseEmoji, setOpenChoseEmoji] = useState(false) // 이모지 버튼 상태 관리
-  // console.log(timelineImageId)
-  console.log({ location, plusState })
 
   const handleChangeTextarea = (e) => {
     setDescription(e.target.value)
@@ -139,28 +136,37 @@ export default function TimelineCreate({
       //그게 아닌 모든 경우엔 비어있는 문자열로 세팅한 후 axios 요청
       else {
         setTimelineImageId('')
-        try {
-          const postResponse = await axios({
-            method: 'post',
-            url: process.env.REACT_APP_API_URL + `/v1/goal/${id}/timeline`,
-            data: {
-              description: description,
-              imageId: timelineImageId,
-            },
-          })
-          const getResponse = await axios({
-            method: 'get',
-            url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
-          }).then((res) => {
-            setTimelineData(res.data.goal.timelineList)
-          })
-          setDescription('')
-          setOnCreateTimeline(false)
-          console.log('postResponse >>', postResponse)
-          console.log('getResponse >>', getResponse)
-        } catch (err) {
-          console.log('Error >>', err)
-          handleAuthErr(dispatch, navigate, err, handleClickSubmit)
+        if (metaData.finalTimelineStatus === 'waiting') {
+          try {
+            await axios({
+              method: 'post',
+              url: process.env.REACT_APP_API_URL + `/v1/goal/${id}/timeline`,
+              data: {
+                description: description,
+                imageId: timelineImageId,
+                finalTimeline: 1,
+              },
+            }).then(setDescription(''), setOnCreateTimeline(false))
+            await getTimelineData()
+          } catch (err) {
+            console.log('Error: ', err)
+            handleAuthErr(dispatch, navigate, err, handleClickSubmit)
+          }
+        } else {
+          try {
+            await axios({
+              method: 'post',
+              url: process.env.REACT_APP_API_URL + `/v1/goal/${id}/timeline`,
+              data: {
+                description: description,
+                imageId: timelineImageId,
+              },
+            }).then(setDescription(''), setOnCreateTimeline(false))
+            await getTimelineData()
+          } catch (err) {
+            console.log('Error: ', err)
+            handleAuthErr(dispatch, navigate, err, handleClickSubmit)
+          }
         }
       }
     }
@@ -174,90 +180,123 @@ export default function TimelineCreate({
 
   return (
     <TimelineContainer>
-      <article>
-        {/* ~~~ 타임라인 헤드 ~~~ */}
-        <div className="header__timeline">
-          <Text>작성일: {today} </Text>
-          <div className="header__timeline--icon">
-            <Icon>
-              <AddPicBtn onClick={handleClickImage} />
-              {/* 이미지 선택 창 */}
-              {openChoseImage ? (
-                <ImageBox>
-                  <form id="form__photo">
-                    <input
-                      type="file"
-                      id="input__photo"
-                      name="photo"
-                      accept="image/*" //이미지 파일만 선택할 수 있게
-                      onChange={handleChangeImageFile}
-                      multiple="multiple"
-                    />
-                  </form>
-                </ImageBox>
-              ) : null}
-            </Icon>
-            <Icon>
-              <AddEmojiBtn onClick={handleClickEmoji} />
-              <EmojiPickerBox>
-                {openChoseEmoji ? <Picker onEmojiClick={onEmojiClick} /> : null}
-              </EmojiPickerBox>
-            </Icon>
+      {/* 진행완료 되었으나 아직 후기 타임라인을 작성하지 않은 경우 */}
+      {metaData.finalTimelineStatus === 'waiting' ? (
+        <article>
+          <div className="header__timeline review">
+            <Text>후기 달성 창</Text>
           </div>
-        </div>
-        {/* ~~~ 타임라인 컨텐트 ~~~ */}
-        <div className="contents__timeline">
-          {imgName.length > 0 ? (
-            <div className="filenames">
-              <div className="filename">
-                <FaPaperclip size={15} color="#240046" />
-                <span>FILE NAME: </span>
-                {imgName}
-              </div>
-              {timelineImageId === undefined ? (
-                <CompleteBtn onClick={handleClickImageUpload}>
-                  업로드
-                </CompleteBtn>
-              ) : (
-                <div className="button__complete">
-                  <span>업로드 완료</span>
-                  <CompleteBtn onClick={handleClickImageDelete}>
-                    이미지 삭제
-                  </CompleteBtn>
-                </div>
-              )}
+          <div className="contents__timeline review">
+            <div className="contents">
+              <TimelineTextarea
+                id="text-area"
+                value={description}
+                onChange={handleChangeTextarea}
+                placeholder="타임라인 내용을 입력하고 이미지를 추가해보세요."
+              />
             </div>
-          ) : null}
+            <div className="button__complete">
+              <CompleteBtn onClick={handleClickSubmit} value="작성완료" />
+              <CompleteBtn onClick={handleClickSubmitCancle} value="작성취소" />
+            </div>
+          </div>
+        </article>
+      ) : // 진행완료+후기 타임라인까지 작성 완료된 경우
+      metaData.finalTimelineStatus === 'done' ? (
+        <article>
+          <div>
+            이 목표는 완료된 목표입니다. 더 이상 타임라인을 생성할 수 없습니다.
+          </div>
+        </article>
+      ) : (
+        // 그 이외 모든 경우
+        <article>
+          {/* ~~~ 타임라인 헤드 ~~~ */}
+          <div className="header__timeline">
+            <Text>작성일: {today} </Text>
+            <div className="header__timeline--icon">
+              <Icon>
+                <AddPicBtn onClick={handleClickImage} />
+                {/* 이미지 선택 창 */}
+                {openChoseImage ? (
+                  <ImageBox>
+                    <form id="form__photo">
+                      <input
+                        type="file"
+                        id="input__photo"
+                        name="photo"
+                        accept="image/*" //이미지 파일만 선택할 수 있게
+                        onChange={handleChangeImageFile}
+                        multiple="multiple"
+                      />
+                    </form>
+                  </ImageBox>
+                ) : null}
+              </Icon>
+              <Icon>
+                <AddEmojiBtn onClick={handleClickEmoji} />
+                <EmojiPickerBox>
+                  {openChoseEmoji ? (
+                    <Picker onEmojiClick={onEmojiClick} />
+                  ) : null}
+                </EmojiPickerBox>
+              </Icon>
+            </div>
+          </div>
+          {/* ~~~ 타임라인 컨텐트 ~~~ */}
+          <div className="contents__timeline">
+            {imgName.length > 0 ? (
+              <div className="filenames">
+                <div className="filename">
+                  <FaPaperclip size={15} color="#240046" />
+                  <span>FILE NAME: </span>
+                  {imgName}
+                </div>
+                {timelineImageId === undefined ? (
+                  <CompleteBtn onClick={handleClickImageUpload}>
+                    업로드
+                  </CompleteBtn>
+                ) : (
+                  <div className="button__complete">
+                    <span>업로드 완료</span>
+                    <CompleteBtn onClick={handleClickImageDelete}>
+                      이미지 삭제
+                    </CompleteBtn>
+                  </div>
+                )}
+              </div>
+            ) : null}
 
-          <div className="contents">
-            {/* 이미지 선택 시 이미지 미리보기 */}
-            {imgBase.map((item, idx) => {
-              return (
-                <>
-                  <img
-                    key={idx}
-                    className="d-block w-100"
-                    src={item}
-                    alt="First slide"
-                    style={{ width: '30%', height: '250px' }}
-                  />
-                </>
-              )
-            })}
-            {/* 타임라인 내용 */}
-            <TimelineTextarea
-              id="text-area"
-              value={description}
-              onChange={handleChangeTextarea}
-              placeholder="타임라인 내용을 입력하고 이미지를 추가해보세요."
-            />
+            <div className="contents">
+              {/* 이미지 선택 시 이미지 미리보기 */}
+              {imgBase.map((item, idx) => {
+                return (
+                  <>
+                    <img
+                      key={idx}
+                      className="d-block w-100"
+                      src={item}
+                      alt="First slide"
+                      style={{ width: '30%', height: '250px' }}
+                    />
+                  </>
+                )
+              })}
+              {/* 타임라인 내용 */}
+              <TimelineTextarea
+                id="text-area"
+                value={description}
+                onChange={handleChangeTextarea}
+                placeholder="타임라인 내용을 입력하고 이미지를 추가해보세요."
+              />
+            </div>
+            <div className="button__complete">
+              <CompleteBtn onClick={handleClickSubmit} value="작성완료" />
+              <CompleteBtn onClick={handleClickSubmitCancle} value="작성취소" />
+            </div>
           </div>
-          <div className="button__complete">
-            <CompleteBtn onClick={handleClickSubmit} value="작성완료" />
-            <CompleteBtn onClick={handleClickSubmitCancle} value="작성취소" />
-          </div>
-        </div>
-      </article>
+        </article>
+      )}
     </TimelineContainer>
   )
 }

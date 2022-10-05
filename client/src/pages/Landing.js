@@ -11,6 +11,7 @@ import { Container, Row, Col } from '../styles/responsive'
 import { FaChevronCircleRight } from 'react-icons/fa'
 import FeatureData from '../data/FeatureData'
 import MemberData from '../data/MemberData'
+import Footer from '../components/Footer/Footer'
 
 const DIVIDER_HEIGHT = 5
 
@@ -236,7 +237,7 @@ export default function PullPage() {
             </Col>
           </Row>
         </Container>
-        {/* 푸터 */}
+        <Footer />
       </Wrapper>
     </>
   )

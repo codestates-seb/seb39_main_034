@@ -7,16 +7,10 @@ import { handleAuthErr } from '../Account/TokenAuth'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
-export const TodoCreate = ({
-  setOnCreateTodolist,
-  getTodoData,
-  goalId,
-  plusState,
-}) => {
+export const TodoCreate = ({ setOnCreateTodolist, getTodoData, goalId }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [addTodo, setAddTodo] = useState('')
-  console.log({ location, plusState })
 
   const onChange = (e) => {
     setAddTodo(e.target.value)
@@ -30,7 +24,10 @@ export const TodoCreate = ({
         data: {
           title: addTodo,
         },
-      }).then(setAddTodo(''), setOnCreateTodolist(false))
+      }).then(() => {
+        setAddTodo('')
+        setOnCreateTodolist(false)
+      })
       await getTodoData()
     } catch (err) {
       console.log(err)
@@ -51,18 +48,8 @@ export const TodoCreate = ({
           placeholder="할 일을 입력하세요"
         />
       </Text>
-      <CompleteBtn
-        onClick={handleClickTodoPost}
-        location="TodoCreate: 작성완료버튼"
-        plusState={plusState}
-        value="작성완료"
-      />
-      <CompleteBtn
-        onClick={handleClickTodoPostCancle}
-        location="TodoCreate: 작성취소 버튼"
-        plusState={plusState}
-        value="작성취소"
-      />
+      <CompleteBtn onClick={handleClickTodoPost} value="작성완료" />
+      <CompleteBtn onClick={handleClickTodoPostCancle} value="작성취소" />
     </TodoItemBlock>
   )
 }

@@ -5,12 +5,12 @@ import Milestone from '../components/Milestone/Milestone'
 import Todolist from '../components/Todo/Todolist'
 import Timelinelist from '../components/Timeline/Timelinelist'
 import TimelineCreate from '../components/Timeline/TimelineCreate'
-import Reaction from '../components/Reaction/Reaction'
 import Commentlist from '../components/Comment/Commentlist'
 import { TodoCreate } from '../components/Todo/TodoCreate'
 import { Col, Container, Row } from '../styles/globalStyles'
 import { PlusBtn } from '../components/Widget/WidgetStyle'
 import { useSelector } from 'react-redux'
+import Footer from '../components/Footer/Footer'
 
 function DetailView() {
   const { id } = useParams()
@@ -27,7 +27,6 @@ function DetailView() {
   const [likerData, setLikerData] = useState([]) // 응원자(liker) 데이터 받는 곳
   const [commentData, setCommentData] = useState([]) // 코멘트 데이터 받는 곳
   const [metaData, setMetaData] = useState({}) // 메타 데이터 받는 곳
-  const [status, setStatus] = useState({}) // 상태값 받는 곳
 
   const [onCreateTodolist, setOnCreateTodolist] = useState(false) // 투두 생성 모드
   const [onCreateTimeline, setOnCreateTimeline] = useState(false) //타임라인 생성 모드
@@ -54,6 +53,16 @@ function DetailView() {
       console.log('ERROR getTodo: ', err)
     }
   }, [todoData])
+
+  const getTimelineData = useCallback(() => {
+    try {
+      axios.get(`/v1/goal/${id}`).then((res) => {
+        setTimelineData(res.data.goal.timelineList)
+      })
+    } catch (err) {
+      console.log('ERROR getTodo: ', err)
+    }
+  }, [timelineData])
 
   const getCommentData = useCallback(() => {
     try {
@@ -85,6 +94,16 @@ function DetailView() {
     }
   }, [likerData])
 
+  const getMetaData = useCallback(() => {
+    try {
+      axios.get(`/v1/goal/${id}`).then((res) => {
+        setMetaData(res.data.metadata)
+      })
+    } catch (err) {
+      console.log('ERROR getMeta: ', err)
+    }
+  }, [metaData])
+
   const getDetail = () => {
     try {
       axios.get(`/v1/goal/${id}`).then((res) => {
@@ -94,7 +113,6 @@ function DetailView() {
         setTodoData(res.data.goal.todoList)
         setCommentData(res.data.goal.commentList)
         setTimelineData(res.data.goal.timelineList)
-        setStatus(res.data.goal.status)
       })
     } catch (err) {
       console.log('ERROR: ', err)
@@ -111,25 +129,35 @@ function DetailView() {
       <Container>
         <Row>
           <Col>
-            <Milestone milestoneData={milestoneData}></Milestone>
+            <Milestone
+              goalId={id}
+              writer={writer}
+              metaData={metaData}
+              milestoneData={milestoneData}
+              followerData={followerData}
+              likerData={likerData}
+              getFollower={getFollower}
+              getLiker={getLiker}
+            ></Milestone>
           </Col>
         </Row>
         <Row>
           <Col>
             <Todolist
+              writer={writer}
               todoData={todoData}
               metaData={metaData}
               getTodoData={getTodoData}
-              writer={writer}
+              getMetaData={getMetaData}
             ></Todolist>
           </Col>
           <Col>
             {onCreateTodolist && (
               <TodoCreate
-                location="투두 작성 창"
-                plusState={onCreateTodolist}
-                setTodoData={setTodoData}
+                goalId={id}
                 setOnCreateTodolist={setOnCreateTodolist}
+                setTodoData={setTodoData}
+                getTodoData={getTodoData}
               />
             )}
           </Col>
@@ -154,7 +182,7 @@ function DetailView() {
               title={milestoneData.title}
               timelineData={timelineData}
               setTimelineData={setTimelineData}
-              status={status}
+              getTimelineData={getTimelineData}
               writer={writer}
               mode="limit"
             ></Timelinelist>
@@ -162,10 +190,9 @@ function DetailView() {
           <Col>
             {onCreateTimeline && (
               <TimelineCreate
-                location="타임라인 작성 창"
-                plusState={onCreateTimeline}
-                setTimelineData={setTimelineData}
                 setOnCreateTimeline={setOnCreateTimeline}
+                getTimelineData={getTimelineData}
+                metaData={metaData}
               />
             )}
           </Col>
@@ -183,7 +210,7 @@ function DetailView() {
         </Row>
         <Row>
           <Col>
-            <Reaction
+            {/* <Reaction
               goalId={id}
               writer={writer}
               followerData={followerData}
@@ -191,7 +218,7 @@ function DetailView() {
               metaData={metaData}
               getFollower={getFollower}
               getLiker={getLiker}
-            ></Reaction>
+            ></Reaction> */}
           </Col>
         </Row>
         <Row>
@@ -204,6 +231,7 @@ function DetailView() {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </>
   )
 }

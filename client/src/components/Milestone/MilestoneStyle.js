@@ -1,6 +1,31 @@
 import styled from 'styled-components'
-// import { Container } from '../../styles/responsive'
 import theme from '../../styles/theme'
+import { Button } from '../../styles/globalStyles'
+
+const ReactionBtnBase = styled(Button)`
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+  border-radius: 40px;
+  background: ${({ follower, liker, theme }) =>
+    follower || liker ? theme.violet_m : theme.background};
+  &:active {
+    background: ${({ theme }) => theme.violet_m};
+  }
+`
+
+export const SubscribeBtn = ({ onClick, follower }) => (
+  <ReactionBtnBase onClick={onClick} follower={follower}>
+    {follower ? '➖' : '➕'}
+  </ReactionBtnBase>
+)
+
+export const CheerBtn = ({ onClick, liker }) => (
+  <ReactionBtnBase onClick={onClick} liker={liker}>
+    {liker ? '✊' : '👍'}
+  </ReactionBtnBase>
+)
+
 export const Select = styled.select`
   width: 20%;
   height: 40px;
@@ -80,24 +105,46 @@ export const MilestoneContainer = styled.div`
       }
     }
   }
+  .header__reaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 50px 0 10px 0;
+    .reaction {
+      flex-grow: 1;
+      h3:nth-child(1),
+      > div {
+        display: inline;
+      }
+    }
+    .button__reaction {
+      > div {
+        display: flex;
+      }
+      > div > div {
+        display: flex;
+        align-items: center;
+        padding: 0 5px;
+      }
+    }
+  }
   .descriptions {
-    border: 2px solid ${theme.violet_l};
+    border: 1px solid ${theme.border};
+    box-shadow: 2px 3px 5px ${theme.border};
     border-radius: 10px;
     padding: 10px;
     .description {
       display: flex;
       > h4 {
-        background-color: ${theme.violet_l};
         width: 90px;
         text-align: end;
         padding: 5px;
-        margin: 5px 0;
-        border: 1px solid ${theme.border};
-        border-radius: 10px;
+        margin: 10px 0;
+        border-right: 3px solid ${theme.border};
       }
       > p {
         padding: 5px;
-        margin: 5px 0;
+        margin: 10px 0 0 10px;
       }
     }
   }

@@ -1,4 +1,4 @@
-import { TimelineContainer, TimelineList, Text } from './TimelinelistStyle'
+import { TimelineContainer, TimelineList } from './TimelinelistStyle'
 import TimelineItem from './TimelineItem'
 import { HeadingH3 } from '../../styles/globalStyles'
 import { useState, useCallback } from 'react'
@@ -8,7 +8,14 @@ import { TimelineModal } from './TimelineModal'
 // import { useState } from 'react'
 
 export default function Timelinelist(props) {
-  const { title, timelineData, setTimelineData, writer, status, mode } = props
+  const {
+    title,
+    timelineData,
+    setTimelineData,
+    getTimelineData,
+    writer,
+    mode,
+  } = props
   const [onTimelineModal, setOnTimelineModal] = useState(false) // 타임라인 모달(더보기) 상태
   const limitTimelineData = timelineData.slice(-5)
   const length = timelineData.length
@@ -25,16 +32,7 @@ export default function Timelinelist(props) {
       ) : null}
       {/*후기: status가 false(진행중)일 때 타임라인만 나오고 true(진행종료)일 경우 후기창 띄움*/}
       <TimelineContainer>
-        {status ? (
-          <>
-            <div className="header__timeline review">
-              <Text>후기 달성 창</Text>
-            </div>
-            <div className="contents__timeline review">
-              <div className="contents">인풋창</div>
-            </div>
-          </>
-        ) : length === 0 ? (
+        {length === 0 ? (
           <div className="notice">
             아직 작성된 글이 없어요
             <br />
@@ -66,6 +64,7 @@ export default function Timelinelist(props) {
                   key={timeline.timelineId}
                   {...timeline}
                   writer={writer}
+                  getTimelineData={getTimelineData}
                 />
               )
             })}

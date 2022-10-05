@@ -18,16 +18,22 @@ import {
   DeleteBtn,
 } from '../Widget/WidgetStyle'
 import { Icon } from '../../styles/globalStyles'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { FaPaperclip } from 'react-icons/fa'
 
 //TimelineItem와 TimelineEdit, TimelineDelete 파일을 합침.
 export default function TimelineItem(props) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { timelineId, description, createdAt, image, setTimelineData, writer } =
-    props
-  const { id } = useParams()
+  const {
+    timelineId,
+    description,
+    createdAt,
+    finalTimeline,
+    image,
+    writer,
+    getTimelineData,
+  } = props
   const today = moment(createdAt).format('YYYY년 MM일 DD일')
   const [newDdescription, setNewDescription] = useState(description) // 타임라인 수정 내용을 받을 곳
   const [timelineImageId, setTimelineImageId] = useState() // 타임라인 이미지 아이디 받을 곳
@@ -36,9 +42,6 @@ export default function TimelineItem(props) {
   const [onEditTimeline, setOnEditTimeline] = useState(false) // 수정 버튼(수정 창) 상태 관리
   const [openChoseImage, setOpenChoseImage] = useState(false) // 이미지 버튼 상태 관리
   const [openChoseEmoji, setOpenChoseEmoji] = useState(false) // 이모지 버튼 상태 관리
-  // console.log('이미지 파일: ', imgFile)
-  // console.log('타임라인 이미지 아이디: ', timelineImageId)
-  // console.log('타임라인 아이디: ', timelineId)
 
   const userName = useSelector((state) => state.auth.userName)
 
@@ -110,12 +113,8 @@ export default function TimelineItem(props) {
 
   // 이미지 삭제 버튼 클릭 시 실행
   const handleClickImageDelete = () => {
-    axios({
-      method: 'delete',
-      url:
-        process.env.REACT_APP_API_URL +
-        `/v1/delete/timelineImage?timelineId=${timelineId}`,
-    })
+    axios
+      .delete(`/v1/delete/timelineImage?timelineId=${timelineId}`)
       .then((res) => {
         console.log(res)
         //이미지가 삭제 되면 이미지의 모든 값 초기화
@@ -149,16 +148,8 @@ export default function TimelineItem(props) {
           description: newDdescription,
           imageId: timelineImageId,
         },
-      }).then((res) => {
-        console.log(res)
-      })
-      await axios({
-        method: 'get',
-        url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
-      }).then((res) => {
-        setTimelineData(res.data.goal.timelineList)
-        setOnEditTimeline(!onEditTimeline)
-      })
+      }).then(setOnEditTimeline(!onEditTimeline))
+      await getTimelineData()
     } catch (err) {
       console.log('Error >>', err)
       handleAuthErr(dispatch, navigate, err, handleClickSubmit)
@@ -174,18 +165,10 @@ export default function TimelineItem(props) {
   // 타임라인 삭제 버튼 클릭 시 실행
   const handleClickDelete = async () => {
     try {
-      await axios({
-        method: 'delete',
-        url: process.env.REACT_APP_API_URL + `/v1/goal/timeline/${timelineId}`,
-      })
-      axios({
-        method: 'get',
-        url: process.env.REACT_APP_API_URL + `/v1/goal/${id}`,
-      }).then((res) => {
-        setTimelineData(res.data.goal.timelineList)
-      })
+      await axios.delete(`/v1/goal/timeline/${timelineId}`)
+      await getTimelineData()
     } catch (err) {
-      console.log('Error >>', err)
+      console.log('Error: ', err)
       handleAuthErr(dispatch, navigate, err, handleClickDelete)
     }
   }
@@ -327,24 +310,47 @@ export default function TimelineItem(props) {
         <>
           {/* 타임라인 수정 창 닫혔을 때 */}
           {/* ~~~ 타임라인 헤드 ~~~ */}
-          <div className="header__timeline">
-            <Text>{today}</Text>
-            {/* 작성자일 경우 보이게*/}
-            <div className="header__timeline--icon">
-              {userName === writer ? (
-                <Icon>
-                  <EditBtn
-                    size={20}
-                    onClick={handleClickEdit}
-                    location="TimelineItem(default): 수정 버튼"
-                    editState={onEditTimeline}
-                  />
-                  <DeleteBtn onClick={handleClickDelete} />
-                </Icon>
-              ) : null}
+          {/* 목표 종료 날짜 이후 후기 타임라인이라면 색으로 구분하기 */}
+          {finalTimeline ? (
+            <div className="header__timeline review">
+              <Text>{today}</Text>
+              <div className="header__timeline--icon">
+                {/* 작성자일 경우 보이게*/}
+                {userName === writer ? (
+                  <Icon>
+                    <EditBtn
+                      size={20}
+                      onClick={handleClickEdit}
+                      location="TimelineItem(default): 수정 버튼"
+                      editState={onEditTimeline}
+                    />
+                    <DeleteBtn onClick={handleClickDelete} />
+                  </Icon>
+                ) : null}
+              </div>
+              {/* 작성자가 아니라면 안보이게*/}
             </div>
-            {/* 작성자가 아니라면 안보이게*/}
-          </div>
+          ) : (
+            <div className="header__timeline">
+              <Text>{today}</Text>
+              <div className="header__timeline--icon">
+                {/* 작성자일 경우 보이게*/}
+                {userName === writer ? (
+                  <Icon>
+                    <EditBtn
+                      size={20}
+                      onClick={handleClickEdit}
+                      location="TimelineItem(default): 수정 버튼"
+                      editState={onEditTimeline}
+                    />
+                    <DeleteBtn onClick={handleClickDelete} />
+                  </Icon>
+                ) : null}
+              </div>
+              {/* 작성자가 아니라면 안보이게*/}
+            </div>
+          )}
+
           <div className="contents__timeline">
             {/* 이미지가 없다면 내용만 보이게: 분기를 나눈 이유는 이미지가 없을 때 image.url 을 찾을 수 없다는 에러가 나서 추가 */}
             {/* 이미지가 있다면 이미지와 내용이 보이게 */}

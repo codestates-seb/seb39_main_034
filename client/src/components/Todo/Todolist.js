@@ -2,7 +2,7 @@ import TodoItem from './TodoItem'
 import { ProgressBar, TodoList } from './TodolistStyle'
 import { HeadingH3 } from '../../styles/globalStyles'
 
-function Todolist({ todoData, metaData, writer, getTodoData }) {
+function Todolist({ todoData, writer, getTodoData, getMetaData, metaData }) {
   console.log(todoData)
   return (
     <TodoList>
@@ -13,7 +13,7 @@ function Todolist({ todoData, metaData, writer, getTodoData }) {
           key={todo.todoId}
           {...todo}
           getTodoData={getTodoData}
-          metaData={metaData}
+          getMetaData={getMetaData}
           writer={writer}
         />
       ))}
