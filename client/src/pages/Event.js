@@ -3,6 +3,7 @@ import { Container, Row, Col } from '../styles/responsive'
 import { MyLnb } from '../components/MyPannel//MyPannelStyle'
 import { CategoryBtn } from '../components/Lnb/LnbStyle'
 import { EventBanner } from '../components/Widget/WidgetStyle'
+import Footer from '../components/Footer/Footer'
 
 export default function Event() {
   const [tab, setTab] = useState('진행중')
@@ -75,6 +76,7 @@ export default function Event() {
           </Col>
         </Row>
       )}
+      <Footer />
     </Container>
   )
 }

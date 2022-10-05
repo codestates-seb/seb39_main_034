@@ -33,12 +33,14 @@ function LoginForm() {
             res.headers.refresh,
             loginData.username
           )
-          navigate('/mypage')
+          navigate('/main')
         }
       })
       .catch((err) => {
         console.log(err)
-        err.response.status === 401 ? alert('가입되지 않은 회원입니다') : null
+        err.response.status === 401
+          ? alert('로그인 정보를 다시 확인해주세요')
+          : null
         setErrorMessage('로그인 정보를 다시 확인해주세요')
       })
   }
@@ -62,6 +64,9 @@ function LoginForm() {
       sendPost()
     }
   }
+
+  //test1
+  //togethertodo1
 
   return (
     <Container>

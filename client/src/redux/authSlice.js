@@ -9,10 +9,13 @@ const authSlice = createSlice({
     SET_LOGIN: (state, action) => {
       if (action.payload.authorization) {
         state.isLogin = true
+        console.log('7-1. store에 새 토큰 저장:', action.payload.authorization)
+        console.log('7-3. 새 username 받아옴: ', action.payload.userName)
+      } else {
+        '7-2. 기존 username과 동일: ', state.userName
       }
       state.userName = action.payload.userName
       state.authorization = action.payload.authorization
-      console.log('로그인 여부: ', state.isLogin)
     },
     SET_LOGOUT: (state) => {
       console.log('logout')
