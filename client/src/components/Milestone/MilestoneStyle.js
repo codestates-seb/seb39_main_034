@@ -32,10 +32,16 @@ export const Select = styled.select`
   border-radius: 10px;
   outline: none;
 `
-
+export const ExBtn = styled(Button)`
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 10px;
+  background-color: ${theme.violet_m};
+  color: ${theme.border_l};
+`
 export const MilestoneContainer = styled.div`
   width: 100%;
-  margin-top: 100px;
+  margin: 100px 0;
   .inputs {
     padding: 10px 0;
     > input {
@@ -58,6 +64,25 @@ export const MilestoneContainer = styled.div`
       > p:nth-child(2) {
         color: ${theme.secondary};
         margin-left: 10px;
+      }
+    }
+    .p__guide.ex {
+      margin: 10px 0;
+    }
+    .banner-img {
+      border: 1px solid ${theme.border};
+      border-radius: 10px;
+      overflow: hidden;
+      .upload {
+        width: 100%;
+        background-color: ${theme.border};
+        padding: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      img {
+        height: 200px;
       }
     }
   }
