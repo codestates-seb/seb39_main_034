@@ -2,8 +2,8 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { Container, Col, Row } from '../../styles/globalStyles'
 import { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { onLogout } from '../Account/TokenAuth'
 import { Profile } from '../Widget/WidgetStyle'
-// import { onLogout } from '../Account/TokenAuth'
 import { FaTimes } from 'react-icons/fa'
 import { CgMenuRight } from 'react-icons/cg'
 import {
@@ -17,7 +17,6 @@ import {
   Wrapper,
 } from './GnbStyles.js'
 // import axios from 'axios'
-import { onLogout } from '../Account/TokenAuth'
 
 function Gnb() {
   const dispatch = useDispatch()

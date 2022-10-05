@@ -19,6 +19,7 @@ function Main() {
     pageNumber
   )
   const observer = useRef()
+
   const handleLastCardRef = useCallback(
     (target) => {
       if (loading) return

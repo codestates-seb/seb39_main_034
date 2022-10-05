@@ -23,15 +23,15 @@ export const CompleteBtnBase = styled(Button)`
 `
 export const CompleteBtn = React.memo(function CompleteBtn({
   onClick,
-  location,
+  // location,
   editState,
   value,
   plusState,
 }) {
   if (editState === undefined) {
-    console.log({ location, plusState })
+    // console.log({ location, plusState })
   } else if (plusState === undefined) {
-    console.log({ location, editState })
+    // console.log({ location, editState })
   }
 
   return <CompleteBtnBase onClick={onClick}>{value}</CompleteBtnBase>

@@ -8,11 +8,10 @@ const CardsList = React.memo(function CardList({
   type,
   handleLastCardRef,
 }) {
+  console.log('카드 목록 렌더', cards.length)
   return (
     <Row>
       {cards.map((card, idx) => {
-        console.log('카드 목록 렌더')
-        console.log(type + card.goalId.toString())
         if (cards.length === idx + 1) {
           return (
             <Col
