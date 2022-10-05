@@ -21,6 +21,7 @@ export default function Milestone({
   const userName = useSelector((state) => state.auth.userName) // 로그인된 유저
   const followerUser = followerData.filter((item) => item === userName) // 팔로우 리스트 중 로그인 유저 필터링
   const likerUser = likerData.filter((item) => item === userName)
+  console.log(likerUser)
 
   //D-DAY 계산
   const today = new Date()
@@ -31,21 +32,41 @@ export default function Milestone({
   const gap = dday - today
   const result = Math.ceil(gap / (1000 * 60 * 60 * 24))
 
+  // 팔로우 버튼 클릭 시 실행
   const handleClickFllower = async () => {
     try {
       await axios.get(`/v1/goal/${goalId}/following`)
       await getFollower()
-      console.log('handleClickFllower axios 요청')
     } catch (err) {
       console.log('ERROR: ', err)
     }
   }
 
+  // 팔로우중 버튼 클릭 시 실행
+  const handleClickFllowerCancle = async () => {
+    try {
+      await axios.get(`/v1/goal/${goalId}/following-cancellation`)
+      await getFollower()
+    } catch (err) {
+      console.log('ERROR: ', err)
+    }
+  }
+
+  // 응원하기 버튼 클릭 시 실행
   const handleClickLiker = async () => {
     try {
       await axios.get(`/v1/goal/${goalId}/liking`)
       await getLiker()
-      console.log('handleClickLiker axios 요청')
+    } catch (err) {
+      console.log('ERROR: ', err)
+    }
+  }
+
+  // 응원중 버튼 클릭 시 실행
+  const handleClickLikerCancle = async () => {
+    try {
+      await axios.get(`/v1/goal/${goalId}/liking-cancellation`)
+      await getLiker()
     } catch (err) {
       console.log('ERROR: ', err)
     }
@@ -149,7 +170,10 @@ export default function Milestone({
               {/* 이미 팔로우를 한 유저라면 */}
               {followerUser[0] === userName ? (
                 <div>
-                  <SubscribeBtn follower={true} />
+                  <SubscribeBtn
+                    follower={true}
+                    onClick={handleClickFllowerCancle}
+                  />
                   <div>팔로우 중</div>
                 </div>
               ) : (
@@ -161,7 +185,7 @@ export default function Milestone({
               )}
               {likerUser[0] === userName ? (
                 <div>
-                  <CheerBtn liker={true} />
+                  <CheerBtn liker={true} onClick={handleClickLikerCancle} />
                   <div>응원 중</div>
                 </div>
               ) : (

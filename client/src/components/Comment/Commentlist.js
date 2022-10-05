@@ -17,15 +17,21 @@ export default function Commentlist({ goalId, commentData, getCommentData }) {
     <CommentContainer>
       <HeadingH3>코멘트</HeadingH3>
       <CommentCreate goalId={goalId} getCommentData={getCommentData} />
-      {reverseData.map((comment) => {
-        return (
-          <CommentItem
-            key={comment.commentId}
-            {...comment}
-            getCommentData={getCommentData}
-          />
-        )
-      })}
+      {reverseData.length === 0 ? (
+        <div className="not">
+          <p>아직 코멘트가 없습니다. 코멘트를 달아보세요!</p>
+        </div>
+      ) : (
+        reverseData.map((comment) => {
+          return (
+            <CommentItem
+              key={comment.commentId}
+              {...comment}
+              getCommentData={getCommentData}
+            />
+          )
+        })
+      )}
     </CommentContainer>
   )
 }
