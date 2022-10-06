@@ -35,7 +35,7 @@ spring:
           auth: true
 
 jwt:
-  secret-key: FDkTyPHw2mzshPSUL2Cxi2FBdsKQWFtD
+  secret-key:
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
 
