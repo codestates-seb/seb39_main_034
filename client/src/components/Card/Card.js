@@ -14,6 +14,7 @@ function Card({
   type,
   category,
   title,
+  desc,
   status,
   done,
   todo,
@@ -32,12 +33,14 @@ function Card({
           <Sticker src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/656ee841-d139-4db4-a406-799e7931af4a/purple.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221004%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221004T154754Z&X-Amz-Expires=86400&X-Amz-Signature=e6bb1153bd06c2b12dae448a421cb1d65a390f6a8410114a6bbb177323ed1017&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22purple.png%22&x-id=GetObject" />
         ) : null
       ) : null}
-      <CardWrapper status={status}>
+      <CardWrapper status={status} className="card_front">
         <CardBanner banner={banner}>
           <CategoryBadge>{category}</CategoryBadge>
         </CardBanner>
         <CardBody>
-          <h4>{title}</h4>
+          <div className="card_title">
+            <h4>{title}</h4>
+          </div>
           <div className="item">
             <span className="item-title">진행</span>
             <span className="item-text">
@@ -58,6 +61,12 @@ function Card({
         <CardFooter>
           <Profile image={profile} author={author}></Profile>
         </CardFooter>
+      </CardWrapper>
+      <CardWrapper status={status} className="card_back">
+        <div className="card_back_content">
+          <div className="card_back_logo"></div>
+          <div className="card_back_desc">&quot; {desc} &quot;</div>
+        </div>
       </CardWrapper>
     </CardContainer>
   )

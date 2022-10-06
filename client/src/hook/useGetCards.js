@@ -31,6 +31,7 @@ export default function useGetCards(
     const path = userName
       ? `/v1/${userName}/goal/list/filter`
       : '/v1/goal/list/filter'
+
     function getCards() {
       console.log('8. getCards 실행')
       if (loading === false) {

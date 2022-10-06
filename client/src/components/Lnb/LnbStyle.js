@@ -11,7 +11,7 @@ import { BsPlusSquareFill } from 'react-icons/bs'
 export const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 75px;
+  margin: 100px 0 30px 0;
   .lists {
     display: flex;
     align-items: center;

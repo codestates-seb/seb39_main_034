@@ -11,6 +11,8 @@ import theme from '../../styles/theme'
 // ~~~ Timeline style ~~~ //
 export const TimelineList = styled(Container)``
 export const TimelineContainer = styled(Container)`
+  display: flex;
+  flex-direction: column;
   padding: 12px 0;
   > article {
     margin: 10px 0;

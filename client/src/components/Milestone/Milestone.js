@@ -121,11 +121,11 @@ export default function Milestone({
           <Profile
             // image={milestoneData.profileImage}
             image={
-              milestoneData.member === '조안나'
+              milestoneData.member === 'joanna'
                 ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member2.jpeg'
                 : milestoneData.member === 'sol-namoo'
                 ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member1.jpg'
-                : milestoneData.member === '재영킴'
+                : milestoneData.member === 'jaeyoungkim'
                 ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member3.png'
                 : milestoneData.member === 'AhnHyungJoon'
                 ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member4.png'
