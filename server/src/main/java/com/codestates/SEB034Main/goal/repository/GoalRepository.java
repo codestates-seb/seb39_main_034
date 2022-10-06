@@ -13,6 +13,11 @@ import java.util.List;
 @Repository
 public interface GoalRepository extends JpaRepository<Goal, Long> {
 
+    Page<Goal> findAllByMember(Pageable pageable, Member member);
+
+    List<Goal> findAllByMember(Member member);
+
+    /* 기록 보관용
     @Query(value = "SELECT * FROM GOAL WHERE category_id = :categoryId", nativeQuery = true)
     Page<Goal> findByCategory(int categoryId, Pageable pageable);
 
@@ -39,9 +44,5 @@ public interface GoalRepository extends JpaRepository<Goal, Long> {
     Page<Goal> findByCategoryAndResult(int categoryId, String result, Pageable pageable);
 
     @Query(value = "SELECT * FROM GOAL WHERE category_id = :categoryId AND result = :result AND member_id = :memberId", nativeQuery = true)
-    Page<Goal> findByCategoryAndResultByMemberId(int categoryId, long memberId, String result, Pageable pageable);
-
-    Page<Goal> findAllByMember(Pageable pageable, Member member);
-
-    List<Goal> findAllByMember(Member member);
+    Page<Goal> findByCategoryAndResultByMemberId(int categoryId, long memberId, String result, Pageable pageable);*/
 }

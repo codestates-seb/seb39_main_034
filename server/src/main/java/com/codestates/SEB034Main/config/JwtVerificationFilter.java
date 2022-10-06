@@ -40,13 +40,13 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
 
         } catch (SignatureException se) {
-            sendErrorResponse(response, "NOT_VALID_TOKEN");
+            sendErrorResponse(response, "ACCESS_NOT_VALID_TOKEN");
         } catch (MalformedJwtException me) {
-            sendErrorResponse(response, "NOT_VALID_TOKEN");
+            sendErrorResponse(response, "ACCESS_NOT_VALID_TOKEN");
         } catch (ExpiredJwtException ee) {
-            sendErrorResponse(response, "NOT_VALID_TOKEN");
+            sendErrorResponse(response, "ACCESS_NOT_VALID_TOKEN");
         } catch (UnsupportedJwtException ue) {
-            sendErrorResponse(response, "NOT_VALID_TOKEN");
+            sendErrorResponse(response, "ACCESS_NOT_VALID_TOKEN");
         }
     }
 
@@ -55,7 +55,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
         String authorization = request.getHeader("Authorization");
 
-        if (request.getMethod().equals("GET") && request.getServletPath().contains("/v1/goal/") && !request.getServletPath().contains("following")) {
+        if (request.getMethod().equals("GET") && request.getServletPath().contains("/v1/goal/") && !(request.getServletPath().contains("following") || request.getServletPath().contains("liking"))) {
             authorization = null;
         }
 

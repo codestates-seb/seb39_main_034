@@ -1,5 +1,6 @@
 package com.codestates.SEB034Main.member.entity;
 
+import com.codestates.SEB034Main.comment.entity.Comment;
 import com.codestates.SEB034Main.goal.entity.Goal;
 import com.codestates.SEB034Main.timeline.entity.Timeline;
 import com.codestates.SEB034Main.todo.entity.Todo;
@@ -61,4 +62,8 @@ public class Member {
     @JsonIgnore
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Timeline> timelineList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Comment> commentList;
 }

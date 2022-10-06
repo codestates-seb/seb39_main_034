@@ -9,7 +9,9 @@ public enum ExceptionCode {
     TODO_NOT_FOUND(404, "Todo not found"),
     TIMELINE_NOT_FOUND(404, "Timeline not found"),
     IMAGE_NOT_FOUND(404, "Image not found"),
-    PASSWORD_NOT_MATCH(404, "Passwords do not match");
+    PASSWORD_NOT_MATCH(404, "Passwords do not match"),
+    COMMENT_NOT_FOUND(404, "Comment not found"),
+    CATEGORY_NOT_FOUND(404, "Comment not found");
 
     @Getter
     private int status;

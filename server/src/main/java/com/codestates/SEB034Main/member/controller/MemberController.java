@@ -1,7 +1,9 @@
 package com.codestates.SEB034Main.member.controller;
 
 import com.codestates.SEB034Main.config.JwtTokenizer;
+import com.codestates.SEB034Main.feed.dto.FeedResponseDto;
 import com.codestates.SEB034Main.feed.entity.Feed;
+import com.codestates.SEB034Main.feed.mapper.FeedMapper;
 import com.codestates.SEB034Main.feed.service.FeedService;
 import com.codestates.SEB034Main.member.dto.PostMemberDto;
 import com.codestates.SEB034Main.member.entity.Member;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +27,7 @@ public class MemberController {
     private final MemberService memberService;
     private final JwtTokenizer jwtTokenizer;
     private final FeedService feedService;
+    private final FeedMapper feedMapper;
 
     @PostMapping("/member")
     public ResponseEntity signupMember(@RequestBody PostMemberDto postMemberDto) {
@@ -44,7 +46,9 @@ public class MemberController {
         Member verifiedMember = memberService.findVerifiedMember(username);
         List<Feed> feedsByMember = feedService.findFeedsByMember(verifiedMember);
 
-        return new ResponseEntity<>(feedsByMember, HttpStatus.OK);
+        List<FeedResponseDto> feedResponseDtos = feedMapper.listToFeedResponse(feedsByMember);
+
+        return new ResponseEntity<>(feedResponseDtos, HttpStatus.OK);
     }
 
     @GetMapping("/users/info")
@@ -62,15 +66,17 @@ public class MemberController {
     public ResponseEntity refreshTokenValidation(HttpServletRequest request, HttpServletResponse response) {
 
         String jws = request.getHeader("Refresh").replace("Bearer ", "");
+
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
         Map<String, String> result = jwtTokenizer.verifyRefreshSignature(jws, base64EncodedSecretKey);
 
+        System.out.println(result);
         String accessToken = result.get("newAccessToken");
         String refreshToken = result.get("newRefreshToken");
 
         response.addHeader("New_Authorization", "Bearer " + accessToken);
-        response.addHeader("New_Refresh", refreshToken);
+        response.addHeader("New_Refresh", "Bearer " + refreshToken);
 
         if (result.get("newAccessToken") != null) {
             result.clear();

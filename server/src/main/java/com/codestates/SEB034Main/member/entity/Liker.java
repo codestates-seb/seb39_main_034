@@ -1,6 +1,11 @@
 package com.codestates.SEB034Main.member.entity;
 
 import com.codestates.SEB034Main.goal.entity.Goal;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +16,11 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 @Entity
-public class LikeMember {
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "member")
+@JsonIdentityReference(alwaysAsId = true)
+public class Liker {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +32,7 @@ public class LikeMember {
     @Builder.Default
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "goalId")
     private Goal goal;

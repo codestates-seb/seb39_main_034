@@ -1,6 +1,9 @@
 package com.codestates.SEB034Main.goal.entity;
 
+import com.codestates.SEB034Main.comment.entity.Comment;
 import com.codestates.SEB034Main.image.entity.Image;
+import com.codestates.SEB034Main.member.entity.Follower;
+import com.codestates.SEB034Main.member.entity.Liker;
 import com.codestates.SEB034Main.member.entity.Member;
 import com.codestates.SEB034Main.timeline.entity.Timeline;
 import com.codestates.SEB034Main.todo.entity.Todo;
@@ -55,7 +58,6 @@ public class Goal {
     @Enumerated(value = EnumType.STRING)
     private GoalResult result = GoalResult.NONE;
 
-
     @Column(nullable = false)
     private LocalDate endDate;
 
@@ -81,6 +83,9 @@ public class Goal {
     @OneToMany(mappedBy = "goal", cascade = CascadeType.REMOVE)
     private List<Timeline> timelineList;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "goal", cascade = CascadeType.REMOVE)
+    private List<Comment> commentList;
 
     @ManyToOne
     @JoinColumn(name = "memberId")
@@ -91,6 +96,12 @@ public class Goal {
         SUCCESS,
         FAILURE
     }
+
+    @OneToMany(mappedBy = "goal")
+    private List<Follower> followerList;
+
+    @OneToMany(mappedBy ="goal")
+    private List<Liker> likerList;
 
     public void setViews(Long views) {
         this.views = views;

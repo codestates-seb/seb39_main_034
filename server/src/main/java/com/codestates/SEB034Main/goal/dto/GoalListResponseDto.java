@@ -20,6 +20,8 @@ public class GoalListResponseDto {
 
     private String imageURL;
 
+    private String finalTimelineStatus;
+
     private int numberOfTodos;
 
     private int numberOfCompletedTodos;

@@ -12,10 +12,19 @@ public class Metadata {
 
     private int progressPercent;
 
-    public Metadata(double numberOfTodos, double numberOfCompletedTodos) {
+    private String finalTimelineStatus;
+
+    private int numberOfFollowers;
+
+    private int numberOfLiker;
+
+    public Metadata(double numberOfTodos, double numberOfCompletedTodos, int numberOfFollowers, int numberOfLiker, String finalTimelineStatus) {
         this.numberOfTodos = numberOfTodos;
         this.numberOfCompletedTodos = numberOfCompletedTodos;
+        this.finalTimelineStatus = finalTimelineStatus;
         this.progress = Math.round((numberOfCompletedTodos / numberOfTodos) * 100) / 100.0;
         this.progressPercent = (int) (progress * 100);
+        this.numberOfFollowers = numberOfFollowers;
+        this.numberOfLiker = numberOfLiker;
     }
 }
