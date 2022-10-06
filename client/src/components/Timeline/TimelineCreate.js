@@ -253,15 +253,17 @@ export default function TimelineCreate({
                   {imgName}
                 </div>
                 {timelineImageId === undefined ? (
-                  <CompleteBtn onClick={handleClickImageUpload}>
-                    업로드
-                  </CompleteBtn>
+                  <CompleteBtn
+                    onClick={handleClickImageUpload}
+                    value="업로드"
+                  />
                 ) : (
                   <div className="button__complete">
                     <span>업로드 완료</span>
-                    <CompleteBtn onClick={handleClickImageDelete}>
-                      이미지 삭제
-                    </CompleteBtn>
+                    <CompleteBtn
+                      onClick={handleClickImageDelete}
+                      value="이미지삭제"
+                    />
                   </div>
                 )}
               </div>

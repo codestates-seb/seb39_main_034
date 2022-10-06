@@ -4,21 +4,18 @@ import { HeadingH3 } from '../../styles/globalStyles'
 import { useState, useCallback } from 'react'
 import { MoreBtn } from '../Widget/WidgetStyle'
 import { TimelineModal } from './TimelineModal'
+import { useSelector } from 'react-redux'
+
 // import { CloseBtn, OpenBtn } from '../Widget/WidgetStyle'
 // import { useState } from 'react'
 
 export default function Timelinelist(props) {
-  const {
-    title,
-    timelineData,
-    setTimelineData,
-    getTimelineData,
-    writer,
-    mode,
-  } = props
+  const { title, timelineData, getTimelineData, writer, mode } = props
   const [onTimelineModal, setOnTimelineModal] = useState(false) // 타임라인 모달(더보기) 상태
   const limitTimelineData = timelineData.slice(-5)
   const length = timelineData.length
+
+  const userName = useSelector((state) => state.auth.userName) // 로그인된 유저
 
   const openTimelineModal = useCallback(() => {
     setOnTimelineModal(!onTimelineModal)
@@ -43,15 +40,26 @@ export default function Timelinelist(props) {
                 <TimelineItem
                   key={timeline.timelineId}
                   {...timeline}
-                  setTimelineData={setTimelineData}
+                  getTimelineData={getTimelineData}
                   writer={writer}
                 />
               )
             })}
-            <MoreBtn
-              text={`타임라인 더보기 ( ${timelineData.length} )`}
-              onClick={openTimelineModal}
-            ></MoreBtn>
+            {writer === userName ? (
+              <div className="btn1">
+                <MoreBtn
+                  text={`타임라인 더보기 ( ${timelineData.length} )`}
+                  onClick={openTimelineModal}
+                ></MoreBtn>
+              </div>
+            ) : (
+              <div className="btn2">
+                <MoreBtn
+                  text={`타임라인 더보기 ( ${timelineData.length} )`}
+                  onClick={openTimelineModal}
+                ></MoreBtn>
+              </div>
+            )}
           </>
         ) : (
           <>

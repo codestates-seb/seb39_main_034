@@ -218,15 +218,17 @@ export default function TimelineItem(props) {
                 <div className="filenames">
                   <div className="filename">
                     {timelineImageId === undefined ? (
-                      <CompleteBtn onClick={handleClickImageUpload}>
-                        업로드
-                      </CompleteBtn>
+                      <CompleteBtn
+                        onClick={handleClickImageUpload}
+                        value="업로드"
+                      />
                     ) : (
                       <div className="button__complete">
                         <span>업로드 완료</span>
-                        <CompleteBtn onClick={handleClickImageDelete}>
-                          이미지 삭제
-                        </CompleteBtn>
+                        <CompleteBtn
+                          onClick={handleClickImageDelete}
+                          value="이미지삭제"
+                        />
                       </div>
                     )}
                   </div>
@@ -278,15 +280,17 @@ export default function TimelineItem(props) {
                     {image.imageId}
                   </div>
                   {timelineImageId === undefined ? (
-                    <CompleteBtn onClick={handleClickImageUpload}>
-                      업로드
-                    </CompleteBtn>
+                    <CompleteBtn
+                      onClick={handleClickImageUpload}
+                      value="업로드"
+                    />
                   ) : (
                     <div className="button__complete">
                       <span>업로드 완료</span>
-                      <CompleteBtn onClick={handleClickImageDelete}>
-                        이미지 삭제
-                      </CompleteBtn>
+                      <CompleteBtn
+                        onClick={handleClickImageDelete}
+                        value="이미지삭제"
+                      />
                     </div>
                   )}
                 </div>
@@ -298,10 +302,11 @@ export default function TimelineItem(props) {
                   value={newDdescription}
                   onChange={handleChangeTextarea}
                 />
-                <CompleteBtn onClick={handleClickSubmit}>수정완료</CompleteBtn>
-                <CompleteBtn onClick={handleClickSubmitCancle}>
-                  수정취소
-                </CompleteBtn>
+                <CompleteBtn onClick={handleClickSubmit} value="수정완료" />
+                <CompleteBtn
+                  onClick={handleClickSubmitCancle}
+                  value="수정취소"
+                />
               </div>
             </div>
           )}

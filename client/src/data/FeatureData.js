@@ -38,7 +38,8 @@ const FeatureData = [
   {
     featureId: 7,
     name: '마이페이지',
-    image: 'create_goal.png',
+    image:
+      'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/feature_mypage.png',
   },
 ]
 export default FeatureData

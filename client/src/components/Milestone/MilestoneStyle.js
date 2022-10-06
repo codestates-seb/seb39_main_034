@@ -120,6 +120,7 @@ export const MilestoneContainer = styled.div`
       flex-wrap: wrap;
       line-height: 28px;
       color: ${({ theme }) => theme.background};
+      width: 100%;
 
       .profile {
         display: flex;

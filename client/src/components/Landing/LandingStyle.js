@@ -228,8 +228,14 @@ export const FeaturesContainer = styled.section`
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.25);
+      background-color: white;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       img {
         width: 100%;
+        object-fit: cover;
       }
     }
   }
@@ -290,6 +296,12 @@ export const MemberContainer = styled.section`
       font-size: 3.3rem;
       color: gray;
       padding: 0 10px;
+      border: none;
+      outline: none;
+      margin: 5px;
+      border-radius: 5px;
+      background-color: ${theme.violet_d};
+      color: ${theme.white};
     }
   }
 
