@@ -161,10 +161,10 @@ export default function Milestone({
       <div className="header__reaction">
         <div className="reaction">
           <HeadingH3>목표</HeadingH3>
-          <div>
-            <span>{metaData.numberOfFollowers} 팔로우</span>
-            <span className="dot">·</span>
-            <span>{metaData.numberOfLiker} 응원</span>
+          <div className="reaction_numbers">
+            <span>팔로우 {metaData.numberOfFollowers}</span>
+            <span className="dot"> · </span>
+            <span>응원 {metaData.numberOfLiker}</span>
           </div>
         </div>
         <div className="button__reaction">

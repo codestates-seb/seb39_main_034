@@ -184,7 +184,7 @@ export default function TimelineCreate({
       {metaData.finalTimelineStatus === 'waiting' ? (
         <article>
           <div className="header__timeline review">
-            <Text>후기 달성 창</Text>
+            <Text>후기 작성 창</Text>
           </div>
           <div className="contents__timeline review">
             <div className="contents">
