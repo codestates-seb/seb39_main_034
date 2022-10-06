@@ -53,6 +53,7 @@ public class GoalMapper {
             GoalListResponseDto goalListResponseDto = new GoalListResponseDto();
             goalListResponseDto.setGoalId(eachGoal.getGoalId());
             goalListResponseDto.setTitle(eachGoal.getTitle());
+            goalListResponseDto.setDescription(eachGoal.getDescription());
             goalListResponseDto.setResult(eachGoal.getResult().toString());
             goalListResponseDto.setCategory(eachGoal.getCategory().getCategoryName());
             goalListResponseDto.setNumberOfTodos(eachGoal.getTodoList().size());
