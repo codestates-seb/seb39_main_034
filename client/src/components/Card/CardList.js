@@ -37,11 +37,11 @@ const CardsList = React.memo(function CardList({
                   }
                   author={card.member}
                   profile={
-                    card.member === '조안나'
+                    card.member === 'joanna'
                       ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member2.jpeg'
                       : card.member === 'sol-namoo'
                       ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member1.jpg'
-                      : card.member === '재영킴'
+                      : card.member === 'jaeyoungkim'
                       ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member3.png'
                       : card.member === 'AhnHyungJoon'
                       ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member4.png'
@@ -66,6 +66,7 @@ const CardsList = React.memo(function CardList({
                   type={type}
                   category={card.category}
                   title={card.title}
+                  desc={card.description}
                   status={card.status === '진행중' ? card.status : card.result}
                   done={card.numberOfCompletedTodos}
                   todo={card.numberOfFollowers}
@@ -75,7 +76,15 @@ const CardsList = React.memo(function CardList({
                     'https://www.telegraph.co.uk/content/dam/health-fitness/2018/08/31/TELEMMGLPICT000156474637_trans_NvBQzQNjv4BqpVlberWd9EgFPZtcLiMQfyf2A9a6I9YchsjMeADBa08.jpeg?imwidth=680'
                   }
                   profile={
-                    'https://images.pexels.com/photos/1310522/pexels-photo-1310522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                    card.member === 'joanna'
+                      ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member2.jpeg'
+                      : card.member === 'sol-namoo'
+                      ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member1.jpg'
+                      : card.member === 'jaeyoungkim'
+                      ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member3.png'
+                      : card.member === 'AhnHyungJoon'
+                      ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member4.png'
+                      : 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/logo_symbol.png'
                   }
                   author={card.member}
                   final={card.finalTimelineStatus}

@@ -39,7 +39,7 @@ export default function Event() {
             <Col>
               <EventBanner
                 url={
-                  'https://s3.us-west-2.amazonaws.com/secure.notion-static.com/49d5d418-3b5b-4f04-9a50-6ad253bc9198/event01.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221004%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221004T144205Z&X-Amz-Expires=86400&X-Amz-Signature=ab875ed9570499bfa1dd9b75cc73e9945bd798eb802f3394cd8fa02cbbae07b1&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22event01.jpg%22&x-id=GetObject'
+                  'https://s3.us-west-2.amazonaws.com/secure.notion-static.com/49d5d418-3b5b-4f04-9a50-6ad253bc9198/event01.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221006%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221006T041254Z&X-Amz-Expires=86400&X-Amz-Signature=29a8ef478c7ac2ba9b13f67ede6e3a398297e47dd5a38da42695efb9f24cdb1c&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22event01.jpg%22&x-id=GetObject'
                 }
               >
                 <div className="event_header">
@@ -51,7 +51,7 @@ export default function Event() {
             <Col>
               <EventBanner
                 url={
-                  'https://s3.us-west-2.amazonaws.com/secure.notion-static.com/99fd9b44-3ff9-4174-a2cd-9fa55b199376/event02.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221004%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221004T145548Z&X-Amz-Expires=86400&X-Amz-Signature=073a0b95eef49a05b20017b71f055d301934e233bac656ac1d05a80586db497e&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22event02.jpg%22&x-id=GetObject'
+                  'https://s3.us-west-2.amazonaws.com/secure.notion-static.com/99fd9b44-3ff9-4174-a2cd-9fa55b199376/event02.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221006%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221006T041328Z&X-Amz-Expires=86400&X-Amz-Signature=b7f7294865b9bd82ebd66db3058386c34a51255768d71bec15fe6ccc2478a2de&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22event02.jpg%22&x-id=GetObject'
                 }
               >
                 <div className="event_header">
@@ -66,7 +66,7 @@ export default function Event() {
             <Col>
               <EventBanner
                 url={
-                  'https://s3.us-west-2.amazonaws.com/secure.notion-static.com/76c6c4fd-c317-4a6a-9432-47972eeade54/event03.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221004%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221004T143901Z&X-Amz-Expires=86400&X-Amz-Signature=7170f226f0a8f01a1059b72d5e7ec7e66ebeaf9eaa77e89f2c73f1b3d46951ea&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22event03.jpg%22&x-id=GetObject'
+                  'https://s3.us-west-2.amazonaws.com/secure.notion-static.com/76c6c4fd-c317-4a6a-9432-47972eeade54/event03.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221006%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221006T041215Z&X-Amz-Expires=86400&X-Amz-Signature=323f800cd53b844eb6ef5ac59768d6327a666ef20e124d4bde06c805eb6a2e8c&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22event03.jpg%22&x-id=GetObject'
                 }
               >
                 <div className="event_header">

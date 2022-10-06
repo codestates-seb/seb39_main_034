@@ -2,6 +2,36 @@ import styled from 'styled-components'
 
 export const CardContainer = styled.div`
   position: relative;
+  width: 100%;
+  height: 400px;
+  margin: 12px 0;
+
+  .card_back {
+    position: relative;
+    top: -400px;
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+  }
+
+  &:hover {
+    .card_front {
+      transform: rotateY(-180deg);
+      -webkit-transform: rotateY(-180deg);
+      -ms-transform: rotateY(-180deg);
+      -moz-transform: rotateY(-180deg);
+      -o-transform: rotateY(-180deg);
+    }
+    .card_back {
+      transform: rotateY(0deg);
+      -webkit-transform: rotateY(0deg);
+      -ms-transform: rotateY(0deg);
+      -moz-transform: rotateY(0deg);
+      -o-transform: rotateY(0deg);
+    }
+  }
 `
 
 export const CardWrapper = styled.div`
@@ -9,13 +39,18 @@ export const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: all 1.5s;
+  -webkit-transition: all 1.5s;
+  -moz-transition: all 1.5s;
+  -o-transition: all 1.5s;
   width: 100%;
   height: 400px;
-  margin: 8px 0;
   color: ${({ theme }) => theme.dark};
-  border: 1px solid ${({ theme }) => theme.border};
   border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0px 1px 3px rgba(50, 50, 50, 0.25);
   ${({ status }) =>
     status === '진행중'
       ? null
@@ -27,6 +62,39 @@ export const CardWrapper = styled.div`
    background-color: black;
    opacity: 0.2;
    content:''}`}
+
+  div.card_back_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 400px;
+    background-color: ${({ theme }) => theme.violet_m};
+
+    div.card_back_logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: ${({ theme }) => theme.background};
+      background-image: url('https://goalimage.s3.ap-northeast-2.amazonaws.com/images/logo_combination_sm.png');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin-bottom: 20px;
+    }
+
+    div.card_back_desc {
+      width: 250px;
+      height: auto;
+      overflow: hidden;
+      text-align: center;
+      font-size: ${(props) => props.theme.font16};
+      color: ${({ theme }) => theme.background};
+      font-weight: 500;
+      line-height: 28px;
+    }
+  }
 `
 export const Sticker = styled.img`
   position: absolute;
@@ -53,21 +121,27 @@ export const CardBanner = styled.div`
 `
 
 export const CardBody = styled.div`
-  padding: 0 12px;
-  margin: 0 auto;
-  h4 {
+  padding: 0 28px;
+  /* margin: 0 auto; */
+  .card_title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 54px;
-    margin: 6px 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    white-space: normal;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: ${(props) => props.theme.font20};
-    font-weight: 500;
-    line-height: 28px;
+    margin: 4px 0 6px 0;
+    > h4 {
+      width: 100%;
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      white-space: normal;
+      font-size: ${(props) => props.theme.font20};
+      font-weight: 500;
+      line-height: 28px;
+    }
   }
   .item {
     height: 32px;
@@ -145,6 +219,7 @@ export const CardFooter = styled.div`
   height: 44px;
   padding: 6px 8px;
   border-top: 1px solid ${({ theme }) => theme.border};
+  background-color: ${({ theme }) => theme.background};
   > div {
     float: right;
   }
