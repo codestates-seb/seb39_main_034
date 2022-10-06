@@ -12,6 +12,8 @@ public class GoalListResponseDto {
 
     private String title;
 
+    private String description;
+
     private String category;
 
     private String status;
