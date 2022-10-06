@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 // eslint-disable-next-line import/no-named-as-default
 import Calendar from 'react-calendar'
 import moment from 'moment'
@@ -12,12 +13,11 @@ import {
   ExBtn,
 } from './MilestoneStyle'
 import { CompleteBtn, AddPicBtn } from '../Widget/WidgetStyle'
-import useGetAuth from '../../hook/useGetAuth'
+import { handleAuthErr } from '../Account/TokenAuth'
 
 export const NewMilestone = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [tryAuth, setTryAuth] = useState(null)
-  const { authLoading, authCheck } = useGetAuth(tryAuth)
   const [category, setCategory] = useState('')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -123,44 +123,21 @@ export const NewMilestone = () => {
     })
   }
 
-  // 전송 버튼 클릭 시 tryAuth 상태 true로 변경
-  // => useGetAuth가 tryAuth 상태에 의존하므로 실행되어 토큰 상태 재확인
-  // => useEffect에서 tryAuth 상태가 true일 경우 submit 실행
   const handleClickSubmit = () => {
-    console.log('생성하기 버튼 클릭, tryauth : true')
-    setTryAuth(true)
-  }
-
-  const submit = () => {
-    // 게시글 작성에 필요한 각 단계가 완성되지 않았을 경우 tryAuth을 false로 변경
     if (category === '' || category === '선택안함') {
-      console.log('tryAuth : false')
-      setTryAuth(false)
       alert('카테고리를 입력하세요')
     } else if (title === '') {
-      console.log('tryAuth : false')
-      setTryAuth(false)
       alert('제목을 입력하세요')
     } else if (description === '') {
-      console.log('tryAuth : false')
-      setTryAuth(false)
       alert('목표를 소개하는 글을 입력하세요')
     } else if (successAward === '') {
-      console.log('tryAuth : false')
-      setTryAuth(false)
       alert('성공 시 나와의 약속을 만들어주세요')
     } else if (failurePenalty === '') {
-      console.log('tryAuth : false')
-      setTryAuth(false)
       alert('실패 시 나와의 약속을 만들어주세요')
     } else if (endDate === '') {
-      console.log('tryAuth : false')
-      setTryAuth(false)
       alert('종료 날짜를 선택해주세요')
     } else {
       if (milestoneImageId === undefined && imgName) {
-        console.log('tryAuth : false')
-        setTryAuth(false)
         alert('업로드하지 않은 이미지가 존재합니다. 이미지 업로드를 하세요.')
       } else {
         setMilestoneImageId('')
@@ -184,36 +161,11 @@ export const NewMilestone = () => {
             }
           })
         } catch (err) {
-          console.log(err)
+          handleAuthErr(dispatch, navigate, err, handleClickSubmit())
         }
       }
     }
   }
-
-  useEffect(() => {
-    console.log('authLoading: ', authLoading)
-    console.log('authCheck: ', authCheck)
-    // 아직 auth 검사가 진행중이라면 스탑
-    if (authLoading === true) {
-      null
-    }
-    // auth 검사를 하고 보니 토큰이 만료되었다면 스탑
-    else if (authCheck === false) {
-      console.log('authcheck: ', authCheck)
-      alert('장기간 이용하지 않아 로그아웃 되었습니다')
-      navigate('/login')
-    }
-    // 토큰이 살아있다면 submit 함수 실행
-    else if (tryAuth === true) {
-      try {
-        submit()
-      } catch (err) {
-        console.log(err)
-        alert('오류가 발생했습니다')
-        navigate(0)
-      }
-    }
-  }, [authLoading])
 
   return (
     <MilestoneContainer>

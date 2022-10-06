@@ -69,7 +69,7 @@ const CardsList = React.memo(function CardList({
                   desc={card.description}
                   status={card.status === '진행중' ? card.status : card.result}
                   done={card.numberOfCompletedTodos}
-                  todo={card.numberOfFollowers}
+                  todo={card.numberOfTodos}
                   follow={card.numberOfFollowers}
                   banner={
                     card.imageURL ||

@@ -44,7 +44,7 @@ const useGetAuth = (authErr, setAuthErr) => {
 
   useEffect(() => {
     if (authErr !== null) {
-      console.log('2. 카드 훅으로부터 err 넘겨받음')
+      console.log('2. 카드 훅으로부터 err 넘겨받음', authErr)
       setAuthLoading(true)
       handleAuthErr(dispatch, navigate, authErr, () => setAuthErr(null))
     } else {

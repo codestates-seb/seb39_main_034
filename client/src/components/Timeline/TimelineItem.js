@@ -143,7 +143,7 @@ export default function TimelineItem(props) {
     try {
       await axios({
         method: 'patch',
-        url: process.env.REACT_APP_API_URL + `/v1/goal/timeline/${timelineId}`,
+        url: `/v1/goal/timeline/${timelineId}`,
         data: {
           description: newDdescription,
           imageId: timelineImageId,

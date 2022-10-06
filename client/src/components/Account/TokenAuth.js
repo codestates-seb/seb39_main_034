@@ -90,7 +90,6 @@ export const onRefresh = (dispatch, navigate, func) => {
       .catch((err) => {
         console.log('4-2. Refresh 에서 err 나서 로그아웃', err)
         onLogout(dispatch)
-        alert('토큰이 만료되어 로그아웃 됩니다')
         navigate('/login')
       })
   } else {
@@ -142,7 +141,7 @@ export const handleAuthErr = (dispatch, navigate, err, func) => {
     }
   } catch (err) {
     console.log('3-3. handleErr에서 에러나서 로그아웃', err)
-    alert('로그인 토큰이 만료되어 로그아웃 됩니다')
+    alert('알 수 없는 오류가 발생했습니다')
     navigate('/login')
   }
 }
