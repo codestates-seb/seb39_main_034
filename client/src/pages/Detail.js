@@ -183,7 +183,6 @@ function DetailView() {
             <Timelinelist
               title={milestoneData.title}
               timelineData={timelineData}
-              setTimelineData={setTimelineData}
               getTimelineData={getTimelineData}
               writer={writer}
               mode="limit"

@@ -5,7 +5,8 @@ import { MilestoneContainer, SubscribeBtn, CheerBtn } from './MilestoneStyle'
 import { HeadingH3, MainHeading } from '../../styles/globalStyles'
 import { DeleteBtn, Profile } from '../Widget/WidgetStyle'
 import { StatusBadge, CategoryBadge } from '../Card/CardStyle'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { handleAuthErr } from '../Account/TokenAuth'
 
 export default function Milestone({
   milestoneData,
@@ -17,6 +18,7 @@ export default function Milestone({
   getLiker,
   metaData,
 }) {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const userName = useSelector((state) => state.auth.userName) // 로그인된 유저
   const followerUser = followerData.filter((item) => item === userName) // 팔로우 리스트 중 로그인 유저 필터링
@@ -86,6 +88,7 @@ export default function Milestone({
         })
         .catch((err) => {
           console.log(err)
+          handleAuthErr(dispatch, navigate, err, handleDeleteClick)
         })
       alert('목표가 삭제되었습니다')
     } else {
