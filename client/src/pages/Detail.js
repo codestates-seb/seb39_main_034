@@ -89,21 +89,23 @@ function DetailView() {
     try {
       axios.get(`/v1/goal/${id}`).then((res) => {
         setFollowerData(res.data.goal.followerList)
+        setMetaData(res.data.metadata)
       })
     } catch (err) {
       console.log('ERROR getFollower: ', err)
     }
-  }, [followerData])
+  }, [followerData, metaData])
 
   const getLiker = useCallback(() => {
     try {
       axios.get(`/v1/goal/${id}`).then((res) => {
         setLikerData(res.data.goal.likerList)
+        setMetaData(res.data.metadata)
       })
     } catch (err) {
       console.log('ERROR getLiker: ', err)
     }
-  }, [likerData])
+  }, [likerData, metaData])
 
   const getMetaData = useCallback(() => {
     try {
@@ -239,19 +241,6 @@ function DetailView() {
             ) : null
           ) : null}
           <Col></Col>
-        </Row>
-        <Row>
-          <Col>
-            {/* <Reaction
-              goalId={id}
-              writer={writer}
-              followerData={followerData}
-              likerData={likerData}
-              metaData={metaData}
-              getFollower={getFollower}
-              getLiker={getLiker}
-            ></Reaction> */}
-          </Col>
         </Row>
         <Row>
           <Col>

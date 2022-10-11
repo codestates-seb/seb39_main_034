@@ -171,19 +171,7 @@ export default function Milestone({
           </div>
         </div>
         <div className="button__reaction">
-          {userName === writer || userName === null ? (
-            // 비로그인 유저이거나 작성자일 경우 요청할 수 없게
-            <div>
-              <div>
-                <SubscribeBtn />
-                팔로우 하기
-              </div>
-              <div>
-                <CheerBtn />
-                응원하기
-              </div>
-            </div>
-          ) : (
+          {userName === writer || userName === null ? null : (
             // 로그인 유저이고 작성자가 아닐 경우
             <div>
               {/* 이미 팔로우를 한 유저라면 */}
