@@ -8,7 +8,7 @@ const CardsList = React.memo(function CardList({
   type,
   handleLastCardRef,
 }) {
-  console.log('카드 목록 렌더', cards.length)
+  console.log('불러온 카드 개수 : ', cards.length)
   return (
     <Row>
       {cards.map((card, idx) => {

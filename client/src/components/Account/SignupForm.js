@@ -28,7 +28,7 @@ function SignupForm() {
   // 이름 체크
   const onChangeName = useCallback((e) => {
     setName(e.target.value.trim())
-    console.log(name)
+    // console.log(name)
     if (e.target.value.length < 2 || e.target.value.length > 15) {
       setNameMessage('아이디는 2에서 15글자 사이로 입력하세요')
       setIsName(false)

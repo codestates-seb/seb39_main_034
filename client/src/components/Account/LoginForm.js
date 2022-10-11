@@ -37,7 +37,7 @@ function LoginForm() {
         }
       })
       .catch((err) => {
-        console.log(err)
+        // console.log(err)
         err.response.status === 401
           ? alert('로그인 정보를 다시 확인해주세요')
           : null
@@ -47,7 +47,7 @@ function LoginForm() {
 
   function handleIdChange(e) {
     setLoginData({ ...loginData, username: e.target.value.trim() })
-    console.log(loginData)
+    // console.log(loginData)
   }
 
   function handlePasswordChange(e) {
@@ -64,9 +64,6 @@ function LoginForm() {
       sendPost()
     }
   }
-
-  //test1
-  //togethertodo1
 
   return (
     <Container>

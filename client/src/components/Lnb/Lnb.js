@@ -1,11 +1,5 @@
 import { Col } from '../../styles/responsive'
-import {
-  // ListContainer,
-  ListWrapper,
-  CategoryBtn,
-  StatusBtn,
-  CreateBtn,
-} from './LnbStyle'
+import { ListWrapper, CategoryBtn, StatusBtn, CreateBtn } from './LnbStyle'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -18,6 +12,7 @@ function Lnb({
   statusId,
   setStatusId,
   setPageNumber,
+  location,
 }) {
   const isLogin = useSelector((state) => state.auth.isLogin)
   const navigate = useNavigate()
@@ -46,17 +41,15 @@ function Lnb({
 
   return (
     <>
-      {' '}
       <Col
         justify={'space-between'}
         align={'center'}
-        padding={8}
-        margin={'30px 0 0 0'}
+        margin={location === 'main' ? '124px 0 0 0' : '28px 0 0 0'}
       >
         <ListWrapper>
           <div className="lists">
             <div className="listName">분류</div>
-            <div className="list">
+            <div className="list category">
               {categoryList.map((category, idx) => (
                 <CategoryBtn
                   onClick={handleCategoryClick}
@@ -69,9 +62,14 @@ function Lnb({
               ))}
             </div>
           </div>
+        </ListWrapper>
+        <CreateBtn onClick={handleCreate} viewSize="lg" />
+      </Col>
+      <Col justify={'space-between'} align={'center'} margin={'0 0 24px 0'}>
+        <ListWrapper>
           <div className="lists">
             <div className="listName">진행사항</div>
-            <div className="list">
+            <div className="list status">
               {statusList.map((status, idx) => (
                 <StatusBtn
                   key={idx}
@@ -84,17 +82,9 @@ function Lnb({
             </div>
           </div>
         </ListWrapper>
-        <CreateBtn onClick={handleCreate} viewSize="lg" />
+        <CreateBtn onClick={handleCreate} viewSize="md" />
       </Col>
-      {/* <Col
-        justify={'space-between'}
-        align={'center'}
-        padding={8}
-        margin={'0 0 30px 0'}
-      > */}
-      <ListWrapper></ListWrapper>
-      <CreateBtn onClick={handleCreate} viewSize="md" />
-      {/* </Col> */}
+      <CreateBtn onClick={handleCreate} viewSize="sm" className="create_sm" />
     </>
   )
 }

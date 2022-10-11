@@ -124,6 +124,7 @@ export const NewMilestone = () => {
   }
 
   const handleClickSubmit = () => {
+    // 게시글 작성에 필요한 각 단계가 완성되지 않았을 경우 tryAuth을 false로 변경
     if (category === '' || category === '선택안함') {
       alert('카테고리를 입력하세요')
     } else if (title === '') {

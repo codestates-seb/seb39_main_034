@@ -49,12 +49,7 @@ export const PlusBtnBase = styled(Button)`
   }
 `
 
-export const PlusBtn = React.memo(function PlusBtn({
-  location,
-  plusState,
-  onClick,
-}) {
-  console.log({ location, plusState })
+export const PlusBtn = React.memo(function PlusBtn({ onClick }) {
   return (
     <PlusBtnBase onClick={onClick}>
       <FaPlus size="30" />
@@ -74,12 +69,7 @@ const GrayBtn = styled.button`
   }
 `
 
-export const EditBtn = React.memo(function EditBtn({
-  onClick,
-  location,
-  editState,
-}) {
-  console.log({ location, editState })
+export const EditBtn = React.memo(function EditBtn({ onClick }) {
   return (
     <GrayBtn onClick={onClick}>
       <RiPencilFill size="24" />
@@ -140,6 +130,7 @@ const ProfileBase = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
+  box-sizing: border-box;
   height: 30px;
   padding: 4px 8px;
   cursor: pointer;
@@ -155,6 +146,11 @@ const ProfileBase = styled.div`
   }
   div.text {
     font-size: ${({ theme }) => theme.font16};
+  }
+  &:hover {
+    div.image {
+      border: 3px solid ${({ theme }) => theme.violet_m};
+    }
   }
 `
 

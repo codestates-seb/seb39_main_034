@@ -3,18 +3,18 @@ import { Button } from '../../styles/globalStyles'
 import theme from '../../styles/theme'
 
 export const FooterContainer = styled.div`
-  width: 100%;
-  margin-top: 40px;
-  color: ${theme.border};
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
+  margin-top: 40px;
+  color: ${theme.border};
   article {
-    background-color: ${theme.violet_d};
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 150px;
+    padding: 12px 0;
+    background-color: ${theme.violet_d};
     .department {
       text-align: end;
       border-right: 1px solid ${theme.border};
@@ -29,13 +29,19 @@ export const FooterContainer = styled.div`
       .member {
         span {
           display: inline-block;
-          padding: 10px 0;
-          margin: 10px;
+          padding: 10px;
+          margin: 10px 0;
+          color: ${theme.border};
           b {
             font-size: ${theme.font12};
           }
           p {
             font-size: ${theme.font14};
+          }
+          &:hover {
+            padding: 9px;
+            border-radius: 10px;
+            border: 1px solid ${theme.violet_m};
           }
         }
       }

@@ -51,8 +51,7 @@ export default function useGetCards(
         },
       })
         .then((res) => {
-          console.log('cards axios 받아옴')
-          console.log('res :', res.data)
+          console.log('cards axios 데이터 :', res.data)
           setCards((prevCards) => {
             return [...prevCards, ...res.data.data]
           })
@@ -73,8 +72,6 @@ export default function useGetCards(
     if (!authLoading) {
       getCards()
     }
-    // console.log('useEffect#2 마지막 줄에서 찍은 로그')
   }, [categoryId, statusId, pageNumber, authLoading])
-  // console.log('훅 마지막 줄에서 찍은 로그')
-  return { loading, error, cards, metadata, hasMore }
+  return { loading, cards, metadata, hasMore, error, setError }
 }

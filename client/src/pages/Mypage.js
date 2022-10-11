@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 // import { useNavigate } from 'react-router-dom'
 import { Container, Row, Col } from '../styles/globalStyles'
 import MyPannel from '../components/MyPannel/MyPannel'
-import MyLnb from '../components/MyPannel/MyLnb'
+import Lnb from '../components/Lnb/Lnb'
 import axios from 'axios'
 import useGetCards from '../hook/useGetCards'
 import CardsList from '../components/Card/CardList'
@@ -18,7 +18,6 @@ import Footer from '../components/Footer/Footer'
 function Mypage() {
   // const navigate = useNavigate()
   const userName = useSelector((state) => state.auth.userName)
-  console.log(userName)
   const [tab, setTab] = useState('목표')
   // 토큰 조회
   // const [tryAuth, setTryAuth] = useState(null)
@@ -39,6 +38,15 @@ function Mypage() {
   // 피드 조회
   const [isFeedOpen, setIsFeedOpen] = useState(false)
   const [feedData, setFeedData] = useState([{ timeline: { image: {} } }])
+
+  console.log(
+    '***',
+    userName,
+    'authcheck: ',
+    authCheck,
+    'authloading: ',
+    authLoading
+  )
 
   // 피드 열기 모달
   const openTimelineModal = () => {
@@ -81,37 +89,6 @@ function Mypage() {
       setAuthErr(error)
     }
   }, [error])
-
-  // 카드와 토큰 오류 처리
-  // useEffect(() => {
-  //   // console.log('auth 로딩 상태 ', authLoading)
-  //   // console.log('card 로딩 상태 ', loading)
-  //   // console.log('로그인 상태: ', authCheck)
-  //   // console.log('card 에러 ', error)
-  //   // console.log('trouble shooting :', trouble)
-
-  //   // 아직 auth 검사가 진행중이라면 스탑
-  //   if (authLoading === true) {
-  //     null
-  //   } else if (authCheck === false) {
-  //     console.log('authcheck: ', authCheck)
-  //     alert('장기간 이용하지 않아 로그아웃 되었습니다')
-  //     navigate('/login')
-  //   } else if ((authCheck === true, error === false)) {
-  //     setTrouble('')
-  //   }
-  //   // authCheck true 였다가 만료된 경우 -> auth 훅 재실행
-  //   else if (authCheck === true && error === true && trouble === '') {
-  //     setTrouble('auth 재실행')
-  //   } else if (
-  //     authCheck === true &&
-  //     error === false &&
-  //     trouble === 'auth 재실행'
-  //   ) {
-  //     setTrouble('')
-  //     console.log('재실행한 뒤 카드 불러옴')
-  //   }
-  // }, [authLoading, error])
 
   // 피드 정보 받아오기
   useEffect(() => {
@@ -172,12 +149,13 @@ function Mypage() {
         {authCheck && tab === '목표' ? (
           <>
             <Row>
-              <MyLnb
+              <Lnb
                 categoryId={categoryId}
                 setCategoryId={setCategoryId}
                 setStatusId={setStatusId}
                 statusId={statusId}
                 setPageNumber={setPageNumber}
+                location={'my'}
               />
             </Row>
             <CardsList

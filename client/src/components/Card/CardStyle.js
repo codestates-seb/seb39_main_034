@@ -145,7 +145,7 @@ export const CardBody = styled.div`
   }
   .item {
     height: 32px;
-    padding: 0 12px;
+    padding: 0 6px;
     font-size: ${(props) => props.theme.font16};
     line-height: 32px;
     .item-title {

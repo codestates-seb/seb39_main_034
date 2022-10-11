@@ -120,6 +120,7 @@ export const MilestoneContainer = styled.div`
       flex-wrap: wrap;
       line-height: 28px;
       color: ${({ theme }) => theme.background};
+      width: 100%;
 
       .profile {
         display: flex;
@@ -166,12 +167,15 @@ export const MilestoneContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    margin: 50px 0 10px 0;
+    margin: 50px 0 14px 0;
     .reaction {
       flex-grow: 1;
       h3:nth-child(1),
       > div {
         display: inline;
+      }
+      .reaction_numbers {
+        padding-left: 12px;
       }
     }
     .button__reaction {

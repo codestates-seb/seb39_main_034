@@ -35,11 +35,11 @@ export const onLoginSuccess = (dispatch, access, refresh, userName) => {
   axios.defaults.headers.common['Authorization'] = access
   // access 유효시간 30분 테스트
   setTimeout(() => {
-    console.log('Access 유효시간 1분 만료')
-  }, 60 * 1000)
+    console.log('Access 유효시간 30분 만료')
+  }, 30 * 60 * 1000)
   setTimeout(() => {
-    console.log('Refresh 유효시간 3분 만료')
-  }, 3 * 60 * 1000)
+    console.log('Refresh 유효시간 420분 만료')
+  }, 420 * 60 * 1000)
 }
 
 export const onLogout = (dispatch) => {
@@ -68,6 +68,7 @@ export const onRefresh = (dispatch, navigate, func) => {
       headers: { Refresh: refresh_token },
     })
       .then((res) => {
+        console.log(res)
         if (res.data.token_status === 'RE_ISSUED') {
           console.log('4-1. Refresh 성공')
           onLoginSuccess(
@@ -103,7 +104,7 @@ export const onRefresh = (dispatch, navigate, func) => {
 export const onAccessTest = (dispatch) => {
   axios({
     method: 'get',
-    url: 'v1/authenticationTest',
+    url: '/v1/authenticationTest',
   })
     .then((res) => {
       console.log(res)

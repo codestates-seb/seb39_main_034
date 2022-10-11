@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import { Container, Row, Col } from '../styles/globalStyles'
 import useGetCards from '../hook/useGetCards'
 // import { Link } from 'react-router-dom'
@@ -7,6 +7,7 @@ import Lnb from '../components/Lnb/Lnb'
 import CardList from '../components/Card/CardList'
 import { Notice } from '../components/Widget/WidgetStyle'
 import Footer from '../components/Footer/Footer'
+import { Scroll } from '../components/Scroll/ScrollStyle'
 
 function Main() {
   // console.log('메인뷰 실행될 때 찍은 로그')
@@ -19,6 +20,14 @@ function Main() {
     pageNumber
   )
   const observer = useRef()
+  const [showButton, setShowButton] = useState(false)
+
+  const scrollToTop = () => {
+    window.scroll({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
 
   const handleLastCardRef = useCallback(
     (target) => {
@@ -34,6 +43,21 @@ function Main() {
     },
     [loading, hasMore]
   )
+  useEffect(() => {
+    const handleShowButton = () => {
+      if (window.scrollY > 500) {
+        setShowButton(true)
+      } else {
+        setShowButton(false)
+      }
+    }
+
+    // console.log(window.scrollY)
+    window.addEventListener('scroll', handleShowButton)
+    return () => {
+      window.removeEventListener('scroll', handleShowButton)
+    }
+  }, [])
 
   return (
     <>
@@ -45,6 +69,7 @@ function Main() {
             setStatusId={setStatusId}
             statusId={statusId}
             setPageNumber={setPageNumber}
+            location={'main'}
           />
         </Row>
         <CardList
@@ -62,6 +87,13 @@ function Main() {
           </Col>
         </Row>
       </Container>
+      {showButton && (
+        <Scroll>
+          <button className="top" onClick={scrollToTop} type="button">
+            Top
+          </button>
+        </Scroll>
+      )}
       <Footer />
     </>
   )

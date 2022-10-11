@@ -2,34 +2,34 @@ import styled from 'styled-components'
 import { Button } from '../../styles/globalStyles'
 import { BsPlusSquareFill } from 'react-icons/bs'
 
-// export const ListContainer = styled.div`
-//   background: ${({ theme }) => theme.border};
-//   background-blend-mode: lighten;
-//   border-radius: 10px;
-// `
-
 export const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 100px 0 30px 0;
   .lists {
     display: flex;
     align-items: center;
   }
   .listName {
-    width: 100px;
+    width: 80px;
     height: 32px;
-    padding: 0 10px;
+    flex-shrink: 0;
+    padding-right: 10px;
     text-align: right;
     font-size: ${({ theme }) => theme.font18};
     line-height: 36px;
     border-right: 3px solid ${({ theme }) => theme.border};
-    margin: 10px;
-    /* border: 1px solid red; */
   }
   .list {
     display: flex;
     margin: 10px;
+  }
+  @media screen and (max-width: ${({ theme }) => theme.mdBreakpoint}) {
+    .list.category {
+      flex-wrap: wrap;
+      > button {
+        margin-top: 8px;
+      }
+    }
   }
 `
 
@@ -86,6 +86,10 @@ const CreateBtnBase = styled.div`
   cursor: pointer;
   @media screen and (max-width: ${({ theme }) => theme.mdBreakpoint}) {
     display: ${({ viewSize }) => (viewSize === 'md' ? 'flex' : 'none')};
+  }
+  @media screen and (max-width: ${({ theme }) => theme.smBreakpoint}) {
+    display: ${({ viewSize }) => (viewSize === 'sm' ? 'flex' : 'none')};
+    margin: 0 10px 30px auto;
   }
 `
 

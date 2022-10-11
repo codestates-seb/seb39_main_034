@@ -38,7 +38,7 @@ export default function MyPannel({ tab, onClick, metadata }) {
         </Col>
       </MyPannelContainer>
       <Col lg={12}>
-        <MyLnb>
+        <MyLnb tab={tab}>
           <CategoryBtn
             value={'목표'}
             isActive={tab === '목표'}

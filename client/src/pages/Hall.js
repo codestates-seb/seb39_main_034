@@ -31,7 +31,7 @@ export default function Hall() {
                 <div className="podium second">
                   <span>2</span>
                   <br />
-                  아무개
+                  togethertodo1
                 </div>
               </div>
               <div className="award first">
@@ -44,7 +44,7 @@ export default function Hall() {
                 <div className="podium first">
                   <span>1</span>
                   <br />
-                  조안나
+                  joanna
                 </div>
               </div>
               <div className="award third">
@@ -57,7 +57,7 @@ export default function Hall() {
                 <div className="podium third">
                   <span>3</span>
                   <br />
-                  누구씨
+                  jaeyoungkim
                 </div>
               </div>
             </div>

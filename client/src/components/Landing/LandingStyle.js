@@ -53,6 +53,7 @@ export const Wrapper = styled.div`
 `
 export const BannerContainer = styled.section`
   height: 100vh;
+  font-size: 16px;
   background: url('https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80');
   background-size: auto 150%;
   background-repeat: no-repeat;
@@ -63,8 +64,8 @@ export const BannerContainer = styled.section`
     top: 38%;
     left: 18%;
     color: ${({ theme }) => theme.dark};
-    font-size: 4em;
-    line-height: 1.8em;
+    font-size: 3.8rem;
+    line-height: 6rem;
     font-weight: 500;
     animation: slide 1s ease-out;
     @keyframes slide {
@@ -76,6 +77,10 @@ export const BannerContainer = styled.section`
         top: 38%;
         opacity: 100%;
       }
+    }
+    @media screen and (max-width: ${({ theme }) => theme.smBreakpoint}) {
+      font-size: 3rem;
+      line-height: 5rem;
     }
   }
   animation: up-down 1.5s infinite ease-in-out alternate;
@@ -228,8 +233,14 @@ export const FeaturesContainer = styled.section`
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.25);
+      background-color: white;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       img {
         width: 100%;
+        object-fit: cover;
       }
     }
   }
@@ -241,6 +252,9 @@ export const MemberContainer = styled.section`
   justify-content: space-between;
   width: 100%;
   height: 100vh;
+  h2 {
+    margin: 30px 20px;
+  }
   > div {
     margin-top: 150px;
   }
@@ -290,6 +304,12 @@ export const MemberContainer = styled.section`
       font-size: 3.3rem;
       color: gray;
       padding: 0 10px;
+      border: none;
+      outline: none;
+      margin: 5px;
+      border-radius: 5px;
+      background-color: ${theme.violet_d};
+      color: ${theme.white};
     }
   }
 
