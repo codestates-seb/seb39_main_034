@@ -36,7 +36,7 @@ function Gnb() {
   })
   const handleLogout = () => {
     onLogout(dispatch)
-    navigate('/main')
+    navigate('/')
   }
   //모바일 메뉴 핸들러
   const handleMenuClick = () => {
