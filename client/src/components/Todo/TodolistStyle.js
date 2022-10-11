@@ -76,7 +76,17 @@ export const ProgressBar = ({ metaData }) => {
   )
 }
 
-export const TodoList = styled(Container)``
+export const TodoList = styled(Container)`
+  .notice {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid ${({ theme }) => theme.border};
+    text-align: center;
+    font-size: ${({ theme }) => theme.font16};
+    color: ${({ theme }) => theme.primary};
+    line-height: 28px;
+  }
+`
 export const Remove = styled.div`
   display: flex;
   align-items: center;

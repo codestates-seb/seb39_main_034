@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { handleAuthErr } from '../Account/TokenAuth'
@@ -33,15 +33,24 @@ export default function TimelineCreate({
   const [imgBase, setImgBase] = useState([]) // 이미지 미리보기 데이터를 받을 곳
   const [openChoseImage, setOpenChoseImage] = useState(false) // 이미지 버튼 상태 관리
   const [openChoseEmoji, setOpenChoseEmoji] = useState(false) // 이모지 버튼 상태 관리
+  const outside = useRef()
 
   const handleChangeTextarea = (e) => {
     setDescription(e.target.value)
   }
+  const handleClickTextarea = (e) => {
+    if (e.target == outside.current) {
+      setOpenChoseEmoji(false)
+      setOpenChoseImage(false)
+    }
+  }
   const handleClickImage = () => {
     setOpenChoseImage(!openChoseImage)
+    setOpenChoseEmoji(false)
   }
   const handleClickEmoji = () => {
     setOpenChoseEmoji(!openChoseEmoji)
+    setOpenChoseImage(false)
   }
 
   // 이미지 선택 시 실행
@@ -192,7 +201,9 @@ export default function TimelineCreate({
                 id="text-area"
                 value={description}
                 onChange={handleChangeTextarea}
+                onClick={handleClickTextarea}
                 placeholder="타임라인 내용을 입력하고 이미지를 추가해보세요."
+                ref={outside}
               />
             </div>
             <div className="button__complete">
@@ -289,6 +300,8 @@ export default function TimelineCreate({
                 id="text-area"
                 value={description}
                 onChange={handleChangeTextarea}
+                onClick={handleClickTextarea}
+                ref={outside}
                 placeholder="타임라인 내용을 입력하고 이미지를 추가해보세요."
               />
             </div>

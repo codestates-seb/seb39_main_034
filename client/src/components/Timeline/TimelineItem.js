@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { handleAuthErr } from '../Account/TokenAuth'
 import moment from 'moment'
@@ -37,16 +37,24 @@ export default function TimelineItem(props) {
   const today = moment(createdAt).format('YYYY년 MM일 DD일')
   const [newDdescription, setNewDescription] = useState(description) // 타임라인 수정 내용을 받을 곳
   const [timelineImageId, setTimelineImageId] = useState() // 타임라인 이미지 아이디 받을 곳
+  const [imgName, setImgName] = useState('') // 이미지 이름 받을 곳
   const [imgFile, setImgFile] = useState(null) //이미지 파일을 받을 곳
   const [imgBase, setImgBase] = useState([]) // 이미지 미리보기 데이터를 받을 곳
   const [onEditTimeline, setOnEditTimeline] = useState(false) // 수정 버튼(수정 창) 상태 관리
   const [openChoseImage, setOpenChoseImage] = useState(false) // 이미지 버튼 상태 관리
   const [openChoseEmoji, setOpenChoseEmoji] = useState(false) // 이모지 버튼 상태 관리
+  const outside = useRef()
 
   const userName = useSelector((state) => state.auth.userName)
 
   const handleChangeTextarea = (e) => {
     setNewDescription(e.target.value)
+  }
+  const handleClickTextarea = (e) => {
+    if (e.target == outside.current) {
+      setOpenChoseEmoji(false)
+      setOpenChoseImage(false)
+    }
   }
   // 수정 버튼 클릭 시 실행 시 이미지 아이디 값 받음
   const handleClickEdit = useCallback(() => {
@@ -54,22 +62,26 @@ export default function TimelineItem(props) {
     if (image === null) {
       //이미지가 null 일땐 id가 없으므로 undefined
       setTimelineImageId(undefined)
+      setImgName(null)
     } else {
       //이미지가 있을 땐 id 저장
       setTimelineImageId(image.imageId)
+      setImgName(image.filename)
     }
   }, [onEditTimeline])
   const handleClickEmoji = () => {
     setOpenChoseEmoji(!openChoseEmoji)
+    setOpenChoseImage(false)
   }
   const handleClickImage = () => {
     setOpenChoseImage(!openChoseImage)
+    setOpenChoseEmoji(false)
   }
 
   // 이미지 선택 시 실행
   const handleChangeImageFile = (event) => {
-    // console.log('파일내용: ', event.target.files)
     setOpenChoseImage(false)
+    setImgName(event.target.files[0].name)
     setImgFile(event.target.files)
     setImgBase([])
     for (let i = 0; i < event.target.files.length; i++) {
@@ -104,6 +116,7 @@ export default function TimelineItem(props) {
       .then((res) => {
         console.log(res)
         setTimelineImageId(res.data.imageId)
+        setImgName(res.data.filename)
       })
       .catch((err) => {
         console.log(err)
@@ -118,7 +131,8 @@ export default function TimelineItem(props) {
       .then((res) => {
         console.log(res)
         //이미지가 삭제 되면 이미지의 모든 값 초기화
-        setTimelineImageId()
+        setTimelineImageId(null)
+        setImgName(null)
         setImgBase([])
         setImgFile(null)
       })
@@ -209,36 +223,37 @@ export default function TimelineItem(props) {
               </Icon>
             </div>
           </div>
-          {image === null ? (
-            //1. 수정 창이 열렸을 때 이미지가 없을 경우
-            <div className="contents__timeline">
-              {/* ~~~ 파일 이름과 업로드 버튼이 나오는 곳 ~~~ */}
-              {/* 이미지를 추가하지 않고 수정했을 때와 이미지 추가 후 수정한 경우를 다시 분기로 나누어줌 */}
-              {image === null ? null : (
-                <div className="filenames">
-                  <div className="filename">
-                    {timelineImageId === undefined ? (
-                      <CompleteBtn
-                        onClick={handleClickImageUpload}
-                        value="업로드"
-                      />
-                    ) : (
-                      <div className="button__complete">
-                        <span>업로드 완료</span>
-                        <CompleteBtn
-                          onClick={handleClickImageDelete}
-                          value="이미지삭제"
-                        />
-                      </div>
-                    )}
-                  </div>
+          {/* ~~~ 타임라인 컨텐츠 ~~~ */}
+          <div className="contents__timeline">
+            {imgName === null ? null : (
+              <div className="filenames">
+                <div className="filename">
+                  <FaPaperclip size={15} color="#240046" />
+                  <span>FILE NAME: </span>
+                  {imgName}
                 </div>
-              )}
-              {/* ~~~ 타임라인 내용과 미리보기 이미지가 나오는 곳 ~~~ */}
-              <div className="contents">
-                {/* 이미지 선택 시 이미지 미리보기 */}
-                {imgBase.map((item, idx) => {
-                  return (
+                {timelineImageId === undefined ? (
+                  <CompleteBtn
+                    onClick={handleClickImageUpload}
+                    value="업로드"
+                  />
+                ) : (
+                  <div className="button__complete">
+                    <span>업로드 완료</span>
+                    <CompleteBtn
+                      onClick={handleClickImageDelete}
+                      value="이미지삭제"
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div className="contents">
+              {/* 이미지 선택 시 이미지 미리보기 */}
+              {imgBase.map((item, idx) => {
+                return (
+                  <>
                     <img
                       key={idx}
                       className="d-block w-100"
@@ -246,70 +261,29 @@ export default function TimelineItem(props) {
                       alt="First slide"
                       style={{ width: '30%', height: '250px' }}
                     />
-                  )
-                })}
-                <TimelineTextarea
-                  id="text-area"
-                  value={newDdescription}
-                  onChange={handleChangeTextarea}
-                />
-                <div className="button__complete">
-                  <CompleteBtn
-                    onClick={handleClickSubmit}
-                    location="TimelineItem(edit): 수정 완료 버튼"
-                    editState={onEditTimeline}
-                    value="수정완료"
-                  />
-                  <CompleteBtn
-                    onClick={handleClickSubmitCancle}
-                    location="TimelineItem(edit): 수정 취소 버튼"
-                    editState={onEditTimeline}
-                    value="수정취소"
-                  />
-                </div>
-              </div>
-            </div>
-          ) : (
-            // 2. 수정 창이 열렸을 때 이미지가 있는 경우
-            <div className="contents__timeline">
-              {image === null ? null : (
-                <div className="filenames">
-                  <div className="filename">
-                    <FaPaperclip size={15} color="#240046" />
-                    <span>imageId: </span>
-                    {image.imageId}
-                  </div>
-                  {timelineImageId === undefined ? (
-                    <CompleteBtn
-                      onClick={handleClickImageUpload}
-                      value="업로드"
-                    />
-                  ) : (
-                    <div className="button__complete">
-                      <span>업로드 완료</span>
-                      <CompleteBtn
-                        onClick={handleClickImageDelete}
-                        value="이미지삭제"
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
-              <div className="contents">
+                  </>
+                )
+              })}
+              {/* 타임라인 내용 */}
+              {image === null ? null : imgName === null &&
+                timelineImageId === null ? null : (
                 <img alt="img" src={image.url} className="contents__img" />
-                <TimelineTextarea
-                  id="text-area"
-                  value={newDdescription}
-                  onChange={handleChangeTextarea}
-                />
-                <CompleteBtn onClick={handleClickSubmit} value="수정완료" />
-                <CompleteBtn
-                  onClick={handleClickSubmitCancle}
-                  value="수정취소"
-                />
-              </div>
+              )}
+
+              <TimelineTextarea
+                id="text-area"
+                value={description}
+                onChange={handleChangeTextarea}
+                onClick={handleClickTextarea}
+                ref={outside}
+                placeholder="타임라인 내용을 입력하고 이미지를 추가해보세요."
+              />
             </div>
-          )}
+            <div className="button__complete">
+              <CompleteBtn onClick={handleClickSubmit} value="작성완료" />
+              <CompleteBtn onClick={handleClickSubmitCancle} value="작성취소" />
+            </div>
+          </div>
         </>
       ) : (
         <>
