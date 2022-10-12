@@ -98,10 +98,23 @@ export default function Milestone({
 
   return (
     <MilestoneContainer
+      // image={
+      //   milestoneData.image === null || ''
+      //     ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/category_study2.jpg'
+      //     : milestoneData.image.url
+      // }
       image={
-        milestoneData.image === null || ''
+        milestoneData.image
+          ? milestoneData.image.url
+          : milestoneData.category.categoryName === '운동'
+          ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/workout.jpg'
+          : milestoneData.category.categoryName === '생활습관'
+          ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/breakfast_in_bed.jpg'
+          : milestoneData.category.categoryName === '독서'
+          ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/category_study.jpeg'
+          : milestoneData.category.categoryName === '공부'
           ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/category_study2.jpg'
-          : milestoneData.image.url
+          : 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/category_study2.jpg'
       }
     >
       <header className="header__milestone">

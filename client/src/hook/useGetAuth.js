@@ -21,7 +21,7 @@ const useGetAuth = (authErr, setAuthErr) => {
     try {
       const accessCheck = await axios({
         method: 'get',
-        url: 'v1/authenticationTest',
+        url: '/v1/authenticationTest',
         signal: controller.signal,
       })
       console.log(accessCheck)

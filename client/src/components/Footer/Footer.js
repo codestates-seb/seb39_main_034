@@ -78,7 +78,7 @@ export default function Footer() {
               <a
                 target={'_blank'}
                 rel="noreferrer"
-                href="https://www.youtube.com/"
+                href="https://www.youtube.com/watch?v=2XTQSLu5rPk"
               >
                 <IconBtn>
                   <BsYoutube size={25} />

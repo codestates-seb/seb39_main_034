@@ -119,7 +119,7 @@ function DetailView() {
   const getDetail = () => {
     try {
       axios.get(`/v1/goal/${id}`).then((res) => {
-        // console.log(res.data)
+        console.log(res.data)
         setMilestoneData(res.data.goal)
         setMetaData(res.data.metadata)
         setTodoData(res.data.goal.todoList)
