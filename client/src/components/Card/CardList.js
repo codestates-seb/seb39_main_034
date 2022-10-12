@@ -27,6 +27,7 @@ const CardsList = React.memo(function CardList({
                   type={type}
                   category={card.category}
                   title={card.title}
+                  desc={card.description}
                   status={card.status === '진행중' ? card.status : card.result}
                   done={card.numberOfCompletedTodos}
                   todo={card.numberOfTodos}

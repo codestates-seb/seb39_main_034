@@ -13,8 +13,19 @@ export default function MyPannel({ tab, onClick, metadata }) {
       <MyPannelContainer>
         <Col lg={4} className="profile">
           <BigProfile
+            // image={
+            //   'https://images.pexels.com/photos/1310522/pexels-photo-1310522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+            // }
             image={
-              'https://images.pexels.com/photos/1310522/pexels-photo-1310522.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+              userName === 'joanna'
+                ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member2.jpeg'
+                : userName === 'sol-namoo'
+                ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member1.jpg'
+                : userName === 'jaeyoungkim'
+                ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member3.png'
+                : userName === 'AhnHyungJoon'
+                ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member4.png'
+                : 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/logo_symbol.png'
             }
             author={userName}
           ></BigProfile>
