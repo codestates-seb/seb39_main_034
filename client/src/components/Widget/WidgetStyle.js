@@ -114,6 +114,10 @@ export const XBtn = ({ onClick }) => (
 )
 
 export const Notice = styled.div`
+  /* display: flex;
+  direction: column;
+  justify-content: center;
+  align-items: center; */
   width: 100%;
   height: 100px;
   line-height: 100px;
@@ -123,6 +127,12 @@ export const Notice = styled.div`
   > div {
     margin: 0 auto;
     text-align: center;
+  }
+  > img {
+    display: block;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
   }
 `
 

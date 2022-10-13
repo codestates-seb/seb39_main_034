@@ -74,7 +74,7 @@ export const AlertModal = ({ waiting, setIsAlertOpen }) => {
         <AlertModalContainer>
           <img
             className="sticker"
-            src="https://goalimage.s3.ap-northeast-2.amazonaws.com/images/logo_symbol_yellow_sticker.png"
+            src="https://goalimage.s3.ap-northeast-2.amazonaws.com/images/logo_symbol_border.png"
             alt="alert sticker"
           ></img>
           {/* --content-- */}

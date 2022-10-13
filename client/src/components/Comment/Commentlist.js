@@ -6,7 +6,7 @@ import CommentCreate from './CommentCreate'
 import moment from 'moment'
 import { HeadingH3 } from '../../styles/globalStyles'
 import { CompleteBtn, DeleteBtn, EditBtn } from '../Widget/WidgetStyle'
-import { CommentContainer, NewInput } from './CommentStyle'
+import { CommentContainer, CommentProfile, NewInput } from './CommentStyle'
 import axios from 'axios'
 import { handleAuthErr } from '../Account/TokenAuth'
 import { useDispatch } from 'react-redux'
@@ -90,7 +90,20 @@ export function CommentItem({
       {onEditComment ? (
         <>
           <div className="comment edit">
-            <div className="img"></div>
+            <CommentProfile
+              profile={
+                member === 'joanna'
+                  ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member2.jpeg'
+                  : member === 'sol-namoo'
+                  ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member1.jpg'
+                  : member === 'jaeyoungkim'
+                  ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member3.png'
+                  : member === 'AhnHyungJoon'
+                  ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member4.png'
+                  : 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/logo_symbol.png'
+              }
+              className="img"
+            />
             <div className="info">
               <h4>{member}</h4>
               <span className="dot">·</span>
@@ -110,7 +123,20 @@ export function CommentItem({
       ) : (
         <>
           <div className="comment">
-            <div className="img"></div>
+            <CommentProfile
+              profile={
+                member === 'joanna'
+                  ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member2.jpeg'
+                  : member === 'sol-namoo'
+                  ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member1.jpg'
+                  : member === 'jaeyoungkim'
+                  ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member3.png'
+                  : member === 'AhnHyungJoon'
+                  ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member4.png'
+                  : 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/logo_symbol.png'
+              }
+              className="img"
+            />
             <div className="info">
               <h4>{member}</h4>
               <span className="dot">·</span>

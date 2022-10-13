@@ -25,6 +25,17 @@ export default function Feedlist({ feedData, mode }) {
                   goalId={feed.goalId}
                   title={feed.goalTitle}
                   member={feed.timeline.member}
+                  profile={
+                    feed.timeline.member === 'joanna'
+                      ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member2.jpeg'
+                      : feed.timeline.member === 'sol-namoo'
+                      ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member1.jpg'
+                      : feed.timeline.member === 'jaeyoungkim'
+                      ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member3.png'
+                      : feed.timeline.member === 'AhnHyungJoon'
+                      ? 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/member4.png'
+                      : 'https://goalimage.s3.ap-northeast-2.amazonaws.com/images/logo_symbol.png'
+                  }
                   description={feed.timeline.description}
                   createdAt={feed.timeline.createdAt}
                   image={feed.timeline.image}

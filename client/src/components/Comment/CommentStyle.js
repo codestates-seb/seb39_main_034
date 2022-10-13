@@ -30,12 +30,6 @@ export const CommentContainer = styled(Container)`
         width: 40px;
         height: 40px;
         margin-right: 10px;
-        background-color: ${theme.violet_l};
-        border-radius: 30px;
-        background-image: url('https://goalimage.s3.ap-northeast-2.amazonaws.com/images/logo_symbol.png');
-        background-size: 23px;
-        background-position: center;
-        background-repeat: no-repeat;
       }
       h4 {
         display: inline;
@@ -60,6 +54,15 @@ export const CommentCreateContainer = styled(Container)`
   display: flex;
   align-items: center;
 `
+export const CommentProfile = styled.div`
+  background-color: ${theme.violet_l};
+  border-radius: 30px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(${({ profile }) => profile});
+`
+
 export const CommentInput = styled(Input)`
   border: 1px solid ${theme.border};
   padding: 10px 10px;

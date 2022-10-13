@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import axios from 'axios'
+// import axios from 'axios'
 // import { getCookieToken } from '../data/Cookie'
 // import { onLoginSuccess, onLogout } from '../components/Account/TokenAuth'
-import { handleAuthErr } from '../components/Account/TokenAuth'
+import { onRefresh, handleAuthErr } from '../components/Account/TokenAuth'
 import { useNavigate } from 'react-router-dom'
 
 const useGetAuth = (authErr, setAuthErr) => {
@@ -19,27 +19,38 @@ const useGetAuth = (authErr, setAuthErr) => {
       setAuthLoading(true)
     }
     try {
-      const accessCheck = await axios({
-        method: 'get',
-        url: '/v1/authenticationTest',
-        signal: controller.signal,
-      })
-      console.log(accessCheck)
-      if (accessCheck.data.auth === 'Okay') {
-        console.log('Access 인증 통과')
+      onRefresh(dispatch, navigate, () => {
         setAuthCheck(true)
         setAuthLoading(false)
         // navigate(0)
         console.log('페이지 입장 시 토큰검사 로딩상태 종료')
-      }
+      })
     } catch (err) {
-      handleAuthErr(dispatch, navigate, err, () => {
-        setAuthCheck(true)
-        setAuthLoading(false)
-        // navigate(0)
-        console.log('페이지 입장 시 토큰검사 로딩상태 종료')
-      })
+      console.log(err)
+      alert('알 수 없는 에러가 발생했습니다')
+      navigate('/landing')
     }
+    // try {
+    //   const accessCheck = await axios({
+    //     method: 'get',
+    //     url: '/v1/users/info',
+    //     signal: controller.signal,
+    //   })
+    //   console.log(accessCheck)
+    //   if (accessCheck.data.token_status === 'VALID') {
+    //     console.log('Access 인증 통과')
+    //     setAuthCheck(true)
+    //     setAuthLoading(false)
+    //     // navigate(0)
+    //     console.log('페이지 입장 시 토큰검사 로딩상태 종료')
+    //   }
+    // } catch (err) {
+    //   handleAuthErr(dispatch, navigate, err, () => {
+    //     setAuthCheck(true)
+    //     setAuthLoading(false)
+    //     // navigate(0)
+    //     console.log('페이지 입장 시 토큰검사 로딩상태 종료')
+    //   })
   }
 
   useEffect(() => {

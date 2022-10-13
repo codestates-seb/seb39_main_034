@@ -104,11 +104,11 @@ export const onRefresh = (dispatch, navigate, func) => {
 export const onAccessTest = (dispatch) => {
   axios({
     method: 'get',
-    url: '/v1/authenticationTest',
+    url: '/v1/users/info',
   })
     .then((res) => {
       console.log(res)
-      if (res.data.auth === 'Okay') {
+      if (res.data.token_status === 'VALID') {
         console.log('Access 인증 통과')
       }
     })
@@ -125,16 +125,14 @@ export const handleAuthErr = (dispatch, navigate, err, func) => {
   console.log('3. handleaErr 에서 에러메시지 파악 ', err.response.data.message)
   try {
     if (
+      err.response.data.message === 'Login_Required' ||
       err.response.data.message === 'NOT_VALID_TOKEN' ||
       err.response.data.message === 'ACCESS_NOT_VALID_TOKEN'
     ) {
       console.log('3-1. message에 의해 refresh 시도')
       // alert('로그인 정보를 재확인합니다. 잠시 기다려주세요.')
       onRefresh(dispatch, navigate, func)
-    } else if (
-      err.response.data.message === 'Login_Required' ||
-      err.response.data.message === 'REFRESH_NOT_VALID_TOKEN'
-    ) {
+    } else if (err.response.data.message === 'REFRESH_NOT_VALID_TOKEN') {
       console.log('3-2. message에 의해 로그아웃', err)
       onLogout(dispatch)
       // alert('로그인 토큰이 만료되어 로그아웃 됩니다')

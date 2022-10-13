@@ -120,15 +120,7 @@ function Mypage() {
     <>
       <Container>
         {/*상단 패널*/}
-        {authLoading ? (
-          <Row>
-            <Col>
-              <Notice>
-                <div>로그인 체크 중...</div>
-              </Notice>
-            </Col>
-          </Row>
-        ) : authCheck ? (
+        {authCheck ? (
           <Row>
             <MyPannel
               tab={tab}
@@ -140,7 +132,7 @@ function Mypage() {
           <Row>
             <Col>
               <Notice>
-                <div>로그인이 필요합니다</div>
+                <div>로그인 체크 중...</div>
               </Notice>
             </Col>
           </Row>
@@ -197,7 +189,11 @@ function Mypage() {
           <Row>
             <Col>
               <Notice>
-                <div>로그인이 필요합니다</div>
+                {/* <img
+                  src="	https://goalimage.s3.ap-northeast-2.amazonaws.com/images/logo_combination_sm.png"
+                  alt="logo"
+                ></img> */}
+                <div>로그인 체크 중...</div>
               </Notice>
             </Col>
           </Row>

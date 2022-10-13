@@ -11,7 +11,6 @@ import {
 } from './CardStyle'
 
 function Card({
-  type,
   category,
   title,
   desc,
@@ -27,13 +26,12 @@ function Card({
   return (
     <CardContainer>
       <CardWrapper status={status} className="card_front">
-        {type === 'my' ? (
-          final === 'waiting' ? (
-            <Sticker src="https://goalimage.s3.ap-northeast-2.amazonaws.com/images/logo_symbol_yellow_sticker.png" />
-          ) : final === 'done' ? (
+        {status === '진행중' ||
+          (final === 'waiting' ? (
             <Sticker src="https://goalimage.s3.ap-northeast-2.amazonaws.com/images/logo_symbol_border.png" />
-          ) : null
-        ) : null}
+          ) : final === 'done' ? (
+            <Sticker src="https://goalimage.s3.ap-northeast-2.amazonaws.com/images/logo_symbol_yellow_sticker.png" />
+          ) : null)}
         <CardBanner banner={banner}>
           <CategoryBadge>{category}</CategoryBadge>
         </CardBanner>

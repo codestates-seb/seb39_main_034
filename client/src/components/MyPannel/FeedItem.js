@@ -10,6 +10,7 @@ export default function FeedItem({
   goalId,
   title,
   member,
+  profile,
   description,
   createdAt,
   image,
@@ -25,7 +26,7 @@ export default function FeedItem({
       <Link to={`/goal/detail/${goalId}`}>
         <FeedTitle>
           <h4>{title}</h4>
-          <Profile author={member}></Profile>
+          <Profile image={profile} author={member}></Profile>
         </FeedTitle>
       </Link>
       <article>
