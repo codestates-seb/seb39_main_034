@@ -35,7 +35,7 @@ export default function TimelineItem(props) {
     getTimelineData,
   } = props
   const today = moment(createdAt).format('YYYY년 MM일 DD일')
-  const [newDdescription, setNewDescription] = useState(description) // 타임라인 수정 내용을 받을 곳
+  const [newDescription, setNewDescription] = useState(description) // 타임라인 수정 내용을 받을 곳
   const [timelineImageId, setTimelineImageId] = useState() // 타임라인 이미지 아이디 받을 곳
   const [imgName, setImgName] = useState('') // 이미지 이름 받을 곳
   const [imgFile, setImgFile] = useState(null) //이미지 파일을 받을 곳
@@ -146,9 +146,9 @@ export default function TimelineItem(props) {
   const onEmojiClick = (event, emojiObject) => {
     const textAreaElement = document.getElementById('text-area')
     setNewDescription(
-      newDdescription.substr(0, textAreaElement.selectionStart) +
+      newDescription.substr(0, textAreaElement.selectionStart) +
         emojiObject.emoji +
-        newDdescription.substr(textAreaElement.selectionEnd)
+        newDescription.substr(textAreaElement.selectionEnd)
     )
   }
 
@@ -159,7 +159,7 @@ export default function TimelineItem(props) {
         method: 'patch',
         url: `/v1/goal/timeline/${timelineId}`,
         data: {
-          description: newDdescription,
+          description: newDescription,
           imageId: timelineImageId,
         },
       }).then(setOnEditTimeline(!onEditTimeline))
@@ -272,7 +272,7 @@ export default function TimelineItem(props) {
 
               <TimelineTextarea
                 id="text-area"
-                value={description}
+                value={newDescription}
                 onChange={handleChangeTextarea}
                 onClick={handleClickTextarea}
                 ref={outside}
