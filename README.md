@@ -5,11 +5,11 @@
 - **프로젝트명**: 함께투두 (TogetherTodo)
 - **팀 구성**:
     - **프론트엔드 /**
-      - 김시라 / dosira686@gmail.com
-      - 이솔 / sollee922@gmail.com
+      - 김시라 / 
+      - 이솔 / 
     - **백엔드 /** 
-      - 김재영 / iamjyoungkim@gmail.com
-      - 안형준 / evelynnness@gmail.com
+      - 김재영 / 
+      - 안형준 / 
 
 #### **서비스 배포 링크**:  [https://client.myplayground.shop/](https://client.myplayground.shop/)
 
